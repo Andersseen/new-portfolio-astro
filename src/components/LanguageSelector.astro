@@ -1,0 +1,82 @@
+---
+import { LANGUAGES, LANGUAGE_NAMES } from '../i18n/config';
+
+const currentPath = Astro.url.pathname;
+const pathSegments = currentPath.split('/').filter(Boolean);
+
+// Extract current language from URL
+let currentLang = LANGUAGES.EN;
+let pathWithoutLang = currentPath;
+
+if (Object.values(LANGUAGES).includes(pathSegments[0] as any)) {
+  currentLang = pathSegments[0] as any;
+  pathWithoutLang = '/' + pathSegments.slice(1).join('/');
+} else {
+  pathWithoutLang = currentPath;
+}
+
+// Ensure path ends properly
+if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
+  pathWithoutLang = pathWithoutLang || '/';
+}
+---
+
+<div class="language-selector" role="group" aria-label="Language selector">
+  {Object.entries(LANGUAGE_NAMES).map(([code, name]) => {
+    const langCode = code as any;
+    const href = `/${langCode}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+    return (
+      <a
+        href={href}
+        class={`lang-link ${langCode === currentLang ? 'active' : ''}`}
+        aria-label={`Switch to ${name}`}
+        aria-current={langCode === currentLang ? 'page' : undefined}
+        title={name}
+      >
+        {code.toUpperCase()}
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .language-selector {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background-color: var(--color-background-secondary);
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .lang-link {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--color-foreground-secondary);
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    min-height: 2rem;
+  }
+
+  .lang-link:hover {
+    background-color: var(--color-background-tertiary);
+    color: var(--color-foreground);
+    transform: translateY(-1px);
+  }
+
+  .lang-link.active {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    font-weight: 700;
+  }
+</style>

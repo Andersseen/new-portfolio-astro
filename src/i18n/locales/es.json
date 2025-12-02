@@ -1,0 +1,71 @@
+{
+  "site": {
+    "title": "Mi Portafolio",
+    "description": "Bienvenido a mi sitio de portafolio"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "subtitle": "Desarrollador Full Stack y Diseñador",
+    "cta": "Ver Mi Trabajo"
+  },
+  "about": {
+    "title": "Acerca de Mí",
+    "description": "Me apasiona crear experiencias web hermosas y funcionales."
+  },
+  "projects": {
+    "title": "Proyectos Recientes",
+    "viewMore": "Ver Más"
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "description": "Siéntete libre de contactarme para cualquier consulta."
+  },
+  "portfolio": {
+    "title": "Mi Trabajo",
+    "featured": "Destacado",
+    "recent": "Reciente",
+    "ecommerce": {
+      "title": "E-commerce Dashboard",
+      "description": "Una plataforma completa de gestión de ventas con análisis en tiempo real y gestión de inventario."
+    },
+    "aboutMe": {
+      "title": "Sobre Mí",
+      "description": "Desarrollador apasionado por crear experiencias digitales únicas."
+    },
+    "stack": {
+      "title": "Stack Tecnológico"
+    },
+    "finance": {
+      "title": "Finance App",
+      "description": "Aplicación móvil para gestión de finanzas personales con integración bancaria."
+    },
+    "design": {
+      "title": "Design System",
+      "description": "Un sistema de diseño coherente y escalable para productos empresariales."
+    },
+    "social": {
+      "title": "Redes Sociales"
+    },
+    "services": {
+      "title": "Servicios",
+      "uiux": "UI/UX Design",
+      "web": "Web Development",
+      "mobile": "Mobile Apps"
+    },
+    "blog": {
+      "title": "El Futuro del Desarrollo Web",
+      "description": "Explorando las nuevas tecnologías y tendencias que definirán el próximo año.",
+      "readArticle": "Leer artículo"
+    }
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados",
+    "year": 2025
+  }
+}

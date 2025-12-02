@@ -1,15 +1,60 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #3b82f6;
-  --color-secondary: #f97316;
+  /* Light theme - Modern & Professional */
+  --color-primary: #2563eb;
+  --color-secondary: #7c3aed;
+  --color-accent: #ec4899;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Light backgrounds */
   --color-background: #ffffff;
-  --color-foreground: #111827;
+  --color-background-secondary: #f8fafc;
+  --color-background-tertiary: #f1f5f9;
+
+  /* Light text */
+  --color-foreground: #0f172a;
+  --color-foreground-secondary: #475569;
+  --color-foreground-tertiary: #78716c;
+
+  /* Light borders */
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
 }
 
 [data-theme="dark"] {
-  --color-primary: #60a5fa;
-  --color-secondary: #fb923c;
-  --color-background: #111827;
-  --color-foreground: #f9fafb;
+  /* Dark theme - Modern & Professional */
+  --color-primary: #3b82f6;
+  --color-secondary: #a78bfa;
+  --color-accent: #f472b6;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  /* Dark backgrounds */
+  --color-background: #0f172a;
+  --color-background-secondary: #1e293b;
+  --color-background-tertiary: #334155;
+
+  /* Dark text */
+  --color-foreground: #f8fafc;
+  --color-foreground-secondary: #cbd5e1;
+  --color-foreground-tertiary: #94a3b8;
+
+  /* Dark borders */
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
