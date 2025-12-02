@@ -1,0 +1,33 @@
+{
+  "site": {
+    "title": "Mi Portafolio",
+    "description": "Bienvenido a mi sitio de portafolio"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "subtitle": "Desarrollador Full Stack y Diseñador",
+    "cta": "Ver Mi Trabajo"
+  },
+  "about": {
+    "title": "Acerca de Mí",
+    "description": "Me apasiona crear experiencias web hermosas y funcionales."
+  },
+  "projects": {
+    "title": "Proyectos Recientes",
+    "viewMore": "Ver Más"
+  },
+  "contact": {
+    "title": "Ponte en Contacto",
+    "description": "Siéntete libre de contactarme para cualquier consulta."
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados",
+    "year": 2025
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "site": {
+    "title": "My Portfolio",
+    "description": "Welcome to my portfolio website"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "subtitle": "Full Stack Developer & Designer",
+    "cta": "View My Work"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm passionate about creating beautiful and functional web experiences."
+  },
+  "projects": {
+    "title": "Recent Projects",
+    "viewMore": "View More"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "Feel free to reach out to me for any inquiries."
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "year": 2025
+  }
+}
