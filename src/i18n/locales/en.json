@@ -26,6 +26,44 @@
     "title": "Get In Touch",
     "description": "Feel free to reach out to me for any inquiries."
   },
+  "portfolio": {
+    "title": "My Work",
+    "featured": "Featured",
+    "recent": "Recent",
+    "ecommerce": {
+      "title": "E-commerce Dashboard",
+      "description": "A complete sales management platform with real-time analytics and inventory management."
+    },
+    "aboutMe": {
+      "title": "About Me",
+      "description": "Passionate developer creating unique digital experiences."
+    },
+    "stack": {
+      "title": "Tech Stack"
+    },
+    "finance": {
+      "title": "Finance App",
+      "description": "Mobile app for personal finance management with banking integration."
+    },
+    "design": {
+      "title": "Design System",
+      "description": "A coherent and scalable design system for enterprise products."
+    },
+    "social": {
+      "title": "Social Networks"
+    },
+    "services": {
+      "title": "Services",
+      "uiux": "UI/UX Design",
+      "web": "Web Development",
+      "mobile": "Mobile Apps"
+    },
+    "blog": {
+      "title": "The Future of Web Development",
+      "description": "Exploring the new technologies and trends that will define the coming year.",
+      "readArticle": "Read article"
+    }
+  },
   "footer": {
     "copyright": "All rights reserved",
     "year": 2025

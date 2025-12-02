@@ -1,8 +1,13 @@
 ---
+import { t } from '../i18n/utils';
+import { getLanguageFromPath } from '../i18n/config';
+
+const lang = getLanguageFromPath(Astro.url.pathname);
+const tr = (key: string) => t(lang, key);
 ---
 
 <section class="py-20 px-4 max-w-7xl mx-auto">
-  <h2 class="text-4xl font-bold text-foreground mb-12 text-center">Mi Trabajo</h2>
+  <h2 class="text-4xl font-bold text-foreground mb-12 text-center">{tr('portfolio.title')}</h2>
   
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
     
@@ -11,9 +16,9 @@
       <div class="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
         <div>
-          <span class="inline-block px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-medium mb-4">Destacado</span>
-          <h3 class="text-3xl font-bold text-foreground mb-2">E-commerce Dashboard</h3>
-          <p class="text-foreground-secondary max-w-md">Una plataforma completa de gestión de ventas con análisis en tiempo real y gestión de inventario.</p>
+          <span class="inline-block px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-medium mb-4">{tr('portfolio.featured')}</span>
+          <h3 class="text-3xl font-bold text-foreground mb-2">{tr('portfolio.ecommerce.title')}</h3>
+          <p class="text-foreground-secondary max-w-md">{tr('portfolio.ecommerce.description')}</p>
         </div>
         <div class="flex items-center gap-4">
           <span class="px-3 py-1 rounded-lg bg-primary/10 border border-primary/20 text-primary text-sm font-medium">React</span>
@@ -29,15 +34,15 @@
       <div class="absolute inset-0 flex items-center justify-center bg-linear-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       <div class="absolute inset-0 p-8 flex flex-col justify-center items-center text-center z-10">
         <div class="w-20 h-20 rounded-full bg-linear-to-tr from-primary to-secondary mb-4 flex items-center justify-center text-3xl shadow-lg shadow-primary/30">👋</div>
-        <h3 class="text-xl font-bold text-foreground mb-2">Sobre Mí</h3>
-        <p class="text-foreground-secondary text-sm">Desarrollador apasionado por crear experiencias digitales únicas.</p>
+        <h3 class="text-xl font-bold text-foreground mb-2">{tr('portfolio.aboutMe.title')}</h3>
+        <p class="text-foreground-secondary text-sm">{tr('portfolio.aboutMe.description')}</p>
       </div>
     </div>
 
     <!-- Row 2: Small Left (1/3), Large Right (2/3) -->
     <div class="group relative md:col-span-1 rounded-3xl overflow-hidden bg-background-secondary border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
-        <h3 class="text-xl font-bold text-foreground">Stack Tecnológico</h3>
+        <h3 class="text-xl font-bold text-foreground">{tr('portfolio.stack.title')}</h3>
         <div class="grid grid-cols-2 gap-4 mt-4">
           <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/15 transition-all duration-300">
             <div class="w-8 h-8 rounded bg-linear-to-br from-primary to-secondary/50 mb-2 shadow-md"></div>
@@ -63,9 +68,9 @@
       <div class="absolute inset-0 bg-linear-to-bl from-success/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
         <div>
-          <span class="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-medium mb-4">Reciente</span>
-          <h3 class="text-3xl font-bold text-foreground mb-2">Finance App</h3>
-          <p class="text-foreground-secondary max-w-md">Aplicación móvil para gestión de finanzas personales con integración bancaria.</p>
+          <span class="inline-block px-3 py-1 rounded-full bg-success/15 text-success text-xs font-medium mb-4">{tr('portfolio.recent')}</span>
+          <h3 class="text-3xl font-bold text-foreground mb-2">{tr('portfolio.finance.title')}</h3>
+          <p class="text-foreground-secondary max-w-md">{tr('portfolio.finance.description')}</p>
         </div>
         <div class="flex items-center gap-4">
           <span class="px-3 py-1 rounded-lg bg-success/10 border border-success/20 text-success text-sm font-medium">React Native</span>
@@ -82,8 +87,8 @@
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
         <div>
           <span class="inline-block px-3 py-1 rounded-full bg-accent/15 text-accent text-xs font-medium mb-4">Diseño</span>
-          <h3 class="text-3xl font-bold text-foreground mb-2">Design System</h3>
-          <p class="text-foreground-secondary max-w-md">Un sistema de diseño coherente y escalable para productos empresariales.</p>
+          <h3 class="text-3xl font-bold text-foreground mb-2">{tr('portfolio.design.title')}</h3>
+          <p class="text-foreground-secondary max-w-md">{tr('portfolio.design.description')}</p>
         </div>
         <div class="flex items-center gap-4">
           <span class="px-3 py-1 rounded-lg bg-accent/10 border border-accent/20 text-accent text-sm font-medium">Figma</span>
@@ -95,7 +100,7 @@
 
     <div class="group relative md:col-span-1 rounded-3xl overflow-hidden bg-background-secondary border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
       <div class="absolute inset-0 p-8 flex flex-col justify-center items-center text-center z-10">
-        <h3 class="text-xl font-bold text-foreground mb-6">Redes Sociales</h3>
+        <h3 class="text-xl font-bold text-foreground mb-6">{tr('portfolio.social.title')}</h3>
         <div class="flex gap-4">
           <a href="#" class="p-3 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 transition-all duration-300 text-primary hover:shadow-lg hover:shadow-primary/30">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
@@ -110,19 +115,19 @@
     <!-- Row 4: Small Left (1/3), Large Right (2/3) -->
     <div class="group relative md:col-span-1 rounded-3xl overflow-hidden bg-background-secondary border border-border hover:border-success/50 transition-all duration-300 hover:shadow-lg hover:shadow-success/10">
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
-        <h3 class="text-xl font-bold text-foreground">Servicios</h3>
+        <h3 class="text-xl font-bold text-foreground">{tr('portfolio.services.title')}</h3>
         <ul class="space-y-3 mt-4">
           <li class="flex items-center gap-2 text-foreground-secondary text-sm">
             <span class="w-2 h-2 rounded-full bg-linear-to-r from-primary to-secondary"></span>
-            UI/UX Design
+            {tr('portfolio.services.uiux')}
           </li>
           <li class="flex items-center gap-2 text-foreground-secondary text-sm">
             <span class="w-2 h-2 rounded-full bg-linear-to-r from-secondary to-accent"></span>
-            Web Development
+            {tr('portfolio.services.web')}
           </li>
           <li class="flex items-center gap-2 text-foreground-secondary text-sm">
             <span class="w-2 h-2 rounded-full bg-linear-to-r from-success to-primary"></span>
-            Mobile Apps
+            {tr('portfolio.services.mobile')}
           </li>
         </ul>
       </div>
@@ -133,11 +138,11 @@
       <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
         <div>
           <span class="inline-block px-3 py-1 rounded-full bg-warning/15 text-warning text-xs font-medium mb-4">Blog</span>
-          <h3 class="text-3xl font-bold text-foreground mb-2">El Futuro del Desarrollo Web</h3>
-          <p class="text-foreground-secondary max-w-md">Explorando las nuevas tecnologías y tendencias que definirán el próximo año.</p>
+          <h3 class="text-3xl font-bold text-foreground mb-2">{tr('portfolio.blog.title')}</h3>
+          <p class="text-foreground-secondary max-w-md">{tr('portfolio.blog.description')}</p>
         </div>
         <div class="flex items-center gap-2 text-sm text-foreground-secondary group-hover:text-primary transition-colors">
-          Leer artículo <span class="group-hover:translate-x-1 transition-transform">→</span>
+          {tr('portfolio.blog.readArticle')} <span class="group-hover:translate-x-1 transition-transform">→</span>
         </div>
       </div>
     </div>
