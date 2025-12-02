@@ -2,7 +2,7 @@
 import "../styles/global.css";
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -11,9 +11,16 @@ import "../styles/global.css";
 		<title>Astro Basics</title>
 	</head>
 	<body>
+		<button id="theme-toggle" class="fixed top-4 right-4 bg-[var(--color-primary)] text-[var(--color-foreground)] px-4 py-2 rounded z-50">
+			Toggle Theme
+		</button>
 		<slot />
 	</body>
 </html>
+
+<script>
+	import '../scripts/theme-toggle.ts';
+</script>
 
 <style>
 	html,
