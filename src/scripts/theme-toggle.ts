@@ -4,32 +4,44 @@ function initThemeToggle() {
   const moonIcon = document.getElementById("moon-icon");
   const html = document.documentElement;
 
-  // Load theme from localStorage or system preference
+  // Check if user has manually set a theme preference
   const savedTheme = localStorage.getItem("theme");
-  let currentTheme = savedTheme;
+  const userSetTheme = localStorage.getItem("theme-user-set") === "true";
 
-  if (!currentTheme) {
+  let currentTheme: string;
+
+  if (savedTheme && userSetTheme) {
+    // User has explicitly set a theme - use it
+    currentTheme = savedTheme;
+  } else {
+    // No user preference - use system preference
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
     currentTheme = prefersDark ? "dark" : "light";
   }
 
-  // Set initial theme
-  setTheme(currentTheme);
+  // Set initial theme (without marking as user-set)
+  setTheme(currentTheme, false);
 
   // Toggle theme on button click
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       const newTheme = currentTheme === "light" ? "dark" : "light";
-      setTheme(newTheme);
+      // Mark as user-set when manually toggled
+      setTheme(newTheme, true);
     });
   }
 
-  function setTheme(theme: string) {
+  function setTheme(theme: string, userSet: boolean = false) {
     currentTheme = theme;
     html.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+
+    // Mark if this was a user action
+    if (userSet) {
+      localStorage.setItem("theme-user-set", "true");
+    }
 
     // Update icons visibility
     if (sunIcon && moonIcon) {
@@ -51,25 +63,30 @@ if (document.readyState === "loading") {
   initThemeToggle();
 }
 
-// Watch for system theme changes
+// Watch for system theme changes (only if user hasn't set preference)
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", (e) => {
-    const newTheme = e.matches ? "dark" : "light";
-    const html = document.documentElement;
-    const sunIcon = document.getElementById("sun-icon");
-    const moonIcon = document.getElementById("moon-icon");
+    const userSetTheme = localStorage.getItem("theme-user-set") === "true";
 
-    html.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
+    // Only auto-update if user hasn't manually set a preference
+    if (!userSetTheme) {
+      const newTheme = e.matches ? "dark" : "light";
+      const html = document.documentElement;
+      const sunIcon = document.getElementById("sun-icon");
+      const moonIcon = document.getElementById("moon-icon");
 
-    if (sunIcon && moonIcon) {
-      if (newTheme === "dark") {
-        sunIcon.classList.remove("hidden");
-        moonIcon.classList.add("hidden");
-      } else {
-        sunIcon.classList.add("hidden");
-        moonIcon.classList.remove("hidden");
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+
+      if (sunIcon && moonIcon) {
+        if (newTheme === "dark") {
+          sunIcon.classList.remove("hidden");
+          moonIcon.classList.add("hidden");
+        } else {
+          sunIcon.classList.add("hidden");
+          moonIcon.classList.remove("hidden");
+        }
       }
     }
   });
