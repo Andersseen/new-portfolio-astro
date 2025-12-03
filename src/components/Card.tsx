@@ -65,48 +65,61 @@ export default function Card({
 
   return (
     <div
-      className={`group relative w-full h-full ${spanClass} rounded-3xl overflow-hidden bg-background-secondary border border-border ${color.border} transition-all duration-300 hover:shadow-lg ${color.shadow} cursor-grab active:cursor-grabbing`}
+      className={`group relative w-full h-full ${spanClass} rounded-3xl bg-background-secondary transition-all duration-300 
+      shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)] 
+      dark:shadow-[3px_3px_6px_rgba(0,0,0,0.3),-3px_-3px_6px_rgba(255,255,255,0.05)]
+      hover:shadow-[5px_5px_10px_rgba(0,0,0,0.12),-5px_-5px_10px_rgba(255,255,255,0.9)]
+      dark:hover:shadow-[5px_5px_10px_rgba(0,0,0,0.4),-5px_-5px_10px_rgba(255,255,255,0.08)]
+      cursor-grab active:cursor-grabbing active:scale-[0.99]`}
     >
-      <div className="w-full h-full">
-        {/* Background gradients */}
-        <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="w-full h-full p-8 flex flex-col">
+        {/* Background gradients - Subtle */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
 
-        {/* Content */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
-          <div>
+        {/* Header & Content */}
+        <div className="relative z-10 flex-1">
+          <div className="flex justify-between items-start mb-4">
             {badge && (
               <span
-                className={`inline-block px-3 py-1 rounded-full ${color.badge} text-xs font-medium mb-4`}
+                className={`inline-block px-3 py-1 rounded-full ${color.badge} text-xs font-bold tracking-wide uppercase shadow-sm`}
               >
                 {badge}
               </span>
             )}
-            <h3 className="text-3xl font-bold text-foreground mb-2">{title}</h3>
-            <p className="text-foreground-secondary max-w-md">{description}</p>
+            {/* Placeholder for top-right icon if needed */}
           </div>
 
-          {/* Tags */}
-          {tags.length > 0 && (
-            <div className="flex items-center gap-4">
-              {tags.map((tag) => (
+          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors duration-300">
+            {title}
+          </h3>
+          <p className="text-foreground-secondary text-sm md:text-base leading-relaxed max-w-[90%]">
+            {description}
+          </p>
+        </div>
+
+        {/* Footer / Bottom Actions */}
+        <div className="relative z-10 mt-6 flex items-end justify-between">
+          {/* Tags (Left) */}
+          <div className="flex flex-wrap gap-2">
+            {tags.length > 0 &&
+              tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`px-3 py-1 rounded-lg ${color.bg} border border-${color.text}/20 ${color.text} text-sm font-medium`}
+                  className={`px-2 py-1 rounded-md ${color.bg} ${color.text} text-xs font-medium border border-transparent`}
                 >
                   {tag}
                 </span>
               ))}
-            </div>
-          )}
+          </div>
+
+          {/* Children (Right - mostly for buttons) */}
+          <div className="flex-shrink-0 ml-4">{children}</div>
         </div>
 
-        {/* Decorative elements */}
+        {/* Decorative elements - Simplified */}
         {decorative && (
-          <div className="absolute right-0 bottom-0 w-1/2 h-4/5 bg-linear-to-tl from-primary/20 to-transparent rounded-tl-3xl border-t border-l border-primary/10 translate-y-4 translate-x-4 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-500"></div>
+          <div className="absolute right-0 bottom-0 w-32 h-32 bg-gradient-to-tl from-primary/10 to-transparent rounded-tl-full opacity-50 pointer-events-none"></div>
         )}
-
-        {/* Custom children */}
-        {children}
       </div>
     </div>
   );

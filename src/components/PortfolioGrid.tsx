@@ -273,8 +273,8 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
 
                   {/* Default content for others */}
                   {item.type === "projects" && (
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-sm text-foreground-secondary group-hover:text-primary transition-colors">
-                      Explore projects{" "}
+                    <div className="flex items-center gap-2 text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
+                      Explore
                       <span className="group-hover:translate-x-1 transition-transform">
                         →
                       </span>
@@ -282,8 +282,8 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
                   )}
 
                   {item.type === "design" && (
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-sm text-foreground-secondary group-hover:text-accent transition-colors">
-                      View system{" "}
+                    <div className="flex items-center gap-2 text-sm font-medium text-accent/80 group-hover:text-accent transition-colors">
+                      View
                       <span className="group-hover:translate-x-1 transition-transform">
                         →
                       </span>
@@ -291,8 +291,8 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
                   )}
 
                   {item.type === "articles" && (
-                    <div className="mt-auto pt-4 flex items-center gap-2 text-sm text-foreground-secondary group-hover:text-success transition-colors">
-                      Read articles{" "}
+                    <div className="flex items-center gap-2 text-sm font-medium text-success/80 group-hover:text-success transition-colors">
+                      Read
                       <span className="group-hover:translate-x-1 transition-transform">
                         →
                       </span>
