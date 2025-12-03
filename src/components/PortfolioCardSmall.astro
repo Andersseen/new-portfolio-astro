@@ -1,0 +1,49 @@
+---
+interface Props {
+  id: string;
+  color: 'primary' | 'secondary' | 'accent' | 'success' | 'warning';
+  title: string;
+  icon?: string;
+  centered?: boolean;
+}
+
+const {
+  id,
+  color,
+  title,
+  icon = '👋',
+  centered = true
+} = Astro.props;
+
+const colorMap = {
+  primary: { border: 'hover:border-primary/50', shadow: 'hover:shadow-primary/10', bg: 'bg-linear-to-br from-primary to-secondary', shadowColor: 'shadow-primary/30' },
+  secondary: { border: 'hover:border-secondary/50', shadow: 'hover:shadow-secondary/10', bg: 'bg-linear-to-tr from-primary to-secondary', shadowColor: 'shadow-secondary/30' },
+  accent: { border: 'hover:border-accent/50', shadow: 'hover:shadow-accent/10', bg: 'bg-linear-to-tr from-accent to-primary', shadowColor: 'shadow-accent/30' },
+  success: { border: 'hover:border-success/50', shadow: 'hover:shadow-success/10', bg: 'bg-linear-to-tr from-success to-primary', shadowColor: 'shadow-success/30' },
+  warning: { border: 'hover:border-warning/50', shadow: 'hover:shadow-warning/10', bg: 'bg-linear-to-tr from-warning to-accent', shadowColor: 'shadow-warning/30' },
+};
+
+const colors = colorMap[color];
+---
+
+<div data-swapy-slot={id} class={`group relative md:col-span-1 rounded-3xl overflow-hidden bg-background-secondary border border-border ${colors.border} transition-all duration-300 hover:shadow-lg ${colors.shadow} cursor-grab active:cursor-grabbing`}>
+  <div data-swapy-item={id} class="w-full h-full">
+    {centered ? (
+      <>
+        <div class="absolute inset-0 flex items-center justify-center bg-linear-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div class="absolute inset-0 p-8 flex flex-col justify-center items-center text-center z-10">
+          <div class={`w-20 h-20 rounded-full ${colors.bg} mb-4 flex items-center justify-center text-3xl shadow-lg ${colors.shadowColor}`}>
+            {icon}
+          </div>
+          <h3 class="text-xl font-bold text-foreground mb-2">{title}</h3>
+          <slot />
+        </div>
+      </>
+    ) : (
+      <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+        <h3 class="text-xl font-bold text-foreground">{title}</h3>
+        <slot />
+      </div>
+    )}
+  </div>
+</div>

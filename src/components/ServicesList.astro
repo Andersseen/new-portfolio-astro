@@ -1,0 +1,28 @@
+---
+interface Service {
+  text: string;
+  gradient: 'primary-secondary' | 'secondary-accent' | 'success-primary' | 'accent-primary';
+}
+
+interface Props {
+  services: Service[];
+}
+
+const { services } = Astro.props;
+
+const gradients = {
+  'primary-secondary': 'bg-linear-to-r from-primary to-secondary',
+  'secondary-accent': 'bg-linear-to-r from-secondary to-accent',
+  'success-primary': 'bg-linear-to-r from-success to-primary',
+  'accent-primary': 'bg-linear-to-r from-accent to-primary',
+};
+---
+
+<ul class="space-y-3">
+  {services.map((service) => (
+    <li class="flex items-center gap-2 text-foreground-secondary text-sm">
+      <span class={`w-2 h-2 rounded-full ${gradients[service.gradient]}`}></span>
+      {service.text}
+    </li>
+  ))}
+</ul>

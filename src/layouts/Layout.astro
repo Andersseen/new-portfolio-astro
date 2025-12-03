@@ -1,6 +1,6 @@
 ---
-import "../styles/global.css";
-import LanguageSelector from '../components/LanguageSelector.astro';
+import "@styles/global.css";
+import LanguageSelector from '@componentes/LanguageSelector.astro';
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -12,9 +12,19 @@ import LanguageSelector from '../components/LanguageSelector.astro';
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<!-- Header with Theme Toggle and Language Selector -->
-		<header class="fixed top-0 right-0 z-50 p-4 flex items-center gap-4">
+		<!-- Header with Theme Toggle, Theme Regenerate and Language Selector -->
+		<header class="fixed top-0 right-0 z-50 p-4 flex items-center gap-3">
 			<LanguageSelector />
+			<button 
+				id="theme-randomize"
+				class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
+				title="Randomize theme"
+				aria-label="Randomize theme"
+			>
+				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 2l1.5 4 4 1.5-4 1.5L12 14l-1.5-4L6 8.5 10 7 12 2zM2 20l3-1-1-3-2 4zM20 20l-4-1 1-3 3 4z" />
+				</svg>
+			</button>
 			<button 
 				id="theme-toggle" 
 				class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
@@ -34,11 +44,11 @@ import LanguageSelector from '../components/LanguageSelector.astro';
 	</body>
 </html>
 
-<script>
-	import '../scripts/theme-toggle.ts';
-</script>
-
-<style>
+	<script>
+		import '@scripts/theme-toggle.ts';
+		import '@scripts/theme-randomizer.ts';
+		import '@scripts/card-modal.ts';
+	</script><style>
 	html,
 	body {
 		margin: 0;
