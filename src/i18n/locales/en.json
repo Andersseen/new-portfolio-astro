@@ -28,6 +28,7 @@
   },
   "portfolio": {
     "title": "My Work",
+    "dragHint": "Drag and drop to reorder the cards",
     "featured": "Featured",
     "recent": "Recent",
     "ecommerce": {

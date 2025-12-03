@@ -1,0 +1,73 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  badge?: string;
+  badgeColor?: 'primary' | 'secondary' | 'accent' | 'success' | 'warning';
+  spanCols?: number;
+  decorative?: boolean;
+  decorativeColor?: string;
+}
+
+const { 
+  title, 
+  description, 
+  icon, 
+  badge, 
+  badgeColor = 'primary',
+  spanCols = 2,
+  decorative = false,
+  decorativeColor = 'primary'
+} = Astro.props as Props;
+
+const colSpanClass = spanCols === 2 ? 'md:col-span-2' : 'md:col-span-1';
+const borderColor = `border-${badgeColor}/50`;
+const shadowColor = `shadow-${badgeColor}/10`;
+const badgeBg = `bg-${badgeColor}/15`;
+const badgeText = `text-${badgeColor}`;
+const gradFrom = `from-${badgeColor}/10`;
+const gradTo = `to-${badgeColor === 'primary' ? 'secondary' : 'primary'}/10`;
+const decorativeFrom = `from-${decorativeColor}/20`;
+---
+
+<div class="card-item group relative {colSpanClass} rounded-3xl overflow-hidden bg-background-secondary border border-border hover:border-{badgeColor}/50 transition-all duration-300 hover:shadow-lg hover:shadow-{badgeColor}/10" data-swapy-slot>
+  <div class="absolute inset-0 bg-linear-to-br {gradFrom} {gradTo} opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+    {badge && (
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full {badgeBg} {badgeText} text-xs font-medium mb-4">
+          {badge}
+        </span>
+        <h3 class="text-3xl font-bold text-foreground mb-2">{title}</h3>
+        <p class="text-foreground-secondary max-w-md">{description}</p>
+      </div>
+    )}
+    {!badge && (
+      <div class="flex flex-col h-full justify-center">
+        {icon && <div class="text-4xl mb-4">{icon}</div>}
+        <h3 class="text-xl font-bold text-foreground mb-2">{title}</h3>
+        <p class="text-foreground-secondary text-sm">{description}</p>
+      </div>
+    )}
+  </div>
+  
+  {decorative && (
+    <div class="absolute right-0 bottom-0 w-1/2 h-4/5 bg-linear-to-tl {decorativeFrom} to-transparent rounded-tl-3xl border-t border-l border-{decorativeColor}/10 translate-y-4 translate-x-4 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-500"></div>
+  )}
+</div>
+
+<style>
+  .card-item {
+    cursor: grab;
+  }
+  
+  .card-item:active {
+    cursor: grabbing;
+  }
+  
+  .card-item[data-swapy-active] {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+</style>

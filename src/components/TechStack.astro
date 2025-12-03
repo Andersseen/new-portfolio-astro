@@ -1,0 +1,28 @@
+---
+interface Tech {
+  name: string;
+  color: 'primary' | 'secondary' | 'accent' | 'success';
+}
+
+interface Props {
+  technologies: Tech[];
+}
+
+const { technologies } = Astro.props;
+
+const colorMap = {
+  primary: { bg: 'bg-primary/10', border: 'border-primary/20', gradient: 'bg-linear-to-br from-primary to-secondary/50' },
+  secondary: { bg: 'bg-secondary/10', border: 'border-secondary/20', gradient: 'bg-linear-to-br from-secondary to-accent/50' },
+  accent: { bg: 'bg-accent/10', border: 'border-accent/20', gradient: 'bg-linear-to-br from-accent to-primary/50' },
+  success: { bg: 'bg-success/10', border: 'border-success/20', gradient: 'bg-linear-to-br from-success to-primary/50' },
+};
+---
+
+<div class="grid grid-cols-2 gap-4">
+  {technologies.map((tech) => (
+    <div class={`flex flex-col items-center justify-center p-3 rounded-xl ${colorMap[tech.color].bg} border ${colorMap[tech.color].border} hover:bg-${tech.color}/15 transition-all duration-300`}>
+      <div class={`w-8 h-8 rounded ${colorMap[tech.color].gradient} mb-2 shadow-md`}></div>
+      <span class="text-xs font-medium text-foreground-secondary">{tech.name}</span>
+    </div>
+  ))}
+</div>

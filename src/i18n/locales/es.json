@@ -28,6 +28,7 @@
   },
   "portfolio": {
     "title": "Mi Trabajo",
+    "dragHint": "Arrastra y suelta para reordenar las tarjetas",
     "featured": "Destacado",
     "recent": "Reciente",
     "ecommerce": {
