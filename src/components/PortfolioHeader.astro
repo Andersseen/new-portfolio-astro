@@ -1,0 +1,17 @@
+---
+interface Props {
+  name?: string;
+}
+
+const { name = 'Andersseen' } = Astro.props;
+---
+
+<div class="mb-12 flex items-center gap-3 group">
+  <div class="relative w-12 h-12 rounded-full overflow-hidden shrink-0 cursor-pointer">
+    <div class="absolute inset-0 bg-linear-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border border-white/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-lg font-bold text-primary">
+      {name.charAt(0).toUpperCase()}
+    </div>
+  </div>
+  
+  <h1 class="text-lg font-semibold text-foreground">{name}</h1>
+</div>

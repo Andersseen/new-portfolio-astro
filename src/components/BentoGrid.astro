@@ -6,14 +6,14 @@ import PortfolioCardSmall from '@componentes/PortfolioCardSmall.astro';
 import TechStack from '@componentes/TechStack.astro';
 import SocialLinks from '@componentes/SocialLinks.astro';
 import ServicesList from '@componentes/ServicesList.astro';
+import PortfolioHeader from '@componentes/PortfolioHeader.astro';
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
 ---
 
-<section class="py-20 px-4 max-w-7xl mx-auto">
-  <h2 class="text-4xl font-bold text-foreground mb-4 text-center">{tr('portfolio.title')}</h2>
-  <p class="text-center text-foreground-secondary mb-12">💡 {tr('portfolio.dragHint')}</p>
+<section class="py-16 px-4 max-w-7xl mx-auto">
+  <PortfolioHeader name="Andersseen Dev" />
   
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]" id="portfolio-grid" data-swapy-container>
     
