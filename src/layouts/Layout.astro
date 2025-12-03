@@ -1,6 +1,6 @@
 ---
-import "../styles/global.css";
-import LanguageSelector from '../components/LanguageSelector.astro';
+import "@styles/global.css";
+import LanguageSelector from '@componentes/LanguageSelector.astro';
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -34,11 +34,9 @@ import LanguageSelector from '../components/LanguageSelector.astro';
 	</body>
 </html>
 
-<script>
-	import '../scripts/theme-toggle.ts';
-</script>
-
-<style>
+	<script>
+		import '@scripts/theme-toggle.ts';
+	</script><style>
 	html,
 	body {
 		margin: 0;

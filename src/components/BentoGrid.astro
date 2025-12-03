@@ -1,11 +1,11 @@
 ---
-import { t } from '../i18n/utils';
-import { getLanguageFromPath } from '../i18n/config';
-import PortfolioCardLarge from './PortfolioCardLarge.astro';
-import PortfolioCardSmall from './PortfolioCardSmall.astro';
-import TechStack from './TechStack.astro';
-import SocialLinks from './SocialLinks.astro';
-import ServicesList from './ServicesList.astro';
+import { t } from '@i18n/utils';
+import { getLanguageFromPath } from '@i18n/config';
+import PortfolioCardLarge from '@componentes/PortfolioCardLarge.astro';
+import PortfolioCardSmall from '@componentes/PortfolioCardSmall.astro';
+import TechStack from '@componentes/TechStack.astro';
+import SocialLinks from '@componentes/SocialLinks.astro';
+import ServicesList from '@componentes/ServicesList.astro';
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
@@ -117,7 +117,7 @@ const tr = (key: string) => t(lang, key);
 </section>
 
 <script>
-  import { initSwapyGrid } from '../scripts/swapy-grid';
+  import { initSwapyGrid } from '@scripts/swapy-grid';
   
   // Initialize Swapy when the DOM is ready
   if (document.readyState === 'loading') {
