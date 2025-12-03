@@ -112,33 +112,54 @@ interface PortfolioGridProps {
 }
 
 export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
-  const [items, setItems] = useState(initialItems);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyRef = useRef<any>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
-    // Load order from IDB
-    const init = async () => {
-      try {
-        const savedOrder = await loadOrder();
-        if (savedOrder && savedOrder.length > 0) {
-          // Reorder items based on savedOrder (which contains item IDs)
+  // Load saved order synchronously to prevent animation
+  const [items, setItems] = useState<PortfolioItem[]>(() => {
+    // Try to get saved order from localStorage (sync)
+    try {
+      const savedOrderStr = localStorage.getItem("portfolio-card-order");
+      if (savedOrderStr) {
+        const savedOrder = JSON.parse(savedOrderStr);
+        if (Array.isArray(savedOrder) && savedOrder.length > 0) {
+          // Reorder items based on savedOrder
           const reordered = [...initialItems].sort((a, b) => {
             const indexA = savedOrder.indexOf(a.id);
             const indexB = savedOrder.indexOf(b.id);
-            // If not found, put at the end
             if (indexA === -1) return 1;
             if (indexB === -1) return -1;
             return indexA - indexB;
           });
-          setItems(reordered);
+          return reordered;
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load saved order from localStorage", e);
+    }
+    return initialItems;
+  });
+
+  // Sync with IDB after mount (backup)
+  useEffect(() => {
+    const syncWithIDB = async () => {
+      try {
+        const savedOrder = await loadOrder();
+        if (savedOrder && savedOrder.length > 0) {
+          // Also save to localStorage for faster sync load
+          localStorage.setItem(
+            "portfolio-card-order",
+            JSON.stringify(savedOrder)
+          );
         }
       } catch (e) {
-        console.error("Failed to load order", e);
+        console.error("Failed to sync with IDB", e);
       }
+      setIsLoaded(true);
     };
-    init();
+    syncWithIDB();
   }, []);
 
   useEffect(() => {
@@ -168,6 +189,11 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
           });
 
           if (newOrder.length > 0) {
+            // Save to both localStorage (instant) and IDB (backup)
+            localStorage.setItem(
+              "portfolio-card-order",
+              JSON.stringify(newOrder)
+            );
             await saveOrder(newOrder);
             console.log("Saved new order:", newOrder);
           }

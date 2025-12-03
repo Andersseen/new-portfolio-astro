@@ -10,6 +10,21 @@ import LanguageSelector from '@componentes/LanguageSelector.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
+		
+		<!-- Load theme immediately to prevent flash -->
+		<script is:inline>
+			(function() {
+				const savedTheme = localStorage.getItem('theme');
+				let theme = savedTheme;
+				
+				if (!theme) {
+					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					theme = prefersDark ? 'dark' : 'light';
+				}
+				
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
 	</head>
 	<body>
 		<!-- Header with Theme Toggle, Theme Regenerate and Language Selector -->
