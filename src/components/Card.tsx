@@ -1,5 +1,3 @@
-/** @jsxImportSource preact */
-
 interface CardProps {
   id: string;
   title: string;
@@ -67,34 +65,33 @@ export default function Card({
 
   return (
     <div
-      data-swapy-slot={id}
-      class={`group relative ${spanClass} rounded-3xl overflow-hidden bg-background-secondary border border-border ${color.border} transition-all duration-300 hover:shadow-lg ${color.shadow} cursor-grab active:cursor-grabbing`}
+      className={`group relative w-full h-full ${spanClass} rounded-3xl overflow-hidden bg-background-secondary border border-border ${color.border} transition-all duration-300 hover:shadow-lg ${color.shadow} cursor-grab active:cursor-grabbing`}
     >
-      <div class="w-full h-full" data-swapy-item={id}>
+      <div className="w-full h-full">
         {/* Background gradients */}
-        <div class="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
         {/* Content */}
-        <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+        <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
           <div>
             {badge && (
               <span
-                class={`inline-block px-3 py-1 rounded-full ${color.badge} text-xs font-medium mb-4`}
+                className={`inline-block px-3 py-1 rounded-full ${color.badge} text-xs font-medium mb-4`}
               >
                 {badge}
               </span>
             )}
-            <h3 class="text-3xl font-bold text-foreground mb-2">{title}</h3>
-            <p class="text-foreground-secondary max-w-md">{description}</p>
+            <h3 className="text-3xl font-bold text-foreground mb-2">{title}</h3>
+            <p className="text-foreground-secondary max-w-md">{description}</p>
           </div>
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div class="flex items-center gap-4">
+            <div className="flex items-center gap-4">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  class={`px-3 py-1 rounded-lg ${color.bg} border border-${color.text}/20 ${color.text} text-sm font-medium`}
+                  className={`px-3 py-1 rounded-lg ${color.bg} border border-${color.text}/20 ${color.text} text-sm font-medium`}
                 >
                   {tag}
                 </span>
@@ -105,7 +102,7 @@ export default function Card({
 
         {/* Decorative elements */}
         {decorative && (
-          <div class="absolute right-0 bottom-0 w-1/2 h-4/5 bg-linear-to-tl from-primary/20 to-transparent rounded-tl-3xl border-t border-l border-primary/10 translate-y-4 translate-x-4 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-500"></div>
+          <div className="absolute right-0 bottom-0 w-1/2 h-4/5 bg-linear-to-tl from-primary/20 to-transparent rounded-tl-3xl border-t border-l border-primary/10 translate-y-4 translate-x-4 group-hover:translate-y-2 group-hover:translate-x-2 transition-transform duration-500"></div>
         )}
 
         {/* Custom children */}
