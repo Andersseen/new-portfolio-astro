@@ -1,7 +1,7 @@
 ---
 interface Service {
   text: string;
-  gradient: 'primary-secondary' | 'secondary-accent' | 'success-primary';
+  gradient: 'primary-secondary' | 'secondary-accent' | 'success-primary' | 'accent-primary';
 }
 
 interface Props {
@@ -14,6 +14,7 @@ const gradients = {
   'primary-secondary': 'bg-linear-to-r from-primary to-secondary',
   'secondary-accent': 'bg-linear-to-r from-secondary to-accent',
   'success-primary': 'bg-linear-to-r from-success to-primary',
+  'accent-primary': 'bg-linear-to-r from-accent to-primary',
 };
 ---
 

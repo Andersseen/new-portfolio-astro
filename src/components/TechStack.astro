@@ -1,7 +1,7 @@
 ---
 interface Tech {
   name: string;
-  color: 'primary' | 'secondary' | 'accent' | 'success';
+  color: 'primary' | 'secondary' | 'accent' | 'success' | 'warning';
 }
 
 interface Props {
@@ -15,6 +15,7 @@ const colorMap = {
   secondary: { bg: 'bg-secondary/10', border: 'border-secondary/20', gradient: 'bg-linear-to-br from-secondary to-accent/50' },
   accent: { bg: 'bg-accent/10', border: 'border-accent/20', gradient: 'bg-linear-to-br from-accent to-primary/50' },
   success: { bg: 'bg-success/10', border: 'border-success/20', gradient: 'bg-linear-to-br from-success to-primary/50' },
+  warning: { bg: 'bg-warning/10', border: 'border-warning/20', gradient: 'bg-linear-to-br from-warning to-accent/50' },
 };
 ---
 

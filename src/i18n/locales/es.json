@@ -28,41 +28,42 @@
   },
   "portfolio": {
     "title": "Mi Trabajo",
-    "dragHint": "Arrastra y suelta para reordenar las tarjetas",
+    "dragHint": "Arrastra y suelta para reordenar",
     "featured": "Destacado",
     "recent": "Reciente",
-    "ecommerce": {
-      "title": "E-commerce Dashboard",
-      "description": "Una plataforma completa de gestión de ventas con análisis en tiempo real y gestión de inventario."
+    "projects": {
+      "title": "Proyectos",
+      "description": "Aplicaciones full-stack y experiencias interactivas construidas con tecnologías modernas."
+    },
+    "articles": {
+      "title": "Artículos",
+      "description": "Artículos técnicos profundos y tutoriales sobre desarrollo web y sistemas de diseño."
     },
     "aboutMe": {
       "title": "Sobre Mí",
-      "description": "Desarrollador apasionado por crear experiencias digitales únicas."
+      "description": "Desarrollador y diseñador apasionado por crear experiencias digitales hermosas y funcionales."
     },
     "stack": {
       "title": "Stack Tecnológico"
-    },
-    "finance": {
-      "title": "Finance App",
-      "description": "Aplicación móvil para gestión de finanzas personales con integración bancaria."
     },
     "design": {
       "title": "Design System",
       "description": "Un sistema de diseño coherente y escalable para productos empresariales."
     },
     "social": {
-      "title": "Redes Sociales"
+      "title": "Social"
     },
     "services": {
       "title": "Servicios",
       "uiux": "UI/UX Design",
       "web": "Web Development",
-      "mobile": "Mobile Apps"
+      "desktop": "Desktop Apps",
+      "devops": "DevOps & Deployment"
     },
     "blog": {
-      "title": "El Futuro del Desarrollo Web",
-      "description": "Explorando las nuevas tecnologías y tendencias que definirán el próximo año.",
-      "readArticle": "Leer artículo"
+      "title": "Último Artículo",
+      "description": "Descubre mis últimos pensamientos e insights sobre desarrollo web.",
+      "readArticle": "Leer más"
     }
   },
   "footer": {

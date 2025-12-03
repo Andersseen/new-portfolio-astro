@@ -32,8 +32,8 @@ const colorMap = {
 const colors = colorMap[color];
 ---
 
-<div class={`group relative ${colSpan} rounded-3xl overflow-hidden bg-background-secondary border border-border ${colors.border} transition-all duration-300 hover:shadow-lg ${colors.shadow} cursor-grab active:cursor-grabbing`} data-swapy-slot={id}>
-  <div class="w-full h-full" data-swapy-item={id}>
+<div data-swapy-slot={id} class={`group relative ${colSpan} rounded-3xl overflow-hidden bg-background-secondary border border-border ${colors.border} transition-all duration-300 hover:shadow-lg ${colors.shadow} cursor-grab active:cursor-grabbing`}>
+  <div data-swapy-item={id} class="w-full h-full">
     <!-- Background gradient -->
     <div class={`absolute inset-0 bg-linear-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
     

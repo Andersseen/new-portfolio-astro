@@ -31,38 +31,39 @@
     "dragHint": "Drag and drop to reorder the cards",
     "featured": "Featured",
     "recent": "Recent",
-    "ecommerce": {
-      "title": "E-commerce Dashboard",
-      "description": "A complete sales management platform with real-time analytics and inventory management."
+    "projects": {
+      "title": "Projects",
+      "description": "Full-stack applications and interactive experiences built with modern technologies."
+    },
+    "articles": {
+      "title": "Articles",
+      "description": "In-depth technical articles and tutorials on web development and design systems."
     },
     "aboutMe": {
       "title": "About Me",
-      "description": "Passionate developer creating unique digital experiences."
+      "description": "Passionate developer and designer creating beautiful, functional digital experiences."
     },
     "stack": {
       "title": "Tech Stack"
-    },
-    "finance": {
-      "title": "Finance App",
-      "description": "Mobile app for personal finance management with banking integration."
     },
     "design": {
       "title": "Design System",
       "description": "A coherent and scalable design system for enterprise products."
     },
     "social": {
-      "title": "Social Networks"
+      "title": "Social"
     },
     "services": {
       "title": "Services",
       "uiux": "UI/UX Design",
       "web": "Web Development",
-      "mobile": "Mobile Apps"
+      "desktop": "Desktop Apps",
+      "devops": "DevOps & Deployment"
     },
     "blog": {
-      "title": "The Future of Web Development",
-      "description": "Exploring the new technologies and trends that will define the coming year.",
-      "readArticle": "Read article"
+      "title": "Latest Article",
+      "description": "Check out my latest thoughts and insights about web development.",
+      "readArticle": "Read more"
     }
   },
   "footer": {

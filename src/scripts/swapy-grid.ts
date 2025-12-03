@@ -3,44 +3,54 @@ import { animate } from "motion";
 
 export function initSwapyGrid() {
   const container = document.querySelector("[data-swapy-container]");
-  if (!container) return;
-
-  const swapy = createSwapy(container);
-
-  // Animate when items are swapped
-  swapy.onSwap((event) => {
-    const { slotItemA, slotItemB } = event.detail;
-
-    // Add animation to swapped items
-    [slotItemA, slotItemB].forEach((item) => {
-      if (item?.element) {
-        animate(item.element, { scale: [0.95, 1] }, { duration: 0.3 });
-      }
-    });
-  });
-
-  // Save order to localStorage
-  swapy.onSwapEnd(() => {
-    const order = Array.from(
-      container.querySelectorAll("[data-swapy-slot]")
-    ).map(
-      (slot, index) =>
-        slot.getAttribute("data-swapy-slot-id") || `card-${index}`
-    );
-    localStorage.setItem("portfolio-card-order", JSON.stringify(order));
-  });
-
-  // Restore order from localStorage
-  const savedOrder = localStorage.getItem("portfolio-card-order");
-  if (savedOrder) {
-    try {
-      // Order is automatically maintained by Swapy
-      // Just log for debugging
-      console.log("Restored card order:", JSON.parse(savedOrder));
-    } catch (e) {
-      console.error("Failed to restore card order:", e);
-    }
+  if (!container) {
+    console.error("Swapy container not found");
+    return;
   }
 
-  return swapy;
+  try {
+    const swapy = createSwapy(container);
+
+    // Animate when items are swapped
+    swapy.onSwap(({ data }) => {
+      if (!data) return;
+
+      const { slotA, slotB } = data;
+
+      // Add smooth animation to swapped slots
+      if (slotA?.element) {
+        animate(
+          slotA.element,
+          { scale: [0.95, 1] },
+          { duration: 0.4, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" }
+        );
+      }
+
+      if (slotB?.element) {
+        animate(
+          slotB.element,
+          { scale: [0.95, 1] },
+          { duration: 0.4, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" }
+        );
+      }
+    });
+
+    // Save order after swap ends
+    swapy.onSwapEnd(() => {
+      const slots = container.querySelectorAll("[data-swapy-slot]");
+      const order = Array.from(slots).map((slot) => {
+        return slot.getAttribute("data-swapy-slot") || "";
+      });
+
+      if (order.length > 0) {
+        localStorage.setItem("portfolio-card-order", JSON.stringify(order));
+        console.log("Card order saved:", order);
+      }
+    });
+
+    console.log("Swapy initialized successfully");
+    return swapy;
+  } catch (error) {
+    console.error("Failed to initialize Swapy:", error);
+  }
 }
