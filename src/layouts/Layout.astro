@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import BaseHead from "@componentes/BaseHead.astro";
 import Navbar from "@componentes/Navbar";
+import Footer from "@componentes/Footer.astro";
 import LanguageSelector from "@componentes/LanguageSelector.astro";
 
 export interface Props {
@@ -19,45 +20,22 @@ const { title, description, image } = Astro.props;
     <BaseHead title={title} description={description} image={image} />
   </head>
   <body>
-    <!-- Navbar with glassmorphism effect -->
+
     <Navbar client:load>
       <LanguageSelector />
     </Navbar>
 
-    <!-- Main content with padding for fixed navbar -->
-    <main class="pt-16">
+    <main class="pt-8">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-auto py-8 text-center text-foreground-secondary text-sm border-t border-border/30">
-      <p>&copy; {new Date().getFullYear()} Andersseen Dev. All rights reserved.</p>
-    </footer>
+    <Footer />
   </body>
 </html>
 
-<!-- Theme and interaction scripts -->
+
 <script>
   import "@scripts/theme-toggle.ts";
   import "@scripts/theme-randomizer.ts";
   import "@scripts/card-modal.ts";
 </script>
-
-<style is:global>
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-  }
-
-  body {
-    display: flex;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1;
-  }
-</style>
