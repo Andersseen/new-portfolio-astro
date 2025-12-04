@@ -1,18 +1,23 @@
-function initThemeToggle() {
+import { saveThemeState, loadThemeState, type ThemeState } from "./theme-state";
+
+async function initThemeToggle() {
   const themeToggle = document.getElementById("theme-toggle");
   const sunIcon = document.getElementById("sun-icon");
   const moonIcon = document.getElementById("moon-icon");
   const html = document.documentElement;
 
-  // Check if user has manually set a theme preference
-  const savedTheme = localStorage.getItem("theme");
-  const userSetTheme = localStorage.getItem("theme-user-set") === "true";
+  // Load theme state from IDB
+  const savedState = await loadThemeState();
 
-  let currentTheme: string;
+  let currentTheme: "light" | "dark";
 
-  if (savedTheme && userSetTheme) {
+  if (savedState && savedState.userSet) {
     // User has explicitly set a theme - use it
-    currentTheme = savedTheme;
+    currentTheme = savedState.mode;
+    // Also restore custom colors if they exist
+    if (savedState.colors) {
+      applyColors(savedState.colors);
+    }
   } else {
     // No user preference - use system preference
     const prefersDark = window.matchMedia(
@@ -26,22 +31,25 @@ function initThemeToggle() {
 
   // Toggle theme on button click
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+    themeToggle.addEventListener("click", async () => {
       const newTheme = currentTheme === "light" ? "dark" : "light";
       // Mark as user-set when manually toggled
-      setTheme(newTheme, true);
+      await setTheme(newTheme, true);
     });
   }
 
-  function setTheme(theme: string, userSet: boolean = false) {
+  async function setTheme(theme: "light" | "dark", userSet: boolean = false) {
     currentTheme = theme;
     html.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
 
-    // Mark if this was a user action
-    if (userSet) {
-      localStorage.setItem("theme-user-set", "true");
-    }
+    // Save to IDB
+    const savedState = await loadThemeState();
+    const newState: ThemeState = {
+      mode: theme,
+      colors: savedState?.colors, // Preserve custom colors
+      userSet: userSet || (savedState?.userSet ?? false),
+    };
+    await saveThemeState(newState);
 
     // Update icons visibility
     if (sunIcon && moonIcon) {
@@ -53,6 +61,15 @@ function initThemeToggle() {
         moonIcon.classList.remove("hidden");
       }
     }
+  }
+
+  function applyColors(colors: any) {
+    const root = document.documentElement;
+    root.style.setProperty("--color-primary", colors.primary);
+    root.style.setProperty("--color-secondary", colors.secondary);
+    root.style.setProperty("--color-accent", colors.accent);
+    root.style.setProperty("--color-success", colors.success);
+    root.style.setProperty("--color-warning", colors.warning);
   }
 }
 
@@ -66,18 +83,29 @@ if (document.readyState === "loading") {
 // Watch for system theme changes (only if user hasn't set preference)
 window
   .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", (e) => {
-    const userSetTheme = localStorage.getItem("theme-user-set") === "true";
+  .addEventListener("change", async (e) => {
+    const savedState = await import("./theme-state").then((m) =>
+      m.loadThemeState()
+    );
+    const state = await savedState;
 
     // Only auto-update if user hasn't manually set a preference
-    if (!userSetTheme) {
+    if (!state || !state.userSet) {
       const newTheme = e.matches ? "dark" : "light";
       const html = document.documentElement;
       const sunIcon = document.getElementById("sun-icon");
       const moonIcon = document.getElementById("moon-icon");
 
       html.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
+
+      // Save to IDB
+      await import("./theme-state").then((m) =>
+        m.saveThemeState({
+          mode: newTheme,
+          colors: state?.colors,
+          userSet: false,
+        })
+      );
 
       if (sunIcon && moonIcon) {
         if (newTheme === "dark") {

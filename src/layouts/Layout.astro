@@ -1,78 +1,41 @@
 ---
 import "@styles/global.css";
-import LanguageSelector from '@componentes/LanguageSelector.astro';
+import BaseHead from "@componentes/BaseHead.astro";
+import Navbar from "@componentes/Navbar";
+import Footer from "@componentes/Footer.astro";
+import LanguageSelector from "@componentes/LanguageSelector.astro";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en" data-theme="light">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-		
-		<!-- Load theme immediately to prevent flash -->
-		<script is:inline>
-			(function() {
-				const savedTheme = localStorage.getItem('theme');
-				const userSetTheme = localStorage.getItem('theme-user-set') === 'true';
-				let theme;
-				
-				if (savedTheme && userSetTheme) {
-					// User has explicitly set a theme - use it
-					theme = savedTheme;
-				} else {
-					// No user preference - use system preference
-					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-					theme = prefersDark ? 'dark' : 'light';
-				}
-				
-				document.documentElement.setAttribute('data-theme', theme);
-			})();
-		</script>
-	</head>
-	<body>
-		<!-- Header with Theme Toggle, Theme Regenerate and Language Selector -->
-		<header class="fixed top-0 right-0 z-50 p-4 flex items-center gap-3">
-			<LanguageSelector />
-			<button 
-				id="theme-randomize"
-				class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
-				title="Randomize theme"
-				aria-label="Randomize theme"
-			>
-				<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path d="M12 2l1.5 4 4 1.5-4 1.5L12 14l-1.5-4L6 8.5 10 7 12 2zM2 20l3-1-1-3-2 4zM20 20l-4-1 1-3 3 4z" />
-				</svg>
-			</button>
-			<button 
-				id="theme-toggle" 
-				class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
-				aria-label="Toggle theme"
-				title="Toggle theme"
-			>
-				<svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.776a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 10.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.385 17.cushyBottom a.75.75 0 00-1.06 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75zM7.03 19.72a.75.75 0 00-1.06-1.06L4.378 20.25a.75.75 0 101.06 1.06l1.591-1.591zM3.75 12a.75.75 0 01-.75-.75V8.25a.75.75 0 011.5 0V11.25a.75.75 0 01-.75.75zM6.776 6.776a.75.75 0 001.06-1.06L6.245 4.125a.75.75 0 00-1.06 1.06l1.591 1.591z"/>
-				</svg>
-				<svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-					<path fill-rule="evenodd" d="M17.715 15.15A6.5 6.5 0 009 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.864-2.194 6.673-5.138z" clip-rule="evenodd"/>
-				</svg>
-			</button>
-		</header>
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body>
 
-		<slot />
-	</body>
+    <Navbar client:load>
+      <LanguageSelector />
+    </Navbar>
+
+    <main class="pt-8">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
 </html>
 
-	<script>
-		import '@scripts/theme-toggle.ts';
-		import '@scripts/theme-randomizer.ts';
-		import '@scripts/card-modal.ts';
-	</script><style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+
+<script>
+  import "@scripts/theme-toggle.ts";
+  import "@scripts/theme-randomizer.ts";
+  import "@scripts/card-modal.ts";
+</script>

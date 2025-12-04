@@ -1,3 +1,5 @@
+import Badge from "./ui/Badge";
+
 interface CardProps {
   id: string;
   title: string;
@@ -16,35 +18,30 @@ const colorClasses = {
     shadow: "hover:shadow-primary/10",
     bg: "bg-primary/10",
     text: "text-primary",
-    badge: "bg-primary/15 text-primary",
   },
   secondary: {
     border: "hover:border-secondary/50",
     shadow: "hover:shadow-secondary/10",
     bg: "bg-secondary/10",
     text: "text-secondary",
-    badge: "bg-secondary/15 text-secondary",
   },
   accent: {
     border: "hover:border-accent/50",
     shadow: "hover:shadow-accent/10",
     bg: "bg-accent/10",
     text: "text-accent",
-    badge: "bg-accent/15 text-accent",
   },
   success: {
     border: "hover:border-success/50",
     shadow: "hover:shadow-success/10",
     bg: "bg-success/10",
     text: "text-success",
-    badge: "bg-success/15 text-success",
   },
   warning: {
     border: "hover:border-warning/50",
     shadow: "hover:shadow-warning/10",
     bg: "bg-warning/10",
     text: "text-warning",
-    badge: "bg-warning/15 text-warning",
   },
 };
 
@@ -57,69 +54,62 @@ export default function Card({
   colSpan = "col-span-1",
   decorative = false,
   children,
-  tags = [],
+  tags,
 }: CardProps) {
-  const color = colorClasses[badgeColor];
-  const spanClass =
-    colSpan === "col-span-2" ? "md:col-span-2" : "md:col-span-1";
+  const colors = colorClasses[badgeColor];
 
   return (
     <div
-      className={`group relative w-full h-full ${spanClass} rounded-3xl bg-background-secondary transition-all duration-300 
-      shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)] 
-      dark:shadow-[3px_3px_6px_rgba(0,0,0,0.3),-3px_-3px_6px_rgba(255,255,255,0.05)]
-      hover:shadow-[5px_5px_10px_rgba(0,0,0,0.12),-5px_-5px_10px_rgba(255,255,255,0.9)]
-      dark:hover:shadow-[5px_5px_10px_rgba(0,0,0,0.4),-5px_-5px_10px_rgba(255,255,255,0.08)]
-      cursor-grab active:cursor-grabbing active:scale-[0.99]`}
+      className={`
+        group relative h-full w-full
+        rounded-3xl
+        bg-background-secondary
+        border border-border
+        ${colors.border}
+        shadow-lg ${colors.shadow}
+        transition-all duration-300
+        overflow-hidden
+        ${decorative ? "" : "cursor-pointer hover:scale-[1.02]"}
+      `}
     >
-      <div className="w-full h-full p-8 flex flex-col">
-        {/* Background gradients - Subtle */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
+      {/* Neumorphic effect overlay */}
+      <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none" />
 
-        {/* Header & Content */}
-        <div className="relative z-10 flex-1">
-          <div className="flex justify-between items-start mb-4">
-            {badge && (
-              <span
-                className={`inline-block px-3 py-1 rounded-full ${color.badge} text-xs font-bold tracking-wide uppercase shadow-sm`}
-              >
-                {badge}
-              </span>
-            )}
-            {/* Placeholder for top-right icon if needed */}
+      {/* Content */}
+      <div className="relative p-6 h-full flex flex-col">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4 mb-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl font-bold text-foreground mb-1 truncate">
+              {title}
+            </h3>
+            <p className="text-sm text-foreground-secondary line-clamp-2">
+              {description}
+            </p>
           </div>
 
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 leading-tight group-hover:text-primary transition-colors duration-300">
-            {title}
-          </h3>
-          <p className="text-foreground-secondary text-sm md:text-base leading-relaxed max-w-[90%]">
-            {description}
-          </p>
+          {badge && (
+            <Badge variant={badgeColor} size="sm">
+              {badge}
+            </Badge>
+          )}
         </div>
 
-        {/* Footer / Bottom Actions */}
-        <div className="relative z-10 mt-6 flex items-end justify-between">
-          {/* Tags (Left) */}
-          <div className="flex flex-wrap gap-2">
-            {tags.length > 0 &&
-              tags.map((tag) => (
-                <span
-                  key={tag}
-                  className={`px-2 py-1 rounded-md ${color.bg} ${color.text} text-xs font-medium border border-transparent`}
-                >
-                  {tag}
-                </span>
-              ))}
+        {/* Tags */}
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {tags.map((tag) => (
+              <Badge key={tag} variant={badgeColor} size="sm">
+                {tag}
+              </Badge>
+            ))}
           </div>
-
-          {/* Children (Right - mostly for buttons) */}
-          <div className="flex-shrink-0 ml-4">{children}</div>
-        </div>
-
-        {/* Decorative elements - Simplified */}
-        {decorative && (
-          <div className="absolute right-0 bottom-0 w-32 h-32 bg-gradient-to-tl from-primary/10 to-transparent rounded-tl-full opacity-50 pointer-events-none"></div>
         )}
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col justify-end">
+          {children && <div className="flex-shrink-0 ml-4">{children}</div>}
+        </div>
       </div>
     </div>
   );

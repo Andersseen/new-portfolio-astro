@@ -1,0 +1,91 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Andersseen Dev - Portfolio",
+  description = "Full-stack developer and designer passionate about creating beautiful, functional digital experiences.",
+  image = "/og-image.png",
+} = Astro.props;
+
+// Safely construct canonical URL
+const canonicalURL = Astro.site 
+  ? new URL(Astro.url.pathname, Astro.site)
+  : Astro.url.href;
+
+// Safely construct image URL
+const imageURL = Astro.site
+  ? new URL(image, Astro.site).href
+  : image;
+---
+
+<!-- Global Metadata -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageURL} />
+
+<!-- Theme Script - Load immediately to prevent flash -->
+<script is:inline>
+  (async function() {
+    // Try to load from IDB first
+    try {
+      const dbRequest = indexedDB.open('portfolio-db', 1);
+      dbRequest.onsuccess = function() {
+        const db = dbRequest.result;
+        if (db.objectStoreNames.contains('kv')) {
+          const tx = db.transaction('kv', 'readonly');
+          const store = tx.objectStore('kv');
+          const request = store.get('theme-state');
+          request.onsuccess = function() {
+            const state = request.result;
+            if (state && state.userSet) {
+              document.documentElement.setAttribute('data-theme', state.mode);
+              if (state.colors) {
+                const root = document.documentElement;
+                root.style.setProperty('--color-primary', state.colors.primary);
+                root.style.setProperty('--color-secondary', state.colors.secondary);
+                root.style.setProperty('--color-accent', state.colors.accent);
+                root.style.setProperty('--color-success', state.colors.success);
+                root.style.setProperty('--color-warning', state.colors.warning);
+              }
+            } else {
+              // Fallback to system preference
+              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            }
+          };
+        }
+      };
+    } catch (e) {
+      // Fallback to system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    }
+  })();
+</script>
