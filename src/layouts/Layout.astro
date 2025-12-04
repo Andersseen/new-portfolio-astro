@@ -1,7 +1,7 @@
 ---
 import "@styles/global.css";
 import LanguageSelector from "@componentes/LanguageSelector.astro";
-import Button from "@componentes/ui/Button";
+import Header from "@componentes/Header";
 ---
 
 <!doctype html>
@@ -54,59 +54,21 @@ import Button from "@componentes/ui/Button";
 		</script>
 	</head>
 	<body>
-		<!-- Header with Theme Toggle, Theme Regenerate and Language Selector -->
+		<!-- Header with Theme Controls and Language Selector -->
 		<header class="fixed top-0 right-0 z-50 p-4 flex items-center gap-3">
 			<LanguageSelector />
-			
-			<Button
-				client:load
-				variant="ghost"
-				size="sm"
-				className="!w-10 !h-10 !p-0 bg-primary/10 border border-primary/20 hover:bg-primary/20"
-			>
-				<button
-					id="theme-randomize"
-					class="w-full h-full flex items-center justify-center"
-					title="Randomize theme"
-					aria-label="Randomize theme"
-				>
-					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path d="M12 2l1.5 4 4 1.5-4 1.5L12 14l-1.5-4L6 8.5 10 7 12 2zM2 20l3-1-1-3-2 4zM20 20l-4-1 1-3 3 4z" />
-					</svg>
-				</button>
-			</Button>
-
-			<Button
-				client:load
-				variant="ghost"
-				size="sm"
-				className="!w-10 !h-10 !p-0 bg-primary/10 border border-primary/20 hover:bg-primary/20"
-			>
-				<button
-					id="theme-toggle"
-					class="w-full h-full flex items-center justify-center"
-					aria-label="Toggle theme"
-					title="Toggle theme"
-				>
-					<svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.776a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.385 17.385a.75.75 0 00-1.06 1.06l1.591 1.591a.75.75 0 101.06-1.06l-1.591-1.591zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V19.5a.75.75 0 01.75-.75zM7.03 19.72a.75.75 0 00-1.06-1.06L4.378 20.25a.75.75 0 101.06 1.06l1.591-1.591zM3.75 12a.75.75 0 01-.75-.75V8.25a.75.75 0 011.5 0V11.25a.75.75 0 01-.75.75zM6.776 6.776a.75.75 0 001.06-1.06L6.245 4.125a.75.75 0 00-1.06 1.06l1.591 1.591z"/>
-					</svg>
-					<svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-						<path fill-rule="evenodd" d="M17.715 15.15A6.5 6.5 0 009 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.864-2.194 6.673-5.138z" clip-rule="evenodd"/>
-					</svg>
-				</button>
-			</Button>
+			<Header client:load />
 		</header>
 
 		<slot />
 	</body>
 </html>
 
-	<script>
-		import '@scripts/theme-toggle.ts';
-		import '@scripts/theme-randomizer.ts';
-		import '@scripts/card-modal.ts';
-	</script>
+<script>
+	import '@scripts/theme-toggle.ts';
+	import '@scripts/theme-randomizer.ts';
+	import '@scripts/card-modal.ts';
+</script>
 
 <style>
 	html,
