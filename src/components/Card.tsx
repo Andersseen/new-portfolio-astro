@@ -1,3 +1,5 @@
+import type { ComponentChildren } from "preact";
+
 interface CardProps {
   id: string;
   title: string;
@@ -6,7 +8,7 @@ interface CardProps {
   badgeColor?: "primary" | "secondary" | "accent" | "success" | "warning";
   colSpan?: "col-span-1" | "col-span-2";
   decorative?: boolean;
-  children?: any;
+  children?: ComponentChildren;
   tags?: string[];
 }
 
