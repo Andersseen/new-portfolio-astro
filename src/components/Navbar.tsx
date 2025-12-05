@@ -81,19 +81,28 @@ export default function Navbar({ children }: NavbarProps) {
               // Wait, user asked to fix it. If Navbar.tsx is just rendering HTML, I need to make it interactive.
 
               // Let's assume we will make Navbar interactive in Layout.astro.
-              import("../store/modalStore").then(({ openModal }) => {
-                import("../data/portfolio").then(({ aboutMeData }) => {
-                  import("../i18n/utils").then(({ t }) => {
-                    // Simple client-side lang detection
-                    const lang = window.location.pathname.split("/")[1] || "en";
-                    // Check if lang is valid, simplified
-                    const validLang = ["en", "es", "ua"].includes(lang)
-                      ? lang
-                      : "en";
-                    openModal(aboutMeData((key) => t(validLang as any, key)));
-                  });
-                });
-              });
+              import("../store/modalStore").then(
+                ({ openModal, aboutMeStore }) => {
+                  const hydratedItem = aboutMeStore.get();
+                  if (hydratedItem) {
+                    openModal(hydratedItem);
+                  } else {
+                    // Fallback to static data
+                    import("../data/portfolio").then(({ aboutMeData }) => {
+                      import("../i18n/utils").then(({ t }) => {
+                        const lang =
+                          window.location.pathname.split("/")[1] || "en";
+                        const validLang = ["en", "es", "ua"].includes(lang)
+                          ? lang
+                          : "en";
+                        openModal(
+                          aboutMeData((key) => t(validLang as any, key))
+                        );
+                      });
+                    });
+                  }
+                }
+              );
             }}
           >
             {/* Avatar Circle */}

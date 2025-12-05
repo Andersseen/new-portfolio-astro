@@ -9,26 +9,16 @@ interface Project {
 }
 
 interface ProjectListProps {
-  data: {
-    description: string;
-    items: Project[];
-  };
+  data: Project[];
 }
 
 const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-2xl font-bold font-heading mb-4">
-          Commercial Projects
-        </h3>
-        <p className="text-lg text-foreground-secondary mb-6">
-          {data.description}
-        </p>
-      </div>
+      {/* Description handled by parent */}
 
       <div className="grid gap-4">
-        {data.items.map((project, index) => (
+        {data.map((project, index) => (
           <a
             key={index}
             href="#"

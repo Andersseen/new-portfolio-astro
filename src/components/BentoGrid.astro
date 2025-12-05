@@ -1,23 +1,27 @@
 ---
-import { t } from '@i18n/utils';
-import { getLanguageFromPath } from '@i18n/config';
+import { t } from '../i18n/utils';
+import { getLanguageFromPath } from '../i18n/config';
 import PortfolioGrid from './PortfolioGrid';
-import PortfolioHeader from '@componentes/PortfolioHeader.astro';
+import type { PortfolioItem } from './PortfolioGrid';
+import ModalManager from './ModalManager';
+import { getPortfolioItems, aboutMeData } from '../data/portfolio';
+import { fetchGitHubReadme, fetchMediumArticles } from "../utils/fetchers";
+import AboutMeHydrator from './AboutMeHydrator';
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
 
-import type { PortfolioItem } from './PortfolioGrid';
+// Fetch disabled by user request
+// const [githubBio, mediumArticles] = await Promise.all([
+//   fetchGitHubReadme("andersseen"),
+//   fetchMediumArticles("andriipap")
+// ]);
 
-import ModalManager from './ModalManager';
-
-import { getPortfolioItems } from '../data/portfolio';
-
-// Generate items using the translator function
-const items: PortfolioItem[] = getPortfolioItems(tr);
+// Use static initial items
+const initialItems = getPortfolioItems(tr);
 ---
 
 <section class="py-16 px-4 max-w-7xl mx-auto">
-  <PortfolioGrid client:load initialItems={items} />
+  <PortfolioGrid client:load initialItems={initialItems} />
   <ModalManager client:idle />
 </section>

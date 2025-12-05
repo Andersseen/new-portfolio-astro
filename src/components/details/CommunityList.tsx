@@ -7,26 +7,16 @@ interface CommunityItem {
 }
 
 interface CommunityListProps {
-  data: {
-    description: string;
-    items: CommunityItem[];
-  };
+  data: CommunityItem[];
 }
 
 const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-2xl font-bold font-heading mb-4">
-          Community & Open Source
-        </h3>
-        <p className="text-lg text-foreground-secondary mb-6">
-          {data.description}
-        </p>
-      </div>
+      {/* Description is handled by parent modal */}
 
       <div className="space-y-4">
-        {data.items.map((item, index) => (
+        {data.map((item, index) => (
           <div
             key={index}
             className="p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent/50 transition-colors"

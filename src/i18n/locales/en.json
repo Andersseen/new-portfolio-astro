@@ -44,7 +44,12 @@
       "description": "Passionate developer and designer creating beautiful, functional digital experiences."
     },
     "stack": {
-      "title": "Tech Stack"
+      "title": "Tech Stack",
+      "description": "Technologies I use"
+    },
+    "community": {
+      "title": "Community",
+      "description": "Contributions to the open source community and tech groups."
     },
     "design": {
       "title": "Design System",

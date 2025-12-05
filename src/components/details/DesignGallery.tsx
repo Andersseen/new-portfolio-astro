@@ -6,15 +6,13 @@ interface DesignItem {
 }
 
 interface DesignGalleryProps {
-  data: {
-    items: DesignItem[];
-  };
+  data: DesignItem[];
 }
 
 const DesignGallery: FunctionalComponent<DesignGalleryProps> = ({ data }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {data.items.map((item, index) => (
+      {data.map((item, index) => (
         <div key={index} className="space-y-2 group cursor-pointer">
           <div className="overflow-hidden rounded-xl shadow-lg">
             <img

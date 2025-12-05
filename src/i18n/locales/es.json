@@ -44,7 +44,12 @@
       "description": "Desarrollador y diseñador apasionado por crear experiencias digitales hermosas y funcionales."
     },
     "stack": {
-      "title": "Stack Tecnológico"
+      "title": "Stack Tecnológico",
+      "description": "Tecnologías que uso"
+    },
+    "community": {
+      "title": "Comunidad",
+      "description": "Contribuciones a la comunidad de código abierto y grupos tecnológicos."
     },
     "design": {
       "title": "Design System",
