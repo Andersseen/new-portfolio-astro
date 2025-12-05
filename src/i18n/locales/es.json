@@ -69,6 +69,13 @@
       "title": "Último Artículo",
       "description": "Descubre mis últimos pensamientos e insights sobre desarrollo web.",
       "readArticle": "Leer más"
+    },
+    "actions": {
+      "featuredWork": "Proyectos Destacados",
+      "viewContributions": "Ver Contribuciones",
+      "gallery": "Galería",
+      "latestPosts": "Últimos Posts",
+      "moveCursor": "Mueve el cursor para pintar"
     }
   },
   "footer": {

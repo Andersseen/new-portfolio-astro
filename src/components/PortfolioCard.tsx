@@ -112,7 +112,7 @@ export default function PortfolioCard({
           {/* Action Links */}
           {item.type === "projects" && (
             <div className="flex items-center gap-2 text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
-              Featured Work
+              {item.actionLabel || "View More"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>
@@ -125,7 +125,7 @@ export default function PortfolioCard({
                 Contributions & Open Source
               </div>
               <div className="flex items-center gap-2 text-sm font-medium text-secondary/80 group-hover:text-secondary transition-colors">
-                View Contributions
+                {item.actionLabel || "Contributions"}
                 <span className="group-hover:translate-x-1 transition-transform">
                   <ArrowRightIcon className="w-4 h-4" />
                 </span>
@@ -135,7 +135,7 @@ export default function PortfolioCard({
 
           {item.type === "design" && (
             <div className="flex items-center gap-2 text-sm font-medium text-accent/80 group-hover:text-accent transition-colors">
-              Gallery
+              {item.actionLabel || "Gallery"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>
@@ -144,7 +144,7 @@ export default function PortfolioCard({
 
           {item.type === "articles" && (
             <div className="flex items-center gap-2 text-sm font-medium text-success/80 group-hover:text-success transition-colors">
-              Latest Posts
+              {item.actionLabel || "Read more"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>

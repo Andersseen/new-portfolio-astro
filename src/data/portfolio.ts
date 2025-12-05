@@ -8,6 +8,8 @@ export const getPortfolioItems = (
     type: "projects",
     title: tr("portfolio.projects.title"),
     description: tr("portfolio.projects.description"),
+    actionLabel: tr("portfolio.actions.featuredWork"),
+    content: [], // Add dummy content if needed for card preview, otherwise it relies on actionLabel
     details: [
       {
         title: "E-Commerce Platform",
@@ -35,6 +37,7 @@ export const getPortfolioItems = (
     type: "community",
     title: tr("portfolio.community.title"),
     description: tr("portfolio.community.description"),
+    actionLabel: tr("portfolio.actions.viewContributions"),
     details: [
       {
         role: "Core Contributor",
@@ -58,6 +61,7 @@ export const getPortfolioItems = (
     type: "design",
     title: tr("portfolio.design.title"),
     description: tr("portfolio.design.description"),
+    actionLabel: tr("portfolio.actions.gallery"),
     details: [
       {
         title: "Mobile App UI",
@@ -78,7 +82,7 @@ export const getPortfolioItems = (
     id: "social",
     type: "social",
     title: tr("portfolio.social.title"),
-    description: "Connect with me",
+    description: tr("portfolio.actions.moveCursor"),
     content: [
       {
         label: "GitHub",
@@ -153,6 +157,12 @@ export const getPortfolioItems = (
     type: "stack",
     title: tr("portfolio.stack.title"),
     description: tr("portfolio.stack.description"),
+    content: [
+      { name: "React", icon: "react", color: "primary" },
+      { name: "TypeScript", icon: "typescript", color: "accent" },
+      { name: "Tailwind", icon: "tailwindcss", color: "secondary" },
+      { name: "Node.js", icon: "nodedotjs", color: "success" },
+    ],
     details: {
       categories: [
         {
@@ -190,6 +200,7 @@ export const getPortfolioItems = (
     type: "articles",
     title: tr("portfolio.articles.title"),
     description: tr("portfolio.articles.description"),
+    actionLabel: tr("portfolio.actions.latestPosts"),
     details: [
       {
         title: "Understanding Astro Islands",

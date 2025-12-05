@@ -40,6 +40,7 @@ export interface PortfolioItem {
   details?: any; // Rich content for the modal (HTML string or specific structure)
   colSpan?: "col-span-1" | "col-span-2";
   content?: SocialLink[] | StackItem[] | ServiceItem[];
+  actionLabel?: string;
 }
 
 interface PortfolioGridProps {
