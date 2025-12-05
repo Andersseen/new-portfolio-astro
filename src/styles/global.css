@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/outfit/700.css";
+@import "@fontsource/outfit/900.css";
 
 @theme {
   /* Light theme - Modern & Professional */
@@ -22,6 +27,10 @@
   /* Light borders */
   --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
+
+  /* Fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-heading: "Outfit", system-ui, sans-serif;
 }
 
 [data-theme="dark"] {
@@ -64,8 +73,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

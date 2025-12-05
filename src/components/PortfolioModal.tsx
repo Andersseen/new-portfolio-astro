@@ -1,7 +1,9 @@
 import { motion } from "motion/react";
 import { X } from "lucide-preact";
 import type { PortfolioItem } from "./PortfolioGrid";
+import Button from "./ui/Button";
 
+// Cast icons to any to avoid JSX component type errors
 const XIcon = X as any;
 
 interface PortfolioModalProps {
@@ -19,21 +21,24 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       onClick={onClose}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="w-full max-w-3xl bg-background rounded-3xl overflow-hidden shadow-2xl"
+        layoutId={item.id} // Enable shared layout transition from card
+        className="w-full max-w-3xl bg-background rounded-3xl overflow-hidden shadow-2xl border border-border"
         onClick={(e: any) => e.stopPropagation()}
       >
         <div className="p-8">
           <div className="flex justify-between items-start mb-6">
-            <h2 className="text-4xl font-bold text-foreground">{item.title}</h2>
-            <button
+            <h2 className="text-4xl font-bold text-foreground font-heading">
+              {item.title}
+            </h2>
+            <Button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-foreground/10"
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-foreground/10"
+              aria-label="Close modal"
             >
               <XIcon className="w-6 h-6 text-foreground" />
-            </button>
+            </Button>
           </div>
           <p className="text-lg text-foreground-secondary mb-8">
             {item.description}

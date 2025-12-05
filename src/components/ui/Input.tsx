@@ -1,3 +1,5 @@
+import { cn } from "./utils";
+
 export interface InputProps {
   type?: "text" | "email" | "password" | "number" | "tel" | "url";
   placeholder?: string;
@@ -20,7 +22,7 @@ export default function Input({
   disabled = false,
   error = false,
   fullWidth = false,
-  className = "",
+  className,
   id,
   name,
   required = false,
@@ -35,24 +37,22 @@ export default function Input({
       onChange={(e: any) => onChange?.(e.target.value)}
       disabled={disabled}
       required={required}
-      className={`
-        ${fullWidth ? "w-full" : ""}
-        px-4 py-2 rounded-lg
-        bg-background-secondary border-2
-        ${
-          error
-            ? "border-danger focus:border-danger"
-            : "border-border focus:border-primary"
-        }
-        text-foreground placeholder:text-foreground-tertiary
-        transition-colors duration-200
-        focus:outline-none focus:ring-2
-        ${error ? "focus:ring-danger/20" : "focus:ring-primary/20"}
-        disabled:opacity-50 disabled:cursor-not-allowed
-        ${className}
-      `
-        .trim()
-        .replace(/\s+/g, " ")}
+      aria-invalid={error}
+      aria-disabled={disabled}
+      className={cn(
+        fullWidth && "w-full",
+        "px-4 py-2 rounded-lg",
+        "bg-background-secondary border-2",
+        error
+          ? "border-danger focus:border-danger"
+          : "border-border focus:border-primary",
+        "text-foreground placeholder:text-foreground-tertiary",
+        "transition-colors duration-200",
+        "focus:outline-none focus:ring-2",
+        error ? "focus:ring-danger/20" : "focus:ring-primary/20",
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      )}
     />
   );
 }

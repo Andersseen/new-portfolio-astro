@@ -1,4 +1,5 @@
 import Card from "./Card";
+import Button from "./ui/Button";
 import { motion } from "motion/react";
 import type {
   PortfolioItem,
@@ -52,13 +53,16 @@ export default function PortfolioCard({
               {(item.content as SocialLink[]).map((link) => {
                 const IconComponent = IconMap[link.icon];
                 return (
-                  <a
+                  <Button
                     key={link.url}
                     href={link.url}
-                    className={`p-3 rounded-full bg-${link.color}/10 text-${link.color} hover:bg-${link.color}/20 transition-all`}
+                    variant="ghost"
+                    size="icon"
+                    className={`rounded-full bg-${link.color}/10 text-${link.color} hover:bg-${link.color}/20`}
+                    title={link.icon}
                   >
                     {IconComponent && <IconComponent className="w-6 h-6" />}
-                  </a>
+                  </Button>
                 );
               })}
             </div>

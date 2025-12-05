@@ -1,4 +1,6 @@
 import Badge from "./ui/Badge";
+import BaseCard from "./ui/Card";
+import { cn } from "./ui/utils";
 
 interface CardProps {
   id: string;
@@ -59,24 +61,23 @@ export default function Card({
   const colors = colorClasses[badgeColor];
 
   return (
-    <div
-      className={`
-        group relative h-full w-full
-        rounded-3xl
-        bg-background-secondary
-        border border-border
-        ${colors.border}
-        shadow-lg ${colors.shadow}
-        transition-all duration-300
-        overflow-hidden
-        ${decorative ? "" : "cursor-pointer hover:scale-[1.02]"}
-      `}
+    <BaseCard
+      variant="default"
+      rounded="full"
+      padding="none" // We handle padding inside for specific layout
+      hoverable={!decorative}
+      className={cn(
+        "group h-full w-full overflow-hidden transition-all duration-300",
+        colors.border,
+        `shadow-lg ${colors.shadow}`,
+        !decorative && "hover:scale-[1.02]"
+      )}
     >
       {/* Neumorphic effect overlay */}
-      <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none z-10" />
 
       {/* Content */}
-      <div className="relative p-6 h-full flex flex-col">
+      <div className="relative p-6 h-full flex flex-col z-20">
         {/* Header */}
         <div className="flex items-start justify-between gap-4 mb-3">
           <div className="flex-1 min-w-0">
@@ -111,6 +112,6 @@ export default function Card({
           {children && <div className="flex-shrink-0 ml-4">{children}</div>}
         </div>
       </div>
-    </div>
+    </BaseCard>
   );
 }
