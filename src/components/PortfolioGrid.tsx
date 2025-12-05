@@ -1,33 +1,34 @@
 import { useEffect, useState, useRef } from "preact/hooks";
-import { createSwapy } from "swapy";
 import { saveOrder, loadOrder } from "../scripts/idb-order";
-import { AnimatePresence } from "motion/react";
 import SkeletonCard from "./SkeletonCard";
 import PortfolioCard from "./PortfolioCard";
-import PortfolioModal from "./PortfolioModal";
+import { openModal } from "../store/modalStore";
 
 export interface SocialLink {
   icon: string;
   url: string;
   color: string;
+  label?: string; // e.g. "My Medium Profile"
 }
 
 export interface StackItem {
   name: string;
   icon: string;
   color: string;
+  description?: string; // e.g. "Experienced with Angular 14+"
 }
 
 export interface ServiceItem {
   text: string;
   gradient: string;
+  details?: string; // Extended description for modal
 }
 
 export interface PortfolioItem {
   id: string;
   type:
     | "projects"
-    | "about"
+    | "community" // Changed from 'about'
     | "design"
     | "social"
     | "services"
@@ -35,6 +36,7 @@ export interface PortfolioItem {
     | "articles";
   title: string;
   description?: string;
+  details?: any; // Rich content for the modal (HTML string or specific structure)
   colSpan?: "col-span-1" | "col-span-2";
   content?: SocialLink[] | StackItem[] | ServiceItem[];
 }
@@ -55,7 +57,6 @@ const LAYOUT_PATTERN: ("col-span-1" | "col-span-2")[] = [
 ];
 
 export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyRef = useRef<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -64,11 +65,13 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
 
   // Detect mobile and handle Swapy enable/disable
   useEffect(() => {
-    const checkMobile = () => {
+    let isMounted = true;
+
+    const initSwapy = async () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
 
-      // Completely destroy and recreate Swapy when switching between mobile/desktop
+      // Completely destroy Swapy when switching or re-initializing
       if (swapyRef.current) {
         swapyRef.current.destroy();
         swapyRef.current = null;
@@ -76,36 +79,51 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
 
       // Only initialize Swapy on desktop
       if (!mobile && isLoaded && containerRef.current) {
-        swapyRef.current = createSwapy(containerRef.current, {
-          animation: "dynamic",
-        });
+        try {
+          // Dynamic import for swapy to reduce initial bundle
+          const { createSwapy } = await import("swapy");
 
-        swapyRef.current.onSwapEnd(async (data: any) => {
-          const slots =
-            containerRef.current?.querySelectorAll("[data-swapy-slot]");
-          if (!slots) return;
+          if (!isMounted) return;
 
-          const newOrderIds: string[] = [];
-          slots.forEach((slot) => {
-            const item = slot.querySelector("[data-swapy-item]");
-            if (item) {
-              const id = item.getAttribute("data-swapy-item");
-              if (id) newOrderIds.push(id);
-            }
+          swapyRef.current = createSwapy(containerRef.current, {
+            animation: "dynamic",
           });
 
-          if (newOrderIds.length > 0) {
-            await saveOrder(newOrderIds);
-            console.log("Saved new order to IDB:", newOrderIds);
-          }
-        });
+          swapyRef.current.onSwapEnd(async (data: any) => {
+            const slots =
+              containerRef.current?.querySelectorAll("[data-swapy-slot]");
+            if (!slots) return;
+
+            const newOrderIds: string[] = [];
+            slots.forEach((slot) => {
+              const item = slot.querySelector("[data-swapy-item]");
+              if (item) {
+                const id = item.getAttribute("data-swapy-item");
+                if (id) newOrderIds.push(id);
+              }
+            });
+
+            if (newOrderIds.length > 0) {
+              await saveOrder(newOrderIds);
+            }
+          });
+        } catch (error) {
+          console.error("Failed to load Swapy:", error);
+        }
       }
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    initSwapy();
+
+    const handleResize = () => {
+      // Debounce could be added here
+      initSwapy();
+    };
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      isMounted = false;
+      window.removeEventListener("resize", handleResize);
       if (swapyRef.current) {
         swapyRef.current.destroy();
       }
@@ -142,8 +160,6 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     };
     loadSavedOrder();
   }, []);
-
-  const selectedItem = items.find((i) => i.id === selectedId);
 
   // Skeleton loading state
   if (!isLoaded) {
@@ -193,21 +209,16 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
               <PortfolioCard
                 item={item}
                 colSpan={patternColSpan}
-                onSelect={setSelectedId}
+                onSelect={(id) => {
+                  // Find the item and open global modal
+                  const found = items.find((i) => i.id === id);
+                  if (found) openModal(found);
+                }}
               />
             </div>
           );
         })}
       </div>
-
-      <AnimatePresence>
-        {selectedId && selectedItem && (
-          <PortfolioModal
-            item={selectedItem}
-            onClose={() => setSelectedId(null)}
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 }

@@ -45,8 +45,13 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           </p>
 
           {/* Expanded Content */}
-          <div className="prose prose-invert max-w-none">
-            <p>Here you can put more detailed content for {item.title}.</p>
+          {/* Expanded Content */}
+          <div className="prose dark:prose-invert max-w-none text-foreground-secondary">
+            {item.details && typeof item.details === "string" ? (
+              <div dangerouslySetInnerHTML={{ __html: item.details }} />
+            ) : (
+              item.details || <p>No additional details available.</p>
+            )}
           </div>
         </div>
       </motion.div>

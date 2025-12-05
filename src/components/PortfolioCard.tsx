@@ -109,16 +109,30 @@ export default function PortfolioCard({
           {/* Action Links */}
           {item.type === "projects" && (
             <div className="flex items-center gap-2 text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
-              Explore
+              Featured Work
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>
             </div>
           )}
 
+          {item.type === "community" && (
+            <div className="mt-4 flex flex-col gap-2">
+              <div className="text-sm text-foreground-secondary">
+                Contributions & Open Source
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-secondary/80 group-hover:text-secondary transition-colors">
+                View Contributions
+                <span className="group-hover:translate-x-1 transition-transform">
+                  <ArrowRightIcon className="w-4 h-4" />
+                </span>
+              </div>
+            </div>
+          )}
+
           {item.type === "design" && (
             <div className="flex items-center gap-2 text-sm font-medium text-accent/80 group-hover:text-accent transition-colors">
-              View
+              Gallery
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>
@@ -127,14 +141,12 @@ export default function PortfolioCard({
 
           {item.type === "articles" && (
             <div className="flex items-center gap-2 text-sm font-medium text-success/80 group-hover:text-success transition-colors">
-              Read
+              Latest Posts
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
               </span>
             </div>
           )}
-
-          {item.type === "about" && <div className="mt-4"></div>}
         </Card>
       </motion.div>
     </div>
