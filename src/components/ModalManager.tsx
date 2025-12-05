@@ -1,7 +1,5 @@
 import { useStore } from "@nanostores/preact";
 import { isModalOpen, selectedItem, closeModal } from "../store/modalStore";
-// import { AnimatePresence } from "motion/react"; // Removing to fix build error
-import PortfolioModal from "./PortfolioModal";
 import { Suspense, lazy } from "preact/compat";
 
 // We can still lazy load the internal heavy modal content

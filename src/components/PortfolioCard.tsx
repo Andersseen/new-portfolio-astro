@@ -58,10 +58,13 @@ export default function PortfolioCard({
                     href={link.url}
                     variant="ghost"
                     size="icon"
-                    className={`rounded-full bg-${link.color}/10 text-${link.color} hover:bg-${link.color}/20`}
-                    title={link.icon}
+                    className={`rounded-xl bg-${link.color}/10 text-${link.color} hover:bg-${link.color}/20 group relative overflow-visible transition-all duration-300 hover:-translate-y-1`}
+                    title={link.label || link.icon}
                   >
-                    {IconComponent && <IconComponent className="w-6 h-6" />}
+                    <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 blur-md transition-opacity duration-300" />
+                    {IconComponent && (
+                      <IconComponent className="w-6 h-6 z-10 relative drop-shadow-md" />
+                    )}
                   </Button>
                 );
               })}

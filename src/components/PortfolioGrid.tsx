@@ -28,12 +28,13 @@ export interface PortfolioItem {
   id: string;
   type:
     | "projects"
-    | "community" // Changed from 'about'
+    | "community"
     | "design"
     | "social"
     | "services"
     | "stack"
-    | "articles";
+    | "articles"
+    | "about";
   title: string;
   description?: string;
   details?: any; // Rich content for the modal (HTML string or specific structure)

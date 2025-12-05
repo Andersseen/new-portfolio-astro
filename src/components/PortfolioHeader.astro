@@ -7,11 +7,34 @@ const { name = 'Andersseen' } = Astro.props;
 ---
 
 <div class="mb-12 flex items-center gap-3 group">
-  <div class="relative w-12 h-12 rounded-full overflow-hidden shrink-0 cursor-pointer">
+  <div id="avatar-trigger" class="relative w-12 h-12 rounded-full overflow-hidden shrink-0 cursor-pointer hover:scale-105 transition-transform duration-300">
     <div class="absolute inset-0 bg-linear-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border border-white/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-lg font-bold text-primary">
       {name.charAt(0).toUpperCase()}
     </div>
   </div>
   
-  <h1 class="text-lg font-semibold text-foreground">{name}</h1>
+  <h1 id="name-trigger" class="text-lg font-semibold text-foreground cursor-pointer hover:text-primary transition-colors">{name}</h1>
 </div>
+
+<script>
+  import { openModal } from '../store/modalStore';
+  import { aboutMeData } from '../data/portfolio';
+  import { t } from '../i18n/utils';
+  import { getLanguageFromPath } from '../i18n/config';
+
+  const avatar = document.getElementById('avatar-trigger');
+  const nameTrigger = document.getElementById('name-trigger');
+
+  const lang = getLanguageFromPath(window.location.pathname);
+  const tr = (key: string) => t(lang, key);
+  
+  // Create data once
+  const item = aboutMeData(tr);
+
+  function handleClick() {
+    openModal(item);
+  }
+
+  if (avatar) avatar.addEventListener('click', handleClick);
+  if (nameTrigger) nameTrigger.addEventListener('click', handleClick);
+</script>
