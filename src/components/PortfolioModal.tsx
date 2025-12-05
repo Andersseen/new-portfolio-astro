@@ -11,6 +11,7 @@ import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
 import DesignGallery from "./details/DesignGallery";
 import ServiceDetails from "./details/ServiceDetails";
+import SocialCanvas from "./details/SocialCanvas";
 
 // Cast icons to any to avoid JSX component type errors
 const XIcon = X as any;
@@ -22,6 +23,11 @@ interface PortfolioModalProps {
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const renderDetails = () => {
+    // Social is special, it uses 'content' property primarily, or merged details
+    if (item.type === "social") {
+      return <SocialCanvas items={item.content as any[]} />;
+    }
+
     if (!item.details) return <p>No specific details available.</p>;
 
     switch (item.type) {
