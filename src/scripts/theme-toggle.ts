@@ -84,9 +84,7 @@ if (document.readyState === "loading") {
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", async (e) => {
-    const savedState = await import("./theme-state").then((m) =>
-      m.loadThemeState()
-    );
+    const savedState = await loadThemeState(); // Use static import
     const state = await savedState;
 
     // Only auto-update if user hasn't manually set a preference
@@ -99,13 +97,11 @@ window
       html.setAttribute("data-theme", newTheme);
 
       // Save to IDB
-      await import("./theme-state").then((m) =>
-        m.saveThemeState({
-          mode: newTheme,
-          colors: state?.colors,
-          userSet: false,
-        })
-      );
+      await saveThemeState({
+        mode: newTheme,
+        colors: state?.colors,
+        userSet: false,
+      });
 
       if (sunIcon && moonIcon) {
         if (newTheme === "dark") {

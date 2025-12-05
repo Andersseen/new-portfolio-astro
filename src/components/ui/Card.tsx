@@ -1,8 +1,11 @@
+import type { ComponentChildren } from "preact";
+import { cn } from "./utils";
+
 export interface CardProps {
   variant?: "default" | "elevated" | "outlined" | "neumorphic";
   padding?: "none" | "sm" | "md" | "lg";
   rounded?: "none" | "sm" | "md" | "lg" | "xl" | "full";
-  children: any;
+  children: ComponentChildren;
   className?: string;
   onClick?: () => void;
   hoverable?: boolean;
@@ -12,11 +15,11 @@ const variantClasses = {
   default: "bg-background-secondary border border-border",
   elevated: "bg-background-secondary shadow-lg",
   outlined: "bg-transparent border-2 border-border",
-  neumorphic: `
-    bg-background-secondary
-    shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)]
-    dark:shadow-[3px_3px_6px_rgba(0,0,0,0.3),-3px_-3px_6px_rgba(255,255,255,0.05)]
-  `,
+  neumorphic: cn(
+    "bg-background-secondary",
+    "shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)]",
+    "dark:shadow-[3px_3px_6px_rgba(0,0,0,0.3),-3px_-3px_6px_rgba(255,255,255,0.05)]"
+  ),
 };
 
 const paddingClasses = {
@@ -40,27 +43,22 @@ export default function Card({
   padding = "md",
   rounded = "lg",
   children,
-  className = "",
+  className,
   onClick,
   hoverable = false,
 }: CardProps) {
   return (
     <div
       onClick={onClick}
-      className={`
-        ${variantClasses[variant]}
-        ${paddingClasses[padding]}
-        ${roundedClasses[rounded]}
-        ${
-          hoverable
-            ? "hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-            : ""
-        }
-        ${onClick ? "cursor-pointer" : ""}
-        ${className}
-      `
-        .trim()
-        .replace(/\s+/g, " ")}
+      className={cn(
+        variantClasses[variant],
+        paddingClasses[padding],
+        roundedClasses[rounded],
+        hoverable &&
+          "hover:shadow-xl transition-shadow duration-300 cursor-pointer",
+        onClick && "cursor-pointer",
+        className
+      )}
     >
       {children}
     </div>

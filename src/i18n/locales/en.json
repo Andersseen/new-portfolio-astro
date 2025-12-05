@@ -44,7 +44,12 @@
       "description": "Passionate developer and designer creating beautiful, functional digital experiences."
     },
     "stack": {
-      "title": "Tech Stack"
+      "title": "Tech Stack",
+      "description": "Technologies I use"
+    },
+    "community": {
+      "title": "Community",
+      "description": "Contributions to the open source community and tech groups."
     },
     "design": {
       "title": "Design System",
@@ -64,6 +69,13 @@
       "title": "Latest Article",
       "description": "Check out my latest thoughts and insights about web development.",
       "readArticle": "Read more"
+    },
+    "actions": {
+      "featuredWork": "Featured Work",
+      "viewContributions": "View Contributions",
+      "gallery": "Gallery",
+      "latestPosts": "Latest Posts",
+      "moveCursor": "Move cursor to paint"
     }
   },
   "footer": {

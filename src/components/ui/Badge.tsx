@@ -1,3 +1,5 @@
+import { cn } from "./utils";
+
 export interface BadgeProps {
   variant?:
     | "primary"
@@ -30,18 +32,16 @@ export default function Badge({
   variant = "primary",
   size = "md",
   children,
-  className = "",
+  className,
 }: BadgeProps) {
   return (
     <span
-      className={`
-        ${variantClasses[variant]}
-        ${sizeClasses[size]}
-        inline-block rounded-full font-bold tracking-wide uppercase border
-        ${className}
-      `
-        .trim()
-        .replace(/\s+/g, " ")}
+      className={cn(
+        variantClasses[variant],
+        sizeClasses[size],
+        "inline-block rounded-full font-bold tracking-wide uppercase border",
+        className
+      )}
     >
       {children}
     </span>

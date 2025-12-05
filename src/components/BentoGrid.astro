@@ -1,83 +1,27 @@
 ---
-import { t } from '@i18n/utils';
-import { getLanguageFromPath } from '@i18n/config';
+import { t } from '../i18n/utils';
+import { getLanguageFromPath } from '../i18n/config';
 import PortfolioGrid from './PortfolioGrid';
-import PortfolioHeader from '@componentes/PortfolioHeader.astro';
+import type { PortfolioItem } from './PortfolioGrid';
+import ModalManager from './ModalManager';
+import { getPortfolioItems, aboutMeData } from '../data/portfolio';
+import { fetchGitHubReadme, fetchMediumArticles } from "../utils/fetchers";
+import AboutMeHydrator from './AboutMeHydrator';
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
 
-import type { PortfolioItem } from './PortfolioGrid';
+// Fetch disabled by user request
+// const [githubBio, mediumArticles] = await Promise.all([
+//   fetchGitHubReadme("andersseen"),
+//   fetchMediumArticles("andriipap")
+// ]);
 
-const items: PortfolioItem[] = [
-  {
-    id: 'card-1',
-    type: 'projects',
-    title: tr('portfolio.projects.title'),
-    description: tr('portfolio.projects.description'),
-    colSpan: 'col-span-2'
-  },
-  {
-    id: 'card-2',
-    type: 'about',
-    title: tr('portfolio.aboutMe.title'),
-    description: tr('portfolio.aboutMe.description'),
-    colSpan: 'col-span-1'
-  },
-  {
-    id: 'card-5',
-    type: 'design',
-    title: tr('portfolio.design.title'),
-    description: tr('portfolio.design.description'),
-    colSpan: 'col-span-1'
-  },
-  {
-    id: 'card-6',
-    type: 'social',
-    title: tr('portfolio.social.title'),
-    colSpan: 'col-span-1',
-    content: [
-      { icon: 'github', url: '#', color: 'primary' },
-      { icon: 'gitlab', url: '#', color: 'secondary' },
-      { icon: 'medium', url: '#', color: 'accent' },
-    ]
-  },
-  {
-    id: 'card-7',
-    type: 'services',
-    title: tr('portfolio.services.title'),
-    colSpan: 'col-span-1',
-    content: [
-      { text: tr('portfolio.services.uiux'), gradient: 'from-primary to-secondary' },
-      { text: tr('portfolio.services.web'), gradient: 'from-secondary to-accent' },
-      { text: tr('portfolio.services.desktop'), gradient: 'from-accent to-primary' },
-      { text: tr('portfolio.services.devops'), gradient: 'from-success to-primary' },
-    ]
-  },
-  {
-    id: 'card-3',
-    type: 'stack',
-    title: tr('portfolio.stack.title'),
-    colSpan: 'col-span-1',
-    content: [
-      { name: 'TS', icon: 'ts', color: 'primary' },
-      { name: 'NX', icon: 'nx', color: 'secondary' },
-      { name: 'Angular', icon: 'angular', color: 'accent' },
-      { name: 'Docker', icon: 'docker', color: 'warning' },
-    ]
-  },
-  {
-    id: 'card-4',
-    type: 'articles',
-    title: tr('portfolio.articles.title'),
-    description: tr('portfolio.articles.description'),
-    colSpan: 'col-span-2'
-  }
-];
+// Use static initial items
+const initialItems = getPortfolioItems(tr);
 ---
 
 <section class="py-16 px-4 max-w-7xl mx-auto">
-
-
-  <PortfolioGrid client:only="preact" initialItems={items} />
+  <PortfolioGrid client:load initialItems={initialItems} />
+  <ModalManager client:idle />
 </section>

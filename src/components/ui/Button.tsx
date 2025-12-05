@@ -1,12 +1,18 @@
-export interface ButtonProps {
+import type { ComponentChildren, JSX } from "preact";
+import { cn } from "./utils";
+
+export interface ButtonProps
+  extends Omit<
+    JSX.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
+    "size"
+  > {
   variant?: "primary" | "secondary" | "accent" | "ghost" | "outline";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "icon";
   fullWidth?: boolean;
   disabled?: boolean;
-  onClick?: () => void;
-  children: any;
-  className?: string;
+  href?: string;
   type?: "button" | "submit" | "reset";
+  children: ComponentChildren;
 }
 
 const variantClasses = {
@@ -22,6 +28,7 @@ const sizeClasses = {
   sm: "px-3 py-1.5 text-sm",
   md: "px-4 py-2 text-base",
   lg: "px-6 py-3 text-lg",
+  icon: "p-2",
 };
 
 export default function Button({
@@ -29,30 +36,33 @@ export default function Button({
   size = "md",
   fullWidth = false,
   disabled = false,
-  onClick,
+  className,
   children,
-  className = "",
+  href,
   type = "button",
+  ...props
 }: ButtonProps) {
+  const Comp = href ? "a" : "button";
+
   return (
-    <button
-      type={type}
-      onClick={onClick}
+    <Comp
+      href={href}
+      type={!href ? type : undefined}
       disabled={disabled}
-      className={`
-        ${variantClasses[variant]}
-        ${sizeClasses[size]}
-        ${fullWidth ? "w-full" : ""}
-        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-        rounded-lg font-medium transition-all duration-200
-        focus:outline-none focus:ring-2 focus:ring-primary/50
-        active:scale-[0.98]
-        ${className}
-      `
-        .trim()
-        .replace(/\s+/g, " ")}
+      className={cn(
+        variantClasses[variant],
+        sizeClasses[size],
+        fullWidth && "w-full",
+        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
+        "rounded-lg font-medium transition-all duration-200",
+        "focus:outline-none focus:ring-2 focus:ring-primary/50",
+        "active:scale-[0.98]",
+        "flex items-center justify-center", // Added for centering content/icons
+        className
+      )}
+      {...props}
     >
       {children}
-    </button>
+    </Comp>
   );
 }
