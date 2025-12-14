@@ -33,11 +33,33 @@
     "recent": "Recent",
     "projects": {
       "title": "Projects",
-      "description": "Full-stack applications and interactive experiences built with modern technologies."
+      "description": "Full-stack applications and interactive experiences built with modern technologies.",
+      "falcotech": {
+        "title": "Falcotech",
+        "description": "Technology solutions and IT consulting for businesses."
+      },
+      "beautyline": {
+        "title": "Beauty Line Esthetic",
+        "description": "Advanced aesthetic center with personalized treatments."
+      },
+      "palomamolero": {
+        "title": "Paloma Molero",
+        "description": "Portfolio and professional services for photography and visual art."
+      },
+      "soulalegria": {
+        "title": "Soul Alegría",
+        "description": "Wellness and personal growth platform."
+      }
     },
     "articles": {
       "title": "Articles",
-      "description": "In-depth technical articles and tutorials on web development and design systems."
+      "description": "In-depth technical articles and tutorials on web development and design systems.",
+      "material_blocks": "Material Blocks & Angular",
+      "material_desc": "Why I built Material Blocks and the role of Tailwind CSS v4.",
+      "switch_map": "Goodbye Switch, Hello Map",
+      "switch_desc": "Replacing switch statements with state maps for cleaner code.",
+      "textarea": "Resizable Textareas",
+      "textarea_desc": "How to create auto-resizable textareas with modern CSS in 2 lines."
     },
     "aboutMe": {
       "title": "About Me",
@@ -49,11 +71,23 @@
     },
     "community": {
       "title": "Community",
-      "description": "Contributions to the open source community and tech groups."
+      "description": "Contributions to the open source community and tech groups.",
+      "gsap": {
+        "title": "GSAP Blocker",
+        "description": "Preconfigured blocks with Angular, Tailwind CSS, and GSAP animations."
+      },
+      "material": {
+        "title": "Material Blocks",
+        "description": "UI component collection built with Angular Material and Tailwind."
+      },
+      "palette": {
+        "title": "Palette Forge",
+        "description": "Web tool for generating and visualizing thematic color palettes."
+      }
     },
     "design": {
       "title": "Design System",
-      "description": "A coherent and scalable design system for enterprise products."
+      "description": "Creating my own UI kit with components, animations, and prepared blocks."
     },
     "social": {
       "title": "Social"
@@ -63,7 +97,7 @@
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
-      "devops": "DevOps & Deployment"
+      "devops": "DevOps & Cloud Ecosystem"
     },
     "blog": {
       "title": "Latest Article",

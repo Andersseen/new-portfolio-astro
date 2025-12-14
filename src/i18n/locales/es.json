@@ -33,11 +33,33 @@
     "recent": "Reciente",
     "projects": {
       "title": "Proyectos",
-      "description": "Aplicaciones full-stack y experiencias interactivas construidas con tecnologías modernas."
+      "description": "Aplicaciones full-stack y experiencias interactivas construidas con tecnologías modernas.",
+      "falcotech": {
+        "title": "Falcotech",
+        "description": "Soluciones tecnológicas y consultoría informática para empresas."
+      },
+      "beautyline": {
+        "title": "Beauty Line Esthetic",
+        "description": "Centro de estética avanzada con tratamientos personalizados."
+      },
+      "palomamolero": {
+        "title": "Paloma Molero",
+        "description": "Portfolio y servicios profesionales de fotografía y arte visual."
+      },
+      "soulalegria": {
+        "title": "Soul Alegría",
+        "description": "Plataforma de bienestar y crecimiento personal."
+      }
     },
     "articles": {
       "title": "Artículos",
-      "description": "Artículos técnicos profundos y tutoriales sobre desarrollo web y sistemas de diseño."
+      "description": "Artículos técnicos profundos y tutoriales sobre desarrollo web y sistemas de diseño.",
+      "material_blocks": "Material Blocks & Angular",
+      "material_desc": "Por qué construí Material Blocks y el rol de Tailwind CSS v4.",
+      "switch_map": "Adiós Switch, Hola Map",
+      "switch_desc": "Reemplazando sentencias switch con mapas de estado para un código más limpio.",
+      "textarea": "Textareas Redimensionables",
+      "textarea_desc": "Cómo crear textareas auto-redimensionables con CSS moderno en 2 líneas."
     },
     "aboutMe": {
       "title": "Sobre Mí",
@@ -49,11 +71,23 @@
     },
     "community": {
       "title": "Comunidad",
-      "description": "Contribuciones a la comunidad de código abierto y grupos tecnológicos."
+      "description": "Contribuciones a la comunidad de código abierto y grupos tecnológicos.",
+      "gsap": {
+        "title": "GSAP Blocker",
+        "description": "Bloques preconfigurados con Angular, Tailwind CSS y animaciones GSAP."
+      },
+      "material": {
+        "title": "Material Blocks",
+        "description": "Colección de componentes UI construidos con Angular Material y Tailwind."
+      },
+      "palette": {
+        "title": "Palette Forge",
+        "description": "Herramienta web para generar y visualizar paletas de colores temáticas."
+      }
     },
     "design": {
       "title": "Design System",
-      "description": "Un sistema de diseño coherente y escalable para productos empresariales."
+      "description": "Creando mi propio UI kit con componentes, animaciones y bloques preparados."
     },
     "social": {
       "title": "Social"
@@ -63,19 +97,7 @@
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
-      "devops": "DevOps & Deployment"
-    },
-    "blog": {
-      "title": "Último Artículo",
-      "description": "Descubre mis últimos pensamientos e insights sobre desarrollo web.",
-      "readArticle": "Leer más"
-    },
-    "actions": {
-      "featuredWork": "Proyectos Destacados",
-      "viewContributions": "Ver Contribuciones",
-      "gallery": "Galería",
-      "latestPosts": "Últimos Posts",
-      "moveCursor": "Mueve el cursor para pintar"
+      "devops": "DevOps & Cloud Ecosystem"
     }
   },
   "footer": {

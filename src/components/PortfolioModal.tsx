@@ -9,12 +9,12 @@ import StackDetails from "./details/StackDetails";
 import AboutDetails from "./details/AboutDetails";
 import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
-import DesignGallery from "./details/DesignGallery";
+// import DesignGallery from "./details/DesignGallery"; // Replaced by MockUIKit
+import "./details/MockUIKit";
 import ServiceDetails from "./details/ServiceDetails";
 import SocialCanvas from "./details/SocialCanvas";
 
 // Cast icons to any to avoid JSX component type errors
-const XIcon = X as any;
 
 interface PortfolioModalProps {
   item: PortfolioItem;
@@ -28,7 +28,8 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       return <SocialCanvas items={item.content as any[]} />;
     }
 
-    if (!item.details) return <p>No specific details available.</p>;
+    if (!item.details && item.type !== "design")
+      return <p>No specific details available.</p>;
 
     switch (item.type) {
       case "projects":
@@ -42,7 +43,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       case "articles":
         return <ArticleList data={item.details} />;
       case "design":
-        return <DesignGallery data={item.details} />;
+        return <mock-ui-kit />; // Use new Mock UI Kit instead of gallery
       case "services":
         return <ServiceDetails data={item.details} />;
       default:
@@ -79,7 +80,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
               className="rounded-full hover:bg-foreground/10 shrink-0"
               aria-label="Close modal"
             >
-              <XIcon className="w-6 h-6 text-foreground" />
+              <X className="w-6 h-6 text-foreground" />
             </Button>
           </div>
           <p className="text-lg text-foreground-secondary mb-8">
