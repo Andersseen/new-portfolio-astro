@@ -42,7 +42,7 @@ export default function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const Comp = href ? "a" : "button";
+  const Comp = (href ? "a" : "button") as any;
 
   return (
     <Comp

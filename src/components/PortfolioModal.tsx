@@ -15,7 +15,6 @@ import ServiceDetails from "./details/ServiceDetails";
 import SocialCanvas from "./details/SocialCanvas";
 
 // Cast icons to any to avoid JSX component type errors
-const XIcon = X as any;
 
 interface PortfolioModalProps {
   item: PortfolioItem;
@@ -81,7 +80,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
               className="rounded-full hover:bg-foreground/10 shrink-0"
               aria-label="Close modal"
             >
-              <XIcon className="w-6 h-6 text-foreground" />
+              <X className="w-6 h-6 text-foreground" />
             </Button>
           </div>
           <p className="text-lg text-foreground-secondary mb-8">

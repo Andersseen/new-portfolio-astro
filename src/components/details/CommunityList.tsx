@@ -1,3 +1,4 @@
+/** @jsxImportSource preact */
 import type { FunctionalComponent } from "preact";
 import { ArrowUpRight } from "lucide-preact";
 
@@ -15,9 +16,6 @@ interface CommunityListProps {
 }
 
 const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
-  // Cast icon to any to avoid TS JSX issues if needed, strictly speaking not needed if type definitions are correct but safe here.
-  const ArrowIcon = ArrowUpRight as any;
-
   return (
     <div className="space-y-6">
       <div className="grid gap-4">
@@ -48,7 +46,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
                 >
                   Live Demo
-                  <ArrowIcon className="w-3 h-3" />
+                  <ArrowUpRight className="w-3 h-3" />
                 </a>
               )}
               {item.repoUrl && (
@@ -70,7 +68,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
                 >
                   View Project
-                  <ArrowIcon className="w-3 h-3" />
+                  <ArrowUpRight className="w-3 h-3" />
                 </a>
               )}
             </div>
