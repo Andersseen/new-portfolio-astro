@@ -1,9 +1,11 @@
 import type { FunctionalComponent } from "preact";
+import { ArrowUpRight } from "lucide-preact";
 
 interface CommunityItem {
-  title: string;
+  role: string;
+  organization: string;
   description: string;
-  stats?: { label: string; value: string }[];
+  link?: string;
 }
 
 interface CommunityListProps {
@@ -11,33 +13,37 @@ interface CommunityListProps {
 }
 
 const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
+  // Cast icon to any to avoid TS JSX issues if needed, strictly speaking not needed if type definitions are correct but safe here.
+  const ArrowIcon = ArrowUpRight as any;
+
   return (
     <div className="space-y-6">
-      {/* Description is handled by parent modal */}
-
-      <div className="space-y-4">
+      <div className="grid gap-4">
         {data.map((item, index) => (
-          <div
+          <a
             key={index}
-            className="p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent/50 transition-colors"
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent hover:shadow-md transition-all group relative overflow-hidden"
           >
-            <h4 className="font-bold text-lg mb-2">{item.title}</h4>
-            <p className="text-sm text-foreground-secondary mb-3">
+            <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+              <ArrowIcon className="w-5 h-5 text-accent" />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <h4 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+                {item.organization}
+              </h4>
+              <span className="text-xs font-semibold text-accent uppercase tracking-wider">
+                {item.role}
+              </span>
+            </div>
+
+            <p className="text-sm text-foreground-secondary mt-3 leading-relaxed">
               {item.description}
             </p>
-            {item.stats && (
-              <div className="flex gap-3">
-                {item.stats.map((stat, i) => (
-                  <span
-                    key={i}
-                    className="text-xs font-mono bg-background px-2 py-1 rounded border border-border"
-                  >
-                    {stat.value} {stat.label}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
+          </a>
         ))}
       </div>
     </div>

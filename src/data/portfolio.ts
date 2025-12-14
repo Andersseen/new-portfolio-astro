@@ -12,21 +12,35 @@ export const getPortfolioItems = (
     content: [], // Add dummy content if needed for card preview, otherwise it relies on actionLabel
     details: [
       {
-        title: "E-Commerce Platform",
-        role: "Lead Developer",
-        description:
-          "A high-performance e-commerce solution with advanced filtering and real-time inventory.",
-        tech: ["Next.js", "Node.js", "PostgreSQL", "Redis"],
-        link: "#",
+        title: tr("portfolio.projects.falcotech.title"),
+        role: "Full Stack Developer",
+        description: tr("portfolio.projects.falcotech.description"),
+        tech: ["Web Development", "IT Solutions"],
+        link: "https://www.falcotech.es/",
         image: "",
       },
       {
-        title: "Fintech Dashboard",
-        role: "Frontend Architect",
-        description:
-          "Real-time financial analytics dashboard handling millions of transactions.",
-        tech: ["React", "D3.js", "TypeScript", "WebSocket"],
-        link: "#",
+        title: tr("portfolio.projects.beautyline.title"),
+        role: "Frontend Developer",
+        description: tr("portfolio.projects.beautyline.description"),
+        tech: ["Web Design", "UX/UI"],
+        link: "https://www.beauty-line-esthetic.es/",
+        image: "",
+      },
+      {
+        title: tr("portfolio.projects.palomamolero.title"),
+        role: "Web Developer",
+        description: tr("portfolio.projects.palomamolero.description"),
+        tech: ["Portfolio", "Gallery"],
+        link: "https://www.palomamolero.com/",
+        image: "",
+      },
+      {
+        title: tr("portfolio.projects.soulalegria.title"),
+        role: "Lead Developer",
+        description: tr("portfolio.projects.soulalegria.description"),
+        tech: ["Wellness", "E-commerce"],
+        link: "https://www.soulalegria.com/",
         image: "",
       },
     ],
@@ -40,18 +54,22 @@ export const getPortfolioItems = (
     actionLabel: tr("portfolio.actions.viewContributions"),
     details: [
       {
-        role: "Core Contributor",
-        organization: "Open Source Lib",
-        description:
-          "Maintained core components and improved accessibility for thousands of users.",
-        link: "#",
+        role: "Creator & Maintainer",
+        organization: tr("portfolio.community.gsap.title"),
+        description: tr("portfolio.community.gsap.description"),
+        link: "https://gsap-blocker.vercel.app/",
       },
       {
-        role: "Community Lead",
-        organization: "Tech Meetup Group",
-        description:
-          "Organized monthly meetups and mentored junior developers.",
-        link: "#",
+        role: "Creator",
+        organization: tr("portfolio.community.material.title"),
+        description: tr("portfolio.community.material.description"),
+        link: "https://material-blocks.vercel.app/",
+      },
+      {
+        role: "Developer",
+        organization: tr("portfolio.community.palette.title"),
+        description: tr("portfolio.community.palette.description"),
+        link: "https://palette-crafter.vercel.app/",
       },
     ],
     colSpan: "col-span-1",
@@ -112,42 +130,54 @@ export const getPortfolioItems = (
     description: tr("portfolio.services.description"),
     content: [
       {
-        text: "Frontend Development",
+        text: tr("portfolio.services.web"),
         gradient: "from-primary to-secondary",
         details:
           "Building responsive, accessible, and performant user interfaces.",
       },
       {
-        text: "Backend Systems",
+        text: tr("portfolio.services.desktop"),
         gradient: "from-secondary to-accent",
         details:
           "Scalable API design, database management, and cloud architecture.",
       },
       {
-        text: "UI/UX Design",
+        text: tr("portfolio.services.uiux"),
         gradient: "from-accent to-warning",
         details:
           "Creating intuitive and visually appealing digital experiences.",
       },
+      {
+        text: tr("portfolio.services.devops"),
+        gradient: "from-warning to-primary",
+        details:
+          "Deployment automation, infrastructure management, and performance optimization.",
+      },
     ],
     details: [
       {
-        text: "Frontend Development",
+        text: tr("portfolio.services.web"),
         gradient: "from-primary to-secondary",
         details:
           "Building responsive, accessible, and performant user interfaces with modern frameworks.",
       },
       {
-        text: "Backend Systems",
+        text: tr("portfolio.services.desktop"),
         gradient: "from-secondary to-accent",
         details:
           "Scalable API design, database architecture (SQL/NoSQL), and secure authentication systems.",
       },
       {
-        text: "UI/UX Design",
+        text: tr("portfolio.services.uiux"),
         gradient: "from-accent to-warning",
         details:
           "Creating intuitive, user-centric designs with focus on usability and visual hierarchy.",
+      },
+      {
+        text: tr("portfolio.services.devops"),
+        gradient: "from-warning to-primary",
+        details:
+          "Deployment automation, infrastructure management, and performance optimization.",
       },
     ],
     colSpan: "col-span-1",
@@ -158,27 +188,30 @@ export const getPortfolioItems = (
     title: tr("portfolio.stack.title"),
     description: tr("portfolio.stack.description"),
     content: [
+      { name: "Angular", icon: "angular", color: "error" },
       { name: "React", icon: "react", color: "primary" },
-      { name: "TypeScript", icon: "typescript", color: "accent" },
       { name: "Tailwind", icon: "tailwindcss", color: "secondary" },
-      { name: "Node.js", icon: "nodedotjs", color: "success" },
+      { name: "NestJS", icon: "nestjs", color: "error" },
     ],
     details: {
       categories: [
         {
           name: "Frontend",
           items: [
+            { name: "Angular", slug: "angular" },
             { name: "React", slug: "react" },
+            { name: "Nx", slug: "nx" },
+            { name: "Lit", slug: "lit" },
             { name: "TypeScript", slug: "typescript" },
             { name: "Tailwind", slug: "tailwindcss" },
-            { name: "Astro", slug: "astro" },
           ],
         },
         {
           name: "Backend",
           items: [
+            { name: "NestJS", slug: "nestjs" },
+            { name: "Express", slug: "express" },
             { name: "Node.js", slug: "nodedotjs" },
-            { name: "Python", slug: "python" },
             { name: "PostgreSQL", slug: "postgresql" },
             { name: "Redis", slug: "redis" },
           ],
@@ -186,9 +219,11 @@ export const getPortfolioItems = (
         {
           name: "DevOps",
           items: [
+            { name: "Cloudflare", slug: "cloudflare" },
+            { name: "Kubernetes", slug: "kubernetes" },
+            { name: "Nginx", slug: "nginx" },
             { name: "Docker", slug: "docker" },
-            { name: "AWS", slug: "amazonaws" },
-            { name: "Git", slug: "git" },
+            { name: "CI/CD", slug: "githubactions" }, // Using githubactions icon as proxy for CI/CD
           ],
         },
       ],
@@ -203,21 +238,19 @@ export const getPortfolioItems = (
     actionLabel: tr("portfolio.actions.latestPosts"),
     details: [
       {
-        title: "Understanding Astro Islands",
-        description:
-          "How partial hydration can significantly improve your website performance.",
-        url: "#",
+        title: tr("portfolio.articles.material_blocks"),
+        description: tr("portfolio.articles.material_desc"),
+        url: "https://medium.com/@andriipap",
       },
       {
-        title: "Mastering Tailwind CSS",
-        description:
-          "Best practices for maintaining scalable styles in large applications.",
-        url: "#",
+        title: tr("portfolio.articles.switch_map"),
+        description: tr("portfolio.articles.switch_desc"),
+        url: "https://medium.com/@andriipap",
       },
       {
-        title: "The Future of Web Development",
-        description: "Trends and technologies to watch in 2025 and beyond.",
-        url: "#",
+        title: tr("portfolio.articles.textarea"),
+        description: tr("portfolio.articles.textarea_desc"),
+        url: "https://medium.com/@andriipap",
       },
     ],
     colSpan: "col-span-2",

@@ -33,11 +33,33 @@
     "recent": "Недавнє",
     "projects": {
       "title": "Проекти",
-      "description": "Full-stack додатки та інтерактивні досвіди побудовані за допомогою сучасних технологій."
+      "description": "Full-stack додатки та інтерактивні досвіди побудовані за допомогою сучасних технологій.",
+      "falcotech": {
+        "title": "Falcotech",
+        "description": "Технологічні рішення та ІТ-консалтинг для бізнесу."
+      },
+      "beautyline": {
+        "title": "Beauty Line Esthetic",
+        "description": "Центр естетичної медицини з індивідуальними процедурами."
+      },
+      "palomamolero": {
+        "title": "Paloma Molero",
+        "description": "Портфоліо та професійні послуги фотографії та візуального мистецтва."
+      },
+      "soulalegria": {
+        "title": "Soul Alegría",
+        "description": "Платформа благополуччя та особистісного зростання."
+      }
     },
     "articles": {
       "title": "Статті",
-      "description": "Глибокі технічні статті та навчальні матеріали про веб-розробку та системи дизайну."
+      "description": "Глибокі технічні статті та навчальні матеріали про веб-розробку та системи дизайну.",
+      "material_blocks": "Material Blocks та Angular",
+      "material_desc": "Чому я створив Material Blocks і роль Tailwind CSS v4.",
+      "switch_map": "Прощавай Switch, Привіт Map",
+      "switch_desc": "Заміна операторів switch на карти станів для чистішого коду.",
+      "textarea": "Змінювані Textarea",
+      "textarea_desc": "Як створити textarea, що змінюють розмір, за допомогою сучасного CSS у 2 рядки."
     },
     "aboutMe": {
       "title": "Про Мене",
@@ -49,11 +71,23 @@
     },
     "community": {
       "title": "Спільнота",
-      "description": "Внесок у спільноту відкритого коду та технічні групи."
+      "description": "Внесок у спільноту відкритого коду та технічні групи.",
+      "gsap": {
+        "title": "GSAP Blocker",
+        "description": "Попередньо налаштовані блоки з Angular, Tailwind CSS та анімаціями GSAP."
+      },
+      "material": {
+        "title": "Material Blocks",
+        "description": "Колекція UI компонентів, побудованих на Angular Material та Tailwind."
+      },
+      "palette": {
+        "title": "Palette Forge",
+        "description": "Веб-інструмент для генерації та візуалізації тематичних палітр кольорів."
+      }
     },
     "design": {
       "title": "Design System",
-      "description": "Узгоджена та масштабована система дизайну для корпоративних продуктів."
+      "description": "Створення власного UI кіта з компонентами, анімаціями та готовими блоками."
     },
     "social": {
       "title": "Social"
@@ -63,7 +97,7 @@
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
-      "devops": "DevOps & Deployment"
+      "devops": "DevOps & Cloud Ecosystem"
     },
     "blog": {
       "title": "Остання Стаття",

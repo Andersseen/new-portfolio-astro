@@ -20,6 +20,8 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
             <a
               key={index}
               href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-between p-4 rounded-xl border border-border hover:border-accent hover:bg-background-tertiary transition-all group"
             >
               <div>
