@@ -1,7 +1,8 @@
 import type { PortfolioItem } from "../components/PortfolioGrid";
 
 export const getPortfolioItems = (
-  tr: (key: string) => string
+  tr: (key: string) => string,
+  articles?: any[]
 ): PortfolioItem[] => [
   {
     id: "projects",
@@ -57,19 +58,22 @@ export const getPortfolioItems = (
         role: "Creator & Maintainer",
         organization: tr("portfolio.community.gsap.title"),
         description: tr("portfolio.community.gsap.description"),
-        link: "https://gsap-blocker.vercel.app/",
+        repoUrl: "https://github.com/Andersseen/gsap-blocker",
+        demoUrl: "https://gsap-blocker.vercel.app/",
       },
       {
         role: "Creator",
         organization: tr("portfolio.community.material.title"),
         description: tr("portfolio.community.material.description"),
-        link: "https://material-blocks.vercel.app/",
+        repoUrl: "https://github.com/Andersseen/material-blocks",
+        demoUrl: "https://material-blocks.vercel.app/",
       },
       {
         role: "Developer",
         organization: tr("portfolio.community.palette.title"),
         description: tr("portfolio.community.palette.description"),
-        link: "https://palette-crafter.vercel.app/",
+        repoUrl: "https://github.com/Andersseen/palette-forge",
+        demoUrl: "https://palette-crafter.vercel.app/",
       },
     ],
     colSpan: "col-span-1",
@@ -236,23 +240,26 @@ export const getPortfolioItems = (
     title: tr("portfolio.articles.title"),
     description: tr("portfolio.articles.description"),
     actionLabel: tr("portfolio.actions.latestPosts"),
-    details: [
-      {
-        title: tr("portfolio.articles.material_blocks"),
-        description: tr("portfolio.articles.material_desc"),
-        url: "https://medium.com/@andriipap",
-      },
-      {
-        title: tr("portfolio.articles.switch_map"),
-        description: tr("portfolio.articles.switch_desc"),
-        url: "https://medium.com/@andriipap",
-      },
-      {
-        title: tr("portfolio.articles.textarea"),
-        description: tr("portfolio.articles.textarea_desc"),
-        url: "https://medium.com/@andriipap",
-      },
-    ],
+    details:
+      articles && articles.length > 0
+        ? articles
+        : [
+            {
+              title: tr("portfolio.articles.material_blocks"),
+              description: tr("portfolio.articles.material_desc"),
+              url: "https://medium.com/@andriipap",
+            },
+            {
+              title: tr("portfolio.articles.switch_map"),
+              description: tr("portfolio.articles.switch_desc"),
+              url: "https://medium.com/@andriipap",
+            },
+            {
+              title: tr("portfolio.articles.textarea"),
+              description: tr("portfolio.articles.textarea_desc"),
+              url: "https://medium.com/@andriipap",
+            },
+          ],
     colSpan: "col-span-2",
   },
 ];

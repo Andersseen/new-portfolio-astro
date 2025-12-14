@@ -11,14 +11,10 @@ import AboutMeHydrator from './AboutMeHydrator';
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
 
-// Fetch disabled by user request
-// const [githubBio, mediumArticles] = await Promise.all([
-//   fetchGitHubReadme("andersseen"),
-//   fetchMediumArticles("andriipap")
-// ]);
+const mediumArticles = await fetchMediumArticles("@andriipap");
 
-// Use static initial items
-const initialItems = getPortfolioItems(tr);
+// Use static initial items augmented with fetched data
+const initialItems = getPortfolioItems(tr, mediumArticles);
 ---
 
 <section class="py-16 px-4 max-w-7xl mx-auto">

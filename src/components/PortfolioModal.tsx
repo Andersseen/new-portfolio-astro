@@ -9,7 +9,8 @@ import StackDetails from "./details/StackDetails";
 import AboutDetails from "./details/AboutDetails";
 import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
-import DesignGallery from "./details/DesignGallery";
+// import DesignGallery from "./details/DesignGallery"; // Replaced by MockUIKit
+import MockUIKit from "./details/MockUIKit";
 import ServiceDetails from "./details/ServiceDetails";
 import SocialCanvas from "./details/SocialCanvas";
 
@@ -28,7 +29,8 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       return <SocialCanvas items={item.content as any[]} />;
     }
 
-    if (!item.details) return <p>No specific details available.</p>;
+    if (!item.details && item.type !== "design")
+      return <p>No specific details available.</p>;
 
     switch (item.type) {
       case "projects":
@@ -42,7 +44,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       case "articles":
         return <ArticleList data={item.details} />;
       case "design":
-        return <DesignGallery data={item.details} />;
+        return <MockUIKit />; // Use new Mock UI Kit instead of gallery
       case "services":
         return <ServiceDetails data={item.details} />;
       default:

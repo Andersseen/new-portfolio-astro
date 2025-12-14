@@ -71,25 +71,33 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Tech Stack */}
-          {item.type === "stack" && item.content && (
+          {/* Tech Stack - Random Preview */}
+          {item.type === "stack" && item.details?.categories && (
             <div className="grid grid-cols-2 gap-3 mt-4">
-              {(item.content as StackItem[]).map((tech) => {
-                const IconComponent = IconMap[tech.icon];
-                return (
+              {(() => {
+                // Flatten all stack items from all categories
+                const allStack = item.details.categories.flatMap(
+                  (cat: any) => cat.items
+                );
+                // Simple shuffle (deterministic per render to avoid flicker if re-rendering, but random on mount)
+                // Note: In strict mode/SSR hydration, random might cause mismatch.
+                // We use a simple slice for now, or a pseudo-random based on time if we want it to change.
+                // Better approach for "always random": simpler shuffle.
+                const shuffled = [...allStack]
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 4);
+
+                return shuffled.map((tech: any) => (
                   <div
                     key={tech.name}
-                    className={`flex flex-col items-center justify-center p-3 rounded-lg bg-${tech.color}/10 border border-${tech.color}/20 hover:bg-${tech.color}/15 transition-all`}
+                    className="flex items-center justify-center p-3 rounded-lg bg-background-tertiary border border-border/50"
                   >
-                    <div className={`text-${tech.color} mb-2`}>
-                      {IconComponent && <IconComponent className="w-6 h-6" />}
-                    </div>
-                    <span className="text-xs font-medium text-foreground-secondary">
+                    <span className="text-sm font-medium text-foreground-secondary">
                       {tech.name}
                     </span>
                   </div>
-                );
-              })}
+                ));
+              })()}
             </div>
           )}
 

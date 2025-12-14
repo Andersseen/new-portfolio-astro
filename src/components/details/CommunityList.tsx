@@ -6,6 +6,8 @@ interface CommunityItem {
   organization: string;
   description: string;
   link?: string;
+  repoUrl?: string;
+  demoUrl?: string;
 }
 
 interface CommunityListProps {
@@ -20,17 +22,10 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
     <div className="space-y-6">
       <div className="grid gap-4">
         {data.map((item, index) => (
-          <a
+          <div
             key={index}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
             className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent hover:shadow-md transition-all group relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-              <ArrowIcon className="w-5 h-5 text-accent" />
-            </div>
-
             <div className="flex flex-col gap-1">
               <h4 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                 {item.organization}
@@ -40,10 +35,46 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
               </span>
             </div>
 
-            <p className="text-sm text-foreground-secondary mt-3 leading-relaxed">
+            <p className="text-sm text-foreground-secondary mt-3 mb-4 leading-relaxed">
               {item.description}
             </p>
-          </a>
+
+            <div className="flex gap-3">
+              {item.demoUrl && (
+                <a
+                  href={item.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
+                >
+                  Live Demo
+                  <ArrowIcon className="w-3 h-3" />
+                </a>
+              )}
+              {item.repoUrl && (
+                <a
+                  href={item.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs font-bold text-foreground border border-border px-3 py-1.5 rounded-lg hover:border-accent hover:text-accent transition-colors"
+                >
+                  GitHub Repo
+                </a>
+              )}
+              {/* Fallback for legacy link if no specific urls */}
+              {!item.demoUrl && !item.repoUrl && item.link && (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
+                >
+                  View Project
+                  <ArrowIcon className="w-3 h-3" />
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </div>
