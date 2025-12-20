@@ -76,12 +76,6 @@ export default function Navbar({ children }: NavbarProps) {
 
                     const hydratedItem = aboutMeStore.get();
 
-                    // Check if we need to reload due to language mismatch or missing data
-                    // Note: We'll simply reload if lang doesn't match roughly, but better to check content.
-                    // For now, let's force a reload if we detect we might be in a different language context
-                    // or just always reload to be safe since it's cheap local data.
-
-                    // Actually, let's just always import the correct data for the current language
                     import("../data/portfolio").then(({ aboutMeData }) => {
                       openModal(
                         aboutMeData((key) => t(currentLang as any, key))
@@ -95,7 +89,7 @@ export default function Navbar({ children }: NavbarProps) {
             {/* Avatar Circle */}
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                A
+                <img src="/favicon.png" alt="logo" />
               </div>
             </div>
 

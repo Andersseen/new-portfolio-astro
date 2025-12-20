@@ -129,7 +129,7 @@ export const getPortfolioItems = (
     id: "social",
     type: "social",
     title: tr("portfolio.social.title"),
-    description: tr("portfolio.actions.moveCursor"),
+
     content: [
       {
         label: "GitHub",

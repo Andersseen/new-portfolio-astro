@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from "preact/hooks";
+import createGlobe from "cobe";
 import { IconMap } from "../IconMap";
+import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-preact";
+
+// Cast icons to any to avoid JSX component type errors
+const SendIcon = Send as any;
+const Loader2Icon = Loader2 as any;
+const CheckCircle2Icon = CheckCircle2 as any;
+const AlertCircleIcon = AlertCircle as any;
 
 interface SocialItem {
   icon: string;
@@ -10,155 +18,227 @@ interface SocialItem {
 
 interface SocialCanvasProps {
   data?: {
-    content?: SocialItem[]; // We might need to pass this or structured details
+    content?: SocialItem[];
   };
-  // We can also accept the original content items
   items?: SocialItem[];
 }
 
-const SocialCanvas = ({ items }: SocialCanvasProps) => {
+const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Interactive pixel logic
+  const socialItems = items || data?.content || [];
+
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    let phi = 0;
+    if (!canvasRef.current) return;
 
-    let width = canvas.width;
-    let height = canvas.height;
+    let width = 0;
+    const onResize = () =>
+      canvasRef.current && (width = canvasRef.current.offsetWidth);
+    window.addEventListener("resize", onResize);
+    onResize();
 
-    // Pixel grid configuration
-    const size = 20;
-    const cols = Math.ceil(width / size);
-    const rows = Math.ceil(height / size);
-
-    // State for pixels
-    const pixels: { x: number; y: number; life: number; color: string }[] = [];
-
-    const colors = ["#EF4444", "#3B82F6", "#10B981", "#F59E0B", "#8B5CF6"]; // Tailwind colors
-
-    const resize = () => {
-      if (containerRef.current && canvas) {
-        canvas.width = containerRef.current.clientWidth;
-        canvas.height = containerRef.current.clientHeight;
-        width = canvas.width;
-        height = canvas.height;
-      }
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    // Mouse interaction
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = Math.floor((e.clientX - rect.left) / size) * size;
-      const y = Math.floor((e.clientY - rect.top) / size) * size;
-
-      // Add pixel at current grid position
-      // Only if not exists roughly
-      if (!pixels.find((p) => p.x === x && p.y === y && p.life > 0.5)) {
-        pixels.push({
-          x,
-          y,
-          life: 1.0,
-          color: colors[Math.floor(Math.random() * colors.length)],
-        });
-      }
-    };
-
-    canvas.addEventListener("mousemove", handleMouseMove);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      for (let i = pixels.length - 1; i >= 0; i--) {
-        const p = pixels[i];
-        p.life -= 0.02; // Fade speed
-
-        if (p.life <= 0) {
-          pixels.splice(i, 1);
-          continue;
-        }
-
-        ctx.globalAlpha = p.life;
-        ctx.fillStyle = p.color;
-        ctx.fillRect(p.x, p.y, size - 2, size - 2); // -2 for grid gap
-      }
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
+    const globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: 2,
+      width: 600 * 2,
+      height: 600 * 2,
+      phi: 0,
+      theta: 0,
+      dark: 1,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 6,
+      baseColor: [0.3, 0.3, 0.3],
+      markerColor: [0.1, 0.8, 1],
+      glowColor: [1, 1, 1],
+      opacity: 0.8,
+      markers: [],
+      onRender: (state) => {
+        // Called on every animation frame.
+        // `state` will be an empty object, return updated params.
+        state.phi = phi;
+        phi += 0.005;
+      },
+    });
 
     return () => {
-      window.removeEventListener("resize", resize);
-      canvas.removeEventListener("mousemove", handleMouseMove);
+      globe.destroy();
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      console.error(err);
+      setStatus("error");
+      setErrorMessage(err.message || "Something went wrong.");
+    }
+  };
+
   return (
-    <div
-      className="relative w-full h-96 overflow-hidden rounded-xl bg-black border border-border group"
-      ref={containerRef}
-    >
-      {/* Background Grid Lines (CSS) */}
-      <div
-        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)`,
-          backgroundSize: `20px 20px`,
-        }}
-      ></div>
+    <div className="flex flex-col md:flex-row gap-8 min-h-[500px] w-full bg-black/40 rounded-xl overflow-hidden border border-white/10 p-6 relative">
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
 
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-10 cursor-crosshair block"
-      />
+      {/* Left: Globe & Socials */}
+      <div className="flex-1 relative flex flex-col items-center justify-center min-h-[300px] order-2 md:order-1">
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+          <canvas
+            ref={canvasRef}
+            style={{
+              width: 600,
+              height: 600,
+              maxWidth: "100%",
+              aspectRatio: 1,
+            }}
+            className="opacity-90 grayscale hover:grayscale-0 transition-all duration-1000"
+          />
+        </div>
 
-      {/* Floating Content */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
-        <h3 className="text-3xl font-bold text-white mb-8 mix-blend-difference">
-          Connect With Me
-        </h3>
-
-        <div className="flex gap-6 pointer-events-auto">
-          {items?.map((item, i) => {
-            const Icon = IconMap[item.icon] || IconMap["github"]; // fallback
+        <div className="z-10 mt-auto flex flex-wrap justify-center gap-4 p-4">
+          {socialItems.map((item, i) => {
+            const Icon = IconMap[item.icon] || IconMap["github"];
             return (
               <a
                 key={i}
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className={`
-                            relative group/btn p-4 rounded-xl backdrop-blur-md border border-white/10
-                            bg-white/5 hover:bg-white/10 transition-all duration-300
-                            hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]
-                        `}
-                style={{
-                  borderColor: `var(--color-${item.color})`, // Attempt to use dynamic color var or fallback
-                }}
+                className="group p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 hover:border-white/30 transition-all duration-300"
+                title={item.label}
               >
                 <div
-                  className={`text-${item.color} group-hover/btn:scale-110 transition-transform`}
+                  className={`text-${item.color} text-white group-hover:text-primary transition-colors`}
                 >
-                  <Icon className="w-8 h-8 md:w-10 md:h-10" />
+                  <Icon className="w-5 h-5" />
                 </div>
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-bold text-white opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap">
-                  {item.label}
-                </span>
               </a>
             );
           })}
         </div>
       </div>
 
-      <div className="absolute bottom-4 right-4 text-xs text-white/30 pointer-events-none font-mono">
-        Move your cursor to paint
+      {/* Right: Form */}
+      <div className="flex-1 w-full max-w-md mx-auto z-10 flex flex-col justify-center order-1 md:order-2">
+        <div className="mb-6">
+          <h3 className="text-2xl font-bold text-white mb-2">Contact Me</h3>
+          <p className="text-white/60 text-sm">
+            Have a question or want to work together? Send me a message!
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onInput={handleChange}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+              placeholder="John Doe"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onInput={handleChange}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+              placeholder="john@example.com"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+              Message
+            </label>
+            <textarea
+              name="message"
+              required
+              value={formData.message}
+              onInput={handleChange}
+              rows={4}
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+              placeholder="Tell me about your project..."
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={status === "loading" || status === "success"}
+            className={`
+                    w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg transition-all duration-300
+                    ${
+                      status === "success"
+                        ? "bg-green-500/20 text-green-400 border border-green-500/50 cursor-default"
+                        : "bg-white text-black hover:bg-primary hover:text-white border border-transparent"
+                    }
+                    ${status === "loading" ? "opacity-70 cursor-wait" : ""}
+                `}
+          >
+            {status === "loading" && (
+              <Loader2Icon className="w-5 h-5 animate-spin" />
+            )}
+            {status === "success" && <CheckCircle2Icon className="w-5 h-5" />}
+            {status === "error" && "Try Again"}
+            {status === "idle" && (
+              <>
+                Send Message
+                <SendIcon className="w-4 h-4" />
+              </>
+            )}
+            {status === "success" && "Message Sent!"}
+          </button>
+
+          {status === "error" && (
+            <div className="flex items-center gap-2 text-red-400 text-sm mt-2 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
+              <AlertCircleIcon className="w-4 h-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+        </form>
       </div>
     </div>
   );
