@@ -7,12 +7,15 @@ import tailwindcss from "@tailwindcss/vite";
 import preact from "@astrojs/preact";
 import lit from "@astrojs/lit";
 
+import vercel from "@astrojs/vercel";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [preact(), lit()],
+
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es", "ua"],
@@ -24,6 +27,7 @@ export default defineConfig({
       ua: "en",
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -42,4 +46,6 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: vercel(),
 });
