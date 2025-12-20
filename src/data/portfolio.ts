@@ -10,7 +10,7 @@ export const getPortfolioItems = (
     title: tr("portfolio.projects.title"),
     description: tr("portfolio.projects.description"),
     actionLabel: tr("portfolio.actions.featuredWork"),
-    content: [], // Add dummy content if needed for card preview, otherwise it relies on actionLabel
+    content: [],
     details: [
       {
         title: tr("portfolio.projects.falcotech.title"),
@@ -64,7 +64,7 @@ export const getPortfolioItems = (
         category: "projects",
       },
       {
-        role: "Creator",
+        role: "Creator & Maintainer",
         organization: tr("portfolio.community.material.title"),
         description: tr("portfolio.community.material.description"),
         repoUrl: "https://github.com/Andersseen/material-blocks",
@@ -72,7 +72,7 @@ export const getPortfolioItems = (
         category: "projects",
       },
       {
-        role: "Developer",
+        role: "Creator & Maintainer",
         organization: tr("portfolio.community.palette.title"),
         description: tr("portfolio.community.palette.description"),
         repoUrl: "https://github.com/Andersseen/palette-forge",
@@ -92,7 +92,7 @@ export const getPortfolioItems = (
       },
       // New Maintained/Demo Project
       {
-        role: "Developer",
+        role: "Creator",
         organization: "Angular Portfolio Experiments",
         description:
           "Exploring new limits in Angular with Three.js integration.",
@@ -298,7 +298,7 @@ export const aboutMeData = (tr: (key: string) => string): PortfolioItem => ({
   lang:
     typeof window !== "undefined"
       ? window.location.pathname.split("/")[1] || "en"
-      : "en", // Helper to track language of this data
+      : "en",
   details: {
     title: tr("portfolio.aboutMe.hello"),
     bio: [tr("portfolio.aboutMe.bio1"), tr("portfolio.aboutMe.bio2")],

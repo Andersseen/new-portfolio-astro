@@ -9,7 +9,7 @@ interface SocialItem {
 }
 
 interface SocialCanvasProps {
-  data: {
+  data?: {
     content?: SocialItem[]; // We might need to pass this or structured details
   };
   // We can also accept the original content items
