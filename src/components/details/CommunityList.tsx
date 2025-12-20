@@ -2,6 +2,8 @@
 import type { FunctionalComponent } from "preact";
 import { ArrowUpRight } from "lucide-preact";
 
+import { useState } from "preact/hooks";
+
 interface CommunityItem {
   role: string;
   organization: string;
@@ -9,6 +11,7 @@ interface CommunityItem {
   link?: string;
   repoUrl?: string;
   demoUrl?: string;
+  category?: "maintained" | "templates";
 }
 
 interface CommunityListProps {
@@ -16,10 +19,50 @@ interface CommunityListProps {
 }
 
 const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
+  const [activeTab, setActiveTab] = useState<"maintained" | "templates">(
+    "maintained"
+  );
+
+  // Determine if we have items for both categories
+  const hasTemplates = data.some((item) => item.category === "templates");
+  const hasMaintained = data.some((item) => item.category === "maintained");
+
+  // If we don't have explicit categories, just show all (fallback behavior)
+  const showTabs = hasTemplates && hasMaintained;
+
+  const filteredData = showTabs
+    ? data.filter((item) => item.category === activeTab)
+    : data;
+
   return (
     <div className="space-y-6">
+      {showTabs && (
+        <div className="flex p-1 bg-background-tertiary rounded-lg border border-border w-fit mb-4">
+          <button
+            onClick={() => setActiveTab("maintained")}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+              activeTab === "maintained"
+                ? "bg-primary text-white shadow-sm"
+                : "text-foreground-secondary hover:text-foreground"
+            }`}
+          >
+            Maintained
+          </button>
+          <button
+            onClick={() => setActiveTab("templates")}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+              activeTab === "templates"
+                ? "bg-primary text-white shadow-sm"
+                : "text-foreground-secondary hover:text-foreground"
+            }`}
+          >
+            Templates
+          </button>
+        </div>
+      )}
+
       <div className="grid gap-4">
-        {data.map((item, index) => (
+        {filteredData.map((item, index) => (
           <div
             key={index}
             className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent hover:shadow-md transition-all group relative overflow-hidden"

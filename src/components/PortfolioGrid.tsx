@@ -41,6 +41,7 @@ export interface PortfolioItem {
   colSpan?: "col-span-1" | "col-span-2";
   content?: SocialLink[] | StackItem[] | ServiceItem[];
   actionLabel?: string;
+  lang?: string; // Track language of the data
 }
 
 interface PortfolioGridProps {
