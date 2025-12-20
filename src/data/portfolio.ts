@@ -10,7 +10,7 @@ export const getPortfolioItems = (
     title: tr("portfolio.projects.title"),
     description: tr("portfolio.projects.description"),
     actionLabel: tr("portfolio.actions.featuredWork"),
-    content: [], // Add dummy content if needed for card preview, otherwise it relies on actionLabel
+    content: [],
     details: [
       {
         title: tr("portfolio.projects.falcotech.title"),
@@ -54,26 +54,51 @@ export const getPortfolioItems = (
     description: tr("portfolio.community.description"),
     actionLabel: tr("portfolio.actions.viewContributions"),
     details: [
+      // Maintained / Useful Projects
       {
         role: "Creator & Maintainer",
         organization: tr("portfolio.community.gsap.title"),
         description: tr("portfolio.community.gsap.description"),
         repoUrl: "https://github.com/Andersseen/gsap-blocker",
         demoUrl: "https://gsap-blocker.vercel.app/",
+        category: "projects",
       },
       {
-        role: "Creator",
+        role: "Creator & Maintainer",
         organization: tr("portfolio.community.material.title"),
         description: tr("portfolio.community.material.description"),
         repoUrl: "https://github.com/Andersseen/material-blocks",
         demoUrl: "https://material-blocks.vercel.app/",
+        category: "projects",
       },
       {
-        role: "Developer",
+        role: "Creator & Maintainer",
         organization: tr("portfolio.community.palette.title"),
         description: tr("portfolio.community.palette.description"),
         repoUrl: "https://github.com/Andersseen/palette-forge",
         demoUrl: "https://palette-crafter.vercel.app/",
+        category: "projects",
+      },
+
+      // Templates / Boilerplates
+      {
+        role: "Creator",
+        organization: "Next.js Web Landing Boilerplate",
+        description:
+          "A comprehensive boilerplate for high-performance landing pages.",
+        repoUrl: "", // User provided demo, assuming repo helps or just demo
+        demoUrl: "https://web-landing-boilerplate.vercel.app/",
+        category: "templates",
+      },
+      // New Maintained/Demo Project
+      {
+        role: "Creator",
+        organization: "Angular Portfolio Experiments",
+        description:
+          "Exploring new limits in Angular with Three.js integration.",
+        repoUrl: "", // User didn't provide repo, only demo
+        demoUrl: "https://angular-portfolio-tawny.vercel.app",
+        category: "templates",
       },
     ],
     colSpan: "col-span-1",
@@ -104,7 +129,7 @@ export const getPortfolioItems = (
     id: "social",
     type: "social",
     title: tr("portfolio.social.title"),
-    description: tr("portfolio.actions.moveCursor"),
+
     content: [
       {
         label: "GitHub",
@@ -202,8 +227,9 @@ export const getPortfolioItems = (
         {
           name: "Frontend",
           items: [
+            { name: "Astro", slug: "astro" },
+            { name: "Next.js", slug: "nextdotjs" },
             { name: "Angular", slug: "angular" },
-            { name: "React", slug: "react" },
             { name: "Nx", slug: "nx" },
             { name: "Lit", slug: "lit" },
             { name: "TypeScript", slug: "typescript" },
@@ -269,15 +295,15 @@ export const aboutMeData = (tr: (key: string) => string): PortfolioItem => ({
   type: "about",
   title: tr("portfolio.aboutMe.title"),
   description: tr("portfolio.aboutMe.description"),
+  lang:
+    typeof window !== "undefined"
+      ? window.location.pathname.split("/")[1] || "en"
+      : "en",
   details: {
-    title: "Hello, I'm Andersseen",
-    bio: [
-      "I am a passionate Full Stack Developer with over 5 years of experience in building scalable web applications.",
-      "My expertise spans across the entire stack, from crafting pixel-perfect user interfaces with React and Tailwind to architecting robust backend systems with Node.js and Go.",
-    ],
-    philosophy:
-      "I believe that code should be as beautiful as the design it implements. Clean, maintainable, and efficient code is my trademark.",
-    goal: "To help businesses transform their ideas into powerful, user-friendly applications that solve real-world problems.",
+    title: tr("portfolio.aboutMe.hello"),
+    bio: [tr("portfolio.aboutMe.bio1"), tr("portfolio.aboutMe.bio2")],
+    philosophy: tr("portfolio.aboutMe.philosophy"),
+    goal: tr("portfolio.aboutMe.goal"),
     social: [
       {
         label: "GitHub",

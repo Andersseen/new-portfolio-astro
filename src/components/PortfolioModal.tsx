@@ -1,7 +1,11 @@
+/** @jsxImportSource preact */
 import { motion } from "motion/react";
 import { X } from "lucide-preact";
 import type { PortfolioItem } from "./PortfolioGrid";
 import Button from "./ui/Button";
+
+// Cast motion.div to any to avoid React/Preact type conflicts
+const MotionDiv = motion.div as any;
 
 // Detail components
 import ProjectList from "./details/ProjectList";
@@ -43,6 +47,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       case "articles":
         return <ArticleList data={item.details} />;
       case "design":
+        // @ts-ignore
         return <mock-ui-kit />; // Use new Mock UI Kit instead of gallery
       case "services":
         return <ServiceDetails data={item.details} />;
@@ -56,14 +61,14 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   };
 
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       onClick={onClose}
     >
-      <motion.div
+      <MotionDiv
         layoutId={item.id} // Enable shared layout transition from card
         className="w-full max-w-3xl bg-background rounded-3xl overflow-hidden shadow-2xl border border-border flex flex-col max-h-[90vh]"
         onClick={(e: any) => e.stopPropagation()}
@@ -90,7 +95,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           {/* Expanded Content with specific components */}
           <div className="text-foreground-secondary">{renderDetails()}</div>
         </div>
-      </motion.div>
-    </motion.div>
+      </MotionDiv>
+    </MotionDiv>
   );
 }

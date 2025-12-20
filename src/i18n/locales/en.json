@@ -63,7 +63,12 @@
     },
     "aboutMe": {
       "title": "About Me",
-      "description": "Passionate developer and designer creating beautiful, functional digital experiences."
+      "description": "Passionate developer and designer creating beautiful, functional digital experiences.",
+      "hello": "Hello, I'm Andersseen",
+      "bio1": "I am a passionate Full Stack Developer with over 5 years of experience in building scalable web applications.",
+      "bio2": "My expertise spans across the entire stack, from crafting pixel-perfect user interfaces with React and Tailwind to architecting robust backend systems with Node.js and Go.",
+      "philosophy": "I believe that code should be as beautiful as the design it implements. Clean, maintainable, and efficient code is my trademark.",
+      "goal": "To help businesses transform their ideas into powerful, user-friendly applications that solve real-world problems."
     },
     "stack": {
       "title": "Tech Stack",
@@ -108,8 +113,7 @@
       "featuredWork": "Featured Work",
       "viewContributions": "View Contributions",
       "gallery": "Gallery",
-      "latestPosts": "Latest Posts",
-      "moveCursor": "Move cursor to paint"
+      "latestPosts": "Latest Posts"
     }
   },
   "footer": {

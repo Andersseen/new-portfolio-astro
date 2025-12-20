@@ -63,7 +63,12 @@
     },
     "aboutMe": {
       "title": "Sobre Mí",
-      "description": "Desarrollador y diseñador apasionado por crear experiencias digitales hermosas y funcionales."
+      "description": "Desarrollador y diseñador apasionado por crear experiencias digitales hermosas y funcionales.",
+      "hello": "Hola, soy Andersseen",
+      "bio1": "Soy un desarrollador Full Stack apasionado con más de 5 años de experiencia en la construcción de aplicaciones web escalables.",
+      "bio2": "Mi experiencia abarca todo el stack, desde la creación de interfaces de usuario perfectas con React y Tailwind hasta la arquitectura de sistemas backend robustos con Node.js y Go.",
+      "philosophy": "Creo que el código debe ser tan hermoso como el diseño que implementa. El código limpio, mantenible y eficiente es mi marca registrada.",
+      "goal": "Ayudar a las empresas a transformar sus ideas en aplicaciones potentes y fáciles de usar que resuelvan problemas del mundo real."
     },
     "stack": {
       "title": "Stack Tecnológico",

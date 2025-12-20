@@ -68,7 +68,6 @@
 /* Global styles */
 html {
   scroll-behavior: smooth;
-  height: 100%;
 }
 
 body {
@@ -78,7 +77,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: var(--font-sans);
@@ -124,19 +123,16 @@ main {
 }
 
 @utility shadow-neu {
-  box-shadow: 
-    4px 4px 10px rgb(var(--shadow-color) / var(--shadow-base)),
+  box-shadow: 4px 4px 10px rgb(var(--shadow-color) / var(--shadow-base)),
     -4px -4px 10px rgb(var(--shadow-color) / calc(var(--shadow-base) * 0.5));
 }
 
 @utility shadow-neu-sm {
-  box-shadow: 
-    2px 2px 5px rgb(var(--shadow-color) / var(--shadow-base)),
+  box-shadow: 2px 2px 5px rgb(var(--shadow-color) / var(--shadow-base)),
     -2px -2px 5px rgb(var(--shadow-color) / calc(var(--shadow-base) * 0.5));
 }
 
 @utility shadow-neu-lg {
-  box-shadow: 
-    8px 8px 20px rgb(var(--shadow-color) / var(--shadow-base)),
+  box-shadow: 8px 8px 20px rgb(var(--shadow-color) / var(--shadow-base)),
     -8px -8px 20px rgb(var(--shadow-color) / calc(var(--shadow-base) * 0.5));
 }
