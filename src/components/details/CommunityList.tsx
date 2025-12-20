@@ -1,4 +1,3 @@
-/** @jsxImportSource preact */
 import type { FunctionalComponent } from "preact";
 import { ArrowUpRight } from "lucide-preact";
 
@@ -11,7 +10,7 @@ interface CommunityItem {
   link?: string;
   repoUrl?: string;
   demoUrl?: string;
-  category?: "maintained" | "templates";
+  category?: "projects" | "templates";
 }
 
 interface CommunityListProps {
@@ -19,16 +18,16 @@ interface CommunityListProps {
 }
 
 const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
-  const [activeTab, setActiveTab] = useState<"maintained" | "templates">(
-    "maintained"
+  const [activeTab, setActiveTab] = useState<"projects" | "templates">(
+    "projects"
   );
 
   // Determine if we have items for both categories
   const hasTemplates = data.some((item) => item.category === "templates");
-  const hasMaintained = data.some((item) => item.category === "maintained");
+  const hasProjects = data.some((item) => item.category === "projects");
 
   // If we don't have explicit categories, just show all (fallback behavior)
-  const showTabs = hasTemplates && hasMaintained;
+  const showTabs = hasTemplates && hasProjects;
 
   const filteredData = showTabs
     ? data.filter((item) => item.category === activeTab)
@@ -39,14 +38,14 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
       {showTabs && (
         <div className="flex p-1 bg-background-tertiary rounded-lg border border-border w-fit mb-4">
           <button
-            onClick={() => setActiveTab("maintained")}
+            onClick={() => setActiveTab("projects")}
             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
-              activeTab === "maintained"
+              activeTab === "projects"
                 ? "bg-primary text-white shadow-sm"
                 : "text-foreground-secondary hover:text-foreground"
             }`}
           >
-            Maintained
+            Projects
           </button>
           <button
             onClick={() => setActiveTab("templates")}

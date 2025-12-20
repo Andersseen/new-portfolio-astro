@@ -73,8 +73,8 @@ export default function Card({
         !decorative && "hover:scale-[1.02]"
       )}
     >
-      {/* Neumorphic effect overlay */}
-      <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none z-10" />
+      {/* Neumorphic effect overlay - Removed to fix visual artifacts */}
+      {/* <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none z-10" /> */}
 
       {/* Content */}
       <div className="relative p-6 h-full flex flex-col z-20">
