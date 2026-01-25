@@ -88,6 +88,15 @@ export const getPortfolioItems = (
         demoUrl: "https://palette-crafter.vercel.app/",
         category: "projects",
       },
+      {
+        role: "Creator & Maintainer",
+        organization: "Devflare",
+        description:
+          "Essential kit tools for developers to streamline workflows.",
+        repoUrl: "",
+        demoUrl: "https://andersseen-devflare.vercel.app/",
+        category: "projects",
+      },
 
       // Templates / Boilerplates
       {
@@ -125,6 +134,14 @@ export const getPortfolioItems = (
           "A specialized platform for photographers to showcase their work efficiently.",
         repoUrl: "",
         demoUrl: "https://photo-folio.pages.dev",
+        category: "templates",
+      },
+      {
+        role: "Creator",
+        organization: "Cool Portfolio for Developers",
+        description: "A specialized portfolio template for developers.",
+        repoUrl: "",
+        demoUrl: "https://andersseen-hr-portfolio.vercel.app/",
         category: "templates",
       },
     ],

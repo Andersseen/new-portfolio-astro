@@ -2,7 +2,7 @@ import { openDB, type DBSchema, type IDBPDatabase } from "idb";
 
 export const DB_NAME = "portfolio-db";
 export const STORE = "kv";
-export const DB_VERSION = 2; // Incremented to force upgrade
+export const DB_VERSION = 3; // Incremented to force upgrade
 
 interface PortfolioDB extends DBSchema {
   kv: {
