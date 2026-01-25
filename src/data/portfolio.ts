@@ -44,6 +44,15 @@ export const getPortfolioItems = (
         link: "https://www.soulalegria.com/",
         image: "",
       },
+      {
+        title: "MRG Develops",
+        role: "Full Stack Developer",
+        description:
+          "Cloud startup platform specializing in scalable solutions.",
+        tech: ["Cloud", "Next.js", "Startup"],
+        link: "https://www.mrgdevelops.com/",
+        image: "",
+      },
     ],
     colSpan: "col-span-2",
   },

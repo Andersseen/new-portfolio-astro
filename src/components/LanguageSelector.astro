@@ -21,16 +21,16 @@ if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
 }
 ---
 
-<div class="language-dropdown" id="languageDropdown">
+<div class="language-dropdown relative inline-block" id="languageDropdown">
   <button 
     id="langButton"
-    class="dropdown-trigger"
+    class="dropdown-trigger flex items-center justify-center gap-1.5 h-8 sm:h-10 px-3 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer font-medium text-sm"
     aria-haspopup="true"
     aria-expanded="false"
     aria-label={`Current language: ${LANGUAGE_NAMES[currentLang]}`}
   >
     <span class="lang-code">{currentLang.toUpperCase()}</span>
-    <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" class="chevron">
+    <svg class="chevron w-3.5 h-3.5 opacity-70" viewBox="0 0 24 24" fill="none">
       <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
@@ -61,39 +61,14 @@ if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
 </div>
 
 <style>
-  .language-dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-trigger {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--color-background-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    color: var(--color-foreground);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .dropdown-trigger:hover {
-    background-color: var(--color-background-tertiary);
-    border-color: var(--color-border-hover);
-  }
-
+  /* Dropdown Menu Styles */
   .dropdown-trigger[aria-expanded="true"] {
-    background-color: var(--color-background-tertiary);
-    border-color: var(--color-primary);
+    background-color: rgba(var(--color-primary), 0.2);
+    border-color: rgba(var(--color-primary), 0.4);
   }
 
   .chevron {
     transition: transform 0.2s ease;
-    opacity: 0.7;
   }
 
   .dropdown-trigger[aria-expanded="true"] .chevron {
@@ -144,8 +119,8 @@ if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
   }
 
   .lang-option.active {
-    background-color: var(--color-primary-light, rgba(59, 130, 246, 0.1));
-    color: var(--color-primary);
+    background-color: rgba(var(--color-primary), 0.1);
+    color: rgb(var(--color-primary));
     font-weight: 600;
   }
 
