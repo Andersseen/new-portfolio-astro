@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://andersseen.dev/sitemap-index.xml
