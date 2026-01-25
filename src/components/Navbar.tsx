@@ -79,18 +79,18 @@ export default function Navbar({ children }: NavbarProps) {
 
                     import("../data/portfolio").then(({ aboutMeData }) => {
                       openModal(
-                        aboutMeData((key) => t(currentLang as any, key))
+                        aboutMeData((key) => t(currentLang as any, key)),
                       );
                     });
                   });
-                }
+                },
               );
             }}
           >
             {/* Avatar Circle */}
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                <img src="/logo.svg" alt="logo" />
+                <img src="/logo.svg" alt="Andersseen Dev Logo" />
               </div>
             </div>
 

@@ -2,7 +2,7 @@ import type { PortfolioItem } from "../components/PortfolioGrid";
 
 export const getPortfolioItems = (
   tr: (key: string) => string,
-  articles?: any[]
+  articles?: any[],
 ): PortfolioItem[] => [
   {
     id: "projects",
@@ -42,6 +42,15 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.soulalegria.description"),
         tech: ["Wellness", "E-commerce"],
         link: "https://www.soulalegria.com/",
+        image: "",
+      },
+      {
+        title: "MRG Develops",
+        role: "Full Stack Developer",
+        description:
+          "Cloud startup platform specializing in scalable solutions.",
+        tech: ["Cloud", "Next.js", "Startup"],
+        link: "https://www.mrgdevelops.com/",
         image: "",
       },
     ],
@@ -98,6 +107,24 @@ export const getPortfolioItems = (
           "Exploring new limits in Angular with Three.js integration.",
         repoUrl: "", // User didn't provide repo, only demo
         demoUrl: "https://angular-portfolio-tawny.vercel.app",
+        category: "templates",
+      },
+      {
+        role: "Creator",
+        organization: "Modern Portfolio",
+        description:
+          "A sleek, modern portfolio template built with performance in mind.",
+        repoUrl: "",
+        demoUrl: "https://andersseen-modern-portfolio.vercel.app/",
+        category: "templates",
+      },
+      {
+        role: "Creator",
+        organization: "Photo Folio",
+        description:
+          "A specialized platform for photographers to showcase their work efficiently.",
+        repoUrl: "",
+        demoUrl: "https://photo-folio.pages.dev",
         category: "templates",
       },
     ],
