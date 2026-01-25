@@ -62,7 +62,13 @@ const imageURL = Astro.site
   (async function() {
     // Try to load from IDB first
     try {
-      const dbRequest = indexedDB.open('portfolio-db', 3);
+      const dbRequest = indexedDB.open('portfolio-db', 4);
+      dbRequest.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('kv')) {
+          db.createObjectStore('kv');
+        }
+      };
       dbRequest.onsuccess = function() {
         const db = dbRequest.result;
         if (db.objectStoreNames.contains('kv')) {
