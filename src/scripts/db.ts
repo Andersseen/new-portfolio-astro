@@ -2,7 +2,7 @@ import { openDB, type DBSchema, type IDBPDatabase, deleteDB } from "idb";
 
 export const DB_NAME = "portfolio-db";
 export const STORE = "kv";
-export const DB_VERSION = 4; // Incremented to force upgrade
+export const DB_VERSION = 4; 
 
 interface PortfolioDB extends DBSchema {
   kv: {
@@ -25,7 +25,7 @@ export function getDb() {
           },
         });
 
-        // Self-healing: verify store exists
+        
         if (!db.objectStoreNames.contains(STORE)) {
           console.warn("DB corrupted, missing store. Recreating...");
           db.close();

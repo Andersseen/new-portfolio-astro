@@ -63,7 +63,7 @@ export const getPortfolioItems = (
     description: tr("portfolio.community.description"),
     actionLabel: tr("portfolio.actions.viewContributions"),
     details: [
-      // Maintained / Useful Projects
+      
       {
         role: "Creator & Maintainer",
         organization: tr("portfolio.community.gsap.title"),
@@ -98,23 +98,23 @@ export const getPortfolioItems = (
         category: "projects",
       },
 
-      // Templates / Boilerplates
+      
       {
         role: "Creator",
         organization: "Next.js Web Landing Boilerplate",
         description:
           "A comprehensive boilerplate for high-performance landing pages.",
-        repoUrl: "", // User provided demo, assuming repo helps or just demo
+        repoUrl: "", 
         demoUrl: "https://web-landing-boilerplate.vercel.app/",
         category: "templates",
       },
-      // New Maintained/Demo Project
+      
       {
         role: "Creator",
         organization: "Angular Portfolio Experiments",
         description:
           "Exploring new limits in Angular with Three.js integration.",
-        repoUrl: "", // User didn't provide repo, only demo
+        repoUrl: "", 
         demoUrl: "https://angular-portfolio-tawny.vercel.app",
         category: "templates",
       },
@@ -297,7 +297,7 @@ export const getPortfolioItems = (
             { name: "Kubernetes", slug: "kubernetes" },
             { name: "Nginx", slug: "nginx" },
             { name: "Docker", slug: "docker" },
-            { name: "CI/CD", slug: "githubactions" }, // Using githubactions icon as proxy for CI/CD
+            { name: "CI/CD", slug: "githubactions" }, 
           ],
         },
       ],

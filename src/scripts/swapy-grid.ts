@@ -12,7 +12,7 @@ export function initSwapyGrid() {
   try {
     const swapy = createSwapy(container as unknown as HTMLElement);
 
-    // Animate when items are swapped
+    
     swapy.onSwap((evt: any) => {
       const data = evt?.detail || evt?.data || evt;
       if (!data) return;
@@ -27,13 +27,13 @@ export function initSwapyGrid() {
       }
     });
 
-    // Save order after swap ends (persist to IndexedDB)
+    
     swapy.onSwapEnd(async () => {
       const slots = container.querySelectorAll("[data-swapy-slot]");
       const order = Array.from(slots).map(
         (slot) => slot.getAttribute("data-swapy-slot") || ""
       );
-      // filter out empty keys and deduplicate
+      
       const filtered = Array.from(
         new Set(order.filter((k) => typeof k === "string" && k.length > 0))
       );
@@ -46,7 +46,6 @@ export function initSwapyGrid() {
       if (filtered.length > 0) {
         try {
           await saveOrder(filtered);
-          console.log("Card order saved:", filtered);
         } catch (e) {
           console.error("Failed to save card order:", e);
         }
@@ -55,7 +54,7 @@ export function initSwapyGrid() {
       }
     });
 
-    // Restore order from IndexedDB (reorder DOM slots) and animate appearance
+    
     (async () => {
       try {
         const saved = await loadOrder();
@@ -63,8 +62,7 @@ export function initSwapyGrid() {
           container.querySelectorAll<HTMLElement>("[data-swapy-slot]")
         );
         if (Array.isArray(saved) && saved.length) {
-          console.log("Loaded saved order from DB:", saved);
-          // map existing slots
+          
           const map = new Map<string, HTMLElement>();
           slots.forEach((el) => {
             const key = el.getAttribute("data-swapy-slot");
@@ -82,7 +80,7 @@ export function initSwapyGrid() {
             );
           }
 
-          // append in saved order (appendChild moves existing nodes)
+          
           const restored: HTMLElement[] = [];
           saved.forEach((id) => {
             const el = map.get(id);
@@ -92,12 +90,12 @@ export function initSwapyGrid() {
             }
           });
 
-          // Ask Swapy to rebuild internal state after DOM changes
+          
           if (typeof swapy.update === "function") {
             swapy.update();
           }
 
-          // animate restored items with a consistent animation + small stagger
+          
           restored.forEach((el, i) => {
             try {
               animate(
@@ -106,16 +104,15 @@ export function initSwapyGrid() {
                 { duration: 0.42, delay: i * 0.06 }
               );
             } catch (e) {
-              // fallback: set visible
+              
               el.style.opacity = "";
             }
           });
 
-          console.log("Restored card order:", saved);
           return;
         }
 
-        // No saved order: animate initial appearance (same animation each load)
+        
         slots.forEach((el, i) => {
           try {
             animate(
@@ -132,7 +129,6 @@ export function initSwapyGrid() {
       }
     })();
 
-    console.log("Swapy initialized successfully");
     return swapy;
   } catch (error) {
     console.error("Failed to initialize Swapy:", error);

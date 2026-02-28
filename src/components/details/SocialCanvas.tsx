@@ -3,7 +3,7 @@ import createGlobe from "cobe";
 import { IconMap } from "../IconMap";
 import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-preact";
 
-// Cast icons to any to avoid JSX component type errors
+
 const SendIcon = Send as any;
 const Loader2Icon = Loader2 as any;
 const CheckCircle2Icon = CheckCircle2 as any;
@@ -37,7 +37,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
   const socialItems = items || data?.content || [];
 
-  // Detect theme for globe colors
+  
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
     <div className="flex flex-col md:flex-row gap-8 min-h-[500px] w-full bg-background-secondary rounded-xl overflow-hidden border border-border p-6 relative">
       <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
 
-      {/* Left: Globe & Socials */}
+      {}
       <div className="flex-1 relative flex flex-col items-center justify-center min-h-[300px] order-2 md:order-1">
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           <canvas
@@ -162,7 +162,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
         </div>
       </div>
 
-      {/* Right: Form */}
+      {}
       <div className="flex-1 w-full max-w-md mx-auto z-10 flex flex-col justify-center order-1 md:order-2">
         <div className="mb-6">
           <h3 className="text-2xl font-bold text-foreground mb-2">Contact Me</h3>

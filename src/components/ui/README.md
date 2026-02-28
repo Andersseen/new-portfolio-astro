@@ -22,7 +22,6 @@ Botón versátil con múltiples variantes y tamaños.
 ```tsx
 import { Button } from "@/components/ui";
 
-<Button variant="primary" size="md" onClick={() => console.log("Clicked!")}>
   Click me
 </Button>;
 ```
@@ -111,11 +110,11 @@ import { Input } from "@/components/ui";
 Puedes importar componentes individuales o todos a la vez:
 
 ```tsx
-// Individual
+
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
-// Todos a la vez
+
 import { Button, Card, Badge, Input } from "@/components/ui";
 ```
 

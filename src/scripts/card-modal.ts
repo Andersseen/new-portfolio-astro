@@ -1,4 +1,4 @@
-// Simple modal for cards: click a card to open enlarged centered modal
+
 function createModal() {
   const existing = document.getElementById("card-modal-overlay");
   if (existing) return existing;
@@ -36,10 +36,10 @@ function openModalFromElement(el: HTMLElement) {
     "#card-modal-container"
   ) as HTMLElement;
   if (!container) return;
-  // clone the card content
+  
   container.innerHTML = "";
   const clone = el.cloneNode(true) as HTMLElement;
-  // cleanup draggable attributes to avoid conflicts
+  
   clone.removeAttribute("data-swapy-slot");
   clone.removeAttribute("data-swapy-item");
   clone.style.width = "100%";
@@ -52,7 +52,7 @@ function openModalFromElement(el: HTMLElement) {
     container.style.opacity = "1";
   });
 
-  // focus trap simple
+  
   overlay.tabIndex = -1;
   overlay.focus();
 
@@ -80,10 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return;
   container.addEventListener("click", (ev) => {
     const target = ev.target as HTMLElement;
-    // find closest swapy-slot or swapy-item
+    
     const slot = target.closest("[data-swapy-slot]") as HTMLElement | null;
     if (slot) {
-      // get inner item element if exists
+      
       const item = slot.querySelector(
         "[data-swapy-item]"
       ) as HTMLElement | null;

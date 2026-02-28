@@ -7,7 +7,7 @@ interface AboutDetailsProps {
   data: {
     title?: string;
     bio?: string[];
-    bioHtml?: string; // New field for GitHub README content
+    bioHtml?: string; 
     philosophy?: string;
     goal?: string;
     social?: any[];
@@ -47,7 +47,7 @@ const AboutDetails = ({ data }: AboutDetailsProps) => {
         </div>
       )}
 
-      {/* Social links are rendered via SocialCanvas or custom buttons usually */}
+      {}
       {data.social && (
         <div className="flex flex-wrap gap-4 mt-8">
           {data.social.map((link, i) => (
@@ -64,7 +64,7 @@ const AboutDetails = ({ data }: AboutDetailsProps) => {
         </div>
       )}
 
-      {/* GitHub Contribution Graph */}
+      {}
       <div className="mt-8">
         <GitHubActivity username="andersseen" />
       </div>

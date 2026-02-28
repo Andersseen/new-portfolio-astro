@@ -16,7 +16,7 @@ interface ProjectListProps {
 const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      {/* Description handled by parent */}
+      {}
 
       <div className="grid gap-4">
         {data.map((project, index) => (
@@ -27,7 +27,7 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
             rel={project.link ? "noopener noreferrer" : undefined}
             className="group relative block p-5 rounded-xl bg-background-tertiary border border-border overflow-hidden transition-all duration-300 hover:shadow-xl"
           >
-            {/* Swipe Background Effect */}
+            {}
             <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-out will-change-transform origin-left" />
 
             <div className="relative z-10">

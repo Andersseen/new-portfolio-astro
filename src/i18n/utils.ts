@@ -11,16 +11,16 @@ const messages: Record<Language, Messages> = {
   [LANGUAGES.UA]: ua,
 };
 
-// Get translation for a specific language
+
 export function getTranslation(language: Language): Messages {
   return messages[language] || messages[DEFAULT_LANGUAGE];
 }
 
-// Translate a key for a specific language
+
 export function t(language: Language, key: string): string {
   const translation = getTranslation(language);
 
-  // Support nested keys like "nav.home"
+  
   const keys = key.split(".");
   let result: any = translation;
 
@@ -28,14 +28,14 @@ export function t(language: Language, key: string): string {
     if (result && typeof result === "object" && k in result) {
       result = result[k];
     } else {
-      return key; // Return key if translation not found
+      return key; 
     }
   }
 
   return typeof result === "string" ? result : key;
 }
 
-// Get all available languages
+
 export function getAvailableLanguages(): Language[] {
   return Object.values(LANGUAGES);
 }

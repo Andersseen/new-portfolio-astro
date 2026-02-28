@@ -22,11 +22,11 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
     "projects"
   );
 
-  // Determine if we have items for both categories
+  
   const hasTemplates = data.some((item) => item.category === "templates");
   const hasProjects = data.some((item) => item.category === "projects");
 
-  // If we don't have explicit categories, just show all (fallback behavior)
+  
   const showTabs = hasTemplates && hasProjects;
 
   const filteredData = showTabs
@@ -101,7 +101,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   GitHub Repo
                 </a>
               )}
-              {/* Fallback for legacy link if no specific urls */}
+              {}
               {!item.demoUrl && !item.repoUrl && item.link && (
                 <a
                   href={item.link}

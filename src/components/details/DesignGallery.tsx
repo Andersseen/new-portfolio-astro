@@ -18,6 +18,8 @@ const DesignGallery: FunctionalComponent<DesignGalleryProps> = ({ data }) => {
             <img
               src={item.image}
               alt={item.title}
+              width={600}
+              height={192}
               className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />

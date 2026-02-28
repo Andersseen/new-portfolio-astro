@@ -1,24 +1,24 @@
-/** @jsxImportSource preact */
+
 import { motion } from "motion/react";
 import { X } from "lucide-preact";
 import type { PortfolioItem } from "./PortfolioGrid";
 import Button from "./ui/Button";
 
-// Cast motion.div to any to avoid React/Preact type conflicts
+
 const MotionDiv = motion.div as any;
 
-// Detail components
+
 import ProjectList from "./details/ProjectList";
 import StackDetails from "./details/StackDetails";
 import AboutDetails from "./details/AboutDetails";
 import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
-// import DesignGallery from "./details/DesignGallery"; // Replaced by MockUIKit
+
 import "./details/MockUIKit";
 import ServiceDetails from "./details/ServiceDetails";
 import SocialCanvas from "./details/SocialCanvas";
 
-// Cast icons to any to avoid JSX component type errors
+
 
 interface PortfolioModalProps {
   item: PortfolioItem;
@@ -27,7 +27,7 @@ interface PortfolioModalProps {
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const renderDetails = () => {
-    // Social is special, it uses 'content' property primarily, or merged details
+    
     if (item.type === "social") {
       return <SocialCanvas items={item.content as any[]} />;
     }
@@ -47,12 +47,12 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       case "articles":
         return <ArticleList data={item.details} />;
       case "design":
-        // @ts-ignore
-        return <mock-ui-kit />; // Use new Mock UI Kit instead of gallery
+        
+        return <mock-ui-kit />; 
       case "services":
         return <ServiceDetails data={item.details} />;
       default:
-        // Fallback for types that might still use raw HTML if any (legacy safety)
+        
         if (typeof item.details === "string") {
           return <div dangerouslySetInnerHTML={{ __html: item.details }} />;
         }
@@ -65,22 +65,22 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/60 backdrop-blur-sm"
       onClick={onClose}
     >
       <MotionDiv
-        layoutId={item.id} // Enable shared layout transition from card
-        className="w-full max-w-3xl bg-background rounded-3xl overflow-hidden shadow-2xl border border-border flex flex-col max-h-[90vh]"
+        layoutId={item.id}
+        className="w-full sm:max-w-3xl bg-background rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl border border-border flex flex-col max-h-[95vh] sm:max-h-[90vh]"
         onClick={(e: any) => e.stopPropagation()}
       >
-        {/* Fixed header — never scrolls */}
-        <div className="flex justify-between items-start px-8 pt-8 pb-4 border-b border-border/60 bg-background z-10 shrink-0">
-          <div className="flex-1 min-w-0 pr-4">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-heading truncate">
+        {}
+        <div className="flex justify-between items-start px-5 sm:px-8 pt-5 sm:pt-8 pb-3 sm:pb-4 border-b border-border/60 bg-background z-10 shrink-0">
+          <div className="flex-1 min-w-0 pr-3 sm:pr-4">
+            <h2 className="text-2xl sm:text-4xl font-bold text-foreground font-heading truncate">
               {item.title}
             </h2>
             {item.description && (
-              <p className="text-base text-foreground-secondary mt-2 line-clamp-2">
+              <p className="text-sm sm:text-base text-foreground-secondary mt-1.5 sm:mt-2 line-clamp-2">
                 {item.description}
               </p>
             )}
@@ -96,8 +96,8 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           </Button>
         </div>
 
-        {/* Scrollable content */}
-        <div className="px-8 py-6 overflow-y-auto custom-scrollbar flex-1">
+        {}
+        <div className="px-5 sm:px-8 py-4 sm:py-6 overflow-y-auto custom-scrollbar flex-1">
           <div className="text-foreground-secondary">{renderDetails()}</div>
         </div>
       </MotionDiv>

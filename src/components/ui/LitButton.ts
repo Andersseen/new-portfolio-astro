@@ -63,8 +63,8 @@ export default class LitButton extends LitElement {
       "rounded-lg font-medium transition-all duration-200",
       "focus:outline-none focus:ring-2 focus:ring-primary/50",
       "active:scale-[0.98]",
-      "flex items-center justify-center", // Added for centering content/icons
-      this.className // Apply the class passed to the custom element itself
+      "flex items-center justify-center", 
+      this.className 
     );
 
     if (this.href) {

@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import "../ui/LitButton"; // Ensure ui-button is registered
+import "../ui/LitButton"; 
 
 export default class MockUIKit extends LitElement {
   createRenderRoot() {

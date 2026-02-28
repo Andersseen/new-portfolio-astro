@@ -18,7 +18,7 @@ const CELL_SIZE = 11;
 const CELL_GAP = 3;
 const TOTAL = CELL_SIZE + CELL_GAP;
 
-// Month labels
+
 const MONTHS = [
   "Jan",
   "Feb",
@@ -34,10 +34,6 @@ const MONTHS = [
   "Dec",
 ];
 
-/**
- * Fetches GitHub contribution data from the unofficial API
- * and renders a theme-aware contribution heatmap.
- */
 export default function GitHubActivity({ username }: GitHubActivityProps) {
   const [weeks, setWeeks] = useState<ContributionWeek[]>([]);
   const [totalContributions, setTotalContributions] = useState(0);
@@ -47,7 +43,7 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
   useEffect(() => {
     const fetchContributions = async () => {
       try {
-        // Use the GitHub contributions API (skyline / unofficial)
+     
         const res = await fetch(
           `https://github-contributions-api.jogruber.de/v4/${username}?y=last`
         );
@@ -55,8 +51,7 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
         const data = await res.json();
 
         if (data.contributions && Array.isArray(data.contributions)) {
-          // Data comes as flat array of { date, count, level }
-          // Group into weeks (7 days each, starting Sunday)
+     
           const days: ContributionDay[] = data.contributions;
           const grouped: ContributionWeek[] = [];
           let currentWeek: ContributionDay[] = [];
@@ -98,10 +93,10 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
   }
 
   if (error || weeks.length === 0) {
-    return null; // Silently fail — don't break the modal
+    return null; 
   }
 
-  // Calculate month label positions
+  
   const monthLabels: { label: string; x: number }[] = [];
   let lastMonth = -1;
   weeks.forEach((week, weekIdx) => {
@@ -116,7 +111,7 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
   });
 
   const svgWidth = weeks.length * TOTAL + 2;
-  const svgHeight = 7 * TOTAL + 24; // 7 rows + month labels
+  const svgHeight = 7 * TOTAL + 24; 
 
   return (
     <div className="w-full rounded-xl bg-background-tertiary border border-border p-5 overflow-hidden">

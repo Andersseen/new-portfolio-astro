@@ -27,13 +27,7 @@ const StackDetails = ({ data }: StackDetailsProps) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {category.items.map((item, i) => {
               const slug = item.slug || item.name.toLowerCase();
-              // We use 'white' color for the icon ensures visibility on our dark/neutral backgrounds + hover effects
-              // Or we can leave it default color. Let's try default brand color first?
-              // Using "default" (no color in URL) returns the brand color usually.
-              // But for dark mode, some brand colors might be low contrast.
-              // Let's use specific color or white?
-              // Request said "logos de cada tecnologia". Usually authentic branding is preferred.
-              // simpleicons.org/slug -> returns SVG in brand color.
+    
               const iconUrl = `https://cdn.simpleicons.org/${slug}`;
 
               return (
@@ -48,7 +42,7 @@ const StackDetails = ({ data }: StackDetailsProps) => {
                       loading="lazy"
                       className="w-full h-full object-contain"
                       onError={(e) => {
-                        // Fallback if logo not found
+                
                         (e.target as HTMLImageElement).style.display = "none";
                         (
                           e.target as HTMLImageElement

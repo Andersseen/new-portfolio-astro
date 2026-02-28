@@ -1,8 +1,8 @@
-/** @jsxImportSource preact */
+
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
 
-// Cast icons to any to avoid JSX component type errors
+
 const SparklesIcon = Sparkles as any;
 const SunIcon = Sun as any;
 const MoonIcon = Moon as any;
@@ -16,11 +16,11 @@ export default function Navbar({ children }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Check initial theme
+    
     const theme = document.documentElement.getAttribute("data-theme");
     setIsDark(theme === "dark");
 
-    // Listen for theme changes
+    
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "data-theme") {
@@ -35,7 +35,7 @@ export default function Navbar({ children }: NavbarProps) {
       attributeFilter: ["data-theme"],
     });
 
-    // Handle scroll for glassmorphism effect
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -62,7 +62,7 @@ export default function Navbar({ children }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo / Brand with Avatar */}
+          {}
           <div
             className="flex items-center gap-3 group cursor-pointer"
             onClick={(e) => {
@@ -87,42 +87,42 @@ export default function Navbar({ children }: NavbarProps) {
               );
             }}
           >
-            {/* Avatar Circle */}
+            {}
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                <img src="/logo.svg" alt="Andersseen Dev Logo" />
+                <img src="/logo.svg" alt="Andersseen Dev Logo" width="40" height="40" fetchPriority="high" />
               </div>
             </div>
 
-            {/* Brand Name - Hidden on very small screens, visible on sm+ */}
+            {}
             <a
               href="/"
               className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors"
-              onClick={(e) => e.preventDefault()} // Prevent navigation
+              onClick={(e) => e.preventDefault()} 
             >
               Andersseen Dev
             </a>
           </div>
 
-          {/* Right side controls */}
+          {}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Language Selector (passed as children) */}
+            {}
             {children}
 
-            {/* Theme Randomizer - hidden on mobile to save space if needed, or keep small */}
+            {}
             <button
               id="theme-randomize"
-              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               title="Randomize theme"
               aria-label="Randomize theme"
             >
               <SparklesIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
-            {/* Theme Toggle */}
+            {}
             <button
               id="theme-toggle"
-              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               aria-label="Toggle theme"
               title="Toggle theme"
             >

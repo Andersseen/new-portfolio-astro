@@ -11,5 +11,5 @@ export function openModal(item: any) {
 
 export function closeModal() {
   isModalOpen.set(false);
-  setTimeout(() => selectedItem.set(null), 300); // Wait for animation
+  setTimeout(() => selectedItem.set(null), 300); 
 }

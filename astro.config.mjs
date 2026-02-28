@@ -1,4 +1,4 @@
-// @ts-check
+
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -12,7 +12,7 @@ import vercel from "@astrojs/vercel";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// https://astro.build/config
+
 export default defineConfig({
   integrations: [preact(), lit()],
 
@@ -20,7 +20,7 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en", "es", "ua"],
     routing: {
-      prefixDefaultLocale: false, // English won't have /en/ prefix
+      prefixDefaultLocale: false, 
     },
     fallback: {
       es: "en",

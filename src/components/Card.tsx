@@ -64,27 +64,27 @@ export default function Card({
     <BaseCard
       variant="default"
       rounded="full"
-      padding="none" // We handle padding inside for specific layout
+      padding="none" 
       hoverable={!decorative}
       className={cn(
-        "group h-full w-full overflow-hidden transition-all duration-300",
+        "group h-full w-full overflow-hidden transition-shadow transition-border duration-300",
         colors.border,
         `shadow-lg ${colors.shadow}`,
-        !decorative && "hover:scale-[1.02]"
+        !decorative && "hover:scale-[1.02] transition-transform"
       )}
     >
-      {/* Neumorphic effect overlay - Removed to fix visual artifacts */}
-      {/* <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none z-10" /> */}
+      {}
+      {}
 
-      {/* Content */}
-      <div className="relative p-7 h-full flex flex-col z-20">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 mb-4">
+      {}
+      <div className="relative p-5 sm:p-7 h-full flex flex-col z-20">
+        {}
+        <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div className="flex-1 min-w-0">
-            <h3 className="text-2xl font-bold text-foreground mb-1.5 truncate">
+            <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1 sm:mb-1.5 truncate">
               {title}
             </h3>
-            <p className="text-base text-foreground-secondary line-clamp-3 leading-relaxed">
+            <p className="text-sm sm:text-base text-foreground-secondary line-clamp-2 sm:line-clamp-3 leading-relaxed">
               {description}
             </p>
           </div>
@@ -96,7 +96,7 @@ export default function Card({
           )}
         </div>
 
-        {/* Tags */}
+        {}
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {tags.map((tag) => (
@@ -107,9 +107,9 @@ export default function Card({
           </div>
         )}
 
-        {/* Main Content */}
+        {}
         <div className="flex-1 flex flex-col justify-end">
-          {children && <div className="flex-shrink-0 ml-4">{children}</div>}
+          {children && <div className="flex-shrink-0">{children}</div>}
         </div>
       </div>
     </BaseCard>

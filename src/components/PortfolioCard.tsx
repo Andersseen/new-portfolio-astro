@@ -41,7 +41,7 @@ export default function PortfolioCard({
           }
           badgeColor="primary"
         >
-          {/* Projects preview list */}
+        
           {item.type === "projects" && item.details && Array.isArray(item.details) && (
             <div className="flex flex-col gap-2.5 mt-1 mb-3">
               {(item.details as any[]).slice(0, 3).map((project: any, i: number) => (
@@ -68,7 +68,7 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Social Links — enhanced layout */}
+          
           {item.type === "social" && item.content && (
             <div className="flex flex-col items-center gap-5 mt-2">
               <p className="text-sm text-foreground-tertiary text-center">
@@ -105,8 +105,7 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Action Links */}
-          {/* Service preview pills */}
+         
           {item.type === "services" && item.content && (
             <div className="flex flex-wrap gap-2 mt-2 mb-3">
               {(item.content as ServiceItem[]).map((s, i) => (
@@ -141,7 +140,7 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Articles preview list */}
+        
           {item.type === "articles" && item.details && Array.isArray(item.details) && (
             <div className="flex flex-col gap-2 mt-2 mb-3">
               {(item.details as any[]).slice(0, 3).map((article: any, i: number) => (
@@ -155,7 +154,7 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Design gallery hint */}
+     
           {item.type === "design" && (
             <div className="flex gap-3 mt-2 mb-3">
               <div className="w-16 h-16 rounded-xl bg-primary/5 border border-primary/15" />
@@ -164,7 +163,7 @@ export default function PortfolioCard({
             </div>
           )}
 
-          {/* Action links */}
+  
           {item.type === "projects" && (
             <div className="flex items-center gap-2 text-sm font-semibold text-primary/80 group-hover:text-primary transition-colors">
               {item.actionLabel || "View More"}

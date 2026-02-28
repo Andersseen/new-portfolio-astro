@@ -57,7 +57,7 @@ export default function Button({
         "rounded-lg font-medium transition-all duration-200",
         "focus:outline-none focus:ring-2 focus:ring-primary/50",
         "active:scale-[0.98]",
-        "flex items-center justify-center", // Added for centering content/icons
+        "flex items-center justify-center", 
         className
       )}
       {...props}

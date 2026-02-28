@@ -28,7 +28,7 @@ const { name = 'Andersseen' } = Astro.props;
   const lang = getLanguageFromPath(window.location.pathname);
   const tr = (key: string) => t(lang, key);
   
-  // Create data once
+  
   const item = aboutMeData(tr);
 
   function handleClick() {
