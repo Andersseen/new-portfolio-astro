@@ -3,7 +3,6 @@ import { t } from '../i18n/utils';
 import { getLanguageFromPath } from '../i18n/config';
 import PortfolioGrid from './PortfolioGrid';
 import type { PortfolioItem } from './PortfolioGrid';
-import ModalManager from './ModalManager';
 import { getPortfolioItems, aboutMeData } from '../data/portfolio';
 import { fetchGitHubReadme, fetchMediumArticles } from "../utils/fetchers";
 import AboutMeHydrator from './AboutMeHydrator';
@@ -19,5 +18,4 @@ const initialItems = getPortfolioItems(tr, mediumArticles);
 
 <section class="py-16 px-4 max-w-7xl mx-auto">
   <PortfolioGrid client:visible initialItems={initialItems} />
-  <ModalManager client:idle />
 </section>

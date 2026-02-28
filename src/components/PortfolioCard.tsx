@@ -1,6 +1,5 @@
 import Card from "./Card";
 import Button from "./ui/Button";
-import { motion } from "motion/react";
 import type {
   PortfolioItem,
   SocialLink,
@@ -12,7 +11,7 @@ import { IconMap, ArrowRightIcon } from "./IconMap";
 interface PortfolioCardProps {
   item: PortfolioItem;
   colSpan: "col-span-1" | "col-span-2";
-  onSelect: (id: string) => void;
+  onSelect: (id: string, rect: DOMRect) => void;
 }
 
 export default function PortfolioCard({
@@ -20,13 +19,18 @@ export default function PortfolioCard({
   colSpan,
   onSelect,
 }: PortfolioCardProps) {
+  const handleClick = (e: any) => {
+    const el = (e.currentTarget as HTMLElement);
+    const rect = el.getBoundingClientRect();
+    onSelect(item.id, rect);
+  };
+
   return (
     <div
       data-swapy-item={item.id}
-      className="w-full h-full"
-      onClick={() => onSelect(item.id)}
+      className="w-full h-full cursor-pointer"
+      onClick={handleClick}
     >
-      <motion.div layoutId={item.id} className="h-full">
         <Card
           id={item.id}
           title={item.title}
@@ -205,7 +209,6 @@ export default function PortfolioCard({
             </div>
           )}
         </Card>
-      </motion.div>
     </div>
   );
 }

@@ -1,8 +1,13 @@
 import { useEffect, useState, useRef } from "preact/hooks";
+import { useStore } from "@nanostores/preact";
+import { AnimatePresence } from "motion/react";
 import { saveOrder, loadOrder } from "../scripts/idb-order";
 import SkeletonCard from "./SkeletonCard";
 import PortfolioCard from "./PortfolioCard";
-import { openModal } from "../store/modalStore";
+import { openModal, closeModal, isModalOpen, selectedItem } from "../store/modalStore";
+import PortfolioModal from "./PortfolioModal";
+
+const AnimatePresenceAny = AnimatePresence as any;
 
 export interface SocialLink {
   icon: string;
@@ -65,6 +70,22 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<PortfolioItem[]>(initialItems);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Modal state from store
+  const modalOpen = useStore(isModalOpen);
+  const modalItem = useStore(selectedItem);
+
+  // Block scroll when modal is open
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [modalOpen]);
 
   
   useEffect(() => {
@@ -212,16 +233,26 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
               <PortfolioCard
                 item={item}
                 colSpan={patternColSpan}
-                onSelect={(id) => {
-                  
+                onSelect={(id, rect) => {
                   const found = items.find((i) => i.id === id);
-                  if (found) openModal(found);
+                  if (found) openModal(found, rect);
                 }}
               />
             </div>
           );
         })}
       </div>
+
+      {/* Modal with zoom animation */}
+      <AnimatePresenceAny>
+        {modalOpen && modalItem && (
+          <PortfolioModal
+            key={modalItem.id}
+            item={modalItem}
+            onClose={closeModal}
+          />
+        )}
+      </AnimatePresenceAny>
     </>
   );
 }

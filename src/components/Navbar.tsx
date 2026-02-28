@@ -1,6 +1,7 @@
 
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
+import AboutDrawer from "./AboutPopover";
 
 
 const SparklesIcon = Sparkles as any;
@@ -14,6 +15,8 @@ interface NavbarProps {
 export default function Navbar({ children }: NavbarProps) {
   const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [aboutData, setAboutData] = useState<any>(null);
 
   useEffect(() => {
     
@@ -67,24 +70,23 @@ export default function Navbar({ children }: NavbarProps) {
             className="flex items-center gap-3 group cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
-              import("../store/modalStore").then(
-                ({ openModal, aboutMeStore }) => {
-                  import("../i18n/utils").then(({ t, getTranslation }) => {
-                    const lang = window.location.pathname.split("/")[1] || "en";
-                    const currentLang = ["en", "es", "ua"].includes(lang)
-                      ? lang
-                      : "en";
-
-                    const hydratedItem = aboutMeStore.get();
-
-                    import("../data/portfolio").then(({ aboutMeData }) => {
-                      openModal(
-                        aboutMeData((key) => t(currentLang as any, key)),
-                      );
-                    });
+              if (aboutData) {
+                setAboutOpen(!aboutOpen);
+              } else {
+                import("../i18n/utils").then(({ t }) => {
+                  const lang = window.location.pathname.split("/")[1] || "en";
+                  const currentLang = ["en", "es", "ua"].includes(lang)
+                    ? lang
+                    : "en";
+                  import("../data/portfolio").then(({ aboutMeData }) => {
+                    const item = aboutMeData((key: string) =>
+                      t(currentLang as any, key),
+                    );
+                    setAboutData(item.details);
+                    setAboutOpen(true);
                   });
-                },
-              );
+                });
+              }
             }}
           >
             {}
@@ -95,13 +97,11 @@ export default function Navbar({ children }: NavbarProps) {
             </div>
 
             {}
-            <a
-              href="/"
-              className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors"
-              onClick={(e) => e.preventDefault()} 
+            <span
+              className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none"
             >
               Andersseen Dev
-            </a>
+            </span>
           </div>
 
           {}
@@ -135,6 +135,13 @@ export default function Navbar({ children }: NavbarProps) {
           </div>
         </div>
       </div>
+
+      {/* About Me Drawer */}
+      <AboutDrawer
+        data={aboutData || {}}
+        isOpen={aboutOpen}
+        onClose={() => setAboutOpen(false)}
+      />
     </nav>
   );
 }
