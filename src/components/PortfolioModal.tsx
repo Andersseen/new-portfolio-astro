@@ -73,26 +73,31 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         className="w-full max-w-3xl bg-background rounded-3xl overflow-hidden shadow-2xl border border-border flex flex-col max-h-[90vh]"
         onClick={(e: any) => e.stopPropagation()}
       >
-        <div className="p-8 overflow-y-auto custom-scrollbar">
-          <div className="flex justify-between items-start mb-6 sticky top-0 bg-background z-10 pb-4 border-b border-transparent">
-            <h2 className="text-4xl font-bold text-foreground font-heading">
+        {/* Fixed header — never scrolls */}
+        <div className="flex justify-between items-start px-8 pt-8 pb-4 border-b border-border/60 bg-background z-10 shrink-0">
+          <div className="flex-1 min-w-0 pr-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-heading truncate">
               {item.title}
             </h2>
-            <Button
-              onClick={onClose}
-              variant="ghost"
-              size="icon"
-              className="rounded-full hover:bg-foreground/10 shrink-0"
-              aria-label="Close modal"
-            >
-              <X className="w-6 h-6 text-foreground" />
-            </Button>
+            {item.description && (
+              <p className="text-base text-foreground-secondary mt-2 line-clamp-2">
+                {item.description}
+              </p>
+            )}
           </div>
-          <p className="text-lg text-foreground-secondary mb-8">
-            {item.description}
-          </p>
+          <Button
+            onClick={onClose}
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-foreground/10 shrink-0 mt-1"
+            aria-label="Close modal"
+          >
+            <X className="w-6 h-6 text-foreground" />
+          </Button>
+        </div>
 
-          {/* Expanded Content with specific components */}
+        {/* Scrollable content */}
+        <div className="px-8 py-6 overflow-y-auto custom-scrollbar flex-1">
           <div className="text-foreground-secondary">{renderDetails()}</div>
         </div>
       </MotionDiv>

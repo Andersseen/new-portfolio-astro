@@ -77,14 +77,14 @@ export default function Card({
       {/* <div className="absolute inset-0 rounded-3xl shadow-[inset_2px_2px_4px_rgba(0,0,0,0.05),inset_-2px_-2px_4px_rgba(255,255,255,0.05)] pointer-events-none z-10" /> */}
 
       {/* Content */}
-      <div className="relative p-6 h-full flex flex-col z-20">
+      <div className="relative p-7 h-full flex flex-col z-20">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 mb-3">
+        <div className="flex items-start justify-between gap-4 mb-4">
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl font-bold text-foreground mb-1 truncate">
+            <h3 className="text-2xl font-bold text-foreground mb-1.5 truncate">
               {title}
             </h3>
-            <p className="text-sm text-foreground-secondary line-clamp-2">
+            <p className="text-base text-foreground-secondary line-clamp-3 leading-relaxed">
               {description}
             </p>
           </div>

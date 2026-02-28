@@ -167,7 +167,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
   // Skeleton loading state
   if (!isLoaded) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[320px]">
         {initialItems.map((item, index) => {
           const patternColSpan = LAYOUT_PATTERN[index % LAYOUT_PATTERN.length];
           return (
@@ -191,7 +191,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     <>
       <div
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[320px]"
         id="portfolio-grid"
       >
         {items.map((item, index) => {

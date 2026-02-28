@@ -78,8 +78,67 @@ export default function PortfolioCard({
           {/* ... (omitting stack section for brevity) ... */}
 
           {/* Action Links */}
+          {/* Service preview pills */}
+          {item.type === "services" && item.content && (
+            <div className="flex flex-wrap gap-2 mt-2 mb-3">
+              {(item.content as ServiceItem[]).map((s, i) => (
+                <span
+                  key={i}
+                  className={`inline-block text-xs font-medium px-3 py-1.5 rounded-full bg-gradient-to-r ${s.gradient} text-white/90`}
+                >
+                  {s.text}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Stack preview icons */}
+          {item.type === "stack" && item.content && (
+            <div className="flex flex-wrap gap-3 mt-2 mb-3">
+              {(item.content as StackItem[]).map((tech, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary bg-background-tertiary px-3 py-1.5 rounded-lg"
+                >
+                  <img
+                    src={`https://cdn.simpleicons.org/${tech.icon}`}
+                    alt={tech.name}
+                    width={16}
+                    height={16}
+                    className="opacity-80"
+                  />
+                  {tech.name}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Articles preview list */}
+          {item.type === "articles" && item.details && Array.isArray(item.details) && (
+            <div className="flex flex-col gap-2 mt-2 mb-3">
+              {(item.details as any[]).slice(0, 3).map((article: any, i: number) => (
+                <div
+                  key={i}
+                  className="text-sm text-foreground-secondary truncate border-l-2 border-success/40 pl-3"
+                >
+                  {article.title}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Design gallery hint */}
+          {item.type === "design" && (
+            <div className="flex gap-3 mt-2 mb-3">
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-primary/20 border border-border" />
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-border" />
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary/20 to-accent/20 border border-border" />
+            </div>
+          )}
+
+          {/* Action links */}
           {item.type === "projects" && (
-            <div className="flex items-center gap-2 text-sm font-medium text-primary/80 group-hover:text-primary transition-colors">
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary/80 group-hover:text-primary transition-colors">
               {item.actionLabel || "View More"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" aria-hidden="true" />
@@ -88,11 +147,11 @@ export default function PortfolioCard({
           )}
 
           {item.type === "community" && (
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-3 flex flex-col gap-2">
               <div className="text-sm text-foreground-secondary">
                 Contributions & Open Source
               </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-secondary/80 group-hover:text-secondary transition-colors">
+              <div className="flex items-center gap-2 text-sm font-semibold text-secondary/80 group-hover:text-secondary transition-colors">
                 {item.actionLabel || "Contributions"}
                 <span className="group-hover:translate-x-1 transition-transform">
                   <ArrowRightIcon className="w-4 h-4" aria-hidden="true" />
@@ -102,7 +161,7 @@ export default function PortfolioCard({
           )}
 
           {item.type === "design" && (
-            <div className="flex items-center gap-2 text-sm font-medium text-accent/80 group-hover:text-accent transition-colors">
+            <div className="flex items-center gap-2 text-sm font-semibold text-accent/80 group-hover:text-accent transition-colors">
               {item.actionLabel || "Gallery"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" aria-hidden="true" />
@@ -111,7 +170,7 @@ export default function PortfolioCard({
           )}
 
           {item.type === "articles" && (
-            <div className="flex items-center gap-2 text-sm font-medium text-success/80 group-hover:text-success transition-colors">
+            <div className="flex items-center gap-2 text-sm font-semibold text-success/80 group-hover:text-success transition-colors">
               {item.actionLabel || "Read more"}
               <span className="group-hover:translate-x-1 transition-transform">
                 <ArrowRightIcon className="w-4 h-4" />
