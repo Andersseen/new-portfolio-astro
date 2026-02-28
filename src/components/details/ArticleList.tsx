@@ -22,7 +22,7 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 rounded-xl border border-border hover:border-accent hover:bg-background-tertiary transition-all group"
+              className="flex items-center justify-between p-4 rounded-xl border border-border hover:border-primary/40 hover:bg-background-tertiary transition-all group"
             >
               <div>
                 <div className="font-bold text-lg mb-1">{article.title}</div>
@@ -30,7 +30,7 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
                   {article.description}
                 </div>
               </div>
-              <span className="text-accent group-hover:translate-x-1 transition-transform text-xl">
+              <span className="text-primary group-hover:translate-x-1 transition-transform text-xl">
                 →
               </span>
             </a>

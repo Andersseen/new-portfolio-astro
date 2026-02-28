@@ -41,7 +41,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
             onClick={() => setActiveTab("projects")}
             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
               activeTab === "projects"
-                ? "bg-primary text-white shadow-sm"
+                ? "bg-primary text-background shadow-sm"
                 : "text-foreground-secondary hover:text-foreground"
             }`}
           >
@@ -51,7 +51,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
             onClick={() => setActiveTab("templates")}
             className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
               activeTab === "templates"
-                ? "bg-primary text-white shadow-sm"
+                ? "bg-primary text-background shadow-sm"
                 : "text-foreground-secondary hover:text-foreground"
             }`}
           >
@@ -64,13 +64,13 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
         {filteredData.map((item, index) => (
           <div
             key={index}
-            className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-accent hover:shadow-md transition-all group relative overflow-hidden"
+            className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-primary/40 hover:shadow-md transition-all group relative overflow-hidden"
           >
             <div className="flex flex-col gap-1">
               <h4 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                 {item.organization}
               </h4>
-              <span className="text-xs font-semibold text-accent uppercase tracking-wider">
+              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
                 {item.role}
               </span>
             </div>
@@ -85,7 +85,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   href={item.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
+                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-background transition-colors"
                 >
                   Live Demo
                   <ArrowUpRight className="w-3 h-3" />
@@ -96,7 +96,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   href={item.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs font-bold text-foreground border border-border px-3 py-1.5 rounded-lg hover:border-accent hover:text-accent transition-colors"
+                  className="flex items-center gap-1 text-xs font-bold text-foreground border border-border px-3 py-1.5 rounded-lg hover:border-primary/40 hover:text-primary transition-colors"
                 >
                   GitHub Repo
                 </a>
@@ -107,7 +107,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-colors"
+                  className="flex items-center gap-1 text-xs font-bold text-background bg-foreground px-3 py-1.5 rounded-lg hover:bg-primary hover:text-background transition-colors"
                 >
                   View Project
                   <ArrowUpRight className="w-3 h-3" />

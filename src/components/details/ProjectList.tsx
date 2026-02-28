@@ -1,5 +1,4 @@
 import type { FunctionalComponent } from "preact";
-import Button from "../ui/Button";
 
 interface Project {
   title: string;

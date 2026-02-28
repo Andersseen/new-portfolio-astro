@@ -21,7 +21,7 @@ const StackDetails = ({ data }: StackDetailsProps) => {
     <div className="space-y-8">
       {data.categories.map((category, idx) => (
         <div key={idx} className="space-y-4">
-          <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <h3 className="text-xl font-bold text-primary">
             {category.name}
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

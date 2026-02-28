@@ -225,7 +225,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                     ${
                       status === "success"
                         ? "bg-success/15 text-success border border-success/40 cursor-default"
-                        : "bg-foreground text-background hover:bg-primary hover:text-white border border-transparent shadow-sm"
+                        : "bg-foreground text-background hover:bg-primary hover:text-background border border-transparent shadow-sm"
                     }
                     ${status === "loading" ? "opacity-70 cursor-wait" : ""}
                 `}

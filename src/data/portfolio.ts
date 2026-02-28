@@ -16,7 +16,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.falcotech.title"),
         role: "Full Stack Developer",
         description: tr("portfolio.projects.falcotech.description"),
-        tech: ["Web Development", "IT Solutions"],
+        tech: ["Web Development", "Company Website", "Astro"],
         link: "https://www.falcotech.es/",
         image: "",
       },
@@ -24,7 +24,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.beautyline.title"),
         role: "Frontend Developer",
         description: tr("portfolio.projects.beautyline.description"),
-        tech: ["Web Design", "UX/UI"],
+        tech: [ "Next.js","Beauty Center"],
         link: "https://www.beauty-line-esthetic.es/",
         image: "",
       },
@@ -32,7 +32,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.palomamolero.title"),
         role: "Web Developer",
         description: tr("portfolio.projects.palomamolero.description"),
-        tech: ["Portfolio", "Gallery"],
+        tech: ["Beauty Center","Next.js", "Gallery"],
         link: "https://www.palomamolero.com/",
         image: "",
       },
@@ -40,7 +40,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.soulalegria.title"),
         role: "Lead Developer",
         description: tr("portfolio.projects.soulalegria.description"),
-        tech: ["Wellness", "E-commerce"],
+        tech: ["Next.js", "Company Website"],
         link: "https://www.soulalegria.com/",
         image: "",
       },
@@ -49,7 +49,7 @@ export const getPortfolioItems = (
         role: "Full Stack Developer",
         description:
           "Cloud startup platform specializing in scalable solutions.",
-        tech: ["Cloud", "Next.js", "Startup"],
+        tech: ["Cloud", "Astro", "Startup"],
         link: "https://www.mrgdevelops.com/",
         image: "",
       },
@@ -204,25 +204,25 @@ export const getPortfolioItems = (
     content: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-secondary",
+        gradient: "from-primary to-primary",
         details:
           "Building responsive, accessible, and performant user interfaces.",
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-secondary to-accent",
+        gradient: "from-primary to-primary",
         details:
           "Scalable API design, database management, and cloud architecture.",
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-accent to-warning",
+        gradient: "from-primary to-primary",
         details:
           "Creating intuitive and visually appealing digital experiences.",
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-warning to-primary",
+        gradient: "from-primary to-primary",
         details:
           "Deployment automation, infrastructure management, and performance optimization.",
       },
@@ -230,25 +230,25 @@ export const getPortfolioItems = (
     details: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-secondary",
+        gradient: "from-primary to-primary",
         details:
           "Building responsive, accessible, and performant user interfaces with modern frameworks.",
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-secondary to-accent",
+        gradient: "from-primary to-primary",
         details:
           "Scalable API design, database architecture (SQL/NoSQL), and secure authentication systems.",
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-accent to-warning",
+        gradient: "from-primary to-primary",
         details:
           "Creating intuitive, user-centric designs with focus on usability and visual hierarchy.",
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-warning to-primary",
+        gradient: "from-primary to-primary",
         details:
           "Deployment automation, infrastructure management, and performance optimization.",
       },
