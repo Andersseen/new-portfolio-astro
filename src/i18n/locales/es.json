@@ -49,6 +49,10 @@
       "soulalegria": {
         "title": "Soul Alegría",
         "description": "Plataforma de bienestar y crecimiento personal."
+      },
+      "mrgdevelops": {
+        "title": "MRG Develops",
+        "description": "Plataforma cloud de startup especializada en soluciones escalables."
       }
     },
     "articles": {
@@ -59,7 +63,10 @@
       "switch_map": "Adiós Switch, Hola Map",
       "switch_desc": "Reemplazando sentencias switch con mapas de estado para un código más limpio.",
       "textarea": "Textareas Redimensionables",
-      "textarea_desc": "Cómo crear textareas auto-redimensionables con CSS moderno en 2 líneas."
+      "textarea_desc": "Cómo crear textareas auto-redimensionables con CSS moderno en 2 líneas.",
+      "latestInsights": "Últimas Publicaciones",
+      "viewMore": "Ver más artículos",
+      "noArticles": "No hay artículos disponibles en este momento."
     },
     "aboutMe": {
       "title": "Sobre Mí",
@@ -77,6 +84,14 @@
     "community": {
       "title": "Comunidad",
       "description": "Contribuciones a la comunidad de código abierto y grupos tecnológicos.",
+      "tabs": {
+        "projects": "Proyectos",
+        "templates": "Plantillas",
+        "games": "Juegos"
+      },
+      "liveDemo": "Demo",
+      "githubRepo": "Repositorio",
+      "viewProject": "Ver Proyecto",
       "gsap": {
         "title": "GSAP Blocker",
         "description": "Bloques preconfigurados con Angular, Tailwind CSS y animaciones GSAP."
@@ -88,6 +103,42 @@
       "palette": {
         "title": "Palette Forge",
         "description": "Herramienta web para generar y visualizar paletas de colores temáticas."
+      },
+      "devflare": {
+        "title": "Devflare",
+        "description": "Kit esencial de herramientas para desarrolladores para optimizar flujos de trabajo."
+      },
+      "pokegame": {
+        "title": "Poke Game",
+        "description": "Juego interactivo de Pokémon construido con tecnologías web modernas."
+      },
+      "reminder": {
+        "title": "Reminder",
+        "description": "App recordatorio PWA con notificaciones push, construida con Astro y Service Workers."
+      },
+      "cvbuilder": {
+        "title": "CV Builder",
+        "description": "Constructor de CV frontend con Angular e IndexedDB para persistencia local."
+      },
+      "nextLanding": {
+        "title": "Next.js Web Landing Boilerplate",
+        "description": "Plantilla completa para landing pages de alto rendimiento."
+      },
+      "angularPortfolio": {
+        "title": "Angular Portfolio Experiments",
+        "description": "Explorando nuevos límites en Angular con integración de Three.js."
+      },
+      "modernPortfolio": {
+        "title": "Modern Portfolio",
+        "description": "Plantilla de portafolio moderna y elegante construida pensando en el rendimiento."
+      },
+      "photoFolio": {
+        "title": "Photo Folio",
+        "description": "Plataforma especializada para fotógrafos para mostrar su trabajo eficientemente."
+      },
+      "coolPortfolio": {
+        "title": "Cool Portfolio for Developers",
+        "description": "Plantilla de portafolio especializada para desarrolladores."
       }
     },
     "design": {
@@ -103,6 +154,17 @@
       "web": "Web Development",
       "desktop": "Desktop Apps",
       "devops": "DevOps & Cloud Ecosystem"
+    },
+    "blog": {
+      "title": "Último Artículo",
+      "description": "Lee mis últimos pensamientos e ideas sobre desarrollo web.",
+      "readArticle": "Leer más"
+    },
+    "actions": {
+      "featuredWork": "Trabajo Destacado",
+      "viewContributions": "Ver Contribuciones",
+      "gallery": "Galería",
+      "latestPosts": "Últimas Publicaciones"
     }
   },
   "footer": {

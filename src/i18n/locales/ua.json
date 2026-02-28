@@ -49,6 +49,10 @@
       "soulalegria": {
         "title": "Soul Alegría",
         "description": "Платформа благополуччя та особистісного зростання."
+      },
+      "mrgdevelops": {
+        "title": "MRG Develops",
+        "description": "Хмарна стартап-платформа, що спеціалізується на масштабованих рішеннях."
       }
     },
     "articles": {
@@ -59,7 +63,10 @@
       "switch_map": "Прощавай Switch, Привіт Map",
       "switch_desc": "Заміна операторів switch на карти станів для чистішого коду.",
       "textarea": "Змінювані Textarea",
-      "textarea_desc": "Як створити textarea, що змінюють розмір, за допомогою сучасного CSS у 2 рядки."
+      "textarea_desc": "Як створити textarea, що змінюють розмір, за допомогою сучасного CSS у 2 рядки.",
+      "latestInsights": "Останні Публікації",
+      "viewMore": "Переглянути більше статей",
+      "noArticles": "Наразі немає доступних статей."
     },
     "aboutMe": {
       "title": "Про Мене",
@@ -77,6 +84,14 @@
     "community": {
       "title": "Спільнота",
       "description": "Внесок у спільноту відкритого коду та технічні групи.",
+      "tabs": {
+        "projects": "Проекти",
+        "templates": "Шаблони",
+        "games": "Ігри"
+      },
+      "liveDemo": "Демо",
+      "githubRepo": "Репозиторій",
+      "viewProject": "Переглянути",
       "gsap": {
         "title": "GSAP Blocker",
         "description": "Попередньо налаштовані блоки з Angular, Tailwind CSS та анімаціями GSAP."
@@ -88,6 +103,42 @@
       "palette": {
         "title": "Palette Forge",
         "description": "Веб-інструмент для генерації та візуалізації тематичних палітр кольорів."
+      },
+      "devflare": {
+        "title": "Devflare",
+        "description": "Набір інструментів для розробників для оптимізації робочих процесів."
+      },
+      "pokegame": {
+        "title": "Poke Game",
+        "description": "Інтерактивна гра Покемон, побудована з сучасними веб-технологіями."
+      },
+      "reminder": {
+        "title": "Reminder",
+        "description": "PWA додаток нагадувань з push-сповіщеннями, побудований на Astro та Service Workers."
+      },
+      "cvbuilder": {
+        "title": "CV Builder",
+        "description": "Фронтенд конструктор резюме на Angular з IndexedDB для локального збереження."
+      },
+      "nextLanding": {
+        "title": "Next.js Web Landing Boilerplate",
+        "description": "Комплексний шаблон для високопродуктивних лендінг-сторінок."
+      },
+      "angularPortfolio": {
+        "title": "Angular Portfolio Experiments",
+        "description": "Дослідження нових можливостей Angular з інтеграцією Three.js."
+      },
+      "modernPortfolio": {
+        "title": "Modern Portfolio",
+        "description": "Стильний сучасний шаблон портфоліо, створений з акцентом на продуктивність."
+      },
+      "photoFolio": {
+        "title": "Photo Folio",
+        "description": "Спеціалізована платформа для фотографів для ефективної демонстрації робіт."
+      },
+      "coolPortfolio": {
+        "title": "Cool Portfolio for Developers",
+        "description": "Спеціалізований шаблон портфоліо для розробників."
       }
     },
     "design": {

@@ -1,4 +1,5 @@
 import type { FunctionalComponent } from "preact";
+import { ArrowUpRight } from "lucide-preact";
 
 interface Article {
   title: string;
@@ -6,17 +7,28 @@ interface Article {
   url: string;
 }
 
+interface ArticleLabels {
+  heading: string;
+  viewMore: string;
+  noArticles: string;
+}
+
 interface ArticleListProps {
-  data: Article[];
+  data: {
+    articles: Article[];
+    labels: ArticleLabels;
+    viewMoreUrl: string;
+  };
 }
 
 const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
+  const { articles, labels, viewMoreUrl } = data;
   return (
     <div className="space-y-4">
-      <h3 className="text-2xl font-bold font-heading mb-4">Latest Insights</h3>
+      <h3 className="text-2xl font-bold font-heading mb-4">{labels.heading}</h3>
       <div className="space-y-3">
-        {data && data.length > 0 ? (
-          data.map((article, index) => (
+        {articles && articles.length > 0 ? (
+          articles.map((article, index) => (
             <a
               key={index}
               href={article.url}
@@ -37,10 +49,24 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
           ))
         ) : (
           <p className="text-foreground-secondary">
-            No articles available at the moment.
+            {labels.noArticles}
           </p>
         )}
       </div>
+
+      {viewMoreUrl && (
+        <div className="pt-4 border-t border-border">
+          <a
+            href={viewMoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-foreground transition-colors group"
+          >
+            {labels.viewMore}
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
+      )}
     </div>
   );
 };

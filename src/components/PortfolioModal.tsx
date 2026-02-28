@@ -11,7 +11,6 @@ const MotionDiv = motion.div as any;
 
 import ProjectList from "./details/ProjectList";
 import StackDetails from "./details/StackDetails";
-import AboutDetails from "./details/AboutDetails";
 import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
 
@@ -43,8 +42,6 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         return <ProjectList data={item.details} />;
       case "stack":
         return <StackDetails data={item.details} />;
-      case "about":
-        return <AboutDetails data={item.details} />;
       case "community":
         return <CommunityList data={item.details} />;
       case "articles":
