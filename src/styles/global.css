@@ -6,66 +6,66 @@
 @import "@fontsource/outfit/900.css";
 
 @theme {
-  /* Modern Neutral Light Theme */
-  --color-primary: oklab(0.623 0.125 -0.22); /* Blue-ish */
-  --color-secondary: oklab(0.627 0.165 -0.191); /* Indigo-ish */
-  --color-accent: oklab(0.704 0.191 -0.106); /* Pink-ish */
+  
+  --color-primary: oklab(0.623 0.125 -0.22); 
+  --color-secondary: oklab(0.627 0.165 -0.191); 
+  --color-accent: oklab(0.704 0.191 -0.106); 
   --color-success: oklab(0.723 -0.16 0.145);
   --color-warning: oklab(0.796 0.04 0.155);
   --color-danger: oklab(0.627 0.22 0.125);
 
-  /* Light backgrounds - Oklab Neutral */
-  --color-background: oklab(0.97 0 0); /* #f5f5f5 equivalent */
+  
+  --color-background: oklab(0.97 0 0); 
   --color-background-secondary: oklab(0.95 0 0);
   --color-background-tertiary: oklab(0.92 0 0);
 
-  /* Light text */
-  --color-foreground: oklab(0.21 0 0); /* #171717 equivalent for text */
+  
+  --color-foreground: oklab(0.21 0 0); 
   --color-foreground-secondary: oklab(0.4 0 0);
   --color-foreground-tertiary: oklab(0.55 0 0);
 
-  /* Light borders */
+  
   --color-border: oklab(0.85 0 0);
   --color-border-light: oklab(0.9 0 0);
 
-  /* Shadow base color for Light Mode (Dark shadows) */
+  
   --shadow-color: 0 0 0;
-  --shadow-base: 0.1; /* Opacity strength */
+  --shadow-base: 0.1; 
 
-  /* Fonts */
+  
   --font-sans: "Inter", system-ui, sans-serif;
   --font-heading: "Outfit", system-ui, sans-serif;
 }
 
 [data-theme="dark"] {
-  /* Modern Neutral Dark Theme */
-  --color-primary: oklab(0.7 0.1 -0.2); /* Lighter Blue for dark mode */
+  
+  --color-primary: oklab(0.7 0.1 -0.2); 
   --color-secondary: oklab(0.75 0.12 -0.15);
   --color-accent: oklab(0.75 0.15 -0.05);
   --color-success: oklab(0.75 -0.15 0.15);
   --color-warning: oklab(0.85 0.05 0.15);
   --color-danger: oklab(0.7 0.2 0.1);
 
-  /* Dark backgrounds - Oklab Neutral */
-  --color-background: oklab(0.21 0 0); /* #171717 equivalent */
-  --color-background-secondary: oklab(0.18 0 0); /* darker */
-  --color-background-tertiary: oklab(0.25 0 0); /* lighter card bg */
+  
+  --color-background: oklab(0.21 0 0); 
+  --color-background-secondary: oklab(0.18 0 0); 
+  --color-background-tertiary: oklab(0.25 0 0); 
 
-  /* Dark text */
-  --color-foreground: oklab(0.97 0 0); /* #f5f5f5 equivalent */
+  
+  --color-foreground: oklab(0.97 0 0); 
   --color-foreground-secondary: oklab(0.85 0 0);
   --color-foreground-tertiary: oklab(0.7 0 0);
 
-  /* Dark borders */
+  
   --color-border: oklab(0.3 0 0);
   --color-border-light: oklab(0.25 0 0);
 
-  /* Shadow base color for Dark Mode (Light 'shadows'/glows) */
+  
   --shadow-color: 255 255 255;
   --shadow-base: 0.05;
 }
 
-/* Global styles */
+
 html {
   scroll-behavior: smooth;
 }
@@ -90,7 +90,7 @@ main {
   width: 100%;
 }
 
-/* Animations */
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -104,7 +104,7 @@ main {
   animation: shimmer 2s infinite;
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
   width: 10px;
 }

@@ -6,34 +6,34 @@ async function initThemeToggle() {
   const moonIcon = document.getElementById("moon-icon");
   const html = document.documentElement;
 
-  // Load theme state from IDB
+  
   const savedState = await loadThemeState();
 
   let currentTheme: "light" | "dark";
 
   if (savedState && savedState.userSet) {
-    // User has explicitly set a theme - use it
+    
     currentTheme = savedState.mode;
-    // Also restore custom colors if they exist
+    
     if (savedState.colors) {
       applyColors(savedState.colors);
     }
   } else {
-    // No user preference - use system preference
+    
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
     currentTheme = prefersDark ? "dark" : "light";
   }
 
-  // Set initial theme (without marking as user-set)
+  
   setTheme(currentTheme, false);
 
-  // Toggle theme on button click
+  
   if (themeToggle) {
     themeToggle.addEventListener("click", async () => {
       const newTheme = currentTheme === "light" ? "dark" : "light";
-      // Mark as user-set when manually toggled
+      
       await setTheme(newTheme, true);
     });
   }
@@ -42,16 +42,16 @@ async function initThemeToggle() {
     currentTheme = theme;
     html.setAttribute("data-theme", theme);
 
-    // Save to IDB
+    
     const savedState = await loadThemeState();
     const newState: ThemeState = {
       mode: theme,
-      colors: savedState?.colors, // Preserve custom colors
+      colors: savedState?.colors, 
       userSet: userSet || (savedState?.userSet ?? false),
     };
     await saveThemeState(newState);
 
-    // Update icons visibility
+    
     if (sunIcon && moonIcon) {
       if (theme === "dark") {
         sunIcon.classList.remove("hidden");
@@ -73,21 +73,21 @@ async function initThemeToggle() {
   }
 }
 
-// Initialize on page load
+
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initThemeToggle);
 } else {
   initThemeToggle();
 }
 
-// Watch for system theme changes (only if user hasn't set preference)
+
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", async (e) => {
-    const savedState = await loadThemeState(); // Use static import
+    const savedState = await loadThemeState(); 
     const state = await savedState;
 
-    // Only auto-update if user hasn't manually set a preference
+    
     if (!state || !state.userSet) {
       const newTheme = e.matches ? "dark" : "light";
       const html = document.documentElement;
@@ -96,7 +96,7 @@ window
 
       html.setAttribute("data-theme", newTheme);
 
-      // Save to IDB
+      
       await saveThemeState({
         mode: newTheme,
         colors: state?.colors,

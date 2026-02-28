@@ -1,5 +1,5 @@
 import { LitElement, html } from "lit";
-import "../ui/LitButton"; // Ensure ui-button is registered
+import "../ui/LitButton"; 
 
 export default class MockUIKit extends LitElement {
   createRenderRoot() {
@@ -12,7 +12,7 @@ export default class MockUIKit extends LitElement {
         <!-- Header Section -->
         <div class="text-center space-y-3 mb-8">
           <h3
-            class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary font-heading"
+            class="text-3xl font-bold text-primary font-heading"
           >
             Web Components System
           </h3>
@@ -28,11 +28,11 @@ export default class MockUIKit extends LitElement {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- UI Components Panel -->
           <div
-            class="space-y-5 p-6 rounded-3xl bg-background-tertiary border border-border overflow-hidden relative group hover:border-accent/40 transition-colors"
+            class="space-y-5 p-6 rounded-3xl bg-background-tertiary border border-border overflow-hidden relative group hover:border-primary/40 transition-colors"
           >
             <div class="flex items-center justify-between mb-2">
               <h4
-                class="text-sm font-bold text-accent uppercase tracking-widest"
+                class="text-sm font-bold text-primary uppercase tracking-widest"
               >
                 UI Components
               </h4>
@@ -55,26 +55,26 @@ export default class MockUIKit extends LitElement {
                   Outline
                 </ui-button>
                 <div
-                  class="relative w-10 h-6 bg-success rounded-full flex items-center px-1 cursor-pointer"
+                  class="relative w-10 h-6 bg-primary rounded-full flex items-center px-1 cursor-pointer"
                 >
                   <div
-                    class="w-4 h-4 bg-white rounded-full translate-x-4 shadow-sm"
+                    class="w-4 h-4 bg-background rounded-full translate-x-4 shadow-sm"
                   ></div>
                 </div>
               </div>
 
               <!-- Code Snippet -->
               <div
-                class="font-mono text-xs p-4 bg-[#1e1e1e] text-gray-300 rounded-xl border border-border/50 shadow-inner overflow-x-auto"
+                class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner overflow-x-auto"
               >
-                <div class="text-blue-400">
-                  &lt;ui-button <span class="text-purple-400">variant</span>=
-                  <span class="text-green-400">"primary"</span>&gt;
+                <div class="text-primary">
+                  &lt;ui-button <span class="text-primary/60">variant</span>=
+                  <span class="text-foreground">"primary"</span>&gt;
                 </div>
                 <div class="pl-4">Click Me</div>
-                <div class="text-blue-400">&lt;/ui-button&gt;</div>
-                <div class="mt-2 text-blue-400">
-                  &lt;ui-toggle <span class="text-purple-400">checked</span>{"
+                <div class="text-primary">&lt;/ui-button&gt;</div>
+                <div class="mt-2 text-primary">
+                  &lt;ui-toggle <span class="text-primary/60">checked</span>{"
                   "} /&gt;
                 </div>
               </div>
@@ -104,11 +104,11 @@ export default class MockUIKit extends LitElement {
                 class="h-20 flex items-center justify-center gap-6 p-4 bg-background/50 rounded-xl border border-border/50 overflow-hidden"
               >
                 <div
-                  class="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg shadow-lg animate-pulse"
+                  class="w-12 h-12 bg-primary/80 rounded-lg shadow-lg animate-pulse"
                   title="intro='fade-in'"
                 ></div>
                 <div
-                  class="w-12 h-12 bg-gradient-to-br from-accent to-orange-500 rounded-lg shadow-lg"
+                  class="w-12 h-12 bg-primary/50 rounded-lg shadow-lg"
                   style="animation: bounce 2s infinite"
                   title="hover='bounce'"
                 ></div>
@@ -116,23 +116,23 @@ export default class MockUIKit extends LitElement {
 
               <!-- Code Snippet -->
               <div
-                class="font-mono text-xs p-4 bg-[#1e1e1e] text-gray-300 rounded-xl border border-border/50 shadow-inner overflow-x-auto"
+                class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner overflow-x-auto"
               >
-                <div class="text-gray-500">
+                <div class="text-foreground-tertiary">
                   &lt;!-- Declarative Animations --&gt;
                 </div>
                 <div>
-                  <span class="text-blue-400">&lt;div</span>
-                  <span class="text-yellow-400"> enter</span>=
-                  <span class="text-green-400">"slide-left"</span>
+                  <span class="text-primary">&lt;div</span>
+                  <span class="text-primary/60"> enter</span>=
+                  <span class="text-foreground">"slide-left"</span>
                 </div>
                 <div class="pl-9">
-                  <span class="text-yellow-400">hover</span>=
-                  <span class="text-green-400">"scale-up"</span>
-                  <span class="text-blue-400">&gt;</span>
+                  <span class="text-primary/60">hover</span>=
+                  <span class="text-foreground">"scale-up"</span>
+                  <span class="text-primary">&gt;</span>
                 </div>
                 <div class="pl-4">...content</div>
-                <div class="text-blue-400">&lt;/div&gt;</div>
+                <div class="text-primary">&lt;/div&gt;</div>
               </div>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default class MockUIKit extends LitElement {
           >
             <!-- Decorative background glow -->
             <div
-              class="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"
+              class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"
             ></div>
 
             <div class="flex flex-col md:flex-row gap-8 items-start">
@@ -175,15 +175,15 @@ export default class MockUIKit extends LitElement {
                 </p>
 
                 <div
-                  class="font-mono text-xs p-4 bg-[#1e1e1e] text-gray-300 rounded-xl border border-border/50 shadow-inner"
+                  class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner"
                 >
                   <div>
-                    <span class="text-blue-400">&lt;ui-icon</span>
-                    <span class="text-purple-400"> name</span>=
-                    <span class="text-green-400">"github"</span>
-                    <span class="text-purple-400"> size</span>=
-                    <span class="text-green-400">"lg"</span>
-                    <span class="text-blue-400"> /&gt;</span>
+                    <span class="text-primary">&lt;ui-icon</span>
+                    <span class="text-primary/60"> name</span>=
+                    <span class="text-foreground">"github"</span>
+                    <span class="text-primary/60"> size</span>=
+                    <span class="text-foreground">"lg"</span>
+                    <span class="text-primary"> /&gt;</span>
                   </div>
                 </div>
               </div>
@@ -193,10 +193,10 @@ export default class MockUIKit extends LitElement {
                 ${[1, 2, 3, 4, 5, 6, 7, 8].map(
                   (i) => html`
                     <div
-                      class="aspect-square rounded-xl bg-background border border-border/50 flex items-center justify-center hover:bg-accent/10 hover:border-accent/50 transition-all cursor-crosshair group/icon"
+                      class="aspect-square rounded-xl bg-background border border-border/50 flex items-center justify-center hover:bg-primary/10 hover:border-primary/50 transition-all cursor-crosshair group/icon"
                     >
                       <div
-                        class="w-6 h-6 rounded-md bg-foreground/20 group-hover/icon:bg-accent group-hover/icon:scale-110 transition-all duration-300"
+                        class="w-6 h-6 rounded-md bg-foreground/20 group-hover/icon:bg-primary group-hover/icon:scale-110 transition-all duration-300"
                       ></div>
                     </div>
                   `

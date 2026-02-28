@@ -16,7 +16,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.falcotech.title"),
         role: "Full Stack Developer",
         description: tr("portfolio.projects.falcotech.description"),
-        tech: ["Web Development", "IT Solutions"],
+        tech: ["Web Development", "Company Website", "Astro"],
         link: "https://www.falcotech.es/",
         image: "",
       },
@@ -24,7 +24,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.beautyline.title"),
         role: "Frontend Developer",
         description: tr("portfolio.projects.beautyline.description"),
-        tech: ["Web Design", "UX/UI"],
+        tech: ["Next.js", "Beauty Center"],
         link: "https://www.beauty-line-esthetic.es/",
         image: "",
       },
@@ -32,7 +32,7 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.palomamolero.title"),
         role: "Web Developer",
         description: tr("portfolio.projects.palomamolero.description"),
-        tech: ["Portfolio", "Gallery"],
+        tech: ["Beauty Center", "Next.js", "Gallery"],
         link: "https://www.palomamolero.com/",
         image: "",
       },
@@ -40,16 +40,15 @@ export const getPortfolioItems = (
         title: tr("portfolio.projects.soulalegria.title"),
         role: "Lead Developer",
         description: tr("portfolio.projects.soulalegria.description"),
-        tech: ["Wellness", "E-commerce"],
+        tech: ["Next.js", "Company Website"],
         link: "https://www.soulalegria.com/",
         image: "",
       },
       {
-        title: "MRG Develops",
+        title: tr("portfolio.projects.mrgdevelops.title"),
         role: "Full Stack Developer",
-        description:
-          "Cloud startup platform specializing in scalable solutions.",
-        tech: ["Cloud", "Next.js", "Startup"],
+        description: tr("portfolio.projects.mrgdevelops.description"),
+        tech: ["Cloud", "Astro", "Startup"],
         link: "https://www.mrgdevelops.com/",
         image: "",
       },
@@ -62,89 +61,117 @@ export const getPortfolioItems = (
     title: tr("portfolio.community.title"),
     description: tr("portfolio.community.description"),
     actionLabel: tr("portfolio.actions.viewContributions"),
-    details: [
-      // Maintained / Useful Projects
-      {
-        role: "Creator & Maintainer",
-        organization: tr("portfolio.community.gsap.title"),
-        description: tr("portfolio.community.gsap.description"),
-        repoUrl: "https://github.com/Andersseen/gsap-blocker",
-        demoUrl: "https://gsap-blocker.vercel.app/",
-        category: "projects",
+    details: {
+      items: [
+        // Projects
+        {
+          role: "Creator & Maintainer",
+          organization: tr("portfolio.community.gsap.title"),
+          description: tr("portfolio.community.gsap.description"),
+          repoUrl: "https://github.com/Andersseen/gsap-blocker",
+          demoUrl: "https://gsap-blocker.vercel.app/",
+          category: "projects",
+        },
+        {
+          role: "Creator & Maintainer",
+          organization: tr("portfolio.community.material.title"),
+          description: tr("portfolio.community.material.description"),
+          repoUrl: "https://github.com/Andersseen/material-blocks",
+          demoUrl: "https://material-blocks.vercel.app/",
+          category: "projects",
+        },
+        {
+          role: "Creator & Maintainer",
+          organization: tr("portfolio.community.palette.title"),
+          description: tr("portfolio.community.palette.description"),
+          repoUrl: "https://github.com/Andersseen/palette-forge",
+          demoUrl: "https://palette-crafter.vercel.app/",
+          category: "projects",
+        },
+        {
+          role: "Creator & Maintainer",
+          organization: tr("portfolio.community.devflare.title"),
+          description: tr("portfolio.community.devflare.description"),
+          repoUrl: "",
+          demoUrl: "https://andersseen-devflare.vercel.app/",
+          category: "projects",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.reminder.title"),
+          description: tr("portfolio.community.reminder.description"),
+          repoUrl: "",
+          demoUrl: "https://todo-list-reminder.vercel.app/",
+          category: "projects",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.cvbuilder.title"),
+          description: tr("portfolio.community.cvbuilder.description"),
+          repoUrl: "https://github.com/Andersseen/cv-builder",
+          demoUrl: "https://andersseen-cv-builder.vercel.app/",
+          category: "projects",
+        },
+        // Games
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.pokegame.title"),
+          description: tr("portfolio.community.pokegame.description"),
+          repoUrl: "https://github.com/Andersseen/poke_game",
+          demoUrl: "https://andersseen-poke-game.vercel.app/",
+          category: "games",
+        },
+        // Templates
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.nextLanding.title"),
+          description: tr("portfolio.community.nextLanding.description"),
+          repoUrl: "",
+          demoUrl: "https://web-landing-boilerplate.vercel.app/",
+          category: "templates",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.angularPortfolio.title"),
+          description: tr("portfolio.community.angularPortfolio.description"),
+          repoUrl: "",
+          demoUrl: "https://angular-portfolio-tawny.vercel.app",
+          category: "templates",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.modernPortfolio.title"),
+          description: tr("portfolio.community.modernPortfolio.description"),
+          repoUrl: "",
+          demoUrl: "https://andersseen-modern-portfolio.vercel.app/",
+          category: "templates",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.photoFolio.title"),
+          description: tr("portfolio.community.photoFolio.description"),
+          repoUrl: "",
+          demoUrl: "https://photo-folio.pages.dev",
+          category: "templates",
+        },
+        {
+          role: "Creator",
+          organization: tr("portfolio.community.coolPortfolio.title"),
+          description: tr("portfolio.community.coolPortfolio.description"),
+          repoUrl: "",
+          demoUrl: "https://andersseen-hr-portfolio.vercel.app/",
+          category: "templates",
+        },
+      ],
+      labels: {
+        projectsTab: tr("portfolio.community.tabs.projects"),
+        templatesTab: tr("portfolio.community.tabs.templates"),
+        gamesTab: tr("portfolio.community.tabs.games"),
+        liveDemo: tr("portfolio.community.liveDemo"),
+        githubRepo: tr("portfolio.community.githubRepo"),
+        viewProject: tr("portfolio.community.viewProject"),
       },
-      {
-        role: "Creator & Maintainer",
-        organization: tr("portfolio.community.material.title"),
-        description: tr("portfolio.community.material.description"),
-        repoUrl: "https://github.com/Andersseen/material-blocks",
-        demoUrl: "https://material-blocks.vercel.app/",
-        category: "projects",
-      },
-      {
-        role: "Creator & Maintainer",
-        organization: tr("portfolio.community.palette.title"),
-        description: tr("portfolio.community.palette.description"),
-        repoUrl: "https://github.com/Andersseen/palette-forge",
-        demoUrl: "https://palette-crafter.vercel.app/",
-        category: "projects",
-      },
-      {
-        role: "Creator & Maintainer",
-        organization: "Devflare",
-        description:
-          "Essential kit tools for developers to streamline workflows.",
-        repoUrl: "",
-        demoUrl: "https://andersseen-devflare.vercel.app/",
-        category: "projects",
-      },
-
-      // Templates / Boilerplates
-      {
-        role: "Creator",
-        organization: "Next.js Web Landing Boilerplate",
-        description:
-          "A comprehensive boilerplate for high-performance landing pages.",
-        repoUrl: "", // User provided demo, assuming repo helps or just demo
-        demoUrl: "https://web-landing-boilerplate.vercel.app/",
-        category: "templates",
-      },
-      // New Maintained/Demo Project
-      {
-        role: "Creator",
-        organization: "Angular Portfolio Experiments",
-        description:
-          "Exploring new limits in Angular with Three.js integration.",
-        repoUrl: "", // User didn't provide repo, only demo
-        demoUrl: "https://angular-portfolio-tawny.vercel.app",
-        category: "templates",
-      },
-      {
-        role: "Creator",
-        organization: "Modern Portfolio",
-        description:
-          "A sleek, modern portfolio template built with performance in mind.",
-        repoUrl: "",
-        demoUrl: "https://andersseen-modern-portfolio.vercel.app/",
-        category: "templates",
-      },
-      {
-        role: "Creator",
-        organization: "Photo Folio",
-        description:
-          "A specialized platform for photographers to showcase their work efficiently.",
-        repoUrl: "",
-        demoUrl: "https://photo-folio.pages.dev",
-        category: "templates",
-      },
-      {
-        role: "Creator",
-        organization: "Cool Portfolio for Developers",
-        description: "A specialized portfolio template for developers.",
-        repoUrl: "",
-        demoUrl: "https://andersseen-hr-portfolio.vercel.app/",
-        category: "templates",
-      },
-    ],
+    },
     colSpan: "col-span-1",
   },
   {
@@ -204,25 +231,25 @@ export const getPortfolioItems = (
     content: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-secondary",
+        gradient: "from-primary to-primary",
         details:
           "Building responsive, accessible, and performant user interfaces.",
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-secondary to-accent",
+        gradient: "from-primary to-primary",
         details:
           "Scalable API design, database management, and cloud architecture.",
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-accent to-warning",
+        gradient: "from-primary to-primary",
         details:
           "Creating intuitive and visually appealing digital experiences.",
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-warning to-primary",
+        gradient: "from-primary to-primary",
         details:
           "Deployment automation, infrastructure management, and performance optimization.",
       },
@@ -230,25 +257,25 @@ export const getPortfolioItems = (
     details: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-secondary",
+        gradient: "from-primary to-primary",
         details:
           "Building responsive, accessible, and performant user interfaces with modern frameworks.",
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-secondary to-accent",
+        gradient: "from-primary to-primary",
         details:
           "Scalable API design, database architecture (SQL/NoSQL), and secure authentication systems.",
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-accent to-warning",
+        gradient: "from-primary to-primary",
         details:
           "Creating intuitive, user-centric designs with focus on usability and visual hierarchy.",
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-warning to-primary",
+        gradient: "from-primary to-primary",
         details:
           "Deployment automation, infrastructure management, and performance optimization.",
       },
@@ -297,7 +324,7 @@ export const getPortfolioItems = (
             { name: "Kubernetes", slug: "kubernetes" },
             { name: "Nginx", slug: "nginx" },
             { name: "Docker", slug: "docker" },
-            { name: "CI/CD", slug: "githubactions" }, // Using githubactions icon as proxy for CI/CD
+            { name: "CI/CD", slug: "githubactions" },
           ],
         },
       ],
@@ -310,26 +337,34 @@ export const getPortfolioItems = (
     title: tr("portfolio.articles.title"),
     description: tr("portfolio.articles.description"),
     actionLabel: tr("portfolio.actions.latestPosts"),
-    details:
-      articles && articles.length > 0
-        ? articles
-        : [
-            {
-              title: tr("portfolio.articles.material_blocks"),
-              description: tr("portfolio.articles.material_desc"),
-              url: "https://medium.com/@andriipap",
-            },
-            {
-              title: tr("portfolio.articles.switch_map"),
-              description: tr("portfolio.articles.switch_desc"),
-              url: "https://medium.com/@andriipap",
-            },
-            {
-              title: tr("portfolio.articles.textarea"),
-              description: tr("portfolio.articles.textarea_desc"),
-              url: "https://medium.com/@andriipap",
-            },
-          ],
+    details: {
+      articles:
+        articles && articles.length > 0
+          ? articles
+          : [
+              {
+                title: tr("portfolio.articles.material_blocks"),
+                description: tr("portfolio.articles.material_desc"),
+                url: "https://medium.com/@andriipap",
+              },
+              {
+                title: tr("portfolio.articles.switch_map"),
+                description: tr("portfolio.articles.switch_desc"),
+                url: "https://medium.com/@andriipap",
+              },
+              {
+                title: tr("portfolio.articles.textarea"),
+                description: tr("portfolio.articles.textarea_desc"),
+                url: "https://medium.com/@andriipap",
+              },
+            ],
+      labels: {
+        heading: tr("portfolio.articles.latestInsights"),
+        viewMore: tr("portfolio.articles.viewMore"),
+        noArticles: tr("portfolio.articles.noArticles"),
+      },
+      viewMoreUrl: "https://medium.com/@andriipap",
+    },
     colSpan: "col-span-2",
   },
 ];

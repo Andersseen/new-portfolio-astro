@@ -34,9 +34,9 @@ export default class LitButton extends LitElement {
 
   private get variantClasses() {
     const variants = {
-      primary: "bg-primary text-primary-contrast hover:bg-primary/90 shadow-sm",
-      secondary: "bg-secondary text-white hover:bg-secondary/90 shadow-sm",
-      accent: "bg-accent text-accent-contrast hover:bg-accent/90 shadow-sm",
+      primary: "bg-primary text-background hover:bg-primary/90 shadow-sm",
+      secondary: "bg-primary/80 text-background hover:bg-primary/70 shadow-sm",
+      accent: "bg-primary/60 text-background hover:bg-primary/50 shadow-sm",
       ghost: "bg-transparent hover:bg-foreground/5 text-foreground",
       outline:
         "bg-transparent border-2 border-border hover:bg-foreground/5 text-foreground",
@@ -63,8 +63,8 @@ export default class LitButton extends LitElement {
       "rounded-lg font-medium transition-all duration-200",
       "focus:outline-none focus:ring-2 focus:ring-primary/50",
       "active:scale-[0.98]",
-      "flex items-center justify-center", // Added for centering content/icons
-      this.className // Apply the class passed to the custom element itself
+      "flex items-center justify-center", 
+      this.className 
     );
 
     if (this.href) {

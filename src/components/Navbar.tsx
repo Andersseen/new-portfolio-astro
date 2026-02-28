@@ -1,8 +1,7 @@
-/** @jsxImportSource preact */
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
+import AboutDrawer from "./AboutDrawer";
 
-// Cast icons to any to avoid JSX component type errors
 const SparklesIcon = Sparkles as any;
 const SunIcon = Sun as any;
 const MoonIcon = Moon as any;
@@ -14,13 +13,13 @@ interface NavbarProps {
 export default function Navbar({ children }: NavbarProps) {
   const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [aboutData, setAboutData] = useState<any>(null);
 
   useEffect(() => {
-    // Check initial theme
     const theme = document.documentElement.getAttribute("data-theme");
     setIsDark(theme === "dark");
 
-    // Listen for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "data-theme") {
@@ -35,7 +34,6 @@ export default function Navbar({ children }: NavbarProps) {
       attributeFilter: ["data-theme"],
     });
 
-    // Handle scroll for glassmorphism effect
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -62,67 +60,68 @@ export default function Navbar({ children }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo / Brand with Avatar */}
+          {}
           <div
             className="flex items-center gap-3 group cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
-              import("../store/modalStore").then(
-                ({ openModal, aboutMeStore }) => {
-                  import("../i18n/utils").then(({ t, getTranslation }) => {
-                    const lang = window.location.pathname.split("/")[1] || "en";
-                    const currentLang = ["en", "es", "ua"].includes(lang)
-                      ? lang
-                      : "en";
-
-                    const hydratedItem = aboutMeStore.get();
-
-                    import("../data/portfolio").then(({ aboutMeData }) => {
-                      openModal(
-                        aboutMeData((key) => t(currentLang as any, key)),
-                      );
-                    });
+              if (aboutData) {
+                setAboutOpen(!aboutOpen);
+              } else {
+                import("../i18n/utils").then(({ t }) => {
+                  const lang = window.location.pathname.split("/")[1] || "en";
+                  const currentLang = ["en", "es", "ua"].includes(lang)
+                    ? lang
+                    : "en";
+                  import("../data/portfolio").then(({ aboutMeData }) => {
+                    const item = aboutMeData((key: string) =>
+                      t(currentLang as any, key),
+                    );
+                    setAboutData(item.details);
+                    setAboutOpen(true);
                   });
-                },
-              );
+                });
+              }
             }}
           >
-            {/* Avatar Circle */}
+            {}
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/40 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:from-primary/60 group-hover:to-secondary/60 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                <img src="/logo.svg" alt="Andersseen Dev Logo" />
+              <div className="absolute inset-0 bg-primary/30 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:bg-primary/50 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
+                <img
+                  src="/logo.svg"
+                  alt="Andersseen Dev Logo"
+                  width="40"
+                  height="40"
+                  fetchPriority="high"
+                />
               </div>
             </div>
 
-            {/* Brand Name - Hidden on very small screens, visible on sm+ */}
-            <a
-              href="/"
-              className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors"
-              onClick={(e) => e.preventDefault()} // Prevent navigation
-            >
+            {}
+            <span className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none">
               Andersseen Dev
-            </a>
+            </span>
           </div>
 
-          {/* Right side controls */}
+          {}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Language Selector (passed as children) */}
+            {}
             {children}
 
-            {/* Theme Randomizer - hidden on mobile to save space if needed, or keep small */}
+            {}
             <button
               id="theme-randomize"
-              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               title="Randomize theme"
               aria-label="Randomize theme"
             >
               <SparklesIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
-            {/* Theme Toggle */}
+            {}
             <button
               id="theme-toggle"
-              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               aria-label="Toggle theme"
               title="Toggle theme"
             >
@@ -135,6 +134,13 @@ export default function Navbar({ children }: NavbarProps) {
           </div>
         </div>
       </div>
+
+      {/* About Me Drawer */}
+      <AboutDrawer
+        data={aboutData || {}}
+        isOpen={aboutOpen}
+        onClose={() => setAboutOpen(false)}
+      />
     </nav>
   );
 }

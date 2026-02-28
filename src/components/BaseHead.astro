@@ -11,12 +11,12 @@ const {
   image = "/og-image.png",
 } = Astro.props;
 
-// Safely construct canonical URL
+
 const canonicalURL = Astro.site 
   ? new URL(Astro.url.pathname, Astro.site)
   : Astro.url.href;
 
-// Safely construct image URL
+
 const imageURL = Astro.site
   ? new URL(image, Astro.site).href
   : image;
@@ -27,6 +27,11 @@ const imageURL = Astro.site
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 <meta name="robots" content="index, follow" />
+
+<!-- Preconnect to external origins -->
+<link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
+<link rel="dns-prefetch" href="https://cdn.simpleicons.org" />
+<link rel="dns-prefetch" href="https://github-contributions-api.jogruber.de" />
 
 <!-- Favicons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -60,7 +65,7 @@ const imageURL = Astro.site
 <!-- Theme Script - Load immediately to prevent flash -->
 <script is:inline>
   (async function() {
-    // Try to load from IDB first
+    
     try {
       const dbRequest = indexedDB.open('portfolio-db', 4);
       dbRequest.onupgradeneeded = function(e) {
@@ -88,7 +93,7 @@ const imageURL = Astro.site
                 root.style.setProperty('--color-warning', state.colors.warning);
               }
             } else {
-              // Fallback to system preference
+              
               const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
               document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
             }
@@ -96,7 +101,7 @@ const imageURL = Astro.site
         }
       };
     } catch (e) {
-      // Fallback to system preference
+      
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
     }

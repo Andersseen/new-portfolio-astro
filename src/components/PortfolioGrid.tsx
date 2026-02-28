@@ -1,27 +1,32 @@
 import { useEffect, useState, useRef } from "preact/hooks";
+import { useStore } from "@nanostores/preact";
+import { AnimatePresence } from "motion/react";
 import { saveOrder, loadOrder } from "../scripts/idb-order";
 import SkeletonCard from "./SkeletonCard";
 import PortfolioCard from "./PortfolioCard";
-import { openModal } from "../store/modalStore";
+import { openModal, closeModal, isModalOpen, selectedItem } from "../store/modalStore";
+import PortfolioModal from "./PortfolioModal";
+
+const AnimatePresenceAny = AnimatePresence as any;
 
 export interface SocialLink {
   icon: string;
   url: string;
   color: string;
-  label?: string; // e.g. "My Medium Profile"
+  label?: string; 
 }
 
 export interface StackItem {
   name: string;
   icon: string;
   color: string;
-  description?: string; // e.g. "Experienced with Angular 14+"
+  description?: string; 
 }
 
 export interface ServiceItem {
   text: string;
   gradient: string;
-  details?: string; // Extended description for modal
+  details?: string; 
 }
 
 export interface PortfolioItem {
@@ -37,26 +42,26 @@ export interface PortfolioItem {
     | "about";
   title: string;
   description?: string;
-  details?: any; // Rich content for the modal (HTML string or specific structure)
+  details?: any; 
   colSpan?: "col-span-1" | "col-span-2";
   content?: SocialLink[] | StackItem[] | ServiceItem[];
   actionLabel?: string;
-  lang?: string; // Track language of the data
+  lang?: string; 
 }
 
 interface PortfolioGridProps {
   initialItems: PortfolioItem[];
 }
 
-// Fixed bento layout pattern for visual consistency
+
 const LAYOUT_PATTERN: ("col-span-1" | "col-span-2")[] = [
-  "col-span-2", // Big
-  "col-span-1", // Small
-  "col-span-1", // Small
-  "col-span-1", // Small
-  "col-span-1", // Small
-  "col-span-1", // Small
-  "col-span-2", // Big
+  "col-span-2", 
+  "col-span-1", 
+  "col-span-1", 
+  "col-span-1", 
+  "col-span-1", 
+  "col-span-1", 
+  "col-span-2", 
 ];
 
 export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
@@ -66,7 +71,23 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
   const [items, setItems] = useState<PortfolioItem[]>(initialItems);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile and handle Swapy enable/disable
+  // Modal state from store
+  const modalOpen = useStore(isModalOpen);
+  const modalItem = useStore(selectedItem);
+
+  // Block scroll when modal is open
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [modalOpen]);
+
+  
   useEffect(() => {
     let isMounted = true;
 
@@ -74,16 +95,16 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
 
-      // Completely destroy Swapy when switching or re-initializing
+      
       if (swapyRef.current) {
         swapyRef.current.destroy();
         swapyRef.current = null;
       }
 
-      // Only initialize Swapy on desktop
+      
       if (!mobile && isLoaded && containerRef.current) {
         try {
-          // Dynamic import for swapy to reduce initial bundle
+          
           const { createSwapy } = await import("swapy");
 
           if (!isMounted) return;
@@ -119,7 +140,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     initSwapy();
 
     const handleResize = () => {
-      // Debounce could be added here
+      
       initSwapy();
     };
 
@@ -133,7 +154,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     };
   }, [isLoaded]);
 
-  // Load saved order from IDB
+  
   useEffect(() => {
     const loadSavedOrder = async () => {
       try {
@@ -164,10 +185,10 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     loadSavedOrder();
   }, []);
 
-  // Skeleton loading state
+  
   if (!isLoaded) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[320px]">
         {initialItems.map((item, index) => {
           const patternColSpan = LAYOUT_PATTERN[index % LAYOUT_PATTERN.length];
           return (
@@ -191,11 +212,11 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     <>
       <div
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]"
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[320px]"
         id="portfolio-grid"
       >
         {items.map((item, index) => {
-          // Use fixed pattern for bento grid layout
+          
           const patternColSpan = LAYOUT_PATTERN[index % LAYOUT_PATTERN.length];
 
           return (
@@ -212,16 +233,26 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
               <PortfolioCard
                 item={item}
                 colSpan={patternColSpan}
-                onSelect={(id) => {
-                  // Find the item and open global modal
+                onSelect={(id, rect) => {
                   const found = items.find((i) => i.id === id);
-                  if (found) openModal(found);
+                  if (found) openModal(found, rect);
                 }}
               />
             </div>
           );
         })}
       </div>
+
+      {/* Modal with zoom animation */}
+      <AnimatePresenceAny>
+        {modalOpen && modalItem && (
+          <PortfolioModal
+            key={modalItem.id}
+            item={modalItem}
+            onClose={closeModal}
+          />
+        )}
+      </AnimatePresenceAny>
     </>
   );
 }

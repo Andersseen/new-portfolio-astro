@@ -1,4 +1,4 @@
-// Lightweight IndexedDB wrapper for saving small values (card order)
+
 import { getDb, STORE } from "./db";
 
 export async function saveOrder(order: string[]) {

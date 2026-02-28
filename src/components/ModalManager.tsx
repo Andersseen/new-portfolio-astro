@@ -1,15 +1,28 @@
 import { useStore } from "@nanostores/preact";
+import { useEffect } from "preact/hooks";
 import { isModalOpen, selectedItem, closeModal } from "../store/modalStore";
 import { Suspense, lazy } from "preact/compat";
 
-// We can still lazy load the internal heavy modal content
+
 const LazyPortfolioModal = lazy(() => import("./PortfolioModal"));
 
 export default function ModalManager() {
   const isOpen = useStore(isModalOpen);
   const item = useStore(selectedItem);
 
-  // Simple conditional rendering without exit animations for now to fix build
+  // Block scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  
   if (!isOpen || !item) return null;
 
   return (

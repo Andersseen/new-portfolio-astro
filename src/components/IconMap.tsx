@@ -9,10 +9,10 @@ import {
   ArrowRight,
 } from "lucide-preact";
 
-// Cast icons to any to avoid JSX component type errors
+
 const ArrowRightIcon = ArrowRight as any;
 
-// Map icon names to Lucide components
+
 export const IconMap: Record<string, any> = {
   github: Github,
   gitlab: Gitlab,

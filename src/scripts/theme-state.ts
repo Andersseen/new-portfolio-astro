@@ -1,4 +1,4 @@
-// Unified theme management using IndexedDB
+
 import { getDb, STORE } from "./db";
 
 type ThemeMode = "light" | "dark";
@@ -12,7 +12,7 @@ export interface ThemeState {
     success: string;
     warning: string;
   };
-  userSet: boolean; // Whether user explicitly set the theme
+  userSet: boolean; 
 }
 
 export async function saveThemeState(state: ThemeState) {

@@ -1,4 +1,4 @@
-// @ts-check
+
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -6,21 +6,32 @@ import { dirname } from "path";
 import tailwindcss from "@tailwindcss/vite";
 import preact from "@astrojs/preact";
 import lit from "@astrojs/lit";
+import angular from "@analogjs/astro-angular";
 
 import vercel from "@astrojs/vercel";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// https://astro.build/config
+
 export default defineConfig({
-  integrations: [preact(), lit()],
+  integrations: [
+    preact({ exclude: ['**/components/angular/**'] }),
+    lit(),
+    angular({
+      vite: {
+        transformFilter: (_code, id) => {
+          return id.includes('src/components/angular/');
+        },
+      },
+    }),
+  ],
 
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es", "ua"],
     routing: {
-      prefixDefaultLocale: false, // English won't have /en/ prefix
+      prefixDefaultLocale: false, 
     },
     fallback: {
       es: "en",

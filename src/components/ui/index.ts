@@ -1,5 +1,5 @@
-// UI Components Barrel Export
-// Import and re-export all atomic UI components for easy access
+
+
 
 export { default as Button } from "./Button";
 export type { ButtonProps } from "./Button";

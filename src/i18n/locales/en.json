@@ -36,7 +36,7 @@
       "description": "Full-stack applications and interactive experiences built with modern technologies.",
       "falcotech": {
         "title": "Falcotech",
-        "description": "Technology solutions and IT consulting for businesses."
+        "description": "Innovative solutions using cutting-edge technology to address challenges affecting society and wildlife, combining commitment and respect for the natural environment."
       },
       "beautyline": {
         "title": "Beauty Line Esthetic",
@@ -49,6 +49,10 @@
       "soulalegria": {
         "title": "Soul Alegría",
         "description": "Wellness and personal growth platform."
+      },
+      "mrgdevelops": {
+        "title": "MRG Develops",
+        "description": "Cloud startup platform specializing in scalable solutions."
       }
     },
     "articles": {
@@ -59,7 +63,10 @@
       "switch_map": "Goodbye Switch, Hello Map",
       "switch_desc": "Replacing switch statements with state maps for cleaner code.",
       "textarea": "Resizable Textareas",
-      "textarea_desc": "How to create auto-resizable textareas with modern CSS in 2 lines."
+      "textarea_desc": "How to create auto-resizable textareas with modern CSS in 2 lines.",
+      "latestInsights": "Latest Insights",
+      "viewMore": "View more articles",
+      "noArticles": "No articles available at the moment."
     },
     "aboutMe": {
       "title": "About Me",
@@ -77,6 +84,14 @@
     "community": {
       "title": "Community",
       "description": "Contributions to the open source community and tech groups.",
+      "tabs": {
+        "projects": "Projects",
+        "templates": "Templates",
+        "games": "Games"
+      },
+      "liveDemo": "Live Demo",
+      "githubRepo": "GitHub Repo",
+      "viewProject": "View Project",
       "gsap": {
         "title": "GSAP Blocker",
         "description": "Preconfigured blocks with Angular, Tailwind CSS, and GSAP animations."
@@ -88,6 +103,42 @@
       "palette": {
         "title": "Palette Forge",
         "description": "Web tool for generating and visualizing thematic color palettes."
+      },
+      "devflare": {
+        "title": "Devflare",
+        "description": "Essential kit tools for developers to streamline workflows."
+      },
+      "pokegame": {
+        "title": "Poke Game",
+        "description": "Interactive Pokémon game built with modern web technologies."
+      },
+      "reminder": {
+        "title": "Reminder",
+        "description": "PWA reminder app with push notifications, built with Astro and Service Workers."
+      },
+      "cvbuilder": {
+        "title": "CV Builder",
+        "description": "Frontend CV builder powered by Angular and IndexedDB for local persistence."
+      },
+      "nextLanding": {
+        "title": "Next.js Web Landing Boilerplate",
+        "description": "A comprehensive boilerplate for high-performance landing pages."
+      },
+      "angularPortfolio": {
+        "title": "Angular Portfolio Experiments",
+        "description": "Exploring new limits in Angular with Three.js integration."
+      },
+      "modernPortfolio": {
+        "title": "Modern Portfolio",
+        "description": "A sleek, modern portfolio template built with performance in mind."
+      },
+      "photoFolio": {
+        "title": "Photo Folio",
+        "description": "A specialized platform for photographers to showcase their work efficiently."
+      },
+      "coolPortfolio": {
+        "title": "Cool Portfolio for Developers",
+        "description": "A specialized portfolio template for developers."
       }
     },
     "design": {

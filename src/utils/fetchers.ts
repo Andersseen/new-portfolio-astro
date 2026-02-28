@@ -31,12 +31,11 @@ export async function fetchMediumArticles(
   username: string
 ): Promise<MediumArticle[]> {
   try {
-    // Medium blocks direct RSS fetch from browser sometimes, but usually ok from server/build time
-    // We use a CORS proxy if client-side, but this is intended for build time mostly.
+
     const feed = await parser.parseURL(`https://medium.com/feed/${username}`);
 
     return feed.items.slice(0, 4).map((item) => {
-      // Simple description cleanup: remove images and take first snippet
+    
       const cleanDesc =
         item["content:encoded"] || item.content || item.description || "";
       const snippet =
