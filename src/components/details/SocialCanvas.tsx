@@ -37,6 +37,20 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
   const socialItems = items || data?.content || [];
 
+  // Detect theme for globe colors
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const theme = document.documentElement.getAttribute('data-theme');
+      setIsDark(theme === 'dark');
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     let phi = 0;
     if (!canvasRef.current) return;
@@ -53,18 +67,16 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       height: 600 * 2,
       phi: 0,
       theta: 0,
-      dark: 1,
-      diffuse: 1.2,
+      dark: isDark ? 1 : 0,
+      diffuse: isDark ? 1.2 : 2,
       mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.3, 0.3, 0.3],
+      mapBrightness: isDark ? 6 : 2,
+      baseColor: isDark ? [0.3, 0.3, 0.3] : [0.93, 0.93, 0.93],
       markerColor: [0.1, 0.8, 1],
-      glowColor: [1, 1, 1],
-      opacity: 0.8,
+      glowColor: isDark ? [1, 1, 1] : [0.85, 0.85, 0.85],
+      opacity: isDark ? 0.8 : 0.9,
       markers: [],
       onRender: (state) => {
-        // Called on every animation frame.
-        // `state` will be an empty object, return updated params.
         state.phi = phi;
         phi += 0.005;
       },
@@ -74,7 +86,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [isDark]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -109,8 +121,8 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 min-h-[500px] w-full bg-black/40 rounded-xl overflow-hidden border border-white/10 p-6 relative">
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
+    <div className="flex flex-col md:flex-row gap-8 min-h-[500px] w-full bg-background-secondary rounded-xl overflow-hidden border border-border p-6 relative">
+      <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
 
       {/* Left: Globe & Socials */}
       <div className="flex-1 relative flex flex-col items-center justify-center min-h-[300px] order-2 md:order-1">
@@ -136,11 +148,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 hover:border-white/30 transition-all duration-300"
+                className="group p-3 rounded-full bg-background-tertiary border border-border hover:bg-primary/10 hover:scale-110 hover:border-primary/40 transition-all duration-300 shadow-sm"
                 title={item.label}
               >
                 <div
-                  className={`text-${item.color} text-white group-hover:text-primary transition-colors`}
+                  className="text-foreground-secondary group-hover:text-primary transition-colors"
                 >
                   <Icon className="w-5 h-5" />
                 </div>
@@ -153,15 +165,15 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       {/* Right: Form */}
       <div className="flex-1 w-full max-w-md mx-auto z-10 flex flex-col justify-center order-1 md:order-2">
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-white mb-2">Contact Me</h3>
-          <p className="text-white/60 text-sm">
+          <h3 className="text-2xl font-bold text-foreground mb-2">Contact Me</h3>
+          <p className="text-foreground-secondary text-sm">
             Have a question or want to work together? Send me a message!
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
               Name
             </label>
             <input
@@ -170,13 +182,13 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
               required
               value={formData.name}
               onInput={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-foreground-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
               placeholder="John Doe"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
               Email
             </label>
             <input
@@ -185,13 +197,13 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
               required
               value={formData.email}
               onInput={handleChange}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-foreground-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
               placeholder="john@example.com"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-white/50 uppercase tracking-wider ml-1">
+            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
               Message
             </label>
             <textarea
@@ -200,7 +212,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
               value={formData.message}
               onInput={handleChange}
               rows={4}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
+              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-foreground-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
               placeholder="Tell me about your project..."
             />
           </div>
@@ -212,8 +224,8 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                     w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg transition-all duration-300
                     ${
                       status === "success"
-                        ? "bg-green-500/20 text-green-400 border border-green-500/50 cursor-default"
-                        : "bg-white text-black hover:bg-primary hover:text-white border border-transparent"
+                        ? "bg-success/15 text-success border border-success/40 cursor-default"
+                        : "bg-foreground text-background hover:bg-primary hover:text-white border border-transparent shadow-sm"
                     }
                     ${status === "loading" ? "opacity-70 cursor-wait" : ""}
                 `}
