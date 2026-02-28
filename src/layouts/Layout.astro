@@ -3,7 +3,7 @@ import "@styles/global.css";
 import BaseHead from "@componentes/BaseHead.astro";
 import Navbar from "@componentes/Navbar";
 import LanguageSelector from "@componentes/LanguageSelector.astro";
-import { FooterComponent } from "@componentes/angular/footer.component";
+import  Footer  from "@componentes/angular/footer";
 
 
 export interface Props {
@@ -36,7 +36,7 @@ const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
     </main>
 
     <!-- Angular Footer island -->
-    <FooterComponent client:visible />
+    <Footer client:visible />
   </body>
 </html>
 

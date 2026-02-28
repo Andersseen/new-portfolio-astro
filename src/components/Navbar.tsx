@@ -1,8 +1,6 @@
-
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
-import AboutDrawer from "./AboutPopover";
-
+import AboutDrawer from "./AboutDrawer";
 
 const SparklesIcon = Sparkles as any;
 const SunIcon = Sun as any;
@@ -19,11 +17,9 @@ export default function Navbar({ children }: NavbarProps) {
   const [aboutData, setAboutData] = useState<any>(null);
 
   useEffect(() => {
-    
     const theme = document.documentElement.getAttribute("data-theme");
     setIsDark(theme === "dark");
 
-    
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "data-theme") {
@@ -38,7 +34,6 @@ export default function Navbar({ children }: NavbarProps) {
       attributeFilter: ["data-theme"],
     });
 
-    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -92,14 +87,18 @@ export default function Navbar({ children }: NavbarProps) {
             {}
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-primary/30 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:bg-primary/50 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                <img src="/logo.svg" alt="Andersseen Dev Logo" width="40" height="40" fetchPriority="high" />
+                <img
+                  src="/logo.svg"
+                  alt="Andersseen Dev Logo"
+                  width="40"
+                  height="40"
+                  fetchPriority="high"
+                />
               </div>
             </div>
 
             {}
-            <span
-              className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none"
-            >
+            <span className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none">
               Andersseen Dev
             </span>
           </div>

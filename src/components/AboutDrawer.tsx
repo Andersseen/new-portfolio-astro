@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "preact/hooks";
-import { X, ExternalLink, Github, BookOpen, GitBranch, ChevronDown } from "lucide-preact";
+import {
+  X,
+  ExternalLink,
+  Github,
+  BookOpen,
+  GitBranch,
+  ChevronDown,
+} from "lucide-preact";
 import GitHubActivity from "./details/GitHubActivity";
-
 
 const ExternalLinkIcon = ExternalLink as any;
 const GithubIcon = Github as any;
@@ -39,11 +45,10 @@ export default function AboutDrawer({
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  
   useEffect(() => {
     if (isOpen) {
       setMounted(true);
-      
+
       document.body.style.overflow = "hidden";
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setVisible(true));
@@ -59,7 +64,6 @@ export default function AboutDrawer({
     };
   }, [isOpen]);
 
-  
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -82,17 +86,27 @@ export default function AboutDrawer({
       {}
       <div
         ref={drawerRef}
-        className="fixed top-0 left-0 right-0 z-[61] max-h-[85vh] bg-background border-b border-border shadow-2xl flex flex-col transition-transform duration-350 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] rounded-t-[2.5rem] overflow-hidden bg-background border-t border-border shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col transition-transform duration-350 ease-[cubic-bezier(0.32,0.72,0,1)]"
         style={{
-          transform: visible ? "translateY(0)" : "translateY(-100%)",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
         }}
       >
+        <div className="flex items-center justify-center py-3 border-b border-border bg-background shrink-0">
+          <button
+            onClick={onClose}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground-tertiary hover:text-foreground transition-colors cursor-pointer px-4 py-1.5 rounded-full hover:bg-foreground/5"
+          >
+            <ChevronDownIcon className="w-4 h-4" />
+            Close
+          </button>
+        </div>
         {}
         <div className="overflow-y-auto flex-1 custom-scrollbar">
           {}
           <div className="px-6 sm:px-12 lg:px-20 pt-12 sm:pt-16 pb-8 text-center max-w-3xl mx-auto">
             <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-foreground tracking-tight leading-none">
-              {(data.title || "Andersseen").split(",").pop()?.trim() || "Andersseen"}
+              {(data.title || "Andersseen").split(",").pop()?.trim() ||
+                "Andersseen"}
               <span className="text-primary">.</span>
             </h2>
             <p className="mt-4 text-lg text-foreground-tertiary leading-relaxed">
@@ -188,15 +202,6 @@ export default function AboutDrawer({
         </div>
 
         {}
-        <div className="flex items-center justify-center py-3 border-t border-border bg-background shrink-0">
-          <button
-            onClick={onClose}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground-tertiary hover:text-foreground transition-colors cursor-pointer px-4 py-1.5 rounded-full hover:bg-foreground/5"
-          >
-            <ChevronDownIcon className="w-4 h-4 rotate-180" />
-            Close
-          </button>
-        </div>
       </div>
     </>
   );

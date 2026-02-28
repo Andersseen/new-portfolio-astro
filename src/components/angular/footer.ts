@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-footer',
+  selector: "app-footer",
   template: `
-    <footer class="mt-auto py-8 text-center text-foreground-secondary text-sm border-t border-border/30">
+    <footer
+      class="mt-auto py-8 text-center text-foreground-secondary text-sm border-t border-border/30"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-3"
+        >
           <p>&copy; {{ currentYear }} Andersseen Dev. All rights reserved.</p>
           <p class="text-foreground-tertiary text-xs">
             Built with
@@ -20,6 +24,6 @@ import { Component } from '@angular/core';
     </footer>
   `,
 })
-export class FooterComponent {
+export default class Footer {
   currentYear = new Date().getFullYear();
 }
