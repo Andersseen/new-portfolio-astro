@@ -6,6 +6,7 @@ import { dirname } from "path";
 import tailwindcss from "@tailwindcss/vite";
 import preact from "@astrojs/preact";
 import lit from "@astrojs/lit";
+import angular from "@analogjs/astro-angular";
 
 import vercel from "@astrojs/vercel";
 
@@ -14,7 +15,17 @@ const __dirname = dirname(__filename);
 
 
 export default defineConfig({
-  integrations: [preact(), lit()],
+  integrations: [
+    preact({ exclude: ['**/components/angular/**'] }),
+    lit(),
+    angular({
+      vite: {
+        transformFilter: (_code, id) => {
+          return id.includes('src/components/angular/');
+        },
+      },
+    }),
+  ],
 
   i18n: {
     defaultLocale: "en",
