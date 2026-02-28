@@ -1,6 +1,7 @@
 import type { FunctionalComponent } from "preact";
 import { IconMap } from "../IconMap";
 import Button from "../ui/Button";
+import GitHubActivity from "./GitHubActivity";
 
 interface AboutDetailsProps {
   data: {
@@ -55,13 +56,18 @@ const AboutDetails = ({ data }: AboutDetailsProps) => {
               href={link.url}
               variant="outline"
               size="sm"
-              className={`border-${link.color}/30 text-${link.color} hover:bg-${link.color}/10`}
+              className="border-primary/30 text-primary hover:bg-primary/10"
             >
               {link.label}
             </Button>
           ))}
         </div>
       )}
+
+      {/* GitHub Contribution Graph */}
+      <div className="mt-8">
+        <GitHubActivity username="andersseen" />
+      </div>
     </div>
   );
 };
