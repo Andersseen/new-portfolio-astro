@@ -1,4 +1,3 @@
-
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -13,15 +12,14 @@ import vercel from "@astrojs/vercel";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
 export default defineConfig({
   integrations: [
-    preact({ exclude: ['**/components/angular/**'] }),
+    preact({ exclude: ["**/components/angular/**"] }),
     lit(),
     angular({
       vite: {
         transformFilter: (_code, id) => {
-          return id.includes('src/components/angular/');
+          return id.includes("src/components/angular/");
         },
       },
     }),
@@ -31,7 +29,7 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["en", "es", "ua"],
     routing: {
-      prefixDefaultLocale: false, 
+      prefixDefaultLocale: false,
     },
     fallback: {
       es: "en",
@@ -41,6 +39,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ["lucide-angular"],
+    },
     resolve: {
       alias: {
         "@componentes": `${__dirname}/src/components`,
