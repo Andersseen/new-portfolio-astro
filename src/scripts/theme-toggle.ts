@@ -6,52 +6,47 @@ async function initThemeToggle() {
   const moonIcon = document.getElementById("moon-icon");
   const html = document.documentElement;
 
-  
   const savedState = await loadThemeState();
 
   let currentTheme: "light" | "dark";
 
   if (savedState && savedState.userSet) {
-    
     currentTheme = savedState.mode;
-    
+
     if (savedState.colors) {
       applyColors(savedState.colors);
     }
   } else {
-    
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
     currentTheme = prefersDark ? "dark" : "light";
   }
 
-  
   setTheme(currentTheme, false);
-
-  
-  if (themeToggle) {
-    themeToggle.addEventListener("click", async () => {
+  // Use event delegation to handle clicks even if elements are hydrated/replaced
+  document.addEventListener("click", async (e) => {
+    const target = e.target as HTMLElement;
+    const toggleBtn = target.closest("#theme-toggle");
+    if (toggleBtn) {
       const newTheme = currentTheme === "light" ? "dark" : "light";
-      
+
       await setTheme(newTheme, true);
-    });
-  }
+    }
+  });
 
   async function setTheme(theme: "light" | "dark", userSet: boolean = false) {
     currentTheme = theme;
     html.setAttribute("data-theme", theme);
 
-    
     const savedState = await loadThemeState();
     const newState: ThemeState = {
       mode: theme,
-      colors: savedState?.colors, 
+      colors: savedState?.colors,
       userSet: userSet || (savedState?.userSet ?? false),
     };
     await saveThemeState(newState);
 
-    
     if (sunIcon && moonIcon) {
       if (theme === "dark") {
         sunIcon.classList.remove("hidden");
@@ -73,21 +68,18 @@ async function initThemeToggle() {
   }
 }
 
-
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initThemeToggle);
 } else {
   initThemeToggle();
 }
 
-
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", async (e) => {
-    const savedState = await loadThemeState(); 
+    const savedState = await loadThemeState();
     const state = await savedState;
 
-    
     if (!state || !state.userSet) {
       const newTheme = e.matches ? "dark" : "light";
       const html = document.documentElement;
@@ -96,7 +88,6 @@ window
 
       html.setAttribute("data-theme", newTheme);
 
-      
       await saveThemeState({
         mode: newTheme,
         colors: state?.colors,
