@@ -1,7 +1,6 @@
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
 
-
 const SparklesIcon = Sparkles as any;
 const SunIcon = Sun as any;
 const MoonIcon = Moon as any;
@@ -10,11 +9,9 @@ export default function Header() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    
     const theme = document.documentElement.getAttribute("data-theme");
     setIsDark(theme === "dark");
 
-    
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "data-theme") {
@@ -34,7 +31,6 @@ export default function Header() {
 
   return (
     <div className="flex items-center gap-3">
-      {}
       <button
         id="theme-randomize"
         className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
@@ -44,7 +40,6 @@ export default function Header() {
         <SparklesIcon className="w-5 h-5" />
       </button>
 
-      {}
       <button
         id="theme-toggle"
         className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-all duration-200 cursor-pointer"
