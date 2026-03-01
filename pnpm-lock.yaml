@@ -80,6 +80,9 @@ importers:
       lit:
         specifier: ^3.3.1
         version: 3.3.1
+      lucide-angular:
+        specifier: ^0.575.0
+        version: 0.575.0(@angular/common@21.2.0(@angular/core@21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1))
       lucide-preact:
         specifier: ^0.555.0
         version: 0.555.0(preact@10.28.0)
@@ -2728,6 +2731,12 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-angular@0.575.0:
+    resolution: {integrity: sha512-BCf0/PtyyKTzlsm9kxxXWCWa27vFS27Wp4dWxQws7SlY0/XpHqNo8b6RverBoNqd2J1RbHkRtArLTFCEq4WDXA==}
+    peerDependencies:
+      '@angular/common': 13.x - 21.x
+      '@angular/core': 13.x - 21.x
 
   lucide-preact@0.555.0:
     resolution: {integrity: sha512-NcVrZL6iMRNhEXrqDRGFLL6fL5shDKc2v3wSazuG/E973qf/0zCSfHxUqk8f5oNrUgrPjUUnOZeQneVfaej5aw==}
@@ -6389,6 +6398,12 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-angular@0.575.0(@angular/common@21.2.0(@angular/core@21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1)):
+    dependencies:
+      '@angular/common': 21.2.0(@angular/core@21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2)
+      '@angular/core': 21.2.0(@angular/compiler@21.2.0)(rxjs@7.8.2)(zone.js@0.16.1)
+      tslib: 2.8.1
 
   lucide-preact@0.555.0(preact@10.28.0):
     dependencies:
