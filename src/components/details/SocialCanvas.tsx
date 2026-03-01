@@ -3,7 +3,6 @@ import createGlobe from "cobe";
 import { IconMap } from "../IconMap";
 import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-preact";
 
-
 const SendIcon = Send as any;
 const Loader2Icon = Loader2 as any;
 const CheckCircle2Icon = CheckCircle2 as any;
@@ -37,17 +36,19 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
   const socialItems = items || data?.content || [];
 
-  
   const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const checkTheme = () => {
-      const theme = document.documentElement.getAttribute('data-theme');
-      setIsDark(theme === 'dark');
+      const theme = document.documentElement.getAttribute("data-theme");
+      setIsDark(theme === "dark");
     };
     checkTheme();
     const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
     return () => observer.disconnect();
   }, []);
 
@@ -63,8 +64,8 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
-      width: 600 * 2,
-      height: 600 * 2,
+      width: 400 * 2,
+      height: 400 * 2,
       phi: 0,
       theta: 0,
       dark: isDark ? 1 : 0,
@@ -121,25 +122,36 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 min-h-[500px] w-full bg-background-secondary rounded-xl overflow-hidden border border-border p-6 relative">
+    <div className="flex flex-col md:flex-row gap-6 w-full bg-background-secondary rounded-xl overflow-hidden border border-border p-6 relative">
       <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
 
       {}
-      <div className="flex-1 relative flex flex-col items-center justify-center min-h-[300px] order-2 md:order-1">
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+      <div
+        className="w-full md:w-2/5 shrink-0 relative flex flex-col items-center justify-center order-2 md:order-1 isolate"
+        style={{ maxHeight: "450px" }}
+      >
+        <div
+          className="flex items-center justify-center"
+          style={{
+            width: 260,
+            height: 260,
+            borderRadius: "50%",
+            overflow: "hidden",
+            clipPath: "inset(0 round 50%)",
+          }}
+        >
           <canvas
             ref={canvasRef}
             style={{
-              width: 600,
-              height: 600,
-              maxWidth: "100%",
-              aspectRatio: 1,
+              width: 340,
+              height: 340,
+              display: "block",
             }}
             className="opacity-90 grayscale hover:grayscale-0 transition-all duration-1000"
           />
         </div>
 
-        <div className="z-10 mt-auto flex flex-wrap justify-center gap-4 p-4">
+        <div className="z-10 flex flex-wrap justify-center gap-3 pt-3">
           {socialItems.map((item, i) => {
             const Icon = IconMap[item.icon] || IconMap["github"];
             return (
@@ -151,9 +163,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                 className="group p-3 rounded-full bg-background-tertiary border border-border hover:bg-primary/10 hover:scale-110 hover:border-primary/40 transition-all duration-300 shadow-sm"
                 title={item.label}
               >
-                <div
-                  className="text-foreground-secondary group-hover:text-primary transition-colors"
-                >
+                <div className="text-foreground-secondary group-hover:text-primary transition-colors">
                   <Icon className="w-5 h-5" />
                 </div>
               </a>
@@ -165,7 +175,9 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       {}
       <div className="flex-1 w-full max-w-md mx-auto z-10 flex flex-col justify-center order-1 md:order-2">
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-foreground mb-2">Contact Me</h3>
+          <h3 className="text-2xl font-bold text-foreground mb-2">
+            Contact Me
+          </h3>
           <p className="text-foreground-secondary text-sm">
             Have a question or want to work together? Send me a message!
           </p>

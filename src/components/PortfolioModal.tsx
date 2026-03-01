@@ -24,9 +24,9 @@ interface PortfolioModalProps {
 }
 
 /** Duration of the fly animation in ms */
-const FLY_DURATION = 420;
+const FLY_DURATION = 380;
 /** Duration of the content fade in ms */
-const CONTENT_FADE = 250;
+const CONTENT_FADE = 200;
 
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const rect = useStore(cardRectStore);
@@ -34,7 +34,20 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
 
   const modalRef = useRef<HTMLDivElement>(null);
   const [showContent, setShowContent] = useState(false);
-  const [flyStyle, setFlyStyle] = useState<Record<string, string>>({});
+  const timersRef = useRef<number[]>([]);
+
+  /** Clear all pending timers */
+  const clearTimers = useCallback(() => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  }, []);
+
+  /** Schedule a timer and track it */
+  const schedule = useCallback((fn: () => void, ms: number) => {
+    const id = window.setTimeout(fn, ms);
+    timersRef.current.push(id);
+    return id;
+  }, []);
 
   /* ---- compute final (target) modal rect ---- */
   const getFinalRect = useCallback(() => {
@@ -50,15 +63,28 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     return { top: modalY, left: modalX, width: modalW, height: modalH };
   }, []);
 
+  /* ---- Apply styles directly to avoid batching issues ---- */
+  const applyStyle = useCallback((styles: Record<string, string>) => {
+    const el = modalRef.current;
+    if (!el) return;
+    Object.entries(styles).forEach(([key, val]) => {
+      (el.style as any)[key] = val;
+    });
+  }, []);
+
   /* ---- ENTERING: animate card rect → modal rect ---- */
   useEffect(() => {
     if (phase !== "entering") return;
+    clearTimers();
 
     const final = getFinalRect();
+    const isMobile =
+      (typeof window !== "undefined" ? window.innerWidth : 1024) < 640;
+    const finalRadius = isMobile ? "24px 24px 0 0" : "24px";
 
     if (rect) {
-      // Start at card position
-      setFlyStyle({
+      // 1. Place at card position (no transition)
+      applyStyle({
         position: "fixed",
         zIndex: "60",
         top: `${rect.top}px`,
@@ -69,92 +95,98 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         overflow: "hidden",
         transition: "none",
         opacity: "1",
+        visibility: "visible",
       });
 
-      // Next frame: animate to final position
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setFlyStyle({
-            position: "fixed",
-            zIndex: "60",
-            top: `${final.top}px`,
-            left: `${final.left}px`,
-            width: `${final.width}px`,
-            height: `${final.height}px`,
-            borderRadius: window.innerWidth < 640 ? "24px 24px 0 0" : "24px",
-            overflow: "hidden",
-            transition: `top ${FLY_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                         left ${FLY_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                         width ${FLY_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                         height ${FLY_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1),
-                         border-radius ${FLY_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`,
-            opacity: "1",
-          });
+      // 2. Force layout reflow then animate
+      schedule(() => {
+        // Force reflow
+        modalRef.current?.offsetHeight;
+
+        applyStyle({
+          top: `${final.top}px`,
+          left: `${final.left}px`,
+          width: `${final.width}px`,
+          height: `${final.height}px`,
+          borderRadius: finalRadius,
+          transition: [
+            `top ${FLY_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `left ${FLY_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `width ${FLY_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `height ${FLY_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `border-radius ${FLY_DURATION}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+          ].join(", "),
         });
-      });
+      }, 20);
+
+      // 3. Finish entering after fly completes
+      schedule(() => {
+        applyStyle({ transition: "none" });
+        finishEntering();
+        setShowContent(true);
+      }, FLY_DURATION + 30);
     } else {
-      // No rect available — instant open
-      setFlyStyle({
+      // No rect — instant open
+      applyStyle({
         position: "fixed",
         zIndex: "60",
         top: `${final.top}px`,
         left: `${final.left}px`,
         width: `${final.width}px`,
         height: `${final.height}px`,
-        borderRadius: window.innerWidth < 640 ? "24px 24px 0 0" : "24px",
+        borderRadius: finalRadius,
         overflow: "hidden",
         opacity: "1",
+        visibility: "visible",
+        transition: "none",
       });
-    }
-
-    const timer = setTimeout(
-      () => {
+      schedule(() => {
         finishEntering();
         setShowContent(true);
-      },
-      rect ? FLY_DURATION : 50,
-    );
+      }, 30);
+    }
 
-    return () => clearTimeout(timer);
-  }, [phase, rect, getFinalRect]);
+    return clearTimers;
+  }, [phase === "entering"]);
 
   /* ---- EXITING: animate modal rect → card rect ---- */
   useEffect(() => {
     if (phase !== "exiting") return;
+    clearTimers();
 
     setShowContent(false);
 
-    const exitTimer = setTimeout(() => {
+    schedule(() => {
       if (rect) {
-        setFlyStyle((prev) => ({
-          ...prev,
+        applyStyle({
           top: `${rect.top}px`,
           left: `${rect.left}px`,
           width: `${rect.width}px`,
           height: `${rect.height}px`,
           borderRadius: "24px",
-          transition: `top ${FLY_DURATION * 0.8}ms cubic-bezier(0.4, 0, 0.2, 1),
-                       left ${FLY_DURATION * 0.8}ms cubic-bezier(0.4, 0, 0.2, 1),
-                       width ${FLY_DURATION * 0.8}ms cubic-bezier(0.4, 0, 0.2, 1),
-                       height ${FLY_DURATION * 0.8}ms cubic-bezier(0.4, 0, 0.2, 1),
-                       border-radius ${FLY_DURATION * 0.8}ms cubic-bezier(0.4, 0, 0.2, 1),
-                       opacity ${FLY_DURATION * 0.6}ms ease ${FLY_DURATION * 0.2}ms`,
-          opacity: "0",
-        }));
+          opacity: "0.4",
+          transition: [
+            `top ${FLY_DURATION * 0.75}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `left ${FLY_DURATION * 0.75}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `width ${FLY_DURATION * 0.75}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `height ${FLY_DURATION * 0.75}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `border-radius ${FLY_DURATION * 0.75}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+            `opacity ${FLY_DURATION * 0.5}ms ease ${FLY_DURATION * 0.25}ms`,
+          ].join(", "),
+        });
 
-        setTimeout(() => finishExiting(), FLY_DURATION * 0.8);
+        schedule(() => finishExiting(), FLY_DURATION * 0.75 + 20);
       } else {
-        setFlyStyle((prev) => ({
-          ...prev,
+        applyStyle({
           opacity: "0",
-          transition: `opacity 200ms ease`,
-        }));
-        setTimeout(() => finishExiting(), 200);
+          transition: "opacity 180ms ease",
+        });
+        schedule(() => finishExiting(), 200);
       }
-    }, CONTENT_FADE);
+    }, CONTENT_FADE + 20);
 
-    return () => {};
-  }, [phase, rect]);
+    return clearTimers;
+  }, [phase === "exiting"]);
 
   /* ---- Escape key handler ---- */
   useEffect(() => {
@@ -164,6 +196,9 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
+
+  /* ---- Clean up all timers on unmount ---- */
+  useEffect(() => clearTimers, []);
 
   /* ---- Render detail content ---- */
   const renderDetails = () => {
@@ -211,7 +246,12 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       {/* Animated modal shell */}
       <div
         ref={modalRef}
-        style={flyStyle}
+        style={{
+          position: "fixed",
+          zIndex: "60",
+          overflow: "hidden",
+          visibility: "hidden",
+        }}
         className="bg-background border border-border shadow-2xl flex flex-col"
         onClick={(e: any) => e.stopPropagation()}
       >
