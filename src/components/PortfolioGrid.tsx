@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 import { saveOrder, loadOrder } from "../scripts/idb-order";
-import SkeletonCard from "./SkeletonCard";
 import PortfolioCard from "./PortfolioCard";
 import {
   openModal,
@@ -69,7 +68,6 @@ const LAYOUT_PATTERN: ("col-span-1" | "col-span-2")[] = [
 export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyRef = useRef<any>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<PortfolioItem[]>(initialItems);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -102,7 +100,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
         swapyRef.current = null;
       }
 
-      if (!mobile && isLoaded && containerRef.current) {
+      if (!mobile && containerRef.current) {
         try {
           const { createSwapy } = await import("swapy");
 
@@ -150,7 +148,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
         swapyRef.current.destroy();
       }
     };
-  }, [isLoaded]);
+  }, []);
 
   useEffect(() => {
     const loadSavedOrder = async () => {
@@ -161,7 +159,6 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
           !Array.isArray(savedOrder) ||
           savedOrder.length === 0
         ) {
-          setIsLoaded(true);
           return;
         }
 
@@ -175,8 +172,6 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
         setItems(reordered);
       } catch (e) {
         console.error("Failed to load order from IDB", e);
-      } finally {
-        setIsLoaded(true);
       }
     };
     loadSavedOrder();
@@ -185,28 +180,6 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
   // Is a given card the one currently shown as modal?
   const isCardHidden = (id: string) =>
     modalItem?.id === id && phase !== "closed";
-
-  if (!isLoaded) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[320px]">
-        {initialItems.map((item, index) => {
-          const patternColSpan = LAYOUT_PATTERN[index % LAYOUT_PATTERN.length];
-          return (
-            <div
-              key={item.id}
-              className={`${
-                patternColSpan === "col-span-2"
-                  ? "md:col-span-2"
-                  : "md:col-span-1"
-              }`}
-            >
-              <SkeletonCard colSpan={patternColSpan} />
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
 
   return (
     <>

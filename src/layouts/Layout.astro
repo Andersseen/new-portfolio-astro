@@ -1,9 +1,9 @@
 ---
 import "@styles/global.css";
 import BaseHead from "@componentes/BaseHead.astro";
-import { NavbarComponent as Navbar } from "@componentes/angular/navbar.component";
+import Navbar from "@componentes/Navbar";
 import LanguageSelector from "@componentes/LanguageSelector.astro";
-import  Footer  from "@componentes/angular/footer";
+import Footer from "@componentes/Footer.astro";
 
 
 export interface Props {
@@ -35,8 +35,7 @@ const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
       <slot />
     </main>
 
-    <!-- Angular Footer island -->
-    <Footer client:visible />
+    <Footer />
   </body>
 </html>
 
@@ -44,5 +43,4 @@ const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
 <script>
   import "@scripts/theme-toggle.ts";
   import "@scripts/theme-randomizer.ts";
-  import "@scripts/card-modal.ts";
 </script>
