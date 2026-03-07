@@ -92,8 +92,12 @@ export default class MockUIKit extends LitElement {
 
   private async _registerComponents() {
     try {
-      const [{ registerAllIcons }, { initMotion }] = await Promise.all([
-        import("@andersseen/icon"),
+      // Register icons BEFORE importing and-icon so the registry is populated
+      // when Stencil's connectedCallback fires during custom-element upgrade.
+      const { registerAllIcons } = await import("@andersseen/icon");
+      registerAllIcons();
+
+      const [{ initMotion }] = await Promise.all([
         import("@andersseen/motion"),
         import("@andersseen/web-components/components/and-button.js"),
         import("@andersseen/web-components/components/and-badge.js"),
@@ -103,7 +107,6 @@ export default class MockUIKit extends LitElement {
         import("@andersseen/web-components/components/and-input.js"),
       ]);
 
-      registerAllIcons();
       initMotion({ root: this });
       this.requestUpdate();
     } catch (e) {
