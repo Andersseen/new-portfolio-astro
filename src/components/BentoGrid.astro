@@ -3,9 +3,8 @@ import { t } from '../i18n/utils';
 import { getLanguageFromPath } from '../i18n/config';
 import PortfolioGrid from './PortfolioGrid';
 import type { PortfolioItem } from './PortfolioGrid';
-import { getPortfolioItems, aboutMeData } from '../data/portfolio';
-import { fetchGitHubReadme, fetchMediumArticles } from "../utils/fetchers";
-import AboutMeHydrator from './AboutMeHydrator';
+import { getPortfolioItems } from '../data/portfolio';
+import { fetchMediumArticles } from "../utils/fetchers";
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const tr = (key: string) => t(lang, key);
@@ -17,5 +16,5 @@ const initialItems = getPortfolioItems(tr, mediumArticles);
 ---
 
 <section class="py-16 px-4 max-w-7xl mx-auto">
-  <PortfolioGrid client:visible initialItems={initialItems} />
+  <PortfolioGrid client:idle initialItems={initialItems} />
 </section>

@@ -182,16 +182,20 @@ export const getPortfolioItems = (
     actionLabel: tr("portfolio.actions.gallery"),
     details: [
       {
-        title: "Mobile App UI",
-        description: "Clean and intuitive interface for a wellness app.",
-        image:
-          "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+        title: "@andersseen/web-components",
+        description: "24+ framework-agnostic UI components built with Stencil.",
       },
       {
-        title: "Brand Identity",
-        description: "Complete rebranding for a tech startup.",
-        image:
-          "https://images.unsplash.com/photo-1626785774573-4b799314346d?q=80&w=600&auto=format&fit=crop",
+        title: "@andersseen/icon",
+        description: "70+ SVG icons with tree-shaking and lazy loading.",
+      },
+      {
+        title: "@andersseen/motion",
+        description: "Attribute-driven CSS/JS animation system.",
+      },
+      {
+        title: "@andersseen/layout",
+        description: "Pure CSS layout via HTML attributes.",
       },
     ],
     colSpan: "col-span-1",

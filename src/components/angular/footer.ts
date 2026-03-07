@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
   selector: "app-footer",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer
       class="mt-auto py-8 text-center text-foreground-secondary text-sm border-t border-border/30"
@@ -25,5 +26,5 @@ import { Component } from "@angular/core";
   `,
 })
 export default class Footer {
-  currentYear = new Date().getFullYear();
+  readonly currentYear = new Date().getFullYear();
 }
