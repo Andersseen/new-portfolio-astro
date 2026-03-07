@@ -1,26 +1,29 @@
-import { Component, signal, importProvidersFrom } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+} from "@angular/core";
 import type { OnInit, OnDestroy } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import { LucideAngularModule, Sparkles, Sun, Moon } from "lucide-angular";
 import { AboutDrawerComponent } from "./about-drawer.component";
 import type { AboutData } from "./about-drawer.component";
 
+type Locale = "en" | "es" | "ua";
+const SUPPORTED_LOCALES: readonly Locale[] = ["en", "es", "ua"];
+
 @Component({
   selector: "app-navbar",
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule, AboutDrawerComponent],
+  imports: [LucideAngularModule, AboutDrawerComponent, NgOptimizedImage],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav
       class="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ease-in-out"
-      [ngClass]="{
-        'bg-background/80 backdrop-blur-lg shadow-lg border-border/50 py-2':
-          isScrolled(),
-        'bg-transparent border-transparent shadow-none py-4': !isScrolled(),
-      }"
+      [class]="navStateClass()"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between">
-          <!-- Logo & Brand -->
           <div
             class="flex items-center gap-3 group cursor-pointer"
             (click)="toggleAbout($event)"
@@ -32,7 +35,7 @@ import type { AboutData } from "./about-drawer.component";
                 class="absolute inset-0 bg-primary/30 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:bg-primary/50 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary"
               >
                 <img
-                  src="/logo.svg"
+                  ngSrc="/logo.svg"
                   alt="Andersseen Dev Logo"
                   width="40"
                   height="40"
@@ -48,14 +51,12 @@ import type { AboutData } from "./about-drawer.component";
             </span>
           </div>
 
-          <!-- Actions -->
           <div class="flex items-center gap-2 sm:gap-3">
-            <!-- Language Selector (passed as children) -->
             <ng-content></ng-content>
 
-            <!-- Theme Randomizer -->
             <button
               id="theme-randomize"
+              type="button"
               class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               title="Randomize theme"
               aria-label="Randomize theme"
@@ -66,107 +67,144 @@ import type { AboutData } from "./about-drawer.component";
               ></lucide-icon>
             </button>
 
-            <!-- Theme Toggle -->
             <button
               id="theme-toggle"
+              type="button"
               class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               aria-label="Toggle theme"
               title="Toggle theme"
             >
-              <lucide-icon
-                *ngIf="isDark()"
-                [img]="Sun"
-                class="w-4 h-4 sm:w-5 sm:h-5"
-              ></lucide-icon>
-              <lucide-icon
-                *ngIf="!isDark()"
-                [img]="Moon"
-                class="w-4 h-4 sm:w-5 sm:h-5"
-              ></lucide-icon>
+              @if (isDark()) {
+                <lucide-icon
+                  [img]="Sun"
+                  class="w-4 h-4 sm:w-5 sm:h-5"
+                ></lucide-icon>
+              } @else {
+                <lucide-icon
+                  [img]="Moon"
+                  class="w-4 h-4 sm:w-5 sm:h-5"
+                ></lucide-icon>
+              }
             </button>
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- About Me Drawer -->
     <app-about-drawer
       [data]="aboutData()"
       [isOpen]="aboutOpen()"
-      (onClose)="aboutOpen.set(false)"
+      (onClose)="handleDrawerClose()"
     ></app-about-drawer>
   `,
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  isDark = signal(false);
-  isScrolled = signal(false);
-  aboutOpen = signal(false);
-  aboutData = signal<AboutData | null>(null);
+  readonly isDark = signal(false);
+  readonly isScrolled = signal(false);
+  readonly aboutOpen = signal(false);
+  readonly aboutData = signal<AboutData | null>(null);
+
+  readonly navStateClass = computed(() =>
+    this.isScrolled()
+      ? "bg-background/80 backdrop-blur-lg shadow-lg border-border/50 py-2"
+      : "bg-transparent border-transparent shadow-none py-4",
+  );
 
   readonly Sparkles = Sparkles;
   readonly Sun = Sun;
   readonly Moon = Moon;
 
-  private observer?: MutationObserver;
-  private scrollListener?: () => void;
+  private observer: MutationObserver | null = null;
+  private removeScrollListener: (() => void) | null = null;
 
-  ngOnInit() {
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
-      const theme = document.documentElement.getAttribute("data-theme");
-      this.isDark.set(theme === "dark");
-
-      this.observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === "data-theme") {
-            const newTheme =
-              document.documentElement.getAttribute("data-theme");
-            this.isDark.set(newTheme === "dark");
-          }
-        });
-      });
-
-      this.observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"],
-      });
-
-      this.scrollListener = () => {
-        this.isScrolled.set(window.scrollY > 20);
-      };
-      window.addEventListener("scroll", this.scrollListener);
-
-      // Initial trigger
-      this.scrollListener();
+  ngOnInit(): void {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      return;
     }
+
+    this.syncThemeState();
+
+    this.observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === "data-theme") {
+          this.syncThemeState();
+        }
+      }
+    });
+
+    this.observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    const onScroll = () => {
+      this.isScrolled.set(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    this.removeScrollListener = () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+
+    onScroll();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.observer?.disconnect();
-    if (this.scrollListener && typeof window !== "undefined") {
-      window.removeEventListener("scroll", this.scrollListener);
-    }
+    this.observer = null;
+
+    this.removeScrollListener?.();
+    this.removeScrollListener = null;
   }
 
-  async toggleAbout(e: Event) {
-    e.preventDefault();
+  handleDrawerClose(): void {
+    this.aboutOpen.set(false);
+  }
+
+  async toggleAbout(event: Event): Promise<void> {
+    event.preventDefault();
+
     if (this.aboutData()) {
       this.aboutOpen.set(!this.aboutOpen());
-    } else {
-      try {
-        const { t } = await import("../../i18n/utils");
-        const langPath = window.location.pathname.split("/")[1] || "en";
-        const currentLang = ["en", "es", "ua"].includes(langPath)
-          ? langPath
-          : "en";
-
-        const { aboutMeData } = await import("../../data/portfolio");
-        const item = aboutMeData((key: string) => t(currentLang as any, key));
-
-        this.aboutData.set(item.details);
-        this.aboutOpen.set(true);
-      } catch (err) {
-        console.error("Failed to load about data", err);
-      }
+      return;
     }
+
+    try {
+      const currentLang = this.resolveCurrentLocale();
+      const { t } = await import("../../i18n/utils");
+      const { aboutMeData } = await import("../../data/portfolio");
+      const item = aboutMeData((key: string) => t(currentLang, key));
+
+      this.aboutData.set((item.details as AboutData) ?? null);
+      this.aboutOpen.set(true);
+    } catch (error) {
+      console.error("Failed to load about data", error);
+    }
+  }
+
+  private syncThemeState(): void {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    this.isDark.set(currentTheme === "dark");
+  }
+
+  private resolveCurrentLocale(): Locale {
+    if (typeof window === "undefined") {
+      return "en";
+    }
+
+    const langPath = window.location.pathname.split("/")[1] || "en";
+    if (this.isLocale(langPath)) {
+      return langPath;
+    }
+
+    return "en";
+  }
+
+  private isLocale(value: string): value is Locale {
+    return SUPPORTED_LOCALES.some((locale) => locale === value);
   }
 }

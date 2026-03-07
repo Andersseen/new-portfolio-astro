@@ -19,7 +19,7 @@ export default function ProjectsCardContent({
 
   return (
     <>
-      {projects.length > 0 && (
+      {projects.length && (
         <div className="flex flex-col gap-2.5 mt-1 mb-3">
           {projects.slice(0, 3).map((project, i: number) => (
             <div
