@@ -82,7 +82,7 @@ const imageURL = Astro.site
           const request = store.get('theme-state');
           request.onsuccess = function() {
             const state = request.result;
-            if (state && state.userSet) {
+            if (state) {
               document.documentElement.setAttribute('data-theme', state.mode);
               if (state.colors) {
                 const root = document.documentElement;
@@ -91,6 +91,14 @@ const imageURL = Astro.site
                 root.style.setProperty('--color-accent', state.colors.accent);
                 root.style.setProperty('--color-success', state.colors.success);
                 root.style.setProperty('--color-warning', state.colors.warning);
+                if (state.colors.background) root.style.setProperty('--color-background', state.colors.background);
+                if (state.colors.foreground) root.style.setProperty('--color-foreground', state.colors.foreground);
+                if (state.colors.backgroundSecondary) root.style.setProperty('--color-background-secondary', state.colors.backgroundSecondary);
+                if (state.colors.backgroundTertiary) root.style.setProperty('--color-background-tertiary', state.colors.backgroundTertiary);
+                if (state.colors.foregroundSecondary) root.style.setProperty('--color-foreground-secondary', state.colors.foregroundSecondary);
+                if (state.colors.foregroundTertiary) root.style.setProperty('--color-foreground-tertiary', state.colors.foregroundTertiary);
+                if (state.colors.border) root.style.setProperty('--color-border', state.colors.border);
+                if (state.colors.borderLight) root.style.setProperty('--color-border-light', state.colors.borderLight);
               }
             } else {
               

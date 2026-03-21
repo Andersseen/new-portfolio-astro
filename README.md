@@ -1,5 +1,33 @@
 # Astro Starter Kit: Basics
 
+## Theme API Integration
+
+This portfolio now consumes Palette Crafter as the single source of truth for theme generation.
+
+### Required environment variable
+
+Set this in your environment (used by the Astro API proxy at `/api/theme`):
+
+```bash
+THEME_API_BASE_URL=https://palette-crafter.pages.dev
+```
+
+Optional for visibility in client builds:
+
+```bash
+PUBLIC_THEME_API_BASE_URL=https://palette-crafter.pages.dev
+```
+
+### Local verification
+
+1. Run `pnpm install`
+2. Run `PUBLIC_THEME_API_BASE_URL=http://localhost:3000 pnpm dev`
+3. Click the randomize button in the navbar and verify:
+   - Loading state appears
+   - New theme is applied from API
+   - If API is unavailable, last valid theme is reused
+4. Toggle dark/light mode and confirm theme is re-fetched for the new mode
+
 ```sh
 pnpm create astro@latest -- --template basics
 ```
@@ -32,9 +60,9 @@ To learn more about the folder structure of an Astro project, refer to [our guid
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
+| Command                | Action                                           |
+| :--------------------- | :----------------------------------------------- |
+| `pnpm install`         | Installs dependencies                            |
 | `pnpm dev`             | Starts local dev server at `localhost:4321`      |
 | `pnpm build`           | Build your production site to `./dist/`          |
 | `pnpm preview`         | Preview your build locally, before deploying     |

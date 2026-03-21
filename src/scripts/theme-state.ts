@@ -1,18 +1,33 @@
-
 import { getDb, STORE } from "./db";
+import type { ThemeApiMeta, ThemeApiTheme, ThemeMode } from "@/utils/theme-api";
 
-type ThemeMode = "light" | "dark";
+export interface ThemeColors {
+  primary: string;
+  secondary: string;
+  accent: string;
+  success: string;
+  warning: string;
+  background?: string;
+  foreground?: string;
+  backgroundSecondary?: string;
+  backgroundTertiary?: string;
+  foregroundSecondary?: string;
+  foregroundTertiary?: string;
+  border?: string;
+  borderLight?: string;
+}
+
+export interface ThemeApiSnapshot {
+  theme: ThemeApiTheme;
+  meta: ThemeApiMeta;
+  fetchedAt: number;
+}
 
 export interface ThemeState {
   mode: ThemeMode;
-  colors?: {
-    primary: string;
-    secondary: string;
-    accent: string;
-    success: string;
-    warning: string;
-  };
-  userSet: boolean; 
+  colors?: ThemeColors;
+  apiSnapshot?: ThemeApiSnapshot;
+  userSet: boolean;
 }
 
 export async function saveThemeState(state: ThemeState) {

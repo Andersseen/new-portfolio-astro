@@ -1,7 +1,11 @@
-import { saveThemeState, loadThemeState, type ThemeState } from "./theme-state";
+import {
+  saveThemeState,
+  loadThemeState,
+  type ThemeColors,
+  type ThemeState,
+} from "./theme-state";
 
 async function initThemeToggle() {
-  const themeToggle = document.getElementById("theme-toggle");
   const sunIcon = document.getElementById("sun-icon");
   const moonIcon = document.getElementById("moon-icon");
   const html = document.documentElement;
@@ -47,6 +51,12 @@ async function initThemeToggle() {
     };
     await saveThemeState(newState);
 
+    window.dispatchEvent(
+      new CustomEvent("portfolio:theme-mode-changed", {
+        detail: { mode: theme, userSet },
+      }),
+    );
+
     if (sunIcon && moonIcon) {
       if (theme === "dark") {
         sunIcon.classList.remove("hidden");
@@ -58,13 +68,50 @@ async function initThemeToggle() {
     }
   }
 
-  function applyColors(colors: any) {
+  function applyColors(colors: ThemeColors) {
     const root = document.documentElement;
     root.style.setProperty("--color-primary", colors.primary);
     root.style.setProperty("--color-secondary", colors.secondary);
     root.style.setProperty("--color-accent", colors.accent);
     root.style.setProperty("--color-success", colors.success);
     root.style.setProperty("--color-warning", colors.warning);
+
+    if (colors.background) {
+      root.style.setProperty("--color-background", colors.background);
+    }
+    if (colors.foreground) {
+      root.style.setProperty("--color-foreground", colors.foreground);
+    }
+    if (colors.backgroundSecondary) {
+      root.style.setProperty(
+        "--color-background-secondary",
+        colors.backgroundSecondary,
+      );
+    }
+    if (colors.backgroundTertiary) {
+      root.style.setProperty(
+        "--color-background-tertiary",
+        colors.backgroundTertiary,
+      );
+    }
+    if (colors.foregroundSecondary) {
+      root.style.setProperty(
+        "--color-foreground-secondary",
+        colors.foregroundSecondary,
+      );
+    }
+    if (colors.foregroundTertiary) {
+      root.style.setProperty(
+        "--color-foreground-tertiary",
+        colors.foregroundTertiary,
+      );
+    }
+    if (colors.border) {
+      root.style.setProperty("--color-border", colors.border);
+    }
+    if (colors.borderLight) {
+      root.style.setProperty("--color-border-light", colors.borderLight);
+    }
   }
 }
 
@@ -77,8 +124,7 @@ if (document.readyState === "loading") {
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", async (e) => {
-    const savedState = await loadThemeState();
-    const state = await savedState;
+    const state = await loadThemeState();
 
     if (!state || !state.userSet) {
       const newTheme = e.matches ? "dark" : "light";
@@ -93,6 +139,12 @@ window
         colors: state?.colors,
         userSet: false,
       });
+
+      window.dispatchEvent(
+        new CustomEvent("portfolio:theme-mode-changed", {
+          detail: { mode: newTheme, userSet: false },
+        }),
+      );
 
       if (sunIcon && moonIcon) {
         if (newTheme === "dark") {
