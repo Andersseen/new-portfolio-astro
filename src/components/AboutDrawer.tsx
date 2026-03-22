@@ -6,6 +6,7 @@ import {
   BookOpen,
   GitBranch,
   ChevronDown,
+  User,
 } from "lucide-preact";
 import GitHubActivity from "./details/GitHubActivity";
 
@@ -14,6 +15,7 @@ const GithubIcon = Github as any;
 const BookOpenIcon = BookOpen as any;
 const GitBranchIcon = GitBranch as any;
 const ChevronDownIcon = ChevronDown as any;
+const UserIcon = User as any;
 
 interface AboutData {
   title?: string;
@@ -34,6 +36,7 @@ const socialIconMap: Record<string, any> = {
   github: GithubIcon,
   gitlab: GitBranchIcon,
   medium: BookOpenIcon,
+  blog: UserIcon,
 };
 
 export default function AboutDrawer({
