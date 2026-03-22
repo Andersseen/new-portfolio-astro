@@ -16,12 +16,15 @@ export interface ButtonProps
 }
 
 const variantClasses = {
-  primary: "bg-primary text-background hover:bg-primary/90 shadow-sm",
-  secondary: "bg-primary/80 text-background hover:bg-primary/70 shadow-sm",
-  accent: "bg-primary/60 text-background hover:bg-primary/50 shadow-sm",
-  ghost: "bg-transparent hover:bg-foreground/5 text-foreground",
+  primary:
+    "bg-primary-500 text-background hover:bg-primary-600 active:bg-primary-700 dark:hover:bg-primary-400 dark:active:bg-primary-300 shadow-sm transition-colors",
+  secondary:
+    "bg-secondary-500 text-background hover:bg-secondary-600 active:bg-secondary-700 dark:hover:bg-secondary-400 dark:active:bg-secondary-300 shadow-sm transition-colors",
+  accent:
+    "bg-accent text-background hover:opacity-90 active:scale-[0.98] shadow-sm transition-all",
+  ghost: "bg-transparent hover:bg-foreground/5 text-foreground transition-colors",
   outline:
-    "bg-transparent border-2 border-border hover:bg-foreground/5 text-foreground",
+    "bg-transparent border-2 border-border hover:bg-foreground/5 text-foreground transition-all",
 };
 
 const sizeClasses = {
