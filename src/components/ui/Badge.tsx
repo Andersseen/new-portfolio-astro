@@ -14,8 +14,8 @@ export interface BadgeProps {
 }
 
 const variantClasses = {
-  primary: "bg-primary/15 text-primary border-primary/20",
-  secondary: "bg-secondary/15 text-secondary border-secondary/20",
+  primary: "bg-primary-100 text-primary-900 border-primary-200 dark:bg-primary-900/40 dark:text-primary-100 dark:border-primary-800",
+  secondary: "bg-secondary-100 text-secondary-900 border-secondary-200 dark:bg-secondary-900/40 dark:text-secondary-100 dark:border-secondary-800",
   accent: "bg-accent/15 text-accent border-accent/20",
   success: "bg-success/15 text-success border-success/20",
   warning: "bg-warning/15 text-warning border-warning/20",

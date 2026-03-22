@@ -45,11 +45,11 @@ export default function Input({
         "bg-background-secondary border-2",
         error
           ? "border-danger focus:border-danger"
-          : "border-border focus:border-primary",
+          : "border-border focus:border-primary-500",
         "text-foreground placeholder:text-foreground-tertiary",
         "transition-colors duration-200",
         "focus:outline-none focus:ring-2",
-        error ? "focus:ring-danger/20" : "focus:ring-primary/20",
+        error ? "focus:ring-danger/20" : "focus:ring-primary-500/20",
         disabled && "opacity-50 cursor-not-allowed",
         className
       )}

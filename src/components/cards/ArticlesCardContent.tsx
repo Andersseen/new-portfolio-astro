@@ -11,7 +11,9 @@ interface ArticlePreviewDetails {
   labels?: {
     heading?: string;
     noArticles?: string;
+    blogMessage?: string;
   };
+  viewMoreUrl?: string;
 }
 
 interface ArticlesCardContentProps {
@@ -24,6 +26,8 @@ const normalizeArticleDetails = (details: unknown) => {
       articles: details as ArticlePreviewItem[],
       heading: "",
       noArticles: "No articles available right now.",
+      blogMessage: "",
+      viewMoreUrl: "#",
     };
   }
 
@@ -34,6 +38,8 @@ const normalizeArticleDetails = (details: unknown) => {
       heading: record.labels?.heading || "",
       noArticles:
         record.labels?.noArticles || "No articles available right now.",
+      blogMessage: record.labels?.blogMessage || "",
+      viewMoreUrl: record.viewMoreUrl || "#",
     };
   }
 
@@ -41,6 +47,8 @@ const normalizeArticleDetails = (details: unknown) => {
     articles: [] as ArticlePreviewItem[],
     heading: "",
     noArticles: "No articles available right now.",
+    blogMessage: "",
+    viewMoreUrl: "#",
   };
 };
 
@@ -83,6 +91,23 @@ export default function ArticlesCardContent({
           <p className="text-sm text-foreground-secondary">
             {articlePreview.noArticles}
           </p>
+        )}
+
+        {articlePreview.blogMessage && (
+          <div className="mt-4 pt-3 border-t border-border/40">
+            <p className="text-xs text-foreground-secondary leading-relaxed mb-2">
+              {articlePreview.blogMessage}
+            </p>
+            <a
+              href={articlePreview.viewMoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {articlePreview.viewMoreUrl.replace("https://", "")}
+            </a>
+          </div>
         )}
       </div>
 
