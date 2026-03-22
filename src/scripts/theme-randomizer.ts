@@ -5,6 +5,7 @@ import {
   type ThemeApiSuccessResponse,
   type ThemeHarmony,
   type ThemeMode,
+  type ThemeScale,
 } from "@/utils/theme-api";
 import {
   saveThemeState,
@@ -15,8 +16,8 @@ import {
 } from "./theme-state";
 
 const FALLBACK_COLORS: ThemeColors = {
-  primary: "oklab(0.623 0.125 -0.22)",
-  secondary: "oklab(0.627 0.165 -0.191)",
+  primary: oklabToScale("oklab(0.623 0.125 -0.22)"),
+  secondary: oklabToScale("oklab(0.627 0.165 -0.191)"),
   accent: "oklab(0.704 0.191 -0.106)",
   success: "oklab(0.723 -0.16 0.145)",
   warning: "oklab(0.796 0.04 0.155)",
@@ -29,6 +30,24 @@ const FALLBACK_COLORS: ThemeColors = {
   border: "oklab(0.85 0 0)",
   borderLight: "oklab(0.9 0 0)",
 };
+
+function oklabToScale(color: string): ThemeScale {
+  return {
+    "50": color,
+    "100": color,
+    "200": color,
+    "300": color,
+    "400": color,
+    "500": color,
+    "600": color,
+    "700": color,
+    "800": color,
+    "900": color,
+    "950": color,
+    DEFAULT: color,
+    foreground: "#000000",
+  };
+}
 
 const LOCAL_THEME_KEY = "portfolio:last-theme-api-response";
 const DEFAULT_HARMONY: ThemeHarmony = "triadic";
@@ -56,8 +75,8 @@ function toThemeColors(payload: ThemeApiSuccessResponse): ThemeColors {
   const { theme } = payload;
 
   return {
-    primary: theme.primary.DEFAULT,
-    secondary: theme.secondary.DEFAULT,
+    primary: theme.primary,
+    secondary: theme.secondary,
     accent:
       theme.primary["400"] || theme.secondary["400"] || theme.primary.DEFAULT,
     success: FALLBACK_COLORS.success,
@@ -75,8 +94,28 @@ function toThemeColors(payload: ThemeApiSuccessResponse): ThemeColors {
 
 export function applyThemeColors(colors: ThemeColors) {
   const root = document.documentElement;
-  root.style.setProperty("--color-primary", colors.primary);
-  root.style.setProperty("--color-secondary", colors.secondary);
+
+  const setScale = (prefix: string, scale: ThemeScale | string) => {
+    if (typeof scale === "string") {
+      root.style.setProperty(`--color-${prefix}`, scale);
+      return;
+    }
+
+    Object.entries(scale).forEach(([key, value]) => {
+      const v = value as string;
+      if (key === "DEFAULT") {
+        root.style.setProperty(`--color-${prefix}`, v);
+      } else if (key === "foreground") {
+        root.style.setProperty(`--color-${prefix}-foreground`, v);
+      } else {
+        root.style.setProperty(`--color-${prefix}-${key}`, v);
+      }
+    });
+  };
+
+  setScale("primary", colors.primary);
+  setScale("secondary", colors.secondary);
+
   root.style.setProperty("--color-accent", colors.accent);
   root.style.setProperty("--color-success", colors.success);
   root.style.setProperty("--color-warning", colors.warning);

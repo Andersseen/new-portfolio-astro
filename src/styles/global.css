@@ -5,7 +5,31 @@
 
 @theme {
   --color-primary: oklab(0.623 0.125 -0.22);
+  --color-primary-50: oklab(0.95 0.02 -0.04);
+  --color-primary-100: oklab(0.9 0.04 -0.08);
+  --color-primary-200: oklab(0.8 0.08 -0.12);
+  --color-primary-300: oklab(0.7 0.1 -0.16);
+  --color-primary-400: oklab(0.6 0.12 -0.2);
+  --color-primary-500: oklab(0.5 0.14 -0.24);
+  --color-primary-600: oklab(0.4 0.12 -0.2);
+  --color-primary-700: oklab(0.3 0.1 -0.16);
+  --color-primary-800: oklab(0.2 0.08 -0.12);
+  --color-primary-900: oklab(0.1 0.04 -0.08);
+  --color-primary-950: oklab(0.05 0.02 -0.04);
+
   --color-secondary: oklab(0.627 0.165 -0.191);
+  --color-secondary-50: oklab(0.95 0.03 -0.03);
+  --color-secondary-100: oklab(0.9 0.06 -0.06);
+  --color-secondary-200: oklab(0.8 0.12 -0.12);
+  --color-secondary-300: oklab(0.7 0.14 -0.14);
+  --color-secondary-400: oklab(0.6 0.16 -0.16);
+  --color-secondary-500: oklab(0.5 0.18 -0.18);
+  --color-secondary-600: oklab(0.4 0.16 -0.16);
+  --color-secondary-700: oklab(0.3 0.14 -0.14);
+  --color-secondary-800: oklab(0.2 0.12 -0.12);
+  --color-secondary-900: oklab(0.1 0.06 -0.06);
+  --color-secondary-950: oklab(0.05 0.03 -0.03);
+
   --color-accent: oklab(0.704 0.191 -0.106);
   --color-success: oklab(0.723 -0.16 0.145);
   --color-warning: oklab(0.796 0.04 0.155);

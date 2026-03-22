@@ -1,9 +1,9 @@
 import { getDb, STORE } from "./db";
-import type { ThemeApiMeta, ThemeApiTheme, ThemeMode } from "@/utils/theme-api";
+import type { ThemeApiMeta, ThemeScale, ThemeApiTheme, ThemeMode } from "@/utils/theme-api";
 
 export interface ThemeColors {
-  primary: string;
-  secondary: string;
+  primary: ThemeScale | string;
+  secondary: ThemeScale | string;
   accent: string;
   success: string;
   warning: string;
