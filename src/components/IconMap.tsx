@@ -1,6 +1,6 @@
 import {
-  Github,
-  Gitlab,
+  LucideGithub,
+  LucideGitlab,
   FileText,
   Code2,
   Box,
@@ -9,13 +9,11 @@ import {
   ArrowRight,
 } from "lucide-preact";
 
-
 const ArrowRightIcon = ArrowRight as any;
 
-
 export const IconMap: Record<string, any> = {
-  github: Github,
-  gitlab: Gitlab,
+  github: LucideGithub,
+  gitlab: LucideGitlab,
   medium: FileText,
   ts: Code2,
   nx: Box,

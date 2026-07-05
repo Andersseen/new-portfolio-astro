@@ -27,6 +27,7 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
             <div key={link.url} className="flex flex-col items-center gap-2">
               <Button
                 href={link.url}
+                external
                 variant="ghost"
                 size="icon"
                 className="rounded-xl w-12 h-12 bg-primary/8 text-foreground-secondary hover:bg-primary/15 hover:text-primary group relative overflow-visible transition-all duration-300 hover:-translate-y-1"

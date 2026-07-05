@@ -56,12 +56,6 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
     let phi = 0;
     if (!canvasRef.current) return;
 
-    let width = 0;
-    const onResize = () =>
-      canvasRef.current && (width = canvasRef.current.offsetWidth);
-    window.addEventListener("resize", onResize);
-    onResize();
-
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: 400 * 2,
@@ -85,7 +79,6 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
     return () => {
       globe.destroy();
-      window.removeEventListener("resize", onResize);
     };
   }, [isDark]);
 

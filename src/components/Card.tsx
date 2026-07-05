@@ -48,12 +48,10 @@ const colorClasses = {
 };
 
 export default function Card({
-  id,
   title,
   description,
   badge,
   badgeColor = "primary",
-  colSpan = "col-span-1",
   decorative = false,
   children,
   tags,

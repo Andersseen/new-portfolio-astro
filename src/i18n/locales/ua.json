@@ -151,10 +151,16 @@
     },
     "services": {
       "title": "Послуги",
+      "description": "Послуги, які я пропоную для створення, покращення та розгортання сучасних цифрових продуктів.",
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
       "devops": "DevOps & Cloud Ecosystem"
+    },
+    "hero": {
+      "role": "Full-stack розробник та творець UI-систем",
+      "headline": "Я створюю витончені веб-продукти, системи дизайну та інструменти для розробників.",
+      "subheadline": "Портфоліо клієнтських робіт, open-source проєктів, статей та експериментів."
     },
     "blog": {
       "title": "Остання Стаття",

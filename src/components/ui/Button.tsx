@@ -1,18 +1,30 @@
-import type { ComponentChildren, JSX } from "preact";
+import type { ComponentChildren } from "preact";
+import { forwardRef } from "preact/compat";
 import { cn } from "./utils";
 
-export interface ButtonProps
-  extends Omit<
-    JSX.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
-    "size"
-  > {
+export interface ButtonProps {
   variant?: "primary" | "secondary" | "accent" | "ghost" | "outline";
   size?: "sm" | "md" | "lg" | "icon";
   fullWidth?: boolean;
   disabled?: boolean;
   href?: string;
+  external?: boolean;
   type?: "button" | "submit" | "reset";
+  className?: string;
   children: ComponentChildren;
+  onClick?: (event: MouseEvent) => void;
+  onMouseDown?: (event: MouseEvent) => void;
+  onMouseUp?: (event: MouseEvent) => void;
+  onKeyDown?: (event: KeyboardEvent) => void;
+  onKeyUp?: (event: KeyboardEvent) => void;
+  onFocus?: (event: FocusEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
+  title?: string;
+  "aria-label"?: string;
+  "aria-busy"?: boolean;
+  "aria-expanded"?: boolean;
+  "aria-controls"?: string;
+  [key: string]: any;
 }
 
 const variantClasses = {
@@ -34,38 +46,54 @@ const sizeClasses = {
   icon: "p-2",
 };
 
-export default function Button({
-  variant = "primary",
-  size = "md",
-  fullWidth = false,
-  disabled = false,
-  className,
-  children,
-  href,
-  type = "button",
-  ...props
-}: ButtonProps) {
-  const Comp = (href ? "a" : "button") as any;
+const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  function Button(
+    {
+      variant = "primary",
+      size = "md",
+      fullWidth = false,
+      disabled = false,
+      className,
+      children,
+      href,
+      external,
+      type = "button",
+      ...props
+    },
+    ref,
+  ) {
+    const isAnchor = Boolean(href);
+    const Comp = isAnchor ? "a" : "button";
 
-  return (
-    <Comp
-      href={href}
-      type={!href ? type : undefined}
-      disabled={disabled}
-      className={cn(
-        variantClasses[variant],
-        sizeClasses[size],
-        fullWidth && "w-full",
-        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
-        "rounded-lg font-medium transition-all duration-200",
-        "focus:outline-none focus:ring-2 focus:ring-primary/50",
-        "active:scale-[0.98]",
-        "flex items-center justify-center", 
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Comp>
-  );
-}
+    const externalAttrs =
+      isAnchor && external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {};
+
+    return (
+      <Comp
+        ref={ref as any}
+        href={href}
+        type={!isAnchor ? type : undefined}
+        disabled={disabled}
+        className={cn(
+          variantClasses[variant],
+          sizeClasses[size],
+          fullWidth && "w-full",
+          disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
+          "rounded-lg font-medium transition-all duration-200",
+          "focus:outline-none focus:ring-2 focus:ring-primary/50",
+          "active:scale-[0.98]",
+          "flex items-center justify-center",
+          className,
+        )}
+        {...externalAttrs}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  },
+);
+
+export default Button;
