@@ -6,6 +6,7 @@ import { useStore } from "@nanostores/preact";
 import {
   cardRect as cardRectStore,
   modalPhase as modalPhaseStore,
+  modalOpener as modalOpenerStore,
   finishEntering,
   finishExiting,
 } from "../store/modalStore";
@@ -31,8 +32,10 @@ const CONTENT_FADE = 200;
 export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
   const rect = useStore(cardRectStore);
   const phase = useStore(modalPhaseStore);
+  const opener = useStore(modalOpenerStore);
 
   const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [showContent, setShowContent] = useState(false);
   const timersRef = useRef<number[]>([]);
 
@@ -197,6 +200,46 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
+  /* ---- Focus management: trap focus and return on close ---- */
+  useEffect(() => {
+    if (phase !== "open") return;
+
+    closeButtonRef.current?.focus();
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      const elements = Array.from(focusable).filter(
+        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null,
+      );
+      if (elements.length === 0) return;
+
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
+  }, [phase]);
+
+  useEffect(() => {
+    return () => {
+      opener?.focus({ preventScroll: true });
+    };
+  }, [opener]);
+
   /* ---- Clean up all timers on unmount ---- */
   useEffect(() => clearTimers, []);
 
@@ -246,11 +289,13 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
       {/* Animated modal shell */}
       <div
         ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`modal-title-${item.id}`}
         style={{
           position: "fixed",
           zIndex: "60",
           overflow: "hidden",
-          visibility: "hidden",
         }}
         className="bg-background border border-border shadow-2xl flex flex-col"
         onClick={(e: any) => e.stopPropagation()}
@@ -258,7 +303,10 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         {/* Header — always visible during the fly */}
         <div className="flex justify-between items-start px-5 sm:px-8 pt-5 sm:pt-8 pb-3 sm:pb-4 border-b border-border/60 bg-background z-10 shrink-0">
           <div className="flex-1 min-w-0 pr-3 sm:pr-4">
-            <h2 className="text-2xl sm:text-4xl font-bold text-foreground font-heading truncate">
+            <h2
+              id={`modal-title-${item.id}`}
+              className="text-2xl sm:text-4xl font-bold text-foreground font-heading truncate"
+            >
               {item.title}
             </h2>
             {item.description && (
@@ -268,6 +316,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
             )}
           </div>
           <Button
+            ref={closeButtonRef}
             onClick={onClose}
             variant="ghost"
             size="icon"

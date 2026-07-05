@@ -13,7 +13,7 @@ import type { OnDestroy } from "@angular/core";
 import {
   LucideAngularModule,
   ExternalLink,
-  Github,
+  GithubIcon,
   BookOpen,
   GitBranch,
   ChevronDown,
@@ -206,7 +206,7 @@ export class AboutDrawerComponent implements OnDestroy {
     viewChild<ElementRef<HTMLButtonElement>>("closeButton");
 
   private readonly iconMap = {
-    github: Github,
+    github: GithubIcon,
     gitlab: GitBranch,
     medium: BookOpen,
   } as const;

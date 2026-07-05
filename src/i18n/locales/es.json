@@ -151,10 +151,16 @@
     },
     "services": {
       "title": "Servicios",
+      "description": "Servicios que ofrezco para crear, mejorar y desplegar productos digitales modernos.",
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
       "devops": "DevOps & Cloud Ecosystem"
+    },
+    "hero": {
+      "role": "Desarrollador full-stack y creador de sistemas de UI",
+      "headline": "Construyo productos web pulidos, sistemas de diseño y herramientas para desarrolladores.",
+      "subheadline": "Portafolio de trabajo para clientes, proyectos open-source, artículos y experimentos."
     },
     "blog": {
       "title": "Último Artículo",

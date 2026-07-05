@@ -1,5 +1,3 @@
-import type { PortfolioItem } from "./PortfolioGrid";
-
 interface SkeletonCardProps {
   colSpan?: string;
 }

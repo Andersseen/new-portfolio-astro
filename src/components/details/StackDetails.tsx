@@ -1,5 +1,3 @@
-import type { FunctionalComponent } from "preact";
-
 interface StackItem {
   name: string;
   slug?: string;

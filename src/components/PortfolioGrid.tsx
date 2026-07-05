@@ -110,7 +110,7 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
             animation: "dynamic",
           });
 
-          swapyRef.current.onSwapEnd(async (data: any) => {
+          swapyRef.current.onSwapEnd(async (_data: any) => {
             const slots =
               containerRef.current?.querySelectorAll("[data-swapy-slot]");
             if (!slots) return;
@@ -211,9 +211,9 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
               <PortfolioCard
                 item={item}
                 colSpan={patternColSpan}
-                onSelect={(id, rect) => {
+                onSelect={(id, rect, opener) => {
                   const found = items.find((i) => i.id === id);
-                  if (found) openModal(found, rect);
+                  if (found) openModal(found, rect, opener);
                 }}
               />
             </div>

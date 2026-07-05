@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "preact/hooks";
 import {
-  X,
   ExternalLink,
-  Github,
+  LucideGithub,
   BookOpen,
   GitBranch,
   ChevronDown,
@@ -11,7 +10,7 @@ import {
 import GitHubActivity from "./details/GitHubActivity";
 
 const ExternalLinkIcon = ExternalLink as any;
-const GithubIcon = Github as any;
+const GitHubIcon = LucideGithub as any;
 const BookOpenIcon = BookOpen as any;
 const GitBranchIcon = GitBranch as any;
 const ChevronDownIcon = ChevronDown as any;
@@ -33,7 +32,7 @@ interface AboutDrawerProps {
 }
 
 const socialIconMap: Record<string, any> = {
-  github: GithubIcon,
+  github: GitHubIcon,
   gitlab: GitBranchIcon,
   medium: BookOpenIcon,
   blog: UserIcon,

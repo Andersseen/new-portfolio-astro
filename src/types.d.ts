@@ -15,6 +15,16 @@ declare namespace JSX {
   }
 }
 
+import type { JSX as PreactJSX } from "preact";
+
+declare module "preact" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "mock-ui-kit": PreactJSX.HTMLAttributes<HTMLElement>;
+    }
+  }
+}
+
 interface ImportMetaEnv {
   readonly PUBLIC_THEME_API_BASE_URL?: string;
   readonly THEME_API_BASE_URL?: string;

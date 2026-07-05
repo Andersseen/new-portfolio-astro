@@ -5,7 +5,7 @@ import CardContentRenderer from "./cards/CardContentRenderer";
 interface PortfolioCardProps {
   item: PortfolioItem;
   colSpan: "col-span-1" | "col-span-2";
-  onSelect: (id: string, rect: DOMRect) => void;
+  onSelect: (id: string, rect: DOMRect, opener: HTMLElement) => void;
 }
 
 const getCardBadge = (type: PortfolioItem["type"]) => {
@@ -19,17 +19,19 @@ export default function PortfolioCard({
   colSpan,
   onSelect,
 }: PortfolioCardProps) {
-  const handleClick = (e: any) => {
+  const handleClick = (e: MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();
-    onSelect(item.id, rect);
+    onSelect(item.id, rect, el);
   };
 
   return (
-    <div
+    <button
+      type="button"
       data-swapy-item={item.id}
-      className="w-full h-full cursor-pointer"
+      className="w-full h-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-[inherit]"
       onClick={handleClick}
+      aria-label={`Open ${item.title}`}
     >
       <Card
         id={item.id}
@@ -41,6 +43,6 @@ export default function PortfolioCard({
       >
         <CardContentRenderer item={item} />
       </Card>
-    </div>
+    </button>
   );
 }
