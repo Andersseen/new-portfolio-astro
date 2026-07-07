@@ -9,7 +9,12 @@
     "astro": "astro",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check": "pnpm run check:i18n && astro check",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@analogjs/astro-angular": "^2.3.0",
@@ -62,8 +67,13 @@
   },
   "devDependencies": {
     "@lit-labs/ssr-client": "^1.1.7",
+    "@playwright/test": "^1.61.1",
+    "@types/jsdom": "^28.0.3",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@webcomponents/template-shadowroot": "^0.2.1"
+    "@vitest/ui": "^4.1.10",
+    "@webcomponents/template-shadowroot": "^0.2.1",
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.10"
   }
 }

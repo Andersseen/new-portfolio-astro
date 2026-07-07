@@ -2,6 +2,50 @@ import type { ThemeScale } from "@/utils/theme-api";
 import type { ThemeColors } from "./theme-state";
 
 /**
+ * CSS custom properties managed by the theme system. Removing them from the
+ * inline style lets the static `[data-theme="dark"]` rules take over.
+ */
+const THEME_CSS_PROPERTIES = [
+  "--color-primary",
+  "--color-primary-foreground",
+  "--color-primary-50",
+  "--color-primary-100",
+  "--color-primary-200",
+  "--color-primary-300",
+  "--color-primary-400",
+  "--color-primary-500",
+  "--color-primary-600",
+  "--color-primary-700",
+  "--color-primary-800",
+  "--color-primary-900",
+  "--color-primary-950",
+  "--color-secondary",
+  "--color-secondary-foreground",
+  "--color-secondary-50",
+  "--color-secondary-100",
+  "--color-secondary-200",
+  "--color-secondary-300",
+  "--color-secondary-400",
+  "--color-secondary-500",
+  "--color-secondary-600",
+  "--color-secondary-700",
+  "--color-secondary-800",
+  "--color-secondary-900",
+  "--color-secondary-950",
+  "--color-accent",
+  "--color-success",
+  "--color-warning",
+  "--color-background",
+  "--color-foreground",
+  "--color-background-secondary",
+  "--color-background-tertiary",
+  "--color-foreground-secondary",
+  "--color-foreground-tertiary",
+  "--color-border",
+  "--color-border-light",
+];
+
+/**
  * Applies a ThemeColors object to CSS custom properties on the document root.
  * Handles both string values and full color scales for primary/secondary.
  */
@@ -69,4 +113,15 @@ export function applyThemeColors(colors: ThemeColors) {
   if (colors.borderLight) {
     root.style.setProperty("--color-border-light", colors.borderLight);
   }
+}
+
+/**
+ * Removes theme-related inline custom properties from the document root so the
+ * static `[data-theme="..."]` CSS rules are used again.
+ */
+export function resetThemeColors() {
+  const root = document.documentElement;
+  THEME_CSS_PROPERTIES.forEach((prop) => {
+    root.style.removeProperty(prop);
+  });
 }

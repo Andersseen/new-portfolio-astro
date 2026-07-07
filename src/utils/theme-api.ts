@@ -85,11 +85,28 @@ export class ThemeApiError extends Error {
 
 const DEFAULT_TIMEOUT_MS = 9000;
 const THEME_PROXY_PATH = "/api/theme";
+const THEME_DIRECT_PATH = "/api/v1/theme";
 
-function buildUrl(params?: ThemeRequestParams): string {
+function getThemeApiUrl(): URL {
+  const isDev = import.meta.env.DEV;
+  const publicBaseUrl = import.meta.env.PUBLIC_THEME_API_BASE_URL;
+
+  if (isDev && publicBaseUrl) {
+    // In development, call the remote Palette Forge API directly because the
+    // Astro serverless proxy is not available in `pnpm dev`.
+    const base = String(publicBaseUrl).trim().replace(/\/+$/, "");
+    return new URL(THEME_DIRECT_PATH, base);
+  }
+
+  // In production, use the same-origin proxy so the upstream URL/key stays
+  // on the server and CORS is avoided.
   const origin =
     typeof window !== "undefined" ? window.location.origin : "http://localhost";
-  const url = new URL(THEME_PROXY_PATH, origin);
+  return new URL(THEME_PROXY_PATH, origin);
+}
+
+function buildUrl(params?: ThemeRequestParams): string {
+  const url = getThemeApiUrl();
 
   if (!params) {
     return url.toString();

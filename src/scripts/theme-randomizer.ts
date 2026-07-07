@@ -16,21 +16,43 @@ import {
 } from "./theme-state";
 import { applyThemeColors } from "./theme-apply";
 
-const FALLBACK_COLORS: ThemeColors = {
-  primary: oklabToScale("oklab(0.623 0.125 -0.22)"),
-  secondary: oklabToScale("oklab(0.627 0.165 -0.191)"),
-  accent: "oklab(0.704 0.191 -0.106)",
-  success: "oklab(0.723 -0.16 0.145)",
-  warning: "oklab(0.796 0.04 0.155)",
-  background: "oklab(0.97 0 0)",
-  foreground: "oklab(0.21 0 0)",
-  backgroundSecondary: "oklab(0.95 0 0)",
-  backgroundTertiary: "oklab(0.92 0 0)",
-  foregroundSecondary: "oklab(0.4 0 0)",
-  foregroundTertiary: "oklab(0.55 0 0)",
-  border: "oklab(0.85 0 0)",
-  borderLight: "oklab(0.9 0 0)",
-};
+function getFallbackColors(mode: ThemeMode): ThemeColors {
+  if (mode === "dark") {
+    return {
+      primary: oklabToScale("oklab(0.85 0.1 -0.2)"),
+      secondary: oklabToScale("oklab(0.85 0.12 -0.16)"),
+      accent: "oklab(0.85 0.15 -0.05)",
+      success: "oklab(0.78 -0.15 0.15)",
+      warning: "oklab(0.85 0.05 0.15)",
+      background: "oklab(0.21 0 0)",
+      foreground: "oklab(0.97 0 0)",
+      backgroundSecondary: "oklab(0.18 0 0)",
+      backgroundTertiary: "oklab(0.25 0 0)",
+      foregroundSecondary: "oklab(0.85 0 0)",
+      foregroundTertiary: "oklab(0.75 0 0)",
+      border: "oklab(0.3 0 0)",
+      borderLight: "oklab(0.25 0 0)",
+    };
+  }
+
+  return {
+    primary: oklabToScale("oklab(0.623 0.125 -0.22)"),
+    secondary: oklabToScale("oklab(0.627 0.165 -0.191)"),
+    accent: "oklab(0.704 0.191 -0.106)",
+    success: "oklab(0.723 -0.16 0.145)",
+    warning: "oklab(0.796 0.04 0.155)",
+    background: "oklab(0.97 0 0)",
+    foreground: "oklab(0.21 0 0)",
+    backgroundSecondary: "oklab(0.95 0 0)",
+    backgroundTertiary: "oklab(0.92 0 0)",
+    foregroundSecondary: "oklab(0.4 0 0)",
+    foregroundTertiary: "oklab(0.55 0 0)",
+    border: "oklab(0.85 0 0)",
+    borderLight: "oklab(0.9 0 0)",
+  };
+}
+
+const FALLBACK_COLORS = getFallbackColors("light");
 
 function oklabToScale(color: string): ThemeScale {
   return {
@@ -200,10 +222,16 @@ export async function randomizeTheme(options?: {
   baseHue?: number;
   userSet?: boolean;
   button?: HTMLElement | null;
+  /**
+   * When true, do not apply any fallback colors if the API fails.
+   * Useful when switching modes, where the static CSS should take over.
+   */
+  skipFallback?: boolean;
 }) {
   const currentState = await loadThemeState();
   const currentMode = getCurrentMode();
   const button = options?.button ?? null;
+  const skipFallback = options?.skipFallback ?? false;
 
   setButtonLoading(button, true);
   setStatus("Generating theme...");
@@ -218,7 +246,7 @@ export async function randomizeTheme(options?: {
 
     const nextState = buildStateFromResponse(payload, options?.userSet ?? true);
 
-    applyThemeColors(nextState.colors || FALLBACK_COLORS);
+    applyThemeColors(nextState.colors || getFallbackColors(currentMode));
     await saveThemeState(nextState);
 
     if (nextState.apiSnapshot) {
@@ -228,6 +256,12 @@ export async function randomizeTheme(options?: {
     setStatus("Theme updated");
     return nextState.colors;
   } catch (error) {
+    if (skipFallback) {
+      console.warn("Theme API unavailable; leaving static theme in place.", error);
+      setStatus("Theme API unavailable", true);
+      return undefined;
+    }
+
     const fallbackSnapshot = currentState?.apiSnapshot || readLocalSnapshot();
     if (fallbackSnapshot) {
       applySnapshot(fallbackSnapshot);
@@ -239,59 +273,93 @@ export async function randomizeTheme(options?: {
       });
     }
 
-    applyThemeColors(FALLBACK_COLORS);
+    const fallbackColors = getFallbackColors(currentMode);
+    applyThemeColors(fallbackColors);
     const reason =
       error instanceof ThemeApiError
         ? error.message
         : "Could not generate a new theme.";
     setStatus(reason, true);
-    return FALLBACK_COLORS;
+    return fallbackColors;
   } finally {
     setButtonLoading(button, false);
   }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const saved = await loadThemeState();
-  if (saved && saved.colors) {
-    applyThemeColors(saved.colors);
-  } else {
-    await randomizeTheme({ seed: stableSeedFromRoute(), userSet: false });
-  }
-
-  document.addEventListener("click", async (e) => {
-    const target = e.target as HTMLElement;
-    const btn = target.closest("#theme-randomize");
-    if (btn) {
-      const selectedHarmony = (btn.getAttribute("data-theme-harmony") ||
-        DEFAULT_HARMONY) as ThemeHarmony;
-      const seed = btn.getAttribute("data-theme-seed") || randomSeed();
-
+async function initializeRandomizer() {
+  try {
+    const saved = await loadThemeState();
+    if (saved && saved.colors) {
+      applyThemeColors(saved.colors);
+    } else {
+      // On first load, try to generate a theme but don't overwrite the static
+      // CSS (light/dark) if the API is unavailable.
       await randomizeTheme({
-        seed,
-        harmony: selectedHarmony,
-        userSet: true,
-        button: btn as HTMLElement,
-      });
-
-      // Optional subtle animation on the body to indicate change
-      document.documentElement.animate([{ opacity: 0.98 }, { opacity: 1 }], {
-        duration: 220,
+        seed: stableSeedFromRoute(),
+        userSet: false,
+        skipFallback: true,
       });
     }
-  });
+  } catch (error) {
+    console.warn("Could not initialize random theme:", error);
+  }
+}
 
-  window.addEventListener("portfolio:theme-mode-changed", async (event) => {
-    const customEvent = event as CustomEvent<{ mode?: ThemeMode }>;
+function handleRandomizeClick(e: Event) {
+  const target = e.target as HTMLElement;
+  const btn = target.closest("#theme-randomize");
+  if (!btn) {
+    return;
+  }
+
+  const selectedHarmony = (btn.getAttribute("data-theme-harmony") ||
+    DEFAULT_HARMONY) as ThemeHarmony;
+  const seed = btn.getAttribute("data-theme-seed") || randomSeed();
+
+  randomizeTheme({
+    seed,
+    harmony: selectedHarmony,
+    userSet: true,
+    button: btn as HTMLElement,
+  }).then(() => {
+    // Optional subtle animation on the body to indicate change
+    document.documentElement.animate([{ opacity: 0.98 }, { opacity: 1 }], {
+      duration: 220,
+    });
+  });
+}
+
+async function handleModeChange(event: Event) {
+  const customEvent = event as CustomEvent<{ mode?: ThemeMode }>;
+  const mode = customEvent.detail?.mode || getCurrentMode();
+
+  try {
     const state = await loadThemeState();
-    const mode = customEvent.detail?.mode || getCurrentMode();
+    // Only regenerate if the user had previously set a custom theme. Otherwise
+    // let the static [data-theme="..."] CSS rules handle the mode switch.
+    if (!state?.userSet && !state?.apiSnapshot) {
+      return;
+    }
 
     await randomizeTheme({
       seed: stableSeedFromRoute(),
       harmony: state?.apiSnapshot?.meta.harmony || DEFAULT_HARMONY,
       userSet: state?.userSet ?? false,
+      skipFallback: true,
     });
 
     document.documentElement.setAttribute("data-theme", mode);
-  });
-});
+  } catch (error) {
+    console.warn("Could not regenerate theme after mode change:", error);
+  }
+}
+
+// Register event listeners immediately so the button works even if IDB/API is slow.
+document.addEventListener("click", handleRandomizeClick);
+window.addEventListener("portfolio:theme-mode-changed", handleModeChange);
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeRandomizer);
+} else {
+  initializeRandomizer();
+}
