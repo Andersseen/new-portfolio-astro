@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-07 · **Branch state:** `main` with uncommitted Lighthouse/SEO/a11y improvements
+**Last updated:** 2026-07-07 · **Branch state:** `main` with uncommitted Lighthouse/SEO/a11y/security improvements
 
 ## Status: ✅ Stable, build passes
 
@@ -18,6 +18,12 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **Security headers hardening**
+  - Added `Strict-Transport-Security` (HSTS, 2 years, includeSubDomains, preload).
+  - Added `Cross-Origin-Opener-Policy: same-origin`.
+  - Tightened `Permissions-Policy` with `payment`, `usb`, `bluetooth`, `fullscreen`.
+  - Refined CSP with `object-src 'none'`, `frame-src 'none'`, `manifest-src 'self'`,
+    `media-src 'self'`, `worker-src 'self'` and `upgrade-insecure-requests`.
 - **Lighthouse / SEO / accessibility push**
   - Added `site`, `trailingSlash: "always"`, `@astrojs/sitemap`, `og-image.png`,
     canonical/Open Graph/Twitter/hreflang metadata in `BaseHead.astro`.
@@ -75,5 +81,6 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
+- 2026-07-07 — Hardened security headers in `vercel.json` (HSTS, COOP, CSP refinements). Verified `pnpm check` and `pnpm build` pass; Lighthouse Best Practices remains 96 local / 100 on Vercel.
 - 2026-07-07 — Lighthouse/SEO/accessibility improvements: sitemap, meta tags, hreflang, contrast, card a11y, Preact drawer focus, security headers. Build passes.
 - 2026-07-06 — Created agent documentation set (AGENTS.md, CLAUDE.md, docs/*). No app code changed.
