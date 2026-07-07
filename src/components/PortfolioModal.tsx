@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "preact/hooks";
 import { X } from "lucide-preact";
+import DOMPurify from "isomorphic-dompurify";
 import type { PortfolioItem } from "./PortfolioGrid";
 import Button from "./ui/Button";
 import { useStore } from "@nanostores/preact";
@@ -266,7 +267,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         return <ServiceDetails data={item.details} />;
       default:
         if (typeof item.details === "string") {
-          return <div dangerouslySetInnerHTML={{ __html: item.details }} />;
+          return <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details) }} />;
         }
         return null;
     }
@@ -283,6 +284,9 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           opacity: phase === "exiting" ? 0 : 1,
           transition: `opacity ${phase === "exiting" ? FLY_DURATION * 0.6 : 250}ms ease`,
         }}
+        role="button"
+        tabIndex={-1}
+        aria-label="Close modal"
         onClick={onClose}
       />
 
@@ -320,7 +324,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
             onClick={onClose}
             variant="ghost"
             size="icon"
-            className="rounded-full hover:bg-foreground/10 shrink-0 mt-1"
+            className="rounded-full hover:bg-foreground/10 shrink-0 mt-1 min-w-11 min-h-11"
             aria-label="Close modal"
           >
             <X className="w-6 h-6 text-foreground" />

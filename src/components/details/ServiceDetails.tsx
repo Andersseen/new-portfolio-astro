@@ -22,7 +22,7 @@ const ServiceDetails: FunctionalComponent<ServiceDetailsProps> = ({ data }) => {
             <div
               className={`w-8 h-8 rounded-lg bg-gradient-to-br ${service.gradient} mb-3 opacity-80 group-hover:opacity-100 transition-opacity`}
             />
-            <h4 className="font-bold text-lg mb-2">{service.text}</h4>
+            <h3 className="font-bold text-lg mb-2">{service.text}</h3>
             <p className="text-sm text-foreground-secondary">
               {service.details}
             </p>

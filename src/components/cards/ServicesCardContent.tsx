@@ -18,7 +18,7 @@ export default function ServicesCardContent({
       {services.map((service, i: number) => (
         <span
           key={`${service.text}-${i}`}
-          className="inline-block text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+          className="inline-block text-xs font-medium px-3 py-1.5 rounded-full bg-primary-100 text-foreground border border-primary-200 dark:bg-primary-900/40 dark:text-foreground dark:border-primary-800"
         >
           {service.text}
         </span>

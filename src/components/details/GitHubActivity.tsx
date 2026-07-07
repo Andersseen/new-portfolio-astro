@@ -116,9 +116,9 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
   return (
     <div className="w-full rounded-xl bg-background-tertiary border border-border p-5 overflow-hidden">
       <div className="flex items-center justify-between mb-4">
-        <h4 className="text-sm font-semibold text-foreground">
+        <h3 className="text-sm font-semibold text-foreground">
           {totalContributions.toLocaleString()} contributions in the last year
-        </h4>
+        </h3>
         <a
           href={`https://github.com/${username}`}
           target="_blank"
@@ -143,7 +143,7 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
               key={i}
               x={m.x}
               y={10}
-              className="fill-foreground-tertiary"
+              className="fill-foreground-secondary"
               fontSize={10}
               fontFamily="var(--font-sans)"
             >
@@ -176,7 +176,7 @@ export default function GitHubActivity({ username }: GitHubActivityProps) {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-end gap-1.5 mt-3 text-[10px] text-foreground-tertiary">
+      <div className="flex items-center justify-end gap-1.5 mt-3 text-[10px] text-foreground-secondary">
         <span>Less</span>
         <span className="inline-block w-[11px] h-[11px] rounded-sm bg-border" />
         <span className="inline-block w-[11px] h-[11px] rounded-sm bg-primary/20" />

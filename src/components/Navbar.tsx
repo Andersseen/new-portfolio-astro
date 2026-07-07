@@ -62,8 +62,10 @@ export default function Navbar({ children }: NavbarProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {}
-            <div
-              className="flex items-center gap-3 group cursor-pointer"
+            <button
+              type="button"
+              className="flex items-center gap-3 group cursor-pointer bg-transparent border-none p-0"
+              aria-label="Open about me"
               onClick={(e) => {
                 e.preventDefault();
                 if (aboutData) {
@@ -93,7 +95,7 @@ export default function Navbar({ children }: NavbarProps) {
                     alt="Andersseen Dev Logo"
                     width="40"
                     height="40"
-                    fetchPriority="high"
+                    fetchpriority="high"
                   />
                 </div>
               </div>
@@ -102,7 +104,7 @@ export default function Navbar({ children }: NavbarProps) {
               <span className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none">
                 Andersseen Dev
               </span>
-            </div>
+            </button>
 
             {}
             <div className="flex items-center gap-2 sm:gap-3">
@@ -112,7 +114,7 @@ export default function Navbar({ children }: NavbarProps) {
               {}
               <button
                 id="theme-randomize"
-                className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
+                className="flex items-center justify-center min-w-11 min-h-11 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
                 title="Randomize theme"
                 aria-label="Randomize theme"
               >
@@ -122,7 +124,7 @@ export default function Navbar({ children }: NavbarProps) {
               {}
               <button
                 id="theme-toggle"
-                className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
+                className="flex items-center justify-center min-w-11 min-h-11 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
                 aria-label="Toggle theme"
                 title="Toggle theme"
               >

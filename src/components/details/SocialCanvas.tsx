@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import createGlobe from "cobe";
 import { IconMap } from "../IconMap";
 import { Send, Loader2, CheckCircle2, AlertCircle } from "lucide-preact";
+import DOMPurify from "isomorphic-dompurify";
 
 const SendIcon = Send as any;
 const Loader2Icon = Loader2 as any;
@@ -108,17 +109,17 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
     } catch (err: any) {
-      console.error(err);
       setStatus("error");
       setErrorMessage(err.message || "Something went wrong.");
     }
   };
 
+  const sanitizedError = DOMPurify.sanitize(errorMessage);
+
   return (
     <div className="flex flex-col md:flex-row gap-6 w-full bg-background-secondary rounded-xl overflow-hidden border border-border p-6 relative">
       <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.02] bg-[size:20px_20px] pointer-events-none" />
 
-      {}
       <div
         className="w-full md:w-2/5 shrink-0 relative flex flex-col items-center justify-center order-2 md:order-1 isolate"
         style={{ maxHeight: "450px" }}
@@ -152,11 +153,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                 key={i}
                 href={item.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="group p-3 rounded-full bg-background-tertiary border border-border hover:bg-primary/10 hover:scale-110 hover:border-primary/40 transition-all duration-300 shadow-sm"
-                title={item.label}
+                aria-label={item.label}
               >
-                <div className="text-foreground-secondary group-hover:text-primary transition-colors">
+                <div className="text-foreground-secondary group-hover:text-foreground transition-colors">
                   <Icon className="w-5 h-5" />
                 </div>
               </a>
@@ -165,7 +166,6 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
         </div>
       </div>
 
-      {}
       <div className="flex-1 w-full max-w-md mx-auto z-10 flex flex-col justify-center order-1 md:order-2">
         <div className="mb-6">
           <h3 className="text-2xl font-bold text-foreground mb-2">
@@ -178,10 +178,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
+            <label htmlFor="contact-name" className="text-xs font-medium text-foreground-secondary uppercase tracking-wider ml-1">
               Name
             </label>
             <input
+              id="contact-name"
               type="text"
               name="name"
               required
@@ -193,10 +194,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
+            <label htmlFor="contact-email" className="text-xs font-medium text-foreground-secondary uppercase tracking-wider ml-1">
               Email
             </label>
             <input
+              id="contact-email"
               type="email"
               name="email"
               required
@@ -208,10 +210,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-foreground-tertiary uppercase tracking-wider ml-1">
+            <label htmlFor="contact-message" className="text-xs font-medium text-foreground-secondary uppercase tracking-wider ml-1">
               Message
             </label>
             <textarea
+              id="contact-message"
               name="message"
               required
               value={formData.message}
@@ -229,7 +232,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                     w-full flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-lg transition-all duration-300
                     ${
                       status === "success"
-                        ? "bg-success/15 text-success border border-success/40 cursor-default"
+                        ? "bg-success text-background border border-success cursor-default"
                         : "bg-foreground text-background hover:bg-primary hover:text-background border border-transparent shadow-sm"
                     }
                     ${status === "loading" ? "opacity-70 cursor-wait" : ""}
@@ -249,12 +252,14 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
             {status === "success" && "Message Sent!"}
           </button>
 
-          {status === "error" && (
-            <div className="flex items-center gap-2 text-red-400 text-sm mt-2 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
-              <AlertCircleIcon className="w-4 h-4 shrink-0" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
+          <div aria-live="polite" aria-atomic="true">
+            {status === "error" && (
+              <div className="flex items-center gap-2 text-danger text-sm mt-2 bg-danger/10 p-3 rounded-lg border border-danger/20">
+                <AlertCircleIcon className="w-4 h-4 shrink-0" />
+                <span dangerouslySetInnerHTML={{ __html: sanitizedError }} />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>

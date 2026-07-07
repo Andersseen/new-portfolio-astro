@@ -59,7 +59,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+              className={`px-4 py-2.5 min-h-11 text-sm font-medium rounded-md transition-all ${
                 activeTab === tab.key
                   ? "bg-primary text-background shadow-sm"
                   : "text-foreground-secondary hover:text-foreground"
@@ -78,9 +78,9 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
             className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-primary/40 hover:shadow-md transition-all group relative overflow-hidden"
           >
             <div className="flex flex-col gap-1">
-              <h4 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+              <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                 {item.organization}
-              </h4>
+              </h3>
               <span className="text-xs font-semibold text-primary uppercase tracking-wider">
                 {item.role}
               </span>

@@ -1,7 +1,7 @@
 {
   "site": {
-    "title": "My Portfolio",
-    "description": "Welcome to my portfolio website"
+    "title": "Andersseen Dev — Full-stack Developer & UI Systems Builder",
+    "description": "Portfolio of client work, open-source projects, articles and experiments. Built with Astro, Preact, Angular and Lit."
   },
   "nav": {
     "home": "Home",
@@ -23,8 +23,14 @@
     "viewMore": "View More"
   },
   "contact": {
-    "title": "Get In Touch",
-    "description": "Feel free to reach out to me for any inquiries."
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "send": "Send Message",
+    "sending": "Sending…",
+    "sent": "Message Sent!",
+    "retry": "Try Again",
+    "error": "Something went wrong."
   },
   "portfolio": {
     "title": "My Work",
@@ -177,5 +183,15 @@
   "footer": {
     "copyright": "All rights reserved",
     "year": 2025
+  },
+  "a11y": {
+    "closeModal": "Close modal",
+    "closeAbout": "Close about drawer",
+    "randomizeTheme": "Randomize theme",
+    "toggleTheme": "Toggle theme",
+    "openAbout": "Open about me",
+    "openProject": "Open project details",
+    "language": "Select language",
+    "currentLanguage": "Current language: {name}"
   }
 }

@@ -18,7 +18,7 @@ export async function fetchGitHubReadme(username: string): Promise<string> {
     );
     if (!response.ok) throw new Error("Failed to fetch README");
     const data = await response.json();
-    const content = atob(data.content);
+    const content = Buffer.from(data.content, "base64").toString("utf-8");
     const html = await marked(content);
     return DOMPurify.sanitize(html);
   } catch (error) {

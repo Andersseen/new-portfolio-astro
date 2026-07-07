@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "preact/hooks";
+import DOMPurify from "isomorphic-dompurify";
 import {
   ExternalLink,
   LucideGithub,
@@ -44,6 +45,7 @@ export default function AboutDrawer({
   onClose,
 }: AboutDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -74,6 +76,40 @@ export default function AboutDrawer({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen || !drawerRef.current) return;
+
+    const drawer = drawerRef.current;
+    const timer = setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = Array.from(
+        drawer.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => !el.hasAttribute("disabled") && el.offsetParent !== null);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    drawer.addEventListener("keydown", handleTab);
+    return () => {
+      clearTimeout(timer);
+      drawer.removeEventListener("keydown", handleTab);
+    };
+  }, [isOpen]);
+
   if (!mounted) return null;
 
   return (
@@ -88,6 +124,9 @@ export default function AboutDrawer({
       {}
       <div
         ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="about-drawer-title"
         className="fixed bottom-0 left-0 right-0 z-[61] max-h-[85vh] rounded-t-[2.5rem] overflow-hidden bg-background border-t border-border shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col transition-transform duration-350 ease-[cubic-bezier(0.32,0.72,0,1)]"
         style={{
           transform: visible ? "translateY(0)" : "translateY(100%)",
@@ -95,6 +134,7 @@ export default function AboutDrawer({
       >
         <div className="flex items-center justify-center py-3 border-b border-border bg-background shrink-0">
           <button
+            ref={closeButtonRef}
             onClick={onClose}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground-tertiary hover:text-foreground transition-colors cursor-pointer px-4 py-1.5 rounded-full hover:bg-foreground/5"
           >
@@ -106,7 +146,7 @@ export default function AboutDrawer({
         <div className="overflow-y-auto flex-1 custom-scrollbar">
           {}
           <div className="px-6 sm:px-12 lg:px-20 pt-12 sm:pt-16 pb-8 text-center max-w-3xl mx-auto">
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-foreground tracking-tight leading-none">
+            <h2 id="about-drawer-title" className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-foreground tracking-tight leading-none">
               {(data.title || "Andersseen").split(",").pop()?.trim() ||
                 "Andersseen"}
               <span className="text-primary">.</span>
@@ -123,7 +163,7 @@ export default function AboutDrawer({
               {data.bioHtml ? (
                 <div
                   className="text-base text-foreground-secondary leading-[1.8]"
-                  dangerouslySetInnerHTML={{ __html: data.bioHtml }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.bioHtml) }}
                 />
               ) : (
                 data.bio?.map((paragraph, idx) => (

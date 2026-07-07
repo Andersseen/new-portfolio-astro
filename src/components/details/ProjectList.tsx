@@ -31,17 +31,17 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
 
             <div className="relative z-10">
               <div className="flex justify-between items-center mb-2">
-                <h4 className="font-bold text-lg group-hover:text-white transition-colors duration-300">
+                <h3 className="font-bold text-lg group-hover:text-background transition-colors duration-300">
                   {project.title}
-                </h4>
-                <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary group-hover:bg-white/20 group-hover:text-white transition-colors duration-300">
+                </h3>
+                <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary group-hover:bg-background/20 group-hover:text-background transition-colors duration-300">
                   {project.category}
                 </span>
               </div>
-              <p className="text-sm text-foreground-secondary mb-3 group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-sm text-foreground-secondary mb-3 group-hover:text-background/90 transition-colors duration-300">
                 {project.description}
               </p>
-              <div className="flex gap-2 text-xs text-foreground-tertiary group-hover:text-white/80 transition-colors duration-300">
+              <div className="flex gap-2 text-xs text-foreground-tertiary group-hover:text-background/80 transition-colors duration-300">
                 {project.tech.map((t, i) => (
                   <span key={i}>
                     {t} {i < project.tech.length - 1 ? "•" : ""}

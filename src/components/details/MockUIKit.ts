@@ -248,7 +248,7 @@ export default class MockUIKit extends LitElement {
             >
               <div class="text-primary">
                 &lt;and-button
-                <span class="text-primary/60">variant</span>=<span
+                <span class="text-primary-400">variant</span>=<span
                   class="text-foreground"
                   >"default"</span
                 >&gt;
@@ -303,11 +303,11 @@ export default class MockUIKit extends LitElement {
             >
               <div class="text-primary">
                 &lt;and-icon
-                <span class="text-primary/60">name</span>=<span
+                <span class="text-primary-400">name</span>=<span
                   class="text-foreground"
                   >"github"</span
                 >
-                <span class="text-primary/60">size</span>=<span
+                <span class="text-primary-400">size</span>=<span
                   class="text-foreground"
                   >"lg"</span
                 >
@@ -365,13 +365,13 @@ export default class MockUIKit extends LitElement {
               </div>
               <div>
                 <span class="text-primary">&lt;div</span>
-                <span class="text-primary/60"> and-motion</span>=<span
+                <span class="text-primary-400"> and-motion</span>=<span
                   class="text-foreground"
                   >"slide-in-left"</span
                 >
               </div>
               <div class="pl-5">
-                <span class="text-primary/60">and-motion-trigger</span>=<span
+                <span class="text-primary-400">and-motion-trigger</span>=<span
                   class="text-foreground"
                   >"enter"</span
                 >&gt;
@@ -412,13 +412,13 @@ export default class MockUIKit extends LitElement {
             >
               <div class="text-primary">
                 &lt;and-input
-                <span class="text-primary/60">placeholder</span>=<span
+                <span class="text-primary-400">placeholder</span>=<span
                   class="text-foreground"
                   >"email"</span
                 >
               </div>
               <div class="pl-5">
-                <span class="text-primary/60">type</span>=<span
+                <span class="text-primary-400">type</span>=<span
                   class="text-foreground"
                   >"email"</span
                 >
@@ -462,14 +462,14 @@ export default class MockUIKit extends LitElement {
               >
                 <div>
                   <span class="text-primary">&lt;div</span>
-                  <span class="text-primary/60"> and-layout</span>=<span
+                  <span class="text-primary-400"> and-layout</span>=<span
                     class="text-foreground"
                     >"grid cols:1 cols@md:3 gap:lg"</span
                   >&gt;
                 </div>
                 <div class="pl-4">
                   <span class="text-primary">&lt;div</span>
-                  <span class="text-primary/60"> and-text</span>=<span
+                  <span class="text-primary-400"> and-text</span>=<span
                     class="text-foreground"
                     >"h2 weight:bold"</span
                   >&gt;Title<span class="text-primary">&lt;/div&gt;</span>

@@ -79,9 +79,9 @@ export default function Card({
         {}
         <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1 sm:mb-1.5 truncate">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1 sm:mb-1.5 truncate">
               {title}
-            </h3>
+            </h2>
             <p className="text-sm sm:text-base text-foreground-secondary line-clamp-2 sm:line-clamp-3 leading-relaxed">
               {description}
             </p>

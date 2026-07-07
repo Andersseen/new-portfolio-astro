@@ -26,7 +26,11 @@ const SUPPORTED_LOCALES: readonly Locale[] = ["en", "es", "ua"];
         <div class="flex items-center justify-between">
           <div
             class="flex items-center gap-3 group cursor-pointer"
+            role="button"
+            tabindex="0"
+            aria-label="Open about me"
             (click)="toggleAbout($event)"
+            (keydown)="handleLogoKeydown($event)"
           >
             <div
               class="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0"
@@ -57,7 +61,7 @@ const SUPPORTED_LOCALES: readonly Locale[] = ["en", "es", "ua"];
             <button
               id="theme-randomize"
               type="button"
-              class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
+              class="flex items-center justify-center min-w-11 min-h-11 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               title="Randomize theme"
               aria-label="Randomize theme"
             >
@@ -70,7 +74,7 @@ const SUPPORTED_LOCALES: readonly Locale[] = ["en", "es", "ua"];
             <button
               id="theme-toggle"
               type="button"
-              class="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
+              class="flex items-center justify-center min-w-11 min-h-11 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 border border-primary/20 text-foreground hover:bg-primary/20 transition-colors duration-200 cursor-pointer"
               aria-label="Toggle theme"
               title="Toggle theme"
             >
@@ -159,6 +163,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   handleDrawerClose(): void {
     this.aboutOpen.set(false);
+  }
+
+  handleLogoKeydown(event: KeyboardEvent): void {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      this.toggleAbout(event);
+    }
   }
 
   async toggleAbout(event: Event): Promise<void> {

@@ -16,7 +16,7 @@ export default function StackCardContent({ item }: StackCardContentProps) {
       {stack.map((tech, i: number) => (
         <span
           key={`${tech.name}-${i}`}
-          className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary bg-background-tertiary px-3 py-1.5 rounded-lg"
+          className="inline-flex items-center gap-1.5 text-sm text-foreground bg-background-tertiary px-3 py-1.5 rounded-lg"
         >
           <img
             src={`https://cdn.simpleicons.org/${tech.icon}`}

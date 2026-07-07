@@ -34,9 +34,9 @@ export default class LitButton extends LitElement {
 
   private get variantClasses() {
     const variants = {
-      primary: "bg-primary text-background hover:bg-primary/90 shadow-sm",
-      secondary: "bg-primary/80 text-background hover:bg-primary/70 shadow-sm",
-      accent: "bg-primary/60 text-background hover:bg-primary/50 shadow-sm",
+      primary: "bg-primary text-background hover:bg-primary-600 shadow-sm",
+      secondary: "bg-secondary text-background hover:bg-secondary-600 shadow-sm",
+      accent: "bg-accent text-background hover:bg-accent/90 shadow-sm",
       ghost: "bg-transparent hover:bg-foreground/5 text-foreground",
       outline:
         "bg-transparent border-2 border-border hover:bg-foreground/5 text-foreground",

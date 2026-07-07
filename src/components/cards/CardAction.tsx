@@ -8,7 +8,7 @@ interface CardActionProps {
 export default function CardAction({ label, className = "" }: CardActionProps) {
   return (
     <div
-      className={`flex items-center gap-2 text-sm font-semibold text-primary/80 group-hover:text-primary transition-colors ${className}`}
+      className={`flex items-center gap-2 text-sm font-semibold text-foreground group-hover:text-primary transition-colors ${className}`}
     >
       {label}
       <span className="group-hover:translate-x-1 transition-transform">

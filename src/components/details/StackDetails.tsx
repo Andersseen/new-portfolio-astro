@@ -52,7 +52,7 @@ const StackDetails = ({ data }: StackDetailsProps) => {
                       }}
                     />
                   </div>
-                  <span className="text-sm font-medium text-foreground-secondary group-hover:text-primary transition-colors">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
                     {item.name}
                   </span>
                 </div>

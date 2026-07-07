@@ -1,7 +1,7 @@
 {
   "site": {
-    "title": "Mi Portafolio",
-    "description": "Bienvenido a mi sitio de portafolio"
+    "title": "Andersseen Dev — Desarrollador Full-stack y Creador de Sistemas de UI",
+    "description": "Portafolio de trabajo para clientes, proyectos open-source, artículos y experimentos. Construido con Astro, Preact, Angular y Lit."
   },
   "nav": {
     "home": "Inicio",
@@ -23,8 +23,14 @@
     "viewMore": "Ver Más"
   },
   "contact": {
-    "title": "Ponte en Contacto",
-    "description": "Siéntete libre de contactarme para cualquier consulta."
+    "nameLabel": "Nombre",
+    "emailLabel": "Correo electrónico",
+    "messageLabel": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando…",
+    "sent": "¡Mensaje enviado!",
+    "retry": "Intentar de nuevo",
+    "error": "Algo salió mal."
   },
   "portfolio": {
     "title": "Mi Trabajo",
@@ -177,5 +183,15 @@
   "footer": {
     "copyright": "Todos los derechos reservados",
     "year": 2025
+  },
+  "a11y": {
+    "closeModal": "Cerrar modal",
+    "closeAbout": "Cerrar panel sobre mí",
+    "randomizeTheme": "Aleatorizar tema",
+    "toggleTheme": "Cambiar tema",
+    "openAbout": "Abrir sobre mí",
+    "openProject": "Abrir detalles del proyecto",
+    "language": "Seleccionar idioma",
+    "currentLanguage": "Idioma actual: {name}"
   }
 }

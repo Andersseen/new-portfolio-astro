@@ -9,13 +9,13 @@ export default function DesignCardContent({ item }: DesignCardContentProps) {
   return (
     <>
       <div className="flex flex-wrap gap-2 mt-2 mb-3">
-        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary/15 text-primary border border-primary/20">
+        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary-100 text-foreground border border-primary-200 dark:bg-primary-900/40 dark:text-foreground dark:border-primary-800">
           and-button
         </span>
-        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary/10 text-primary/80 border border-primary/15">
+        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary-100 text-foreground border border-primary-200 dark:bg-primary-900/40 dark:text-foreground dark:border-primary-800">
           and-icon
         </span>
-        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary/5 text-primary/60 border border-primary/10">
+        <span className="px-3 py-1 text-xs font-bold rounded-full bg-primary-100 text-foreground border border-primary-200 dark:bg-primary-900/40 dark:text-foreground dark:border-primary-800">
           and-motion
         </span>
       </div>

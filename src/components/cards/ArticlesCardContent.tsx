@@ -61,7 +61,7 @@ export default function ArticlesCardContent({
     <div className="mt-2 mb-1 flex min-h-0 flex-1 flex-col">
       <div className="flex-1 min-h-0 space-y-2 overflow-hidden">
         {articlePreview.heading && articlePreview.articles.length > 0 && (
-          <p className="text-[11px] uppercase tracking-[0.12em] text-foreground-tertiary">
+          <p className="text-[11px] uppercase tracking-[0.12em] text-foreground-secondary">
             {articlePreview.heading}
           </p>
         )}
@@ -73,7 +73,7 @@ export default function ArticlesCardContent({
               className="rounded-lg border border-border/60 bg-background-tertiary/55 px-3 py-2"
             >
               <div className="flex gap-2.5">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/80" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-foreground line-clamp-1">
                     {article.title || `Article ${i + 1}`}
@@ -102,7 +102,7 @@ export default function ArticlesCardContent({
               href={articlePreview.viewMoreUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1"
+              className="text-[11px] font-bold text-foreground hover:underline flex items-center gap-1 py-1 min-h-6"
               onClick={(e) => e.stopPropagation()}
             >
               {articlePreview.viewMoreUrl.replace("https://", "")}

@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
           class="flex flex-col sm:flex-row items-center justify-between gap-3"
         >
           <p>&copy; {{ currentYear }} Andersseen Dev. All rights reserved.</p>
-          <p class="text-foreground-tertiary text-xs">
+          <p class="text-foreground-secondary text-xs">
             Built with
             <span class="inline-flex items-center gap-1">
               <span class="text-primary font-medium">Astro</span> +

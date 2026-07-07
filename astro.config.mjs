@@ -8,11 +8,15 @@ import lit from "@astrojs/lit";
 import angular from "@analogjs/astro-angular";
 
 import vercel from "@astrojs/vercel";
+import sitemap from "@astrojs/sitemap";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
+  site: "https://andersseen.dev",
+  trailingSlash: "always",
+
   integrations: [
     preact({ exclude: ["**/components/angular/**"] }),
     lit(),
@@ -20,6 +24,16 @@ export default defineConfig({
       vite: {
         transformFilter: (_code, id) => {
           return id.includes("src/components/angular/");
+        },
+      },
+    }),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          es: "es-ES",
+          ua: "uk-UA",
         },
       },
     }),

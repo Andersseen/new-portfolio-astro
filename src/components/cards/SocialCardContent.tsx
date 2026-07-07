@@ -15,7 +15,7 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
 
   return (
     <div className="flex flex-col items-center gap-5 mt-2">
-      <p className="text-sm text-foreground-tertiary text-center">
+      <p className="text-sm text-foreground-secondary text-center">
         Connect & get in touch
       </p>
 
@@ -30,7 +30,7 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
                 external
                 variant="ghost"
                 size="icon"
-                className="rounded-xl w-12 h-12 bg-primary/8 text-foreground-secondary hover:bg-primary/15 hover:text-primary group relative overflow-visible transition-all duration-300 hover:-translate-y-1"
+                className="rounded-xl w-12 h-12 bg-primary-100 text-primary-900 hover:bg-primary hover:text-background group relative overflow-visible transition-all duration-300 hover:-translate-y-1 dark:bg-primary-900/40 dark:text-primary-100"
                 title={link.label || link.icon}
                 aria-label={link.label || `Visit ${link.icon}`}
               >
@@ -42,7 +42,7 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
                   />
                 )}
               </Button>
-              <span className="text-xs text-foreground-tertiary font-medium">
+              <span className="text-xs text-foreground-secondary font-medium">
                 {link.label || link.icon}
               </span>
             </div>

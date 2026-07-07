@@ -1,21 +1,17 @@
 {
   "name": "Andersseen Dev Portfolio",
   "short_name": "Andersseen",
-  "description": "Full-stack developer portfolio showcasing projects and skills.",
+  "description": "Full-stack developer and UI systems builder portfolio.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
+  "theme_color": "#1b02ff",
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
