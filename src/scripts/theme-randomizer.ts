@@ -15,6 +15,11 @@ import {
   type ThemeState,
 } from "./theme-state";
 import { applyThemeColors } from "./theme-apply";
+import {
+  runThemeTransition,
+  originFromEvent,
+  type TransitionOrigin,
+} from "./theme-transition";
 
 function getFallbackColors(mode: ThemeMode): ThemeColors {
   if (mode === "dark") {
@@ -210,12 +215,6 @@ function buildStateFromResponse(
   };
 }
 
-function applySnapshot(snapshot: ThemeApiSnapshot) {
-  applyThemeColors(
-    toThemeColors({ ok: true, theme: snapshot.theme, meta: snapshot.meta }),
-  );
-}
-
 export async function randomizeTheme(options?: {
   seed?: string | number;
   harmony?: ThemeHarmony;
@@ -227,11 +226,24 @@ export async function randomizeTheme(options?: {
    * Useful when switching modes, where the static CSS should take over.
    */
   skipFallback?: boolean;
+  /**
+   * When provided, the new palette is revealed with an expanding clip-path
+   * circle originating at this point (a "water drop" reveal). Omit for silent,
+   * non-interactive updates (initial load, system-driven mode changes).
+   */
+  origin?: TransitionOrigin | null;
 }) {
   const currentState = await loadThemeState();
   const currentMode = getCurrentMode();
   const button = options?.button ?? null;
   const skipFallback = options?.skipFallback ?? false;
+  const origin = options?.origin ?? null;
+
+  // Apply colors either instantly or via the water-drop reveal.
+  const applyColors = (colors: ThemeColors) =>
+    origin
+      ? runThemeTransition(() => applyThemeColors(colors), origin)
+      : Promise.resolve(applyThemeColors(colors));
 
   setButtonLoading(button, true);
   setStatus("Generating theme...");
@@ -246,7 +258,7 @@ export async function randomizeTheme(options?: {
 
     const nextState = buildStateFromResponse(payload, options?.userSet ?? true);
 
-    applyThemeColors(nextState.colors || getFallbackColors(currentMode));
+    await applyColors(nextState.colors || getFallbackColors(currentMode));
     await saveThemeState(nextState);
 
     if (nextState.apiSnapshot) {
@@ -264,17 +276,18 @@ export async function randomizeTheme(options?: {
 
     const fallbackSnapshot = currentState?.apiSnapshot || readLocalSnapshot();
     if (fallbackSnapshot) {
-      applySnapshot(fallbackSnapshot);
-      setStatus("Using last valid theme (API unavailable)", true);
-      return toThemeColors({
+      const snapshotColors = toThemeColors({
         ok: true,
         theme: fallbackSnapshot.theme,
         meta: fallbackSnapshot.meta,
       });
+      await applyColors(snapshotColors);
+      setStatus("Using last valid theme (API unavailable)", true);
+      return snapshotColors;
     }
 
     const fallbackColors = getFallbackColors(currentMode);
-    applyThemeColors(fallbackColors);
+    await applyColors(fallbackColors);
     const reason =
       error instanceof ThemeApiError
         ? error.message
@@ -321,11 +334,7 @@ function handleRandomizeClick(e: Event) {
     harmony: selectedHarmony,
     userSet: true,
     button: btn as HTMLElement,
-  }).then(() => {
-    // Optional subtle animation on the body to indicate change
-    document.documentElement.animate([{ opacity: 0.98 }, { opacity: 1 }], {
-      duration: 220,
-    });
+    origin: originFromEvent(e),
   });
 }
 

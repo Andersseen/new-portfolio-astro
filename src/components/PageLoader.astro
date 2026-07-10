@@ -1,0 +1,99 @@
+---
+// Full-screen skeleton shown on first paint until the page finishes loading.
+// Mirrors the real layout (navbar + hero + bento grid) so the reveal feels
+// seamless. Uses theme tokens, so it follows light/dark automatically.
+//
+// Screenshot tip: open the site with `?loader` (e.g. /?loader) to hold the
+// skeleton on screen until you click or press a key.
+---
+
+<div id="page-loader" class="page-loader" role="status" aria-label="Loading">
+  <span class="sr-only">Loading…</span>
+
+  <div aria-hidden="true" class="flex flex-col min-h-dvh">
+    <!-- Skeleton navbar -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full pl-block"></div>
+        <div class="w-32 h-5 rounded-lg pl-block hidden sm:block"></div>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-14 h-10 rounded-xl pl-block"></div>
+        <div class="w-10 h-10 rounded-xl pl-block"></div>
+        <div class="w-10 h-10 rounded-xl pl-block"></div>
+      </div>
+    </div>
+
+    <!-- Skeleton hero -->
+    <div class="w-full max-w-7xl mx-auto px-4 pt-12 sm:pt-16">
+      <div class="w-40 h-3 rounded pl-block mb-6"></div>
+      <div class="space-y-3 max-w-3xl">
+        <div class="w-11/12 h-10 sm:h-14 rounded-xl pl-block"></div>
+        <div class="w-3/4 h-10 sm:h-14 rounded-xl pl-block"></div>
+        <div class="w-1/2 h-10 sm:h-14 rounded-xl pl-block"></div>
+      </div>
+      <div class="w-2/5 h-5 rounded-lg pl-block mt-6"></div>
+    </div>
+
+    <!-- Skeleton bento grid -->
+    <div class="w-full max-w-7xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 pb-12">
+      <div class="pl-card h-52 md:col-span-2"></div>
+      <div class="pl-card h-52"></div>
+      <div class="pl-card h-52"></div>
+      <div class="pl-card h-52 md:col-span-2"></div>
+      <div class="pl-card h-40 hidden md:block"></div>
+      <div class="pl-card h-40 hidden md:block"></div>
+      <div class="pl-card h-40 hidden md:block"></div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var loader = document.getElementById("page-loader");
+    if (!loader) return;
+
+    // Hold mode: keep the skeleton visible for screenshots. Trigger with ?loader
+    // (or #loader); dismiss with a click or any key.
+    var hold =
+      /(^|[?&])loader($|[=&])/.test(location.search) ||
+      location.hash === "#loader";
+
+    var started = Date.now();
+    var MIN_VISIBLE = 600; // avoid a flash on fast/cached loads
+    var MAX_WAIT = 6000; // never trap the user if load stalls
+    var done = false;
+
+    function hide() {
+      if (done) return;
+      done = true;
+      loader.classList.add("is-hidden");
+      var remove = function () {
+        loader.parentNode && loader.parentNode.removeChild(loader);
+      };
+      loader.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 800); // fallback if transitionend never fires
+    }
+
+    if (hold) {
+      var dismiss = function () {
+        hide();
+      };
+      window.addEventListener("click", dismiss, { once: true });
+      window.addEventListener("keydown", dismiss, { once: true });
+      return;
+    }
+
+    function scheduleHide() {
+      var wait = Math.max(0, MIN_VISIBLE - (Date.now() - started));
+      setTimeout(hide, wait);
+    }
+
+    if (document.readyState === "complete") {
+      scheduleHide();
+    } else {
+      window.addEventListener("load", scheduleHide, { once: true });
+      setTimeout(hide, MAX_WAIT);
+    }
+  })();
+</script>

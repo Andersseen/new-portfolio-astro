@@ -18,6 +18,35 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **First-load skeleton loader**
+  - New `src/components/PageLoader.astro` renders a full-screen skeleton
+    (mirrors navbar + hero + bento grid) on first paint, mounted as the first
+    element in `Layout.astro` body. Fades out and removes itself on
+    `window.load` (min 600ms visible, 6s max fallback).
+  - Styles `.page-loader` / `.pl-block` / `.pl-card` added to `global.css`,
+    reusing the existing `@keyframes shimmer`; theme-token driven (follows
+    light/dark) and disabled under `prefers-reduced-motion`.
+  - **Screenshot hold mode:** load with `?loader` (or `#loader`) to keep the
+    skeleton on screen until a click/keypress — solves "the load is too fast to
+    screenshot".
+  - Verified: `pnpm check` + `pnpm build` pass; Playwright confirms it shows on
+    load, removes after load, and holds+dismisses in `?loader` mode.
+- **"Water drop" theme transition (Phase 1)**
+  - New helper `src/scripts/theme-transition.ts` wraps theme mutations in the
+    View Transitions API and reveals the new theme with an expanding
+    `clip-path: circle()` originating at the click point.
+  - Wired into `theme-toggle.ts` (`setTheme` accepts an `origin`) and
+    `theme-randomizer.ts` (`randomizeTheme` accepts an `origin`; `applyColors`
+    routes through the reveal when clicked, applies instantly otherwise).
+  - `originFromEvent()` uses pointer coords, falling back to the button center
+    for keyboard activation.
+  - CSS in `global.css` disables the default view-transition cross-fade and
+    honors `prefers-reduced-motion`. Graceful fallback when
+    `startViewTransition` is unsupported (colors just swap, no animation).
+  - Verified: `pnpm check` + `pnpm build` pass; Playwright confirms the toggle
+    still lands on dark, randomize doesn't revert, and `startViewTransition`
+    fires on toggle.
+  - Phase 2 (water ripple / waves layered on the reveal) still pending.
 - **Fix portfolio domain mismatch**
   - Regenerated `public/og-image.png` to show `andriipap.dev` instead of
     `andersseen.dev`.

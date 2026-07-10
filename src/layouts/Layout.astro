@@ -4,6 +4,7 @@ import BaseHead from "@componentes/BaseHead.astro";
 import Navbar from "@componentes/Navbar";
 import LanguageSelector from "@componentes/LanguageSelector.astro";
 import Footer from "@componentes/Footer.astro";
+import PageLoader from "@componentes/PageLoader.astro";
 
 
 export interface Props {
@@ -24,6 +25,8 @@ const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
     <BaseHead title={title} description={description} image={image} />
   </head>
   <body>
+
+    <PageLoader />
 
     <Navbar client:idle>
       <LanguageSelector />

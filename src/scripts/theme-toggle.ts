@@ -4,6 +4,7 @@ import {
   type ThemeState,
 } from "./theme-state";
 import { applyThemeColors, resetThemeColors } from "./theme-apply";
+import { runThemeTransition, originFromEvent } from "./theme-transition";
 
 function getStoredTheme(): "light" | "dark" | null {
   try {
@@ -63,14 +64,21 @@ async function initThemeToggle() {
     console.warn("Could not load persisted theme state:", error);
   }
 
-  async function setTheme(theme: "light" | "dark", userSet: boolean = false) {
+  async function setTheme(
+    theme: "light" | "dark",
+    userSet: boolean = false,
+    origin?: { x: number; y: number } | null,
+  ) {
     currentTheme = theme;
 
-    // Clear any inline theme colors from the previous mode so the static
-    // [data-theme="..."] CSS rules take effect immediately.
-    resetThemeColors();
-    html.setAttribute("data-theme", theme);
-    updateIcons(theme);
+    // Reveal the mode switch with an expanding clip-path circle (a "water drop"
+    // spreading from the click point). Clearing inline colors + swapping
+    // data-theme is the synchronous mutation captured by the view transition.
+    await runThemeTransition(() => {
+      resetThemeColors();
+      html.setAttribute("data-theme", theme);
+      updateIcons(theme);
+    }, origin);
 
     try {
       const savedState = await loadThemeState();
@@ -97,7 +105,7 @@ async function initThemeToggle() {
     const toggleBtn = target.closest("#theme-toggle");
     if (toggleBtn) {
       const newTheme = currentTheme === "light" ? "dark" : "light";
-      await setTheme(newTheme, true);
+      await setTheme(newTheme, true, originFromEvent(e));
     }
   });
 
