@@ -103,6 +103,33 @@ main {
   width: 100%;
 }
 
+/*
+ * Theme "water drop" transition (see src/scripts/theme-transition.ts).
+ * Disable the default cross-fade so the new theme is revealed purely by the
+ * expanding clip-path circle painted on top of the previous theme.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);

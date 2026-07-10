@@ -18,6 +18,22 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **"Water drop" theme transition (Phase 1)**
+  - New helper `src/scripts/theme-transition.ts` wraps theme mutations in the
+    View Transitions API and reveals the new theme with an expanding
+    `clip-path: circle()` originating at the click point.
+  - Wired into `theme-toggle.ts` (`setTheme` accepts an `origin`) and
+    `theme-randomizer.ts` (`randomizeTheme` accepts an `origin`; `applyColors`
+    routes through the reveal when clicked, applies instantly otherwise).
+  - `originFromEvent()` uses pointer coords, falling back to the button center
+    for keyboard activation.
+  - CSS in `global.css` disables the default view-transition cross-fade and
+    honors `prefers-reduced-motion`. Graceful fallback when
+    `startViewTransition` is unsupported (colors just swap, no animation).
+  - Verified: `pnpm check` + `pnpm build` pass; Playwright confirms the toggle
+    still lands on dark, randomize doesn't revert, and `startViewTransition`
+    fires on toggle.
+  - Phase 2 (water ripple / waves layered on the reveal) still pending.
 - **Fix portfolio domain mismatch**
   - Regenerated `public/og-image.png` to show `andriipap.dev` instead of
     `andersseen.dev`.
