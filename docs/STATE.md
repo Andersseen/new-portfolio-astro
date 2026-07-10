@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-10 · **Branch state:** `main` with uncommitted accessibility and UI improvements
+**Last updated:** 2026-07-10 · **Branch state:** `main` with uncommitted accessibility, OpenSpec, and layout improvements
 
 ## Status: ✅ Stable, build passes
 
@@ -18,6 +18,18 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **OpenSpec adoption and production `@andersseen/layout` integration**
+  - Initialized OpenSpec 1.5.0 with the core workflow and generated Codex skills;
+    project context/rules preserve the existing architecture, i18n, accessibility,
+    semantic-theme, pnpm, verification, and English-documentation requirements.
+  - Made `openspec/` canonical for new non-trivial changes; `docs/specs/` is now
+    a historical archive. Added package scripts for status and validation.
+  - Loaded `@andersseen/layout@0.0.1` globally and added strict Preact JSX typing.
+  - Migrated 39 production Astro/Preact markup sites across the portfolio grid,
+    cards, modal/details, language selector, and loader to `and-layout` while
+    retaining Tailwind for unsupported and visual responsibilities.
+  - Added computed-style Playwright coverage for Astro flex behavior and
+    mobile/desktop grid columns, gaps, and spans; full suite passes 9/9.
 - **Accessible tags and Social card fixes**
   - Added the missing `blog` → RSS mapping in `IconMap`, fixing the blank Blog
     icon in both the Social card and its modal.
@@ -126,7 +138,9 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 - `PortfolioItem.details: any` — each card type casts its own shape.
 - Old feature branches `feature/morph`, `feature/theme` still exist locally
   (already merged); safe to delete.
-- No automated tests; regressions are caught only by `pnpm check` + manual review.
+- Test coverage is focused rather than exhaustive: Playwright covers core UI
+  flows/layout and Vitest covers selected theme utilities; most component-level
+  behavior still relies on `pnpm check`, build, and manual review.
 - `src/components/ui/README.md` may drift from the actual component props —
   trust the code, then fix the README.
 - Large JS bundles for Angular/Lit web components (`and-*`, `client.*`) inflate
@@ -142,6 +156,9 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
+- 2026-07-10 — Adopted OpenSpec as the canonical SDD workflow and integrated
+  `@andersseen/layout` across 39 Astro/Preact markup sites with computed-style
+  responsive tests; check/build/OpenSpec validation and 9 e2e tests pass.
 - 2026-07-10 — Fixed the missing Blog icon and tag readability, removed nested
   controls from the Social card, and added Playwright accessibility coverage;
   check, build and all 6 e2e tests pass.

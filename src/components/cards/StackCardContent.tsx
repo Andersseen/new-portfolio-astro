@@ -12,7 +12,7 @@ export default function StackCardContent({ item }: StackCardContentProps) {
   if (stack.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-3 mt-2 mb-3">
+    <div and-layout="horizontal wrap:wrap gap:sm" className="mt-2 mb-3">
       {stack.map((tech, i: number) => (
         <span
           key={`${tech.name}-${i}`}

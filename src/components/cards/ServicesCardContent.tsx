@@ -14,7 +14,7 @@ export default function ServicesCardContent({
   if (services.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-2 mt-2 mb-3">
+    <div and-layout="horizontal wrap:wrap gap:xs" className="mt-2 mb-3">
       {services.map((service, i: number) => (
         <span
           key={`${service.text}-${i}`}

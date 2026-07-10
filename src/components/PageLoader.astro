@@ -12,12 +12,15 @@
 
   <div aria-hidden="true" class="flex flex-col min-h-dvh">
     <!-- Skeleton navbar -->
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
+    <div
+      and-layout="horizontal align:center justify:between"
+      class="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6"
+    >
+      <div and-layout="horizontal align:center gap:sm">
         <div class="w-10 h-10 rounded-full pl-block"></div>
         <div class="w-32 h-5 rounded-lg pl-block hidden sm:block"></div>
       </div>
-      <div class="flex items-center gap-2">
+      <div and-layout="horizontal align:center gap:xs">
         <div class="w-14 h-10 rounded-xl pl-block"></div>
         <div class="w-10 h-10 rounded-xl pl-block"></div>
         <div class="w-10 h-10 rounded-xl pl-block"></div>
@@ -36,7 +39,10 @@
     </div>
 
     <!-- Skeleton bento grid -->
-    <div class="w-full max-w-7xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 pb-12">
+    <div
+      and-layout="grid cols:1 cols@md:3 gap:md"
+      class="mx-auto mt-12 w-full max-w-7xl px-4 pb-12"
+    >
       <div class="pl-card h-52 md:col-span-2"></div>
       <div class="pl-card h-52"></div>
       <div class="pl-card h-52"></div>

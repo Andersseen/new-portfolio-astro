@@ -71,13 +71,13 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
         </div>
       )}
 
-      <div className="grid gap-4">
+      <div and-layout="grid cols:1 gap:md">
         {filteredData.map((item, index) => (
           <div
             key={index}
             className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-primary/40 hover:shadow-md transition-all group relative overflow-hidden"
           >
-            <div className="flex flex-col gap-1">
+            <div and-layout="vertical gap:xxs">
               <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                 {item.organization}
               </h3>
@@ -90,7 +90,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
               {item.description}
             </p>
 
-            <div className="flex gap-3">
+            <div and-layout="horizontal gap:sm">
               {item.demoUrl && (
                 <a
                   href={item.demoUrl}

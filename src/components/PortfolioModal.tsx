@@ -301,11 +301,15 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
           zIndex: "60",
           overflow: "hidden",
         }}
-        className="bg-background border border-border shadow-2xl flex flex-col"
+        and-layout="vertical"
+        className="border border-border bg-background shadow-2xl"
         onClick={(e: any) => e.stopPropagation()}
       >
         {/* Header — always visible during the fly */}
-        <div className="flex justify-between items-start px-5 sm:px-8 pt-5 sm:pt-8 pb-3 sm:pb-4 border-b border-border/60 bg-background z-10 shrink-0">
+        <div
+          and-layout="horizontal align:start justify:between"
+          className="z-10 shrink-0 border-b border-border/60 bg-background px-5 pt-5 pb-3 sm:px-8 sm:pt-8 sm:pb-4"
+        >
           <div className="flex-1 min-w-0 pr-3 sm:pr-4">
             <h2
               id={`modal-title-${item.id}`}

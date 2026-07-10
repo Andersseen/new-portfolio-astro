@@ -11,7 +11,7 @@ interface DesignGalleryProps {
 
 const DesignGallery: FunctionalComponent<DesignGalleryProps> = ({ data }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div and-layout="grid cols:1 cols@md:2 gap:lg">
       {data.map((item, index) => (
         <div key={index} className="space-y-2 group">
           <div className="overflow-hidden rounded-xl shadow-lg">

@@ -13,7 +13,7 @@ interface ServiceDetailsProps {
 const ServiceDetails: FunctionalComponent<ServiceDetailsProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-2">
+      <div and-layout="grid cols:1 cols@md:2 gap:md">
         {data.map((service, idx) => (
           <div
             key={idx}

@@ -20,7 +20,10 @@ const gradients = {
 
 <ul class="space-y-3">
   {services.map((service) => (
-    <li class="flex items-center gap-2 text-foreground-secondary text-sm">
+    <li
+      and-layout="horizontal align:center gap:xs"
+      class="text-sm text-foreground-secondary"
+    >
       <span class={`w-2 h-2 rounded-full ${gradients[service.gradient]}`}></span>
       {service.text}
     </li>

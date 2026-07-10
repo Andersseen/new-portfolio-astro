@@ -20,17 +20,18 @@ export default function ProjectsCardContent({
   return (
     <>
       {projects.length && (
-        <div className="flex flex-col gap-2.5 mt-1 mb-3">
+        <div and-layout="vertical" className="mt-1 mb-3 gap-2.5">
           {projects.slice(0, 3).map((project, i: number) => (
             <div
               key={`${project.title || "project"}-${i}`}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg bg-background-tertiary/60 border border-border/50"
+              and-layout="horizontal align:center gap:sm"
+              className="rounded-lg border border-border/50 bg-background-tertiary/60 px-3 py-2"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
               <span className="text-sm font-medium text-foreground truncate flex-1">
                 {project.title || `Project ${i + 1}`}
               </span>
-              <div className="flex gap-1.5 shrink-0">
+              <div and-layout="horizontal" className="shrink-0 gap-1.5">
                 {(project.tech || []).slice(0, 2).map((tech, j: number) => (
                   <span
                     key={`${tech}-${j}`}

@@ -17,7 +17,7 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
     <div className="space-y-6">
       {}
 
-      <div className="grid gap-4">
+      <div and-layout="grid cols:1 gap:md">
         {data.map((project, index) => (
           <a
             key={index}
@@ -30,7 +30,10 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
             <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-out will-change-transform origin-left" />
 
             <div className="relative z-10">
-              <div className="flex justify-between items-center mb-2">
+              <div
+                and-layout="horizontal align:center justify:between"
+                className="mb-2"
+              >
                 <h3 className="font-bold text-lg group-hover:text-background transition-colors duration-300">
                   {project.title}
                 </h3>
@@ -41,7 +44,10 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
               <p className="text-sm text-foreground-secondary mb-3 group-hover:text-background/90 transition-colors duration-300">
                 {project.description}
               </p>
-              <div className="flex gap-2 text-xs text-foreground-tertiary group-hover:text-background/80 transition-colors duration-300">
+              <div
+                and-layout="horizontal gap:xs"
+                className="text-xs text-foreground-tertiary transition-colors duration-300 group-hover:text-background/80"
+              >
                 {project.tech.map((t, i) => (
                   <span key={i}>
                     {t} {i < project.tech.length - 1 ? "•" : ""}

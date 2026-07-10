@@ -14,7 +14,9 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "openspec:status": "openspec list",
+    "openspec:validate": "openspec validate --all"
   },
   "dependencies": {
     "@analogjs/astro-angular": "^2.3.0",

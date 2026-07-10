@@ -185,7 +185,8 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
     <>
       <div
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[320px]"
+        and-layout="grid cols:1 cols@md:3 gap:md gap@md:lg"
+        className="auto-rows-auto md:auto-rows-[320px]"
         id="portfolio-grid"
       >
         {items.map((item, index) => {
@@ -196,11 +197,11 @@ export default function PortfolioGrid({ initialItems }: PortfolioGridProps) {
             <div
               key={item.id}
               data-swapy-slot={item.id}
-              className={`${
+              and-layout={
                 patternColSpan === "col-span-2"
-                  ? "md:col-span-2"
-                  : "md:col-span-1"
-              }`}
+                  ? "span@md:2"
+                  : "span@md:1"
+              }
               style={{
                 ...(isMobile ? { touchAction: "pan-y" } : undefined),
                 ...(hidden

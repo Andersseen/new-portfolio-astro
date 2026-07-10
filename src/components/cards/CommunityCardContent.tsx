@@ -9,7 +9,7 @@ export default function CommunityCardContent({
   item,
 }: CommunityCardContentProps) {
   return (
-    <div className="mt-3 flex flex-col gap-2">
+    <div and-layout="vertical gap:xs" className="mt-3">
       <div className="text-sm text-foreground-secondary">
         Contributions & Open Source
       </div>

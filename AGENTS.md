@@ -8,7 +8,8 @@ entry point. Read it fully before touching code.
 1. Read [docs/CONTEXT.md](docs/CONTEXT.md) — what this project is and why it exists.
 2. Read [docs/STATE.md](docs/STATE.md) — where the project is right now.
 3. For any non-trivial task (new feature, refactor, anything touching >2 files),
-   follow the workflow in [docs/SDD.md](docs/SDD.md): write a spec before writing code.
+   follow the OpenSpec workflow in [docs/SDD.md](docs/SDD.md). Create and review
+   proposal/spec/design/tasks artifacts before writing implementation code.
 4. Before writing code, read [docs/CONVENTIONS.md](docs/CONVENTIONS.md) and the
    relevant sections of [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
@@ -29,6 +30,8 @@ entry point. Read it fully before touching code.
 | `pnpm check:i18n` | Only the locale key parity check                      |
 | `pnpm build`      | Production build (must pass before considering done)  |
 | `pnpm preview`    | Preview the production build                          |
+| `pnpm openspec:status` | List active OpenSpec changes                     |
+| `pnpm openspec:validate` | Validate every OpenSpec spec/change             |
 
 ## Hard rules (violating these breaks the build or the site)
 
@@ -62,6 +65,7 @@ entry point. Read it fully before touching code.
 - [ ] Verified visually/behaviorally in `pnpm dev` (both light and dark theme if UI changed; all 3 locales if text changed).
 - [ ] New UI is keyboard-operable with proper ARIA (project standard).
 - [ ] [docs/STATE.md](docs/STATE.md) updated with what changed.
+- [ ] Relevant OpenSpec change tasks are complete and validation passes.
 
 ## Git workflow
 
@@ -78,4 +82,5 @@ entry point. Read it fully before touching code.
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)     | Before modifying any subsystem                   |
 | [docs/CONVENTIONS.md](docs/CONVENTIONS.md)       | Before writing any code                          |
 | [docs/SDD.md](docs/SDD.md)                       | Before starting a non-trivial task               |
-| [docs/specs/](docs/specs/)                       | Specs for features (template: `_TEMPLATE.md`)    |
+| [openspec/](openspec/)                           | Canonical current specs and change artifacts      |
+| [docs/specs/](docs/specs/)                       | Historical pre-OpenSpec change records only       |

@@ -13,17 +13,20 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
   if (links.length === 0) return null;
 
   return (
-    <div className="flex flex-col items-center gap-5 mt-2">
+    <div and-layout="vertical align:center" className="mt-2 gap-5">
       <p className="text-sm text-foreground-secondary text-center">
         Connect & get in touch
       </p>
 
-      <div className="flex gap-5 justify-center">
+      <div and-layout="horizontal justify:center" className="gap-5">
         {links.map((link) => {
           const IconComponent = IconMap[link.icon];
 
           return (
-            <div key={link.url} className="flex flex-col items-center gap-2">
+            <div
+              key={link.url}
+              and-layout="vertical align:center gap:xs"
+            >
               <div
                 className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-border bg-background-tertiary text-foreground"
                 aria-hidden="true"

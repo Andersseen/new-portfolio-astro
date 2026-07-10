@@ -1,91 +1,129 @@
-# Spec-Driven Development (SDD) Workflow
+# Spec-Driven Development with OpenSpec
 
-How to execute tasks in this repo. The goal: think in text (cheap, reviewable)
-before writing code (expensive, error-prone). Follow the phases in order and
-do not skip the gates.
+OpenSpec is the canonical workflow for non-trivial changes in this repository.
+It keeps current system requirements in `openspec/specs/` and active change
+artifacts in `openspec/changes/`. The older `docs/specs/` directory is retained
+as historical pre-OpenSpec context; do not add new specs there.
 
-## When to use which weight
+## Change-size policy
 
-| Task size                                          | Process                                             |
-| -------------------------------------------------- | --------------------------------------------------- |
-| Trivial (typo, copy change, one locale key, style tweak) | No spec. Do it, verify, log it in STATE.md.   |
-| Small (one component, ≤2 files)                    | Mini-spec: write the Goal + Plan sections directly in chat, get a nod, implement. |
-| Non-trivial (new feature, new card, refactor, >2 files, new dependency, new subsystem) | Full spec file in `docs/specs/` (see below). |
+| Task size | Process |
+| --------- | ------- |
+| Trivial: typo, copy-only edit, isolated style correction | Implement directly, verify proportionally, and update `docs/STATE.md`. |
+| Small: one component and no more than two files | State Goal + Plan in chat, get confirmation, implement, and verify. |
+| Non-trivial: feature, refactor, cross-cutting fix, more than two files, dependency, or subsystem work | Use the complete OpenSpec workflow below. |
 
-## The phases
+## Canonical workflow
 
-### Phase 0 — Orient (always)
-
-1. Read `docs/CONTEXT.md` and `docs/STATE.md`.
-2. Read the ARCHITECTURE.md sections for the subsystems you'll touch.
-3. Read the actual source files you plan to change — never edit a file you
-   haven't read. Verify claims from the docs against the code; the code wins.
-
-### Phase 1 — Specify
-
-Create `docs/specs/YYYY-MM-DD-<slug>.md` from `docs/specs/_TEMPLATE.md`.
-Fill in: Goal, Context, Requirements, Non-goals. Requirements must be
-**testable statements**, not vibes ("card opens with the shared-element
-animation and returns focus to opener on close", not "modal works well").
-
-**GATE: show the spec to the user and get approval before proceeding.**
-If the user is unavailable and the task was explicitly delegated, proceed but
-mark `Status: implemented without spec review` in the spec.
-
-### Phase 2 — Plan
-
-Fill in the Plan section of the spec: ordered steps, each naming the files it
-touches. Rules:
-
-- Steps must be small enough that `pnpm check` can pass between them.
-- Identify the i18n keys you'll add (all 3 locales) up front.
-- Identify which framework each new component uses (see decision table in
-  CONVENTIONS.md) — this is where the multi-framework setup bites the unwary.
-- Note anything that needs a new dependency → requires explicit user approval.
-
-### Phase 3 — Implement
-
-- Follow the plan step by step; update the spec's Status log as you go.
-- Stay in scope: if you discover something broken outside the spec, note it in
-  STATE.md "Known issues" — do NOT fix it in the same change.
-- Match surrounding code style; use existing primitives (`ui/`, `t()`,
-  nanostores patterns, idb helpers) before inventing new ones.
-
-### Phase 4 — Verify (definition of done)
-
-```bash
-pnpm check    # i18n parity + TypeScript — must pass
-pnpm build    # must pass
-pnpm dev      # exercise the actual flow you changed
+```text
+explore (optional) → propose → apply → sync → archive
 ```
 
-Manual matrix for UI changes: light/dark/randomized theme · mobile + desktop
-widths · en/es/ua when text changed · keyboard-only walkthrough for anything
-interactive.
+### 1. Explore when the problem is unclear
 
-### Phase 5 — Record
+Use `/opsx:explore` or the `openspec-explore` skill to investigate code,
+constraints, alternatives, and risks without implementing. Exploration may read
+the repository and capture planning artifacts, but it does not authorize code
+changes.
 
-1. Update the spec: Status → `done`, note deviations from plan.
-2. Update `docs/STATE.md`: move the item to "Recently completed", add a
-   session-log line, record any new debt/issues discovered.
-3. Commit on a `feature/<slug>` branch with a `feat:`/`fix:`/`refactor:` message.
-   Do not push or open a PR unless asked.
+### 2. Propose the change
 
-## Spec lifecycle
+Use `/opsx:propose <description>` or the `openspec-propose` skill. A complete
+proposal creates:
 
-- Specs live in `docs/specs/`, named `YYYY-MM-DD-<slug>.md`.
-- Status field: `draft → approved → in-progress → done` (or `abandoned`).
-- Specs are immutable history once `done` — write a new spec to change the
-  behavior later; don't rewrite old ones.
+```text
+openspec/changes/<change-name>/
+├── proposal.md
+├── design.md
+├── specs/<capability>/spec.md
+└── tasks.md
+```
 
-## Anti-patterns (things weaker sessions have done — don't)
+Requirements must be testable, use MUST/SHALL, and contain scenarios. The
+design must state framework ownership, dependency decisions, architecture
+contracts, risks, and migration/rollback strategy. Tasks must be ordered,
+checkbox-based, and small enough to verify incrementally.
 
-- Editing code before reading it, or trusting docs over code.
-- Adding an i18n key to `en.json` only ("I'll add translations later" — the
-  check fails and the task isn't done).
-- "Simplifying" the multi-framework setup, the alias spelling
-  (`@componentes`), or the phase-based modal state machine.
-- Hardcoding a color/string because the token/key system takes an extra minute.
-- Reporting done without running `pnpm build` (astro check passes ≠ build passes:
-  SSR/hydration issues only surface at build/runtime).
-- Wide refactors piggybacking on a small task.
+Review the artifacts with the user before implementation unless the user has
+explicitly approved the fully described change and asked for immediate
+implementation.
+
+### 3. Apply tasks
+
+Use `/opsx:apply <change-name>` or the `openspec-apply-change` skill. Always run
+the CLI status/instructions commands and read every context file they return:
+
+```bash
+openspec status --change <change-name> --json
+openspec instructions apply --change <change-name> --json
+```
+
+Implement tasks in order. Mark each checkbox complete immediately after the
+task and its proportional verification are complete. If implementation reveals
+that a requirement or design decision is wrong, update the artifact before
+continuing. Do not silently diverge from the approved change.
+
+### 4. Verify the repository gates
+
+Every implementation must pass the checks relevant to its surface. The default
+completion gates are:
+
+```bash
+pnpm check
+pnpm build
+pnpm test:e2e
+pnpm openspec:validate
+```
+
+UI changes also require manual checks in light/dark/randomized themes, mobile
+and desktop widths, keyboard-only interaction, and all three locales when text
+changes. API changes require route/runtime validation. Dependency changes
+require explicit approval and a reviewed `pnpm-lock.yaml` update.
+
+### 5. Sync and archive
+
+When implementation and verification are complete, use `/opsx:sync` to merge
+delta requirements into `openspec/specs/`, then `/opsx:archive <change-name>`
+to move the completed change into the OpenSpec archive. Review the sync diff;
+source-of-truth specs must describe actual shipped behavior.
+
+Update `docs/STATE.md` before archiving so session-to-session project context
+matches the archived change.
+
+## Project-specific OpenSpec rules
+
+The shared context and artifact rules live in `openspec/config.yaml`. They
+enforce these repository constraints:
+
+- Documentation and specifications are written in English.
+- Astro owns static presentation; Preact owns general interaction; Angular
+  remains under `src/components/angular/`; Lit/web components remain the
+  design-system demonstration surface.
+- New i18n keys are added with real translations to `en.json`, `es.json`, and
+  `ua.json` in the same change.
+- Semantic theme tokens are mandatory; component code does not hard-code colors.
+- Accessibility and focus contracts are testable requirements, not optional QA.
+- pnpm is the only package manager.
+
+## Useful commands
+
+```bash
+openspec list
+openspec status --change <name>
+openspec validate --all
+openspec show <name>
+openspec instructions <artifact> --change <name> --json
+```
+
+Run `openspec update` after upgrading the OpenSpec CLI so generated Codex skills
+remain aligned with the selected profile.
+
+## Failure modes to avoid
+
+- Writing implementation code before proposal/spec/design/tasks are ready.
+- Treating `docs/specs/` as the active source of truth.
+- Copying OpenSpec instruction/context blocks into generated artifacts.
+- Marking a task complete before its verification passes.
+- Archiving without syncing shipped requirements into `openspec/specs/`.
+- Reporting completion without `pnpm check`, `pnpm build`, and relevant runtime
+  or browser verification.

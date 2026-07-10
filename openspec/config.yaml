@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Product: Andersseen's multilingual personal portfolio and design-system showcase.
+  Stack: Astro 5 hybrid output with Preact islands, selected Angular components,
+    Lit/web components, Tailwind CSS v4, TypeScript strict mode, and pnpm on Node 20+.
+  Languages: English (default), Spanish, and Ukrainian with enforced locale-key parity.
+  Architecture: preserve the deliberate multi-framework setup. Angular components
+    live only in src/components/angular/. Interactive components use Preact; static
+    presentation uses Astro; design-system demos use Lit/web components.
+  Styling: use semantic Tailwind tokens and preserve runtime theme randomization.
+    Never add hard-coded component colors. @andersseen/layout is the preferred
+    attribute-driven option for layout primitives it supports.
+  Accessibility: keyboard operation, visible focus, correct ARIA, reduced-motion
+    support, and modal focus trapping/restoration are mandatory.
+  Verification: pnpm check, pnpm build, and relevant Playwright/manual checks.
+  Documentation and specifications must be written in English.
+  Package manager: pnpm only. Do not add React-only dependencies or commit .env.
+
+rules:
+  proposal:
+    - Include explicit non-goals and identify affected user-visible behavior.
+    - State whether i18n, accessibility, themes, responsive behavior, or dependencies are affected.
+  specs:
+    - Write testable requirements using MUST or SHALL.
+    - Give every requirement at least one GIVEN/WHEN/THEN scenario.
+    - Cover keyboard and responsive scenarios when UI behavior changes.
+  design:
+    - Name the framework used by every new component and justify any new dependency.
+    - Preserve existing subsystem contracts documented in docs/ARCHITECTURE.md.
+  tasks:
+    - Keep tasks small enough that pnpm check can pass after each implementation group.
+    - End with pnpm check, pnpm build, relevant Playwright tests, visual verification, and docs/STATE.md.

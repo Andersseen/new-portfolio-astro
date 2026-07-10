@@ -75,9 +75,15 @@ export default function Card({
       {}
 
       {}
-      <div className="relative p-5 sm:p-7 h-full flex flex-col z-20">
+      <div
+        and-layout="vertical"
+        className="relative z-20 h-full p-5 sm:p-7"
+      >
         {}
-        <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
+        <div
+          and-layout="horizontal align:start justify:between gap:sm gap@sm:md"
+          className="mb-3 sm:mb-4"
+        >
           <div className="flex-1 min-w-0">
             <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1 sm:mb-1.5 truncate">
               {title}
@@ -96,7 +102,7 @@ export default function Card({
 
         {}
         {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div and-layout="horizontal wrap:wrap gap:xs" className="mb-4">
             {tags.map((tag) => (
               <Badge key={tag} variant={badgeColor} size="sm">
                 {tag}
@@ -106,7 +112,7 @@ export default function Card({
         )}
 
         {}
-        <div className="flex-1 flex flex-col justify-end">
+        <div and-layout="vertical justify:end" className="flex-1">
           {children && <div className="flex-shrink-0">{children}</div>}
         </div>
       </div>
