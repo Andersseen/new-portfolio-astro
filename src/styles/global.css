@@ -143,6 +143,67 @@ main {
   animation: shimmer 2s infinite;
 }
 
+/*
+ * First-load skeleton (see src/components/PageLoader.astro). A full-screen
+ * placeholder that mirrors the layout and fades out once the page is ready.
+ */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: var(--color-background);
+  transition:
+    opacity 0.55s ease,
+    visibility 0.55s ease;
+}
+
+.page-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* A shimmering skeleton block, tinted from the current theme's foreground. */
+.pl-block,
+.pl-card {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--color-foreground) 8%, transparent);
+}
+
+.pl-card {
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-background-secondary);
+}
+
+.pl-block::after,
+.pl-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-foreground) 7%, transparent),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shimmer 1.6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer,
+  .pl-block::after,
+  .pl-card::after {
+    animation: none;
+  }
+  .page-loader {
+    transition-duration: 0.15s;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
