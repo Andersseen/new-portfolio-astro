@@ -1,12 +1,12 @@
 # UI Components
 
-Componentes atómicos reutilizables para el diseño del sistema.
+Reusable atomic components for the design system.
 
-## Componentes Disponibles
+## Available components
 
 ### Button
 
-Botón versátil con múltiples variantes y tamaños.
+A versatile button with multiple variants and sizes.
 
 **Props:**
 
@@ -17,20 +17,17 @@ Botón versátil con múltiples variantes y tamaños.
 - `onClick`: `() => void`
 - `type`: `"button" | "submit" | "reset"` (default: `"button"`)
 
-**Ejemplo:**
+**Example:**
 
 ```tsx
 import { Button } from "@/components/ui";
 
-  Click me
-</Button>;
+<Button>Click me</Button>;
 ```
-
----
 
 ### Card
 
-Contenedor con múltiples estilos y opciones de personalización.
+A container with multiple styles and customization options.
 
 **Props:**
 
@@ -40,7 +37,7 @@ Contenedor con múltiples estilos y opciones de personalización.
 - `hoverable`: `boolean` (default: `false`)
 - `onClick`: `() => void`
 
-**Ejemplo:**
+**Example:**
 
 ```tsx
 import { Card } from "@/components/ui";
@@ -51,18 +48,16 @@ import { Card } from "@/components/ui";
 </Card>;
 ```
 
----
-
 ### Badge
 
-Etiqueta pequeña para mostrar estados o categorías.
+A compact label for states or categories.
 
 **Props:**
 
 - `variant`: `"primary" | "secondary" | "accent" | "success" | "warning" | "danger"` (default: `"primary"`)
 - `size`: `"sm" | "md" | "lg"` (default: `"md"`)
 
-**Ejemplo:**
+**Example:**
 
 ```tsx
 import { Badge } from "@/components/ui";
@@ -71,11 +66,9 @@ import { Badge } from "@/components/ui";
 <Badge variant="warning">Beta</Badge>
 ```
 
----
-
 ### Input
 
-Campo de entrada con validación y estados de error.
+An input field with validation and error states.
 
 **Props:**
 
@@ -88,14 +81,14 @@ Campo de entrada con validación y estados de error.
 - `fullWidth`: `boolean` (default: `false`)
 - `required`: `boolean` (default: `false`)
 
-**Ejemplo:**
+**Example:**
 
 ```tsx
 import { Input } from "@/components/ui";
 
 <Input
   type="email"
-  placeholder="tu@email.com"
+  placeholder="you@example.com"
   value={email}
   onChange={setEmail}
   error={!isValidEmail}
@@ -103,32 +96,28 @@ import { Input } from "@/components/ui";
 />;
 ```
 
----
+## Imports
 
-## Importación
-
-Puedes importar componentes individuales o todos a la vez:
+Import components individually or through the barrel export:
 
 ```tsx
-
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
-
 
 import { Button, Card, Badge, Input } from "@/components/ui";
 ```
 
-## Personalización
+## Customization
 
-Todos los componentes aceptan una prop `className` para añadir clases CSS personalizadas:
+Every component accepts a `className` prop for additional CSS classes:
 
 ```tsx
 <Button className="my-custom-class">Custom Button</Button>
 ```
 
-## Colores del Sistema
+## System colors
 
-Los componentes usan las variables CSS del tema:
+Components use the theme's CSS variables:
 
 - `--color-primary`
 - `--color-secondary`

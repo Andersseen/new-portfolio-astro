@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-07 · **Branch state:** `main` with uncommitted Lighthouse/SEO/a11y/security improvements
+**Last updated:** 2026-07-10 · **Branch state:** `main` with uncommitted accessibility and UI improvements
 
 ## Status: ✅ Stable, build passes
 
@@ -18,6 +18,18 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **Accessible tags and Social card fixes**
+  - Added the missing `blog` → RSS mapping in `IconMap`, fixing the blank Blog
+    icon in both the Social card and its modal.
+  - Removed nested social links from the grid card; it now exposes one clear
+    card action while the real external links remain available in the modal.
+  - Standardized project, design-system, service and shared badges on semantic
+    surface/foreground tokens with larger, non-uppercase text for reliable
+    readability across generated light and dark themes.
+  - Added Playwright coverage for Blog icon visibility, invalid nested controls,
+    dark theme, keyboard opening, Escape closing and focus restoration.
+  - Verified: `pnpm check`, `pnpm build`, full Playwright suite (6/6) and local
+    visual capture all pass.
 - **First-load skeleton loader**
   - New `src/components/PageLoader.astro` renders a full-screen skeleton
     (mirrors navbar + hero + bento grid) on first paint, mounted as the first
@@ -130,6 +142,9 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
+- 2026-07-10 — Fixed the missing Blog icon and tag readability, removed nested
+  controls from the Social card, and added Playwright accessibility coverage;
+  check, build and all 6 e2e tests pass.
 - 2026-07-07 — Fixed theme API calls in dev: `src/utils/theme-api.ts` now calls
   `PUBLIC_THEME_API_BASE_URL/api/v1/theme` directly when `import.meta.env.DEV`
   is true, instead of the unavailable local `/api/theme` proxy.

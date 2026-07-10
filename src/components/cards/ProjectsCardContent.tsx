@@ -34,7 +34,7 @@ export default function ProjectsCardContent({
                 {(project.tech || []).slice(0, 2).map((tech, j: number) => (
                   <span
                     key={`${tech}-${j}`}
-                    className="text-[10px] px-2 py-0.5 rounded-full bg-primary-100 text-foreground font-medium dark:bg-primary-900/40 dark:text-foreground"
+                    className="rounded-full border border-border bg-background-tertiary px-2 py-0.5 text-xs font-semibold leading-relaxed text-foreground"
                   >
                     {tech}
                   </span>

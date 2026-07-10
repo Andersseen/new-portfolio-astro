@@ -26,4 +26,36 @@ test.describe("home page", () => {
     await firstButton.focus();
     await expect(firstButton).toBeFocused();
   });
+
+  test("social card renders the Blog icon without nested controls", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    const socialCard = page
+      .locator('#portfolio-grid button[type="button"]')
+      .filter({ hasText: "Social" });
+
+    await expect(socialCard).toHaveCount(1);
+    await expect(socialCard.locator("svg.lucide-rss")).toBeVisible();
+    await expect(socialCard.locator("a, button")).toHaveCount(0);
+
+    await page.locator("#theme-toggle").click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await expect(socialCard.locator("svg.lucide-rss")).toBeVisible();
+
+    await socialCard.focus();
+    await expect(socialCard).toBeFocused();
+    await socialCard.press("Enter");
+    await expect(page.getByRole("dialog", { name: "Social" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Blog" })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Blog" }).locator("svg.lucide-rss"),
+    ).toBeVisible();
+
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog", { name: "Social" })).toBeHidden();
+    await expect(socialCard).toBeFocused();
+  });
 });

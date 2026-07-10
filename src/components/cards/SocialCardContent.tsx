@@ -1,4 +1,3 @@
-import Button from "../ui/Button";
 import type { PortfolioItem, SocialLink } from "../PortfolioGrid";
 import { IconMap } from "../IconMap";
 
@@ -25,23 +24,17 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
 
           return (
             <div key={link.url} className="flex flex-col items-center gap-2">
-              <Button
-                href={link.url}
-                external
-                variant="ghost"
-                size="icon"
-                className="rounded-xl w-12 h-12 bg-primary-100 text-primary-900 hover:bg-primary hover:text-background group relative overflow-visible transition-all duration-300 hover:-translate-y-1 dark:bg-primary-900/40 dark:text-primary-100"
-                title={link.label || link.icon}
-                aria-label={link.label || `Visit ${link.icon}`}
+              <div
+                className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-border bg-background-tertiary text-foreground"
+                aria-hidden="true"
               >
-                <div className="absolute inset-0 bg-current opacity-0 group-hover:opacity-10 blur-md transition-opacity duration-300" />
                 {IconComponent && (
                   <IconComponent
-                    className="w-6 h-6 z-10 relative"
+                    className="relative z-10 h-6 w-6"
                     aria-hidden="true"
                   />
                 )}
-              </Button>
+              </div>
               <span className="text-xs text-foreground-secondary font-medium">
                 {link.label || link.icon}
               </span>

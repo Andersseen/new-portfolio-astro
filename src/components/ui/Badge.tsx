@@ -14,12 +14,12 @@ export interface BadgeProps {
 }
 
 const variantClasses = {
-  primary: "bg-primary-100 text-foreground border-primary-200 dark:bg-primary-900/40 dark:text-foreground dark:border-primary-800",
-  secondary: "bg-secondary-100 text-foreground border-secondary-200 dark:bg-secondary-900/40 dark:text-foreground dark:border-secondary-800",
-  accent: "bg-accent text-background border-accent",
-  success: "bg-success text-background border-success",
-  warning: "bg-warning text-background border-warning",
-  danger: "bg-danger text-background border-danger",
+  primary: "bg-background-tertiary text-foreground border-border",
+  secondary: "bg-background-tertiary text-foreground border-border",
+  accent: "bg-background-tertiary text-foreground border-border",
+  success: "bg-background-tertiary text-foreground border-border",
+  warning: "bg-background-tertiary text-foreground border-border",
+  danger: "bg-background-tertiary text-foreground border-border",
 };
 
 const sizeClasses = {
@@ -39,7 +39,7 @@ export default function Badge({
       className={cn(
         variantClasses[variant],
         sizeClasses[size],
-        "inline-block rounded-full font-bold tracking-wide uppercase border",
+        "inline-block rounded-full border font-semibold leading-relaxed",
         className
       )}
     >

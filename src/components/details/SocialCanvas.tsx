@@ -158,7 +158,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
                 aria-label={item.label}
               >
                 <div className="text-foreground-secondary group-hover:text-foreground transition-colors">
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" aria-hidden="true" />
                 </div>
               </a>
             );
