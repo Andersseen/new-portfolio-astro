@@ -75,6 +75,31 @@
       "noArticles": "No hay artículos disponibles en este momento.",
       "blogMessage": "Visita mi blog para leer todos mis artículos y contenido exclusivo."
     },
+    "contact": {
+      "title": "Contacto",
+      "description": "¿Tienes un proyecto en mente o simplemente quieres saludar? Envíame un mensaje.",
+      "actionLabel": "Escríbeme",
+      "nameLabel": "Nombre",
+      "emailLabel": "Correo electrónico",
+      "messageLabel": "Mensaje",
+      "namePlaceholder": "Tu nombre",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "messagePlaceholder": "Cuéntame sobre tu proyecto...",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando…",
+      "successTitle": "¡Mensaje enviado!",
+      "successMessage": "Gracias por contactarme. Te responderé pronto.",
+      "errorTitle": "Algo salió mal",
+      "errorMessage": "No se pudo enviar tu mensaje. Por favor, inténtalo de nuevo.",
+      "validation": {
+        "nameRequired": "El nombre es obligatorio.",
+        "nameTooLong": "El nombre debe tener 100 caracteres o menos.",
+        "emailInvalid": "Introduce una dirección de correo válida.",
+        "emailTooLong": "El correo debe tener 254 caracteres o menos.",
+        "messageRequired": "El mensaje es obligatorio.",
+        "messageTooLong": "El mensaje debe tener 5000 caracteres o menos."
+      }
+    },
     "aboutMe": {
       "title": "Sobre Mí",
       "description": "Desarrollador y diseñador apasionado por crear experiencias digitales hermosas y funcionales.",

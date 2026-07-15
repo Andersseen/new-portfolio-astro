@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-1-content-i18n` with phases 1 & 2 implemented
+**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-1-content-i18n` with phases 1, 2 & 3 implemented
 
 ## Status: ✅ Stable, build passes
 
@@ -152,12 +152,11 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 - Decide whether to keep or merge the `feature/phase-1-content-i18n` branch
   (phases 1 & 2 are done; user prefers grouping additional phases on the same
   branch).
-- Continue with Phase 3 (contact form) or another phase from `docs/plan/PLAN.md`.
+- Continue with the next phase from `docs/plan/PLAN.md`.
 
 ## Backlog / known intentions
 
-- Contact form UI for `/api/send-email` (endpoint exists and is validated;
-  no form component is wired to it yet — verify before building).
+- Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Language selector keyboard UX (arrow navigation, focus return) is still basic.
 
@@ -184,7 +183,7 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
-- 2026-07-15 — Implemented PLAN.md Phase 1 (i18n services/design details + project role badge) and Phase 2 (project screenshots in the modal). Created OpenSpec `project-images` change. `pnpm check` and `pnpm build` pass; visual verification done across 3 locales, both themes, and mobile/desktop. e2e suite not run because port 4321 is occupied by another local process.
+- 2026-07-15 — Implemented PLAN.md Phase 3 (contact form): new bento card, Preact `ContactDetails` form wired to `POST /api/send-email`, client/server validation parity, honeypot, loading/success/error states, ARIA focus management, and `tests/contact.spec.ts` (5 tests). Switched Playwright dev server to port 4324 to avoid the occupied 4321. Full e2e suite (14 tests) passes; `pnpm check` and `pnpm build` pass.
 - 2026-07-15 — Audited the portfolio and created `docs/plan/PLAN.md` (7 phased
   improvements) + `docs/plan/CONTEXT.md` (execution briefing). Docs only.
 - 2026-07-10 — Adopted OpenSpec as the canonical SDD workflow and integrated

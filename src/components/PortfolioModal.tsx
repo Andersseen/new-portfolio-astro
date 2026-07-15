@@ -13,6 +13,7 @@ import {
 } from "../store/modalStore";
 
 import ProjectList from "./details/ProjectList";
+import ContactDetails from "./details/ContactDetails";
 import StackDetails from "./details/StackDetails";
 import CommunityList from "./details/CommunityList";
 import ArticleList from "./details/ArticleList";
@@ -249,7 +250,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     if (item.type === "social") {
       return <SocialCanvas items={item.content as any[]} />;
     }
-    if (!item.details && item.type !== "design")
+    if (!item.details && item.type !== "design" && item.type !== "contact")
       return <p>No specific details available.</p>;
 
     switch (item.type) {
@@ -265,6 +266,8 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
         return <mock-ui-kit />;
       case "services":
         return <ServiceDetails data={item.details} />;
+      case "contact":
+        return <ContactDetails />;
       default:
         if (typeof item.details === "string") {
           return <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.details) }} />;

@@ -95,7 +95,7 @@ Acceptance:
 
 ## Phase 3 — Contact form
 
-**Status:** pending
+**Status:** done
 **Goal:** a working contact form wired to the existing `POST /api/send-email`
 (contract in CONTEXT.md) — the site's main conversion path (finding #8).
 **Prerequisite:** none for the UI. Real sending needs `RESEND_API_KEY`
