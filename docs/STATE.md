@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-10 · **Branch state:** `main` with uncommitted accessibility, OpenSpec, and layout improvements
+**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-1-content-i18n` with phases 1 & 2 implemented
 
 ## Status: ✅ Stable, build passes
 
@@ -17,6 +17,33 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 100 on Vercel.
 
 ## Recently completed (last few cycles)
+
+- **Phase 1 — Content & i18n quick wins**
+  - Moved hardcoded English service and design-system descriptions from
+    `src/data/portfolio.ts` into i18n keys (`portfolio.services.*Description`,
+    `portfolio.services.*Details`, `portfolio.design.*`).
+  - Added natural Spanish and Ukrainian translations to `es.json` and `ua.json`;
+    `pnpm check:i18n` passes.
+  - Fixed `ProjectList.tsx` badge field mismatch (`category` → `role`) so each
+    project modal shows the correct role again.
+  - Article fallback URLs left pointing to the Medium profile
+    (`https://medium.com/@andriipap`) as requested; specific per-article links
+    can be swapped in later.
+  - Verified: `pnpm check` and `pnpm build` pass.
+
+- **Phase 2 — Project images**
+  - Created OpenSpec change `project-images` with proposal, design, spec and
+    tasks artifacts; `pnpm openspec:validate` passes.
+  - Captured 1280×800 screenshots of the five client sites and compressed them
+    to WebP (<100 KB each) under `src/assets/projects/`.
+  - Wired images into `src/data/portfolio.ts` via `@assets/projects/...` imports;
+    Vite hashes and optimizes them at build time.
+  - Extended `src/components/details/ProjectList.tsx` with an `image` field and
+    renders each screenshot with `loading="lazy"`, explicit `width`/`height`,
+    `aspect-[16/10]`, `object-cover`, and project-title `alt` text.
+  - Verified visually in all 3 locales, light/dark themes, and desktop/mobile
+    widths; no layout shift and hover effect remains intact.
+  - Verified: `pnpm check` and `pnpm build` pass.
 
 - **OpenSpec adoption and production `@andersseen/layout` integration**
   - Initialized OpenSpec 1.5.0 with the core workflow and generated Codex skills;
@@ -122,12 +149,13 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## In progress / next up
 
-- (empty — pick from Backlog or the user's request)
+- Decide whether to keep or merge the `feature/phase-1-content-i18n` branch
+  (phases 1 & 2 are done; user prefers grouping additional phases on the same
+  branch).
+- Continue with Phase 3 (contact form) or another phase from `docs/plan/PLAN.md`.
 
 ## Backlog / known intentions
 
-- Fill in `image: ""` fields for projects in `src/data/portfolio.ts`
-  (project cards have no images yet).
 - Contact form UI for `/api/send-email` (endpoint exists and is validated;
   no form component is wired to it yet — verify before building).
 - Type-narrow `PortfolioItem.details` (currently `any` per card type).
@@ -156,6 +184,9 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
+- 2026-07-15 — Implemented PLAN.md Phase 1 (i18n services/design details + project role badge) and Phase 2 (project screenshots in the modal). Created OpenSpec `project-images` change. `pnpm check` and `pnpm build` pass; visual verification done across 3 locales, both themes, and mobile/desktop. e2e suite not run because port 4321 is occupied by another local process.
+- 2026-07-15 — Audited the portfolio and created `docs/plan/PLAN.md` (7 phased
+  improvements) + `docs/plan/CONTEXT.md` (execution briefing). Docs only.
 - 2026-07-10 — Adopted OpenSpec as the canonical SDD workflow and integrated
   `@andersseen/layout` across 39 Astro/Preact markup sites with computed-style
   responsive tests; check/build/OpenSpec validation and 9 e2e tests pass.
