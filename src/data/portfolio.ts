@@ -183,19 +183,19 @@ export const getPortfolioItems = (
     details: [
       {
         title: "@andersseen/web-components",
-        description: "24+ framework-agnostic UI components built with Stencil.",
+        description: tr("portfolio.design.webComponents"),
       },
       {
         title: "@andersseen/icon",
-        description: "70+ SVG icons with tree-shaking and lazy loading.",
+        description: tr("portfolio.design.icon"),
       },
       {
         title: "@andersseen/motion",
-        description: "Attribute-driven CSS/JS animation system.",
+        description: tr("portfolio.design.motion"),
       },
       {
         title: "@andersseen/layout",
-        description: "Pure CSS layout via HTML attributes.",
+        description: tr("portfolio.design.layout"),
       },
     ],
     colSpan: "col-span-1",
@@ -242,52 +242,44 @@ export const getPortfolioItems = (
       {
         text: tr("portfolio.services.web"),
         gradient: "from-primary to-primary",
-        details:
-          "Building responsive, accessible, and performant user interfaces.",
+        details: tr("portfolio.services.webDescription"),
       },
       {
         text: tr("portfolio.services.desktop"),
         gradient: "from-primary to-primary",
-        details:
-          "Scalable API design, database management, and cloud architecture.",
+        details: tr("portfolio.services.desktopDescription"),
       },
       {
         text: tr("portfolio.services.uiux"),
         gradient: "from-primary to-primary",
-        details:
-          "Creating intuitive and visually appealing digital experiences.",
+        details: tr("portfolio.services.uiuxDescription"),
       },
       {
         text: tr("portfolio.services.devops"),
         gradient: "from-primary to-primary",
-        details:
-          "Deployment automation, infrastructure management, and performance optimization.",
+        details: tr("portfolio.services.devopsDescription"),
       },
     ],
     details: [
       {
         text: tr("portfolio.services.web"),
         gradient: "from-primary to-primary",
-        details:
-          "Building responsive, accessible, and performant user interfaces with modern frameworks.",
+        details: tr("portfolio.services.webDetails"),
       },
       {
         text: tr("portfolio.services.desktop"),
         gradient: "from-primary to-primary",
-        details:
-          "Scalable API design, database architecture (SQL/NoSQL), and secure authentication systems.",
+        details: tr("portfolio.services.desktopDetails"),
       },
       {
         text: tr("portfolio.services.uiux"),
         gradient: "from-primary to-primary",
-        details:
-          "Creating intuitive, user-centric designs with focus on usability and visual hierarchy.",
+        details: tr("portfolio.services.uiuxDetails"),
       },
       {
         text: tr("portfolio.services.devops"),
         gradient: "from-primary to-primary",
-        details:
-          "Deployment automation, infrastructure management, and performance optimization.",
+        details: tr("portfolio.services.devopsDetails"),
       },
     ],
     colSpan: "col-span-1",

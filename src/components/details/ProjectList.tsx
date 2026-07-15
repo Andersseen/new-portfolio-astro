@@ -2,7 +2,7 @@ import type { FunctionalComponent } from "preact";
 
 interface Project {
   title: string;
-  category: string;
+  role: string;
   description: string;
   tech: string[];
   link?: string;
@@ -38,7 +38,7 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
                   {project.title}
                 </h3>
                 <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary group-hover:bg-background/20 group-hover:text-background transition-colors duration-300">
-                  {project.category}
+                  {project.role}
                 </span>
               </div>
               <p className="text-sm text-foreground-secondary mb-3 group-hover:text-background/90 transition-colors duration-300">
