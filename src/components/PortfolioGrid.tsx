@@ -41,7 +41,6 @@ export interface PortfolioItem {
     | "services"
     | "stack"
     | "articles"
-    | "contact"
     | "about";
   title: string;
   description?: string;

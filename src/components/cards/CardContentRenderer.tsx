@@ -1,7 +1,6 @@
 import type { PortfolioItem } from "../PortfolioGrid";
 import ArticlesCardContent from "./ArticlesCardContent";
 import CommunityCardContent from "./CommunityCardContent";
-import ContactCardContent from "./ContactCardContent";
 import DesignCardContent from "./DesignCardContent";
 import ProjectsCardContent from "./ProjectsCardContent";
 import ServicesCardContent from "./ServicesCardContent";
@@ -30,8 +29,6 @@ export default function CardContentRenderer({
       return <CommunityCardContent item={item} />;
     case "design":
       return <DesignCardContent item={item} />;
-    case "contact":
-      return <ContactCardContent item={item} />;
     default:
       return null;
   }

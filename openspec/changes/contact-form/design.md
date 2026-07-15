@@ -1,41 +1,46 @@
 ## Context
 
-`src/pages/api/send-email.ts` exposes a `POST /api/send-email` endpoint that validates `name`, `email` and `message` and sends via Resend. There is currently no UI consuming this endpoint. The portfolio grid supports arbitrary card types via `PortfolioCard`, `CardContentRenderer` and `PortfolioModal`, so a new `contact` type can plug into the existing bento + modal system.
+`src/pages/api/send-email.ts` exposes a `POST /api/send-email` endpoint that
+validates `name`, `email` and `message` and sends via Resend. The Social modal
+(`SocialCanvas.tsx`) already contains a working contact form that posts to this
+endpoint. A previous attempt added a dedicated "Contact" bento card, but it
+duplicated the existing form and broke the grid layout, so the standalone card
+is being removed.
 
 ## Goals / Non-Goals
 
 **Goals:**
-- Add a contact card to the bento grid that opens a modal form.
-- Collect name, email and message with client-side validation matching the API contract.
-- Submit to `/api/send-email` and surface loading, success and error states.
-- Keep the form keyboard-operable and screen-reader friendly inside the existing modal focus trap.
-- Add all user-facing strings to the three locale files.
+- Keep the existing Social modal contact form as the only contact UI.
+- Ensure the form still posts to `/api/send-email` and handles loading, success
+  and error states.
+- Add Playwright coverage for the Social modal contact form.
+- Restore the bento grid layout by removing the extra card.
 
 **Non-Goals:**
-- Rate limiting or CAPTCHA (out of scope; endpoint already suggests this for the future).
-- Real-time email deliverability checks.
-- A separate contact page or footer form; the bento card + modal is the chosen placement.
+- Rewriting or redesigning the SocialCanvas form.
+- Adding a new contact card, page, or footer form.
+- Rate limiting or CAPTCHA.
 
 ## Decisions
 
-- **Placement**: new `contact` grid card + modal. This reuses the shared-element modal, focus trap and responsive sizing already built for the other cards, and avoids introducing a new page or footer section.
-- **Framework**: Preact, like the other interactive grid/details components. Keeps the implementation in the same subsystem and avoids touching the Angular-only directory.
-- **UI primitives**: reuse existing `Input.tsx` for name/email and `Button.tsx` for the submit action. For the message field, use a styled native `<textarea>` because `Input.tsx` does not support multi-line text; it will use the same semantic tokens and visual treatment as `Input` for consistency.
-- **Validation**: mirror the server rules exactly (name 1–100, email valid and ≤254, message 1–5000). Validation runs on submit to keep the code simple; inline error messages are then displayed per field.
-- **Honeypot**: add a hidden text field named `company` rendered with `aria-hidden="true"`, `tabIndex={-1}` and `autocomplete="off"`. If it contains any value on submit the form is silently rejected without calling the API, which avoids tipping off simple bots.
-- **State shape**: a small state machine with states `idle | submitting | success | error`. Errors include both field-level validation errors and a single API error message.
-- **Focus management**: on validation error, focus moves to the first invalid field; on API error, focus moves to the inline error alert; on success, focus moves to the success message. This satisfies the accessibility requirement and works with the existing modal focus trap.
-- **i18n**: all labels, placeholders, button text, validation errors and status messages use `tr()` keys added to `en.json`, `es.json` and `ua.json`.
+- **Placement**: contact form lives inside the existing Social modal only.
+- **Framework**: reuse the existing `SocialCanvas.tsx` Preact component.
+- **Validation**: keep the browser-native `required` and `type="email"`
+  validation already present in `SocialCanvas.tsx`.
+- **Test selectors**: add `data-testid` attributes to the form and the error
+  container so Playwright can target them without relying on visible text.
+- **i18n cleanup**: remove the `portfolio.contact` keys that were added for the
+  now-deleted standalone form.
 
 ## Risks / Trade-offs
 
-- **API returns 500 locally without `RESEND_API_KEY`** → the form must handle that gracefully and show a friendly error. The Playwright test will accept this as a valid error-state path.
-- **Modal focus trap may conflict with dynamically shown error/success messages** → focus is moved programmatically only after the state update renders the new element.
-- **Adding an eighth card changes the bento layout** → the layout pattern repeats every 7 cards, so the new card lands on a `col-span-2` slot. This was verified visually during implementation.
+- **API returns 500 locally without `RESEND_API_KEY`** → the existing form
+  already surfaces the error; Playwright mocks both success and error paths.
+- **Removing i18n keys is safe** because no remaining code references them.
 
 ## Migration Plan
 
-No migration needed. The change is purely additive.
+No migration needed. The change removes an unused card and its dead code.
 
 ## Open Questions
 

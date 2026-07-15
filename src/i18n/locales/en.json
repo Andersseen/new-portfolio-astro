@@ -75,31 +75,6 @@
       "noArticles": "No articles available at the moment.",
       "blogMessage": "Visit my blog to read all my articles and exclusive content."
     },
-    "contact": {
-      "title": "Contact",
-      "description": "Have a project in mind or just want to say hi? Send me a message.",
-      "actionLabel": "Get in Touch",
-      "nameLabel": "Name",
-      "emailLabel": "Email",
-      "messageLabel": "Message",
-      "namePlaceholder": "Your name",
-      "emailPlaceholder": "you@example.com",
-      "messagePlaceholder": "Tell me about your project...",
-      "submit": "Send Message",
-      "sending": "Sending…",
-      "successTitle": "Message sent!",
-      "successMessage": "Thanks for reaching out. I'll get back to you soon.",
-      "errorTitle": "Something went wrong",
-      "errorMessage": "Your message couldn't be sent. Please try again.",
-      "validation": {
-        "nameRequired": "Name is required.",
-        "nameTooLong": "Name must be 100 characters or less.",
-        "emailInvalid": "Please enter a valid email address.",
-        "emailTooLong": "Email must be 254 characters or less.",
-        "messageRequired": "Message is required.",
-        "messageTooLong": "Message must be 5000 characters or less."
-      }
-    },
     "aboutMe": {
       "title": "About Me",
       "description": "Passionate developer and designer creating beautiful, functional digital experiences.",

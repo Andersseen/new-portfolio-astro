@@ -401,14 +401,6 @@ export const getPortfolioItems = (
     },
     colSpan: "col-span-2",
   },
-  {
-    id: "contact",
-    type: "contact",
-    title: tr("portfolio.contact.title"),
-    description: tr("portfolio.contact.description"),
-    actionLabel: tr("portfolio.contact.actionLabel"),
-    colSpan: "col-span-2",
-  },
 ];
 
 export const aboutMeData = (tr: (key: string) => string): PortfolioItem => ({

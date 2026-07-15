@@ -1,35 +1,46 @@
 ## Why
 
-The portfolio has a working `POST /api/send-email` endpoint but no UI wired to it, leaving the site's main conversion path incomplete. Adding a contact form turns visitors into leads and gives the endpoint a purpose.
+The portfolio has a working `POST /api/send-email` endpoint. The Social modal
+already contains a contact form in `SocialCanvas.tsx`, but it was not covered by
+e2e tests and the previous attempt added a redundant standalone "Contact" bento
+card that broke the grid layout. This change keeps the existing Social modal
+form as the canonical contact UI and adds automated test coverage for it.
 
 ## What Changes
 
-- Add a new "Contact" bento card to the portfolio grid with a matching modal.
-- Build a Preact contact form inside the modal with fields for name, email and message.
-- Mirror the server-side validation rules on the client (name 1–100, email valid ≤254, message 1–5000).
-- Add an invisible honeypot field for basic spam protection.
-- Provide loading, success and error states with clear feedback.
-- Add all labels, placeholders and messages to `en.json`, `es.json` and `ua.json`.
-- Ensure full keyboard and screen-reader accessibility inside the modal.
-- Add Playwright coverage for validation, submission and state transitions.
+- Remove the redundant standalone "Contact" bento card and its supporting code.
+- Keep the existing `SocialCanvas.tsx` form as the contact form wired to
+  `POST /api/send-email`.
+- Add Playwright coverage for opening the Social modal, submitting the form
+  (mocked success), and handling a mocked API error.
+- Add stable `data-testid` selectors to the Social modal form and error
+  container to support the tests.
 
 ## Capabilities
 
 ### New Capabilities
 
-- `contact-form`: Collect and submit visitor messages through the portfolio contact modal.
+- `social-contact-form-test`: automated verification that the Social modal
+  contact form submits and shows the right state.
 
 ### Modified Capabilities
 
-- None.
+- `contact-form`: reachable through the existing Social card instead of a
+  dedicated grid card.
 
 ## Impact
 
-- `src/data/portfolio.ts`: new `contact` portfolio item.
-- `src/components/cards/ContactCardContent.tsx`: card face content.
-- `src/components/details/ContactDetails.tsx`: modal form component.
-- `src/components/PortfolioModal.tsx` and `src/components/cards/CardContentRenderer.tsx`: dispatch the new `contact` type.
-- `src/i18n/locales/*.json`: new contact keys.
-- `tests/`: new Playwright spec for the contact form.
-- No new dependencies; reuses existing `Input.tsx`, `Button.tsx` and modal focus trap.
-- i18n, accessibility, theme and responsive behavior are affected.
+- `src/data/portfolio.ts`: removes the `contact` portfolio item.
+- `src/components/PortfolioGrid.tsx`: removes the `contact` type from the
+  `PortfolioItem` union.
+- `src/components/cards/ContactCardContent.tsx`: deleted.
+- `src/components/details/ContactDetails.tsx`: deleted.
+- `src/components/cards/CardContentRenderer.tsx`: removes the `contact` case.
+- `src/components/PortfolioModal.tsx`: removes the `contact` case.
+- `src/components/details/SocialCanvas.tsx`: adds `data-testid` to the form and
+  error container.
+- `src/i18n/locales/*.json`: removes the now-unused `portfolio.contact` keys.
+- `tests/contact.spec.ts`: updated to test the Social modal form.
+- `playwright.config.ts`: dev server moved to port 4324 to avoid a conflicting
+  local process on 4321.
+- No new dependencies.

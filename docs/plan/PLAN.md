@@ -98,34 +98,26 @@ Acceptance:
 **Status:** done
 **Goal:** a working contact form wired to the existing `POST /api/send-email`
 (contract in CONTEXT.md) — the site's main conversion path (finding #8).
+**Decision:** the Social modal already contains a contact form in
+`SocialCanvas.tsx`. Adding a separate contact bento card duplicated functionality
+and broke the grid layout, so the standalone card was removed and the existing
+SocialCanvas form is the canonical contact UI.
 **Prerequisite:** none for the UI. Real sending needs `RESEND_API_KEY`
 (user/Vercel dashboard); without it the endpoint returns 500 — the form must
 handle that gracefully.
 
 Tasks:
 
-1. OpenSpec proposal first: decide placement — a new grid card + modal (fits
-   the bento pattern; recommended) vs. a section/footer form. Reuse
-   `src/components/ui/Input.tsx` and `Button.tsx` if their API fits (check the
-   code, the ui/README may be stale).
-2. Build the Preact form: fields name/email/message matching the endpoint's
-   validation limits (1–100 / valid ≤254 / 1–5000); client-side validation
-   mirroring server rules; loading, success and error states.
-3. Add a honeypot field (the endpoint's own comment recommends spam
-   protection; keep it invisible to screen readers too).
-4. i18n: every label, placeholder, error and success message in the 3 locale
-   files.
-5. Accessibility: labeled inputs, `aria-invalid` + error text association
-   (`aria-describedby`), focus management on error/success, keyboard-only
-   operable inside the modal (modal focus trap already exists — verify it
-   still holds).
-6. Playwright test: form validates, submits (mock or accept 500 without key),
-   shows the right state.
+1. Verify the existing `SocialCanvas.tsx` form posts to `/api/send-email` with
+   name/email/message and handles loading, success and error states.
+2. Keep (or add) a Playwright test that opens the Social card, fills the form,
+   mocks the API, and asserts success/error states.
+3. Do not add a dedicated contact bento card; keep the grid layout intact.
 
 Acceptance:
 
 - `pnpm check` + `pnpm build` + e2e pass.
-- Form works in the 3 locales, both themes, keyboard-only.
+- Contact form is reachable from the Social card only.
 - Graceful UX when the API returns 400/500.
 
 ---
