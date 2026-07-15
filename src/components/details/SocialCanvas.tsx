@@ -176,7 +176,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" data-testid="social-contact-form">
           <div className="space-y-1">
             <label htmlFor="contact-name" className="text-xs font-medium text-foreground-secondary uppercase tracking-wider ml-1">
               Name
@@ -252,7 +252,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
             {status === "success" && "Message Sent!"}
           </button>
 
-          <div aria-live="polite" aria-atomic="true">
+          <div aria-live="polite" aria-atomic="true" data-testid="social-contact-error">
             {status === "error" && (
               <div className="flex items-center gap-2 text-danger text-sm mt-2 bg-danger/10 p-3 rounded-lg border border-danger/20">
                 <AlertCircleIcon className="w-4 h-4 shrink-0" />

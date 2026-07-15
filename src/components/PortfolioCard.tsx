@@ -29,6 +29,7 @@ export default function PortfolioCard({
     <button
       type="button"
       data-swapy-item={item.id}
+      data-testid={`portfolio-card-${item.id}`}
       className="w-full h-full text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-[inherit]"
       onClick={handleClick}
     >

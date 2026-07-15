@@ -249,8 +249,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
     if (item.type === "social") {
       return <SocialCanvas items={item.content as any[]} />;
     }
-    if (!item.details && item.type !== "design")
-      return <p>No specific details available.</p>;
+    if (!item.details && item.type !== "design") return <p>No specific details available.</p>;
 
     switch (item.type) {
       case "projects":

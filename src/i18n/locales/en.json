@@ -150,7 +150,11 @@
     },
     "design": {
       "title": "Design System",
-      "description": "@andersseen — my open-source npm ecosystem: 24+ web components, 70+ icons, animations & layout utilities."
+      "description": "@andersseen — my open-source npm ecosystem: 24+ web components, 70+ icons, animations & layout utilities.",
+      "webComponents": "24+ framework-agnostic UI components built with Stencil.",
+      "icon": "70+ SVG icons with tree-shaking and lazy loading.",
+      "motion": "Attribute-driven CSS/JS animation system.",
+      "layout": "Pure CSS layout via HTML attributes."
     },
     "social": {
       "title": "Social"
@@ -161,7 +165,15 @@
       "uiux": "UI/UX Design",
       "web": "Web Development",
       "desktop": "Desktop Apps",
-      "devops": "DevOps & Cloud Ecosystem"
+      "devops": "DevOps & Cloud Ecosystem",
+      "webDescription": "Building responsive, accessible, and performant user interfaces.",
+      "desktopDescription": "Scalable API design, database management, and cloud architecture.",
+      "uiuxDescription": "Creating intuitive and visually appealing digital experiences.",
+      "devopsDescription": "Deployment automation, infrastructure management, and performance optimization.",
+      "webDetails": "Building responsive, accessible, and performant user interfaces with modern frameworks.",
+      "desktopDetails": "Scalable API design, database architecture (SQL/NoSQL), and secure authentication systems.",
+      "uiuxDetails": "Creating intuitive, user-centric designs with focus on usability and visual hierarchy.",
+      "devopsDetails": "Deployment automation, infrastructure management, and performance optimization."
     },
     "hero": {
       "role": "Full-stack developer & UI systems builder",
