@@ -1,5 +1,11 @@
 import type { PortfolioItem } from "../components/PortfolioGrid";
 
+import falcotechImage from "@assets/projects/falcotech.webp";
+import beautylineImage from "@assets/projects/beautyline.webp";
+import palomamoleroImage from "@assets/projects/palomamolero.webp";
+import soulalegriaImage from "@assets/projects/soulalegria.webp";
+import mrgdevelopsImage from "@assets/projects/mrgdevelops.webp";
+
 export const getPortfolioItems = (
   tr: (key: string) => string,
   articles?: any[],
@@ -18,7 +24,12 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.falcotech.description"),
         tech: ["Web Development", "Company Website", "Astro"],
         link: "https://www.falcotech.es/",
-        image: "",
+        image: {
+          src: falcotechImage.src,
+          width: 1280,
+          height: 800,
+          alt: tr("portfolio.projects.falcotech.title"),
+        },
       },
       {
         title: tr("portfolio.projects.beautyline.title"),
@@ -26,7 +37,12 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.beautyline.description"),
         tech: ["Next.js", "Beauty Center"],
         link: "https://www.beauty-line-esthetic.es/",
-        image: "",
+        image: {
+          src: beautylineImage.src,
+          width: 1280,
+          height: 800,
+          alt: tr("portfolio.projects.beautyline.title"),
+        },
       },
       {
         title: tr("portfolio.projects.palomamolero.title"),
@@ -34,7 +50,12 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.palomamolero.description"),
         tech: ["Beauty Center", "Next.js", "Gallery"],
         link: "https://www.palomamolero.com/",
-        image: "",
+        image: {
+          src: palomamoleroImage.src,
+          width: 1280,
+          height: 800,
+          alt: tr("portfolio.projects.palomamolero.title"),
+        },
       },
       {
         title: tr("portfolio.projects.soulalegria.title"),
@@ -42,7 +63,12 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.soulalegria.description"),
         tech: ["Next.js", "Company Website"],
         link: "https://www.soulalegria.com/",
-        image: "",
+        image: {
+          src: soulalegriaImage.src,
+          width: 1280,
+          height: 800,
+          alt: tr("portfolio.projects.soulalegria.title"),
+        },
       },
       {
         title: tr("portfolio.projects.mrgdevelops.title"),
@@ -50,7 +76,12 @@ export const getPortfolioItems = (
         description: tr("portfolio.projects.mrgdevelops.description"),
         tech: ["Cloud", "Astro", "Startup"],
         link: "https://www.mrgdevelops.com/",
-        image: "",
+        image: {
+          src: mrgdevelopsImage.src,
+          width: 1280,
+          height: 800,
+          alt: tr("portfolio.projects.mrgdevelops.title"),
+        },
       },
     ],
     colSpan: "col-span-2",

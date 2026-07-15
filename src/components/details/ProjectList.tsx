@@ -1,11 +1,19 @@
 import type { FunctionalComponent } from "preact";
 
+interface ProjectImage {
+  src: string;
+  width: number;
+  height: number;
+  alt?: string;
+}
+
 interface Project {
   title: string;
   role: string;
   description: string;
   tech: string[];
   link?: string;
+  image?: ProjectImage;
 }
 
 interface ProjectListProps {
@@ -30,6 +38,18 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
             <div className="absolute inset-0 bg-primary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-out will-change-transform origin-left" />
 
             <div className="relative z-10">
+              {project.image && (
+                <div className="mb-4 rounded-lg overflow-hidden border border-border">
+                  <img
+                    src={project.image.src}
+                    alt={project.image.alt || project.title}
+                    width={project.image.width}
+                    height={project.image.height}
+                    loading="lazy"
+                    className="w-full aspect-[16/10] object-cover"
+                  />
+                </div>
+              )}
               <div
                 and-layout="horizontal align:center justify:between"
                 className="mb-2"
