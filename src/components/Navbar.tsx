@@ -1,5 +1,6 @@
 import { Sparkles, Sun, Moon } from "lucide-preact";
 import { useState, useEffect } from "preact/hooks";
+import type { Language } from "../i18n/config";
 import AboutDrawer from "./AboutDrawer";
 
 const SparklesIcon = Sparkles as any;
@@ -15,10 +16,17 @@ export default function Navbar({ children }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [aboutData, setAboutData] = useState<any>(null);
+  const [aboutLabel, setAboutLabel] = useState("Open about me");
 
   useEffect(() => {
     const theme = document.documentElement.getAttribute("data-theme");
     setIsDark(theme === "dark");
+
+    import("../i18n/utils").then(({ t }) => {
+      const lang = window.location.pathname.split("/")[1] || "en";
+      const currentLang = ["en", "es", "ua"].includes(lang) ? lang : "en";
+      setAboutLabel(t(currentLang as Language, "a11y.openAbout"));
+    });
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -65,7 +73,7 @@ export default function Navbar({ children }: NavbarProps) {
             <button
               type="button"
               className="flex items-center gap-3 group cursor-pointer bg-transparent border-none p-0"
-              aria-label="Open about me"
+              aria-label={aboutLabel}
               onClick={(e) => {
                 e.preventDefault();
                 if (aboutData) {

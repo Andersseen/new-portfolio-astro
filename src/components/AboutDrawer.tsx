@@ -7,7 +7,10 @@ import {
   GitBranch,
   ChevronDown,
   User,
+  Download,
 } from "lucide-preact";
+import { t } from "@i18n/utils";
+import { getLanguageFromPath } from "@i18n/config";
 import GitHubActivity from "./details/GitHubActivity";
 
 const ExternalLinkIcon = ExternalLink as any;
@@ -16,6 +19,13 @@ const BookOpenIcon = BookOpen as any;
 const GitBranchIcon = GitBranch as any;
 const ChevronDownIcon = ChevronDown as any;
 const UserIcon = User as any;
+const DownloadIcon = Download as any;
+
+const lang =
+  typeof window !== "undefined"
+    ? getLanguageFromPath(window.location.pathname)
+    : "en";
+const tr = (key: string) => t(lang, key);
 
 interface AboutData {
   title?: string;
@@ -154,6 +164,14 @@ export default function AboutDrawer({
             <p className="mt-4 text-lg text-foreground-tertiary leading-relaxed">
               Full Stack Developer &amp; Designer
             </p>
+            <a
+              href="/andrii-pap.pdf"
+              download
+              className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-lg bg-primary-500 text-background font-medium hover:bg-primary-600 transition-colors"
+            >
+              <DownloadIcon className="w-4 h-4" />
+              {tr("cv.download")}
+            </a>
           </div>
 
           {}
