@@ -43,6 +43,7 @@
     "@nanostores/preact": "^1.0.0",
     "@tailwindcss/vite": "^4.1.17",
     "@types/dompurify": "^3.2.0",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^5.16.3",
     "clsx": "^2.1.1",
     "cobe": "^0.6.5",

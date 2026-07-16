@@ -90,6 +90,33 @@ const currentLocale = localeMap[lang] ?? "en_US";
 <meta property="twitter:image" content={imageURL} />
 <meta property="twitter:image:alt" content={title} />
 
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@language": hreflangMap[lang],
+      "name": "Andersseen Dev",
+      "url": Astro.site ? new URL("/", Astro.site).href : canonicalURL,
+      "description": description,
+      "inLanguage": hreflangMap[lang],
+    },
+    {
+      "@type": "Person",
+      "@language": hreflangMap[lang],
+      "name": "Andersseen Dev",
+      "url": canonicalURL,
+      "jobTitle": "Full-stack Developer & UI Systems Builder",
+      "sameAs": [
+        "https://github.com/Andersseen",
+        "https://gitlab.com/Andersseen",
+        "https://medium.com/@andriipap",
+      ],
+    },
+  ],
+})} />
+
 <!-- Theme Script - Load immediately to prevent flash -->
 <script is:inline>
   (async function() {
