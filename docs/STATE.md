@@ -45,6 +45,24 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
     widths; no layout shift and hover effect remains intact.
   - Verified: `pnpm check` and `pnpm build` pass.
 
+- **Phase 4 — SEO & infrastructure small wins**
+  - Custom `src/pages/404.astro` (serverless fallback) with branded styling and
+    a link back home.
+  - JSON-LD `WebSite` + `Person` structured data in `BaseHead.astro`,
+    locale-aware via `@language` and translated descriptions.
+  - `@vercel/analytics` wired into `Layout.astro` with CSP updates in
+    `vercel.json`. Web Analytics must be enabled in the Vercel dashboard for
+    data collection.
+  - Added `tests/404.spec.ts`.
+  - Verified: `pnpm check`, `pnpm build`, and 15/15 Playwright tests pass.
+
+- **Phase 5 — CV / resume download**
+  - Added a "Download CV" button to the hero in `BentoGrid.astro`.
+  - Linked to `public/andrii-pap.pdf` with the `download` attribute.
+  - Added `cv.download` i18n keys to `en.json`, `es.json` and `ua.json`.
+  - Added `tests/cv.spec.ts`.
+  - Verified: `pnpm check`, `pnpm build`, and 15/15 Playwright tests pass.
+
 - **OpenSpec adoption and production `@andersseen/layout` integration**
   - Initialized OpenSpec 1.5.0 with the core workflow and generated Codex skills;
     project context/rules preserve the existing architecture, i18n, accessibility,
@@ -149,14 +167,10 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## In progress / next up
 
-- Decide whether to keep or merge the `feature/phase-1-content-i18n` branch
-  (phases 1 & 2 are done; user prefers grouping additional phases on the same
-  branch).
-- Continue with the next phase from `docs/plan/PLAN.md`.
+- Phase 6 — Client testimonials (blocked on user-provided quotes).
 
 ## Backlog / known intentions
 
-- Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Language selector keyboard UX (arrow navigation, focus return) is still basic.
 
@@ -183,13 +197,9 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
-<<<<<<< HEAD
-- 2026-07-16 — Implemented PLAN.md Phase 5 (CV download) on consolidated branch `feature/portfolio-phases`: added a "Download CV" button to the hero in `BentoGrid.astro`, linked to `public/andrii-pap.pdf`, with i18n labels in `en/es/ua.json` and `tests/cv.spec.ts`. Full e2e suite (14 tests) passes; `pnpm check` and `pnpm build` pass.
+- 2026-07-16 — Merged Phase 4 and Phase 5 into `feature/portfolio-phases`; Phase 5 added a "Download CV" button to the hero in `BentoGrid.astro`, linked to `public/andrii-pap.pdf`, with i18n labels in `en/es/ua.json` and `tests/cv.spec.ts`.
 - 2026-07-15 — Implemented PLAN.md Phase 4 (SEO & infrastructure): custom `src/pages/404.astro` (serverless fallback), JSON-LD `WebSite` + `Person` in `BaseHead.astro`, `@vercel/analytics` wired into `Layout.astro` with CSP updates, and `tests/404.spec.ts`. Full e2e suite (13 tests) passes; `pnpm check` and `pnpm build` pass. Note: Vercel Web Analytics must be enabled in the dashboard for data collection.
 - 2026-07-15 — Reverted the standalone contact bento card because it duplicated the existing contact form inside the Social modal and broke the grid layout. Removed `ContactCardContent`, `ContactDetails`, `portfolio.contact` i18n keys, and the `contact` portfolio item; adapted `tests/contact.spec.ts` to cover the SocialCanvas form instead. Full e2e suite (12 tests) passes; `pnpm check` and `pnpm build` pass.
-=======
-- 2026-07-15 — Implemented PLAN.md Phase 4 (SEO & infrastructure) on new branch `feature/phase-4-seo-infrastructure`: custom `src/pages/404.astro` (serverless fallback), JSON-LD `WebSite` + `Person` in `BaseHead.astro`, `@vercel/analytics` wired into `Layout.astro` with CSP updates, and `tests/404.spec.ts`. Full e2e suite (13 tests) passes; `pnpm check` and `pnpm build` pass. Note: Vercel Web Analytics must be enabled in the dashboard for data collection.
->>>>>>> feature/phase-4-seo-infrastructure
 - 2026-07-15 — Audited the portfolio and created `docs/plan/PLAN.md` (7 phased
   improvements) + `docs/plan/CONTEXT.md` (execution briefing). Docs only.
 - 2026-07-10 — Adopted OpenSpec as the canonical SDD workflow and integrated
