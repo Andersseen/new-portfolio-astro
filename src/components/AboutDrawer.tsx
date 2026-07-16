@@ -167,7 +167,7 @@ export default function AboutDrawer({
             <a
               href="/andrii-pap.pdf"
               download
-              className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-lg bg-primary-500 text-background font-medium hover:bg-primary-600 transition-colors"
+              className="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-lg bg-primary text-background font-medium hover:bg-primary/90 transition-colors"
             >
               <DownloadIcon className="w-4 h-4" />
               {tr("cv.download")}

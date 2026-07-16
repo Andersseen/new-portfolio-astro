@@ -54,20 +54,22 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
   return (
     <div className="space-y-6">
       {showTabs && (
-        <div className="flex p-1 bg-background-tertiary rounded-lg border border-border w-fit mb-4">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`px-4 py-2.5 min-h-11 text-sm font-medium rounded-md transition-all ${
-                activeTab === tab.key
-                  ? "bg-primary text-background shadow-sm"
-                  : "text-foreground-secondary hover:text-foreground"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="sticky top-[-1rem] sm:top-[-1.5rem] z-10 -mx-5 sm:-mx-8 border-b border-border/60 bg-background px-5 sm:px-8 pt-4 sm:pt-6 pb-3">
+          <div className="flex p-1 bg-background-tertiary rounded-lg border border-border w-fit">
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-4 py-2.5 min-h-11 text-sm font-medium rounded-md transition-all ${
+                  activeTab === tab.key
+                    ? "bg-primary text-background shadow-sm"
+                    : "text-foreground-secondary hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

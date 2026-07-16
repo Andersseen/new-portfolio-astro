@@ -37,7 +37,11 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
 
   const socialItems = items || data?.content || [];
 
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(
+    () =>
+      typeof document !== "undefined" &&
+      document.documentElement.getAttribute("data-theme") === "dark",
+  );
 
   useEffect(() => {
     const checkTheme = () => {
@@ -62,15 +66,15 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
       width: 400 * 2,
       height: 400 * 2,
       phi: 0,
-      theta: 0,
+      theta: 0.3,
       dark: isDark ? 1 : 0,
-      diffuse: isDark ? 1.2 : 2,
+      diffuse: 1.2,
       mapSamples: 16000,
-      mapBrightness: isDark ? 6 : 2,
-      baseColor: isDark ? [0.3, 0.3, 0.3] : [0.93, 0.93, 0.93],
-      markerColor: [0.1, 0.8, 1],
-      glowColor: isDark ? [1, 1, 1] : [0.85, 0.85, 0.85],
-      opacity: isDark ? 0.8 : 0.9,
+      mapBrightness: 6,
+      baseColor: [0.3, 0.3, 0.3],
+      markerColor: [0.14, 0.62, 0.98],
+      glowColor: isDark ? [0.3, 0.3, 0.35] : [1, 1, 1],
+      opacity: isDark ? 0.9 : 1,
       markers: [],
       onRender: (state) => {
         state.phi = phi;
@@ -141,7 +145,7 @@ const SocialCanvas = ({ items, data }: SocialCanvasProps) => {
               height: 340,
               display: "block",
             }}
-            className="opacity-90 grayscale hover:grayscale-0 transition-all duration-1000"
+            className="opacity-90 hover:opacity-100 transition-opacity duration-500"
           />
         </div>
 

@@ -27,7 +27,7 @@ export interface StackItem {
 
 export interface ServiceItem {
   text: string;
-  gradient: string;
+  icon: string;
   details?: string;
 }
 
