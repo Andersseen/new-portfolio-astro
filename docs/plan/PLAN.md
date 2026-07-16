@@ -124,7 +124,7 @@ Acceptance:
 
 ## Phase 4 — SEO & infrastructure small wins
 
-**Status:** pending
+**Status:** done
 **Goal:** 404 page, structured data, analytics (findings #5, #6, #7).
 **Prerequisite:** analytics choice may need the user (Vercel Web Analytics
 must be enabled in the Vercel dashboard — flag it in your report).

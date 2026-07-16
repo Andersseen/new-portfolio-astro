@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-1-content-i18n` — contact form moved into Social modal
+**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-4-seo-infrastructure` — Phase 4 in progress
 
 ## Status: ✅ Stable, build passes
 
@@ -183,7 +183,7 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
-- 2026-07-15 — Reverted the standalone contact bento card because it duplicated the existing contact form inside the Social modal and broke the grid layout. Removed `ContactCardContent`, `ContactDetails`, `portfolio.contact` i18n keys, and the `contact` portfolio item; adapted `tests/contact.spec.ts` to cover the SocialCanvas form instead. Full e2e suite (12 tests) passes; `pnpm check` and `pnpm build` pass.
+- 2026-07-15 — Implemented PLAN.md Phase 4 (SEO & infrastructure) on new branch `feature/phase-4-seo-infrastructure`: custom `src/pages/404.astro` (serverless fallback), JSON-LD `WebSite` + `Person` in `BaseHead.astro`, `@vercel/analytics` wired into `Layout.astro` with CSP updates, and `tests/404.spec.ts`. Full e2e suite (13 tests) passes; `pnpm check` and `pnpm build` pass. Note: Vercel Web Analytics must be enabled in the dashboard for data collection.
 - 2026-07-15 — Audited the portfolio and created `docs/plan/PLAN.md` (7 phased
   improvements) + `docs/plan/CONTEXT.md` (execution briefing). Docs only.
 - 2026-07-10 — Adopted OpenSpec as the canonical SDD workflow and integrated
