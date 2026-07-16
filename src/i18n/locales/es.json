@@ -205,5 +205,8 @@
     "openProject": "Abrir detalles del proyecto",
     "language": "Seleccionar idioma",
     "currentLanguage": "Idioma actual: {name}"
+  },
+  "cv": {
+    "download": "Descargar CV"
   }
 }
