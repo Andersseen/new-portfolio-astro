@@ -272,44 +272,44 @@ export const getPortfolioItems = (
     content: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-primary",
+        icon: "code",
         details: tr("portfolio.services.webDescription"),
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-primary to-primary",
+        icon: "monitor",
         details: tr("portfolio.services.desktopDescription"),
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-primary to-primary",
+        icon: "palette",
         details: tr("portfolio.services.uiuxDescription"),
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-primary to-primary",
+        icon: "cloud",
         details: tr("portfolio.services.devopsDescription"),
       },
     ],
     details: [
       {
         text: tr("portfolio.services.web"),
-        gradient: "from-primary to-primary",
+        icon: "code",
         details: tr("portfolio.services.webDetails"),
       },
       {
         text: tr("portfolio.services.desktop"),
-        gradient: "from-primary to-primary",
+        icon: "monitor",
         details: tr("portfolio.services.desktopDetails"),
       },
       {
         text: tr("portfolio.services.uiux"),
-        gradient: "from-primary to-primary",
+        icon: "palette",
         details: tr("portfolio.services.uiuxDetails"),
       },
       {
         text: tr("portfolio.services.devops"),
-        gradient: "from-primary to-primary",
+        icon: "cloud",
         details: tr("portfolio.services.devopsDetails"),
       },
     ],

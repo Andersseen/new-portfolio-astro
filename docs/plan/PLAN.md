@@ -124,7 +124,7 @@ Acceptance:
 
 ## Phase 4 — SEO & infrastructure small wins
 
-**Status:** pending
+**Status:** done
 **Goal:** 404 page, structured data, analytics (findings #5, #6, #7).
 **Prerequisite:** analytics choice may need the user (Vercel Web Analytics
 must be enabled in the Vercel dashboard — flag it in your report).
@@ -154,7 +154,7 @@ Acceptance:
 
 ## Phase 5 — CV / resume download
 
-**Status:** pending — **blocked on user input**
+**Status:** done
 **Goal:** a "Download CV" action (finding #9).
 **Prerequisite:** the user must provide the CV PDF (or the content to generate
 one). Ask before starting. If multilingual CVs exist, one per locale.

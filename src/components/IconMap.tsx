@@ -8,6 +8,14 @@ import {
   Layers,
   ArrowRight,
   Rss,
+  Code,
+  Monitor,
+  Palette,
+  Cloud,
+  Sparkles,
+  Zap,
+  LayoutGrid,
+  Component,
 } from "lucide-preact";
 
 const ArrowRightIcon = ArrowRight as any;
@@ -21,6 +29,14 @@ export const IconMap: Record<string, any> = {
   nx: Box,
   angular: Layers,
   docker: Container,
+  code: Code,
+  monitor: Monitor,
+  palette: Palette,
+  cloud: Cloud,
+  sparkles: Sparkles,
+  zap: Zap,
+  layoutGrid: LayoutGrid,
+  component: Component,
 };
 
 export { ArrowRightIcon };

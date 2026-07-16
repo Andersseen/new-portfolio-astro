@@ -205,5 +205,8 @@
     "openProject": "Відкрити деталі проєкту",
     "language": "Вибрати мову",
     "currentLanguage": "Поточна мова: {name}"
+  },
+  "cv": {
+    "download": "Завантажити CV"
   }
 }

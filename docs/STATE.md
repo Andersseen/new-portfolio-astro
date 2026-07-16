@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-15 · **Branch state:** `feature/phase-1-content-i18n` — contact form moved into Social modal
+**Last updated:** 2026-07-16 · **Branch state:** `feature/portfolio-phases` — Phases 4 & 5 merged, plus About-drawer visual/accessibility fixes
 
 ## Status: ✅ Stable, build passes
 
@@ -17,6 +17,122 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 100 on Vercel.
 
 ## Recently completed (last few cycles)
+
+- **About-drawer fixes round 3 (real-browser follow-up on round 2)**
+  - `MockUIKit.ts` (the `<mock-ui-kit>` Lit component behind the "Design
+    System" card's modal) — 2 of the 12 icons in its "Icons" showcase grid
+    rendered broken: `"user"` renders as a mangled shoulders-only arc (the
+    `@andersseen/icon` package's own `USER` SVG path is missing the head
+    circle — a bug in that upstream icon, not fixable here) and `"camera"`
+    isn't a registered icon name at all (renders blank). Swapped both for
+    confirmed-valid, well-formed icons (`layers`, `monitor`) after checking
+    every exported icon name in
+    `node_modules/@andersseen/icon/dist/icons.d.ts`.
+  - `CommunityList.tsx` sticky tabs — round 2 made them sticky, but a stray
+    sliver of scrolled-past card content kept showing up above the tab bar.
+    Root cause: `position: sticky; top: 0` on a child does **not** let the
+    element stick past its scroll-container's own `padding-top` — Chrome
+    clamps the stuck position to the padding box, so the container's
+    `py-4 sm:py-6` (in `PortfolioModal.tsx`, shared by every modal type)
+    always left a gap equal to that padding, no matter what negative
+    `margin-top` was applied to the sticky child (confirmed empirically with
+    a Playwright script measuring `getBoundingClientRect()` before/after —
+    margin-based attempts left a consistent 24px gap). Fixed by setting a
+    **negative `top` offset** instead (`top-[-1rem] sm:top-[-1.5rem]`,
+    matching the container's padding exactly) — this cancels the clamp
+    itself rather than fighting it with margin, verified gap=0px after the
+    fix.
+  - `AboutDrawer.tsx` "Download CV" button used `bg-primary-500
+    hover:bg-primary-600` — a color-scale step pinned outside the semantic
+    `bg-primary` token every other button/accent in the app uses. In the
+    fallback theme (API unreachable, the common local-dev case) this
+    happens to look close to `bg-primary`, but `-500`/`-600` aren't
+    guaranteed to track the same contrast-tuned value the theme API returns
+    for `theme.primary.DEFAULT`, so a live-generated theme could make this
+    button visibly "off-palette" and risk poor contrast against its
+    `text-background` label. Changed to `bg-primary hover:bg-primary/90`,
+    matching the established pattern used everywhere else (`ProjectList`,
+    `SocialCanvas`, `CommunityList`'s solid CTA buttons).
+  - Verified via headless-Chromium Playwright (icons, CV button, and the
+    sticky-tabs gap=0 measurement) in both light/dark. `pnpm check` and
+    `pnpm build` pass.
+
+- **About-drawer fixes round 2 (real-browser follow-up)**
+  - `SocialCanvas.tsx` globe — found the actual root cause by reading cobe's
+    fragment shader (`node_modules/.../cobe/dist/index.esm.js`): `isDark`
+    defaulted to `useState(true)`, so on mount the globe briefly (or
+    persistently, depending on when the theme-detection effect committed)
+    rendered with the **dark**-theme config (`dark:1`) on a **light**-theme
+    modal. Per the shader's math, `dark:1` makes landmass render bright and
+    the ocean/unlit hemisphere render near-black — exactly the "black sphere
+    with a scatter of white dots" the user saw. Fixed by lazily initializing
+    `isDark` from `document.documentElement.getAttribute("data-theme")`
+    instead of hardcoding `true`, so the first paint already uses the correct
+    config. Also reset the color params to cobe's own documented example
+    values (`diffuse:1.2`, `mapBrightness:6`, `baseColor:[0.3,0.3,0.3]`) for
+    both themes, only toggling `dark`/`glowColor`/`opacity` — safer than
+    guessed custom values.
+  - `ServiceDetails.tsx` — cards were still flat/uniform (same icon tint,
+    small icon, lots of dead space in the fixed-height modal). Enlarged the
+    icon tile, cycled 4 accent colors across the cards (primary/secondary/
+    accent/success — all pre-existing safe `text-{color}` on `bg-{color}/10`
+    tokens, same pattern as `Card.tsx`'s `colorClasses`, so contrast holds
+    under the theme randomizer), added a large faint index numeral
+    (`text-foreground/5`, decorative/`aria-hidden`) per card, and hover
+    lift/shadow. Note: the leftover blank space below the 2×2 grid is
+    structural — `PortfolioModal.tsx` sizes every modal to
+    `min(90vh, 800px)` regardless of content length — not something this
+    pass changed.
+  - `CommunityList.tsx` — the Projects/Games/Templates tabs lived inside the
+    modal's `overflow-y-auto` body with no sticky positioning, so they
+    scrolled out of view with the list. Wrapped the tabs in
+    `sticky top-0 z-10` with a `bg-background` backing and negative margins
+    bleeding to the modal's own horizontal padding, so they now stay pinned
+    while the card list scrolls beneath them.
+  - `DesignCardContent.tsx` — the "Gallery" action link was clipping at the
+    bottom of the fixed-height bento tile in the real browser (fit in the
+    headless check, not in practice). Shrunk the icon chips (24px → 20px),
+    tightened row padding/gaps, confirmed it now fits with visible margin.
+  - Re-verified via the same headless-Chromium Playwright script (no project
+    run-skill exists yet for this app) in light/dark: Services, Design card,
+    and Community sticky-scroll all confirmed visually. The globe still
+    can't be pixel-verified in this sandbox (`swiftshader` renders cobe's
+    canvas solid black regardless of correctness, confirmed earlier via
+    `git stash` against the pre-fix code too) — the fix here is grounded in
+    reading the actual shader source, not visual guessing, but a real-browser
+    check is still worth it.
+  - Verified: `pnpm check` and `pnpm build` pass.
+
+- **About-drawer visual/accessibility fixes (Services, Social globe, Design System card)**
+  - `ServiceDetails.tsx`: replaced the empty solid-color `bg-gradient-to-br
+    from-primary to-primary` swatches (no icon, effectively decorative-only)
+    with real lucide icons (Code/Monitor/Palette/Cloud) on a neutral
+    `bg-background` surface, `text-primary` icon color — matches the existing
+    icon-on-neutral-surface pattern used elsewhere so contrast holds up under
+    any randomized theme. `ServiceItem.gradient` replaced with `icon` in
+    `PortfolioGrid.tsx` and `src/data/portfolio.ts`.
+  - `SocialCanvas.tsx`: the cobe globe was nearly invisible in light theme
+    (`baseColor: [0.93,0.93,0.93]` on a near-white page — landmass dots had
+    almost no contrast against the background). Darkened light-theme
+    `baseColor`/tuned `mapBrightness`/`diffuse`/`glowColor`, and dropped the
+    default `grayscale` filter (was permanently desaturating a globe that
+    never had colored markers to reveal on hover).
+  - `DesignCardContent.tsx`: the bento tile only rendered 3 hardcoded pill
+    labels (`and-button`/`and-icon`/`and-motion`) that silently dropped the
+    4th `@andersseen/layout` package and left most of the tile empty. Rewrote
+    it to map over `item.details` (all 4 packages) with an icon + mono name
+    per row, capped at 3 visible rows (matching `ProjectsCardContent`'s
+    `.slice(0,3)` convention) so nothing clips inside the fixed-height card.
+  - Added `code`, `monitor`, `palette`, `cloud`, `sparkles`, `zap`,
+    `layoutGrid`, `component` to `IconMap.tsx` (lucide-preact).
+  - Verified in `pnpm dev` via a headless-Chromium Playwright script (no
+    project run-skill existed yet) across light/dark theme: Services and
+    Design System card confirmed visually; the globe's WebGL canvas renders
+    solid black under this sandbox's software (swiftshader) GL regardless of
+    the fix — confirmed via `git stash` that this reproduces identically on
+    the pre-fix code too, so it's a headless/software-GL limitation, not a
+    regression. Real-browser verification of the globe still recommended.
+  - Verified: `pnpm check` and `pnpm build` pass.
 
 - **Phase 1 — Content & i18n quick wins**
   - Moved hardcoded English service and design-system descriptions from
@@ -44,6 +160,24 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
   - Verified visually in all 3 locales, light/dark themes, and desktop/mobile
     widths; no layout shift and hover effect remains intact.
   - Verified: `pnpm check` and `pnpm build` pass.
+
+- **Phase 4 — SEO & infrastructure small wins**
+  - Custom `src/pages/404.astro` (serverless fallback) with branded styling and
+    a link back home.
+  - JSON-LD `WebSite` + `Person` structured data in `BaseHead.astro`,
+    locale-aware via `@language` and translated descriptions.
+  - `@vercel/analytics` wired into `Layout.astro` with CSP updates in
+    `vercel.json`. Web Analytics must be enabled in the Vercel dashboard for
+    data collection.
+  - Added `tests/404.spec.ts`.
+  - Verified: `pnpm check`, `pnpm build`, and 15/15 Playwright tests pass.
+
+- **Phase 5 — CV / resume download**
+  - Added a "Download CV" button to the hero in `BentoGrid.astro`.
+  - Linked to `public/andrii-pap.pdf` with the `download` attribute.
+  - Added `cv.download` i18n keys to `en.json`, `es.json` and `ua.json`.
+  - Added `tests/cv.spec.ts`.
+  - Verified: `pnpm check`, `pnpm build`, and 15/15 Playwright tests pass.
 
 - **OpenSpec adoption and production `@andersseen/layout` integration**
   - Initialized OpenSpec 1.5.0 with the core workflow and generated Codex skills;
@@ -149,14 +283,10 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## In progress / next up
 
-- Decide whether to keep or merge the `feature/phase-1-content-i18n` branch
-  (phases 1 & 2 are done; user prefers grouping additional phases on the same
-  branch).
-- Continue with the next phase from `docs/plan/PLAN.md`.
+- Phase 6 — Client testimonials (blocked on user-provided quotes).
 
 ## Backlog / known intentions
 
-- Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Type-narrow `PortfolioItem.details` (currently `any` per card type).
 - Language selector keyboard UX (arrow navigation, focus return) is still basic.
 
@@ -183,6 +313,11 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Session log (append newest first, keep ~10 entries, one line each)
 
+- 2026-07-16 — Second follow-up round on About-drawer feedback: fixed 2 broken icons in the Design System modal's icon showcase (`user`/`camera` → `layers`/`monitor`, one was an upstream `@andersseen/icon` bug, one wasn't a registered name), fixed the Community sticky tabs still showing a content sliver above them (the real fix was a negative `top` offset, not a negative margin — sticky ignores a scroll container's own padding via margin tricks), and swapped the CV button's hardcoded `bg-primary-500` for the semantic `bg-primary` token. `pnpm check` and `pnpm build` pass.
+- 2026-07-16 — Follow-up round on About-drawer feedback: found the Social globe's real root cause (an `isDark` state race rendering the dark-theme cobe config on the light-theme modal — traced via the shader source, not guesswork), made Services cards visually richer (color-cycled icons, index numerals), made Community's tabs `sticky` so they stop scrolling away, and fixed the Design System card's clipped "Gallery" button by tightening row spacing. `pnpm check` and `pnpm build` pass.
+- 2026-07-16 — Fixed 3 About-drawer issues from user screenshots: blank/uninformative Services icon swatches (now real icons on neutral bg), washed-out Social globe in light theme (contrast tuning in `SocialCanvas.tsx`), and the sparse/incomplete Design System bento card (now lists all 4 npm packages with icons). `pnpm check` and `pnpm build` pass.
+- 2026-07-16 — Merged Phase 4 and Phase 5 into `feature/portfolio-phases`; Phase 5 added a "Download CV" button to the hero in `BentoGrid.astro`, linked to `public/andrii-pap.pdf`, with i18n labels in `en/es/ua.json` and `tests/cv.spec.ts`.
+- 2026-07-15 — Implemented PLAN.md Phase 4 (SEO & infrastructure): custom `src/pages/404.astro` (serverless fallback), JSON-LD `WebSite` + `Person` in `BaseHead.astro`, `@vercel/analytics` wired into `Layout.astro` with CSP updates, and `tests/404.spec.ts`. Full e2e suite (13 tests) passes; `pnpm check` and `pnpm build` pass. Note: Vercel Web Analytics must be enabled in the dashboard for data collection.
 - 2026-07-15 — Reverted the standalone contact bento card because it duplicated the existing contact form inside the Social modal and broke the grid layout. Removed `ContactCardContent`, `ContactDetails`, `portfolio.contact` i18n keys, and the `contact` portfolio item; adapted `tests/contact.spec.ts` to cover the SocialCanvas form instead. Full e2e suite (12 tests) passes; `pnpm check` and `pnpm build` pass.
 - 2026-07-15 — Audited the portfolio and created `docs/plan/PLAN.md` (7 phased
   improvements) + `docs/plan/CONTEXT.md` (execution briefing). Docs only.
