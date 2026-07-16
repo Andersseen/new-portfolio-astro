@@ -24,6 +24,14 @@ const initialItems = getPortfolioItems(tr, mediumArticles);
     <p class="mt-4 text-lg text-foreground-secondary">
       {tr("portfolio.hero.subheadline")}
     </p>
+    <a
+      href="/andrii-pap.pdf"
+      download
+      aria-label={tr("cv.download")}
+      class="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-500 text-background font-medium hover:bg-primary-600 transition-colors"
+    >
+      {tr("cv.download")}
+    </a>
   </div>
 
   <PortfolioGrid client:idle initialItems={initialItems} />

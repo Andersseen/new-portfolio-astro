@@ -154,7 +154,7 @@ Acceptance:
 
 ## Phase 5 — CV / resume download
 
-**Status:** pending — **blocked on user input**
+**Status:** done
 **Goal:** a "Download CV" action (finding #9).
 **Prerequisite:** the user must provide the CV PDF (or the content to generate
 one). Ask before starting. If multilingual CVs exist, one per locale.
