@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-16 · **Branch state:** `feature/portfolio-phases` — Phases 4 & 5 merged, plus About-drawer visual/accessibility fixes
+**Last updated:** 2026-07-20 · **Branch state:** `feature/portfolio-phases` — language switcher trailing-slash fix after full a11y/theme fixes
 
 ## Status: ✅ Stable, build passes
 
@@ -17,6 +17,63 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 100 on Vercel.
 
 ## Recently completed (last few cycles)
+
+- **Language switcher trailing-slash fix**
+  - Fixed `LanguageSelector.astro` links for Astro's `trailingSlash: "always"`
+    routing. The selector now emits `/ua/` and `/es/` instead of `/ua`/`/es`,
+    avoiding the Astro 404 page that suggested adding the slash manually.
+  - English now links back to the default unprefixed route `/` instead of
+    `/en/`, matching `prefixDefaultLocale: false` and the canonical
+    x-default/default locale behavior.
+  - Added Playwright coverage that clicks the real dropdown through English,
+    Spanish, and Ukrainian and asserts routed, non-404 pages.
+  - Verified: focused `tests/navigation.spec.ts`, `pnpm check`, `pnpm build`,
+    and full `pnpm test:e2e` pass (22/22).
+
+- **Full a11y audit follow-up + robust theme transition**
+  - Extended OpenSpec change `audit-a11y-project-cards` after the first pass to
+    cover the full portfolio surface, not only selected modals.
+  - Hardened `theme-transition.ts` with a transition lock, reveal-animation
+    timeout, and guaranteed cleanup of `data-theme-transition`, so rapid
+    light/dark clicks cannot stack View Transition circles or leave the reveal
+    layer stuck over the page.
+  - Expanded `tests/a11y.spec.ts`: audits every portfolio grid card and every
+    modal (`projects`, `community`, `design`, `social`, `services`, `stack`,
+    `articles`) in light and dark themes; checks visible text contrast from
+    computed browser colors; traverses open shadow roots for design-system
+    web components; samples hover/focus states for visible controls; verifies
+    keyboard modal focus restoration; and stress-tests rapid theme toggles.
+  - Fixed additional contrast failures discovered by the expanded audit:
+    `MockUIKit.ts` no longer uses primary text for small package names,
+    section labels, inline code, or syntax tokens; `SocialCanvas.tsx` submit
+    hover no longer switches to low-contrast primary; `ArticleList.tsx` article
+    arrows and "View more" link no longer rely on primary text in light theme.
+  - Verified: expanded `tests/a11y.spec.ts` passes (6/6), full `pnpm test:e2e`
+    passes (21/21), `pnpm check`, `pnpm build`, and `pnpm openspec:validate`
+    pass. Existing build still logs expected Medium DNS fallback warnings under
+    restricted network.
+
+- **Accessibility contrast audit + project card presentation**
+  - Created OpenSpec change `audit-a11y-project-cards` with proposal, design,
+    specs, and tasks.
+  - Added `tests/a11y.spec.ts`, a dependency-free Playwright audit that opens
+    real portfolio modals in light and dark themes, computes foreground and
+    effective background colors in the browser, and enforces WCAG contrast
+    ratios (4.5:1 normal text, 3:1 large text). It also verifies keyboard modal
+    flow: focus enters the dialog, Escape closes, and focus returns to opener.
+  - `ProjectList.tsx`: replaced the oversized full-width project screenshots
+    with compact responsive media (side thumbnail on desktop, bounded image on
+    mobile), removed the saturated full-card `bg-primary` hover overlay, and
+    moved badges/tech metadata to higher-contrast semantic tokens.
+  - `CommunityList.tsx`: fixed light-theme contrast failures caught by the new
+    audit by removing `text-background` on `bg-primary` tabs and avoiding
+    `text-primary` for small role labels/buttons.
+  - Verified visually with a local dev server and Playwright measurements:
+    desktop project images render at ~32% of card width; mobile images remain
+    contained with no horizontal overflow.
+  - Verified: focused `tests/a11y.spec.ts`, `pnpm check`, `pnpm build`, full
+    `pnpm test:e2e` (18/18), and `pnpm openspec:validate` pass. Build still
+    logs expected Medium DNS fallback warnings under restricted network.
 
 - **About-drawer fixes round 3 (real-browser follow-up on round 2)**
   - `MockUIKit.ts` (the `<mock-ui-kit>` Lit component behind the "Design

@@ -42,7 +42,7 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
                   {article.description}
                 </div>
               </div>
-              <span className="text-primary group-hover:translate-x-1 transition-transform text-xl">
+              <span className="text-foreground-secondary group-hover:translate-x-1 group-hover:text-foreground transition-all text-xl">
                 →
               </span>
             </a>
@@ -60,7 +60,7 @@ const ArticleList: FunctionalComponent<ArticleListProps> = ({ data }) => {
             href={viewMoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-foreground transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-foreground-secondary transition-colors group"
           >
             {labels.viewMore}
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

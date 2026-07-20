@@ -17,8 +17,20 @@ if (Object.values(LANGUAGES).includes(pathSegments[0] as any)) {
 
 
 if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
-  pathWithoutLang = pathWithoutLang || '/';
+  pathWithoutLang = `${pathWithoutLang}/`;
 }
+
+const withTrailingSlash = (path: string) => path.endsWith('/') ? path : `${path}/`;
+
+const getLanguageHref = (langCode: string) => {
+  const path = pathWithoutLang === '/' ? '/' : pathWithoutLang;
+
+  if (langCode === LANGUAGES.EN) {
+    return path;
+  }
+
+  return withTrailingSlash(`/${langCode}${path === '/' ? '/' : path}`);
+};
 ---
 
 <div class="language-dropdown relative inline-block" id="languageDropdown">
@@ -44,7 +56,7 @@ if (!pathWithoutLang.endsWith('/') && pathWithoutLang !== '/') {
   >
     {Object.entries(LANGUAGE_NAMES).map(([code, name]) => {
       const langCode = code as any;
-      const href = `/${langCode}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+      const href = getLanguageHref(langCode);
       const isActive = langCode === currentLang;
       return (
         <a

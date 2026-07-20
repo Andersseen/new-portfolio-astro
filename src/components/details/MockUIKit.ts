@@ -124,7 +124,7 @@ export default class MockUIKit extends LitElement {
             <and-badge variant="outline">Stencil</and-badge>
             <and-badge variant="outline">24+ Components</and-badge>
           </div>
-          <h3 class="text-3xl font-bold text-primary font-heading">
+          <h3 class="text-3xl font-bold text-foreground font-heading">
             @andersseen/web-components
           </h3>
           <p class="text-foreground-secondary max-w-xl mx-auto text-lg">
@@ -205,7 +205,7 @@ export default class MockUIKit extends LitElement {
               >
                 <div class="flex items-center gap-2 mb-2">
                   <and-icon name="${pkg.icon}" size="sm"></and-icon>
-                  <span class="text-xs font-mono text-primary truncate"
+                  <span class="text-xs font-mono text-foreground truncate"
                     >${pkg.name}</span
                   >
                 </div>
@@ -223,7 +223,7 @@ export default class MockUIKit extends LitElement {
           >
             <div class="flex items-center justify-between mb-2">
               <h4
-                class="text-sm font-bold text-primary uppercase tracking-widest"
+                class="text-sm font-bold text-foreground uppercase tracking-widest"
               >
                 Buttons
               </h4>
@@ -246,15 +246,15 @@ export default class MockUIKit extends LitElement {
             <div
               class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner overflow-x-auto"
             >
-              <div class="text-primary">
+              <div class="text-foreground">
                 &lt;and-button
-                <span class="text-primary-400">variant</span>=<span
+                <span class="text-foreground-secondary">variant</span>=<span
                   class="text-foreground"
                   >"default"</span
                 >&gt;
               </div>
               <div class="pl-4">Click Me</div>
-              <div class="text-primary">&lt;/and-button&gt;</div>
+              <div class="text-foreground">&lt;/and-button&gt;</div>
             </div>
           </div>
 
@@ -264,7 +264,7 @@ export default class MockUIKit extends LitElement {
           >
             <div class="flex items-center justify-between mb-2">
               <h4
-                class="text-sm font-bold text-primary uppercase tracking-widest"
+                class="text-sm font-bold text-foreground uppercase tracking-widest"
               >
                 Icons
               </h4>
@@ -301,13 +301,13 @@ export default class MockUIKit extends LitElement {
             <div
               class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner overflow-x-auto"
             >
-              <div class="text-primary">
+              <div class="text-foreground">
                 &lt;and-icon
-                <span class="text-primary-400">name</span>=<span
+                <span class="text-foreground-secondary">name</span>=<span
                   class="text-foreground"
                   >"github"</span
                 >
-                <span class="text-primary-400">size</span>=<span
+                <span class="text-foreground-secondary">size</span>=<span
                   class="text-foreground"
                   >"lg"</span
                 >
@@ -322,7 +322,7 @@ export default class MockUIKit extends LitElement {
           >
             <div class="flex items-center justify-between mb-2">
               <h4
-                class="text-sm font-bold text-primary uppercase tracking-widest"
+                class="text-sm font-bold text-foreground uppercase tracking-widest"
               >
                 Animations
               </h4>
@@ -364,20 +364,20 @@ export default class MockUIKit extends LitElement {
                 &lt;!-- Declarative Animations --&gt;
               </div>
               <div>
-                <span class="text-primary">&lt;div</span>
-                <span class="text-primary-400"> and-motion</span>=<span
+                <span class="text-foreground">&lt;div</span>
+                <span class="text-foreground-secondary"> and-motion</span>=<span
                   class="text-foreground"
                   >"slide-in-left"</span
                 >
               </div>
               <div class="pl-5">
-                <span class="text-primary-400">and-motion-trigger</span>=<span
+                <span class="text-foreground-secondary">and-motion-trigger</span>=<span
                   class="text-foreground"
                   >"enter"</span
                 >&gt;
               </div>
               <div class="pl-4">...content</div>
-              <div class="text-primary">&lt;/div&gt;</div>
+              <div class="text-foreground">&lt;/div&gt;</div>
             </div>
           </div>
 
@@ -387,7 +387,7 @@ export default class MockUIKit extends LitElement {
           >
             <div class="flex items-center justify-between mb-2">
               <h4
-                class="text-sm font-bold text-primary uppercase tracking-widest"
+                class="text-sm font-bold text-foreground uppercase tracking-widest"
               >
                 Form Controls
               </h4>
@@ -410,15 +410,15 @@ export default class MockUIKit extends LitElement {
             <div
               class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner overflow-x-auto"
             >
-              <div class="text-primary">
+              <div class="text-foreground">
                 &lt;and-input
-                <span class="text-primary-400">placeholder</span>=<span
+                <span class="text-foreground-secondary">placeholder</span>=<span
                   class="text-foreground"
                   >"email"</span
                 >
               </div>
               <div class="pl-5">
-                <span class="text-primary-400">type</span>=<span
+                <span class="text-foreground-secondary">type</span>=<span
                   class="text-foreground"
                   >"email"</span
                 >
@@ -447,11 +447,11 @@ export default class MockUIKit extends LitElement {
               <p class="text-sm text-foreground-secondary leading-relaxed">
                 Pure CSS layout system driven entirely by HTML attributes. No
                 classes needed — just add
-                <code class="text-primary bg-primary/10 px-1 rounded"
+                <code class="text-foreground bg-background-secondary border border-border/50 px-1 rounded"
                   >and-layout</code
                 >
                 and
-                <code class="text-primary bg-primary/10 px-1 rounded"
+                <code class="text-foreground bg-background-secondary border border-border/50 px-1 rounded"
                   >and-text</code
                 >
                 attributes.
@@ -461,20 +461,20 @@ export default class MockUIKit extends LitElement {
                 class="font-mono text-xs p-4 bg-background-secondary text-foreground-secondary rounded-xl border border-border/50 shadow-inner"
               >
                 <div>
-                  <span class="text-primary">&lt;div</span>
-                  <span class="text-primary-400"> and-layout</span>=<span
+                  <span class="text-foreground">&lt;div</span>
+                  <span class="text-foreground-secondary"> and-layout</span>=<span
                     class="text-foreground"
                     >"grid cols:1 cols@md:3 gap:lg"</span
                   >&gt;
                 </div>
                 <div class="pl-4">
-                  <span class="text-primary">&lt;div</span>
-                  <span class="text-primary-400"> and-text</span>=<span
+                  <span class="text-foreground">&lt;div</span>
+                  <span class="text-foreground-secondary"> and-text</span>=<span
                     class="text-foreground"
                     >"h2 weight:bold"</span
-                  >&gt;Title<span class="text-primary">&lt;/div&gt;</span>
+                  >&gt;Title<span class="text-foreground">&lt;/div&gt;</span>
                 </div>
-                <div class="text-primary">&lt;/div&gt;</div>
+                <div class="text-foreground">&lt;/div&gt;</div>
               </div>
             </div>
 
@@ -500,7 +500,7 @@ export default class MockUIKit extends LitElement {
           <div
             class="font-mono text-sm p-3 bg-background-secondary rounded-xl border border-border/50 inline-block max-w-full overflow-x-auto"
           >
-            <span class="text-primary">npm install</span>
+            <span class="text-foreground">npm install</span>
             <span class="text-foreground">
               @andersseen/web-components @andersseen/icon @andersseen/motion
               @andersseen/layout</span

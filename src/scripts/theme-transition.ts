@@ -17,8 +17,12 @@ export type TransitionOrigin = { x: number; y: number };
 
 /** Duration of the clip-path reveal, in milliseconds. */
 const REVEAL_DURATION_MS = 620;
+/** Upper bound for browsers that leave a View Transition promise unresolved. */
+const TRANSITION_TIMEOUT_MS = REVEAL_DURATION_MS + 260;
 /** Ease-out that decelerates smoothly, giving a liquid "settle" feel. */
 const REVEAL_EASING = "cubic-bezier(0.33, 0, 0.2, 1)";
+
+let activeTransition: Promise<void> | null = null;
 
 function prefersReducedMotion(): boolean {
   try {
@@ -26,6 +30,14 @@ function prefersReducedMotion(): boolean {
   } catch {
     return false;
   }
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function withTimeout(promise: Promise<unknown>, ms: number): Promise<void> {
+  return Promise.race([promise, wait(ms)]).then(() => undefined, () => undefined);
 }
 
 /**
@@ -37,6 +49,10 @@ export function runThemeTransition(
   update: () => void | Promise<void>,
   origin?: TransitionOrigin | null,
 ): Promise<void> {
+  if (activeTransition) {
+    return Promise.resolve(update());
+  }
+
   const startViewTransition = (
     document as Document & {
       startViewTransition?: Document["startViewTransition"];
@@ -54,13 +70,19 @@ export function runThemeTransition(
   // Radius needed to cover the farthest corner from the origin.
   const endRadius = Math.hypot(Math.max(x, w - x), Math.max(y, h - y));
 
-  const transition = startViewTransition.call(document, () =>
-    Promise.resolve(update()),
-  );
+  document.documentElement.dataset.themeTransition = "active";
 
-  transition.ready
+  let transition: ViewTransition;
+  try {
+    transition = startViewTransition.call(document, () => Promise.resolve(update()));
+  } catch {
+    delete document.documentElement.dataset.themeTransition;
+    return Promise.resolve(update());
+  }
+
+  const reveal = transition.ready
     .then(() => {
-      document.documentElement.animate(
+      const animation = document.documentElement.animate(
         {
           clipPath: [
             `circle(0px at ${x}px ${y}px)`,
@@ -73,12 +95,23 @@ export function runThemeTransition(
           pseudoElement: "::view-transition-new(root)",
         },
       );
+      return animation.finished;
     })
-    .catch(() => {
-      // Animation is best-effort; the theme still updates without it.
+    .catch(() => undefined);
+
+  activeTransition = Promise.all([
+    withTimeout(transition.finished, TRANSITION_TIMEOUT_MS),
+    withTimeout(reveal, TRANSITION_TIMEOUT_MS),
+  ])
+    .then(() => undefined)
+    .finally(() => {
+      if (activeTransition) {
+        activeTransition = null;
+      }
+      delete document.documentElement.dataset.themeTransition;
     });
 
-  return transition.finished.catch(() => undefined);
+  return activeTransition;
 }
 
 /**
