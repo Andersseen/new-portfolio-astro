@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:prod": "PUBLIC_UMAMI_URL=https://umami.andersseen.dev/script.js PUBLIC_UMAMI_WEBSITE_ID=96c75175-5fc3-49c9-a1d4-f62cd739e8bb astro build",
     "preview": "astro preview",
     "astro": "astro",
     "check:i18n": "node scripts/check-i18n.mjs",

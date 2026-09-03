@@ -36,6 +36,9 @@ const localePathMap: Record<string, string> = {
 };
 
 const currentLocale = localeMap[lang] ?? "en_US";
+
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 ---
 
 <!-- Global Metadata -->
@@ -116,6 +119,11 @@ const currentLocale = localeMap[lang] ?? "en_US";
     },
   ],
 })} />
+
+<!-- Umami Analytics -->
+{umamiUrl && umamiWebsiteId && (
+  <script is:inline defer src={umamiUrl} data-website-id={umamiWebsiteId} />
+)}
 
 <!-- Theme Script - Load immediately to prevent flash -->
 <script is:inline>
