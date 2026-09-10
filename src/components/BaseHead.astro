@@ -37,8 +37,9 @@ const localePathMap: Record<string, string> = {
 
 const currentLocale = localeMap[lang] ?? "en_US";
 
-const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
-const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+// Umami Analytics - use env vars if available, fall back to hardcoded production values
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL ?? 'https://umami.andersseen.dev/script.js';
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '96c75175-5fc3-49c9-a1d4-f62cd739e8bb';
 ---
 
 <!-- Global Metadata -->
@@ -121,9 +122,7 @@ const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 })} />
 
 <!-- Umami Analytics -->
-{umamiUrl && umamiWebsiteId && (
-  <script is:inline defer src={umamiUrl} data-website-id={umamiWebsiteId} />
-)}
+<script is:inline defer src={umamiUrl} data-website-id={umamiWebsiteId} />
 
 <!-- Theme Script - Load immediately to prevent flash -->
 <script is:inline>
