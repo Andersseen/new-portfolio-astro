@@ -1,27 +1,31 @@
 ## Context
 
-The site imports the locale JSON files statically in both server and client
-code (`src/i18n/utils.ts`, dynamic imports from the navbar), so translations
-must exist as files at build time.
+The site imported the locale JSON files statically in server and client code,
+so Glossa could only be a copy of committed files. The goal is for Glossa to
+be the single source of the copy.
 
 ## Decisions
 
-### Glossa sync at build time, not at runtime
+### Glossa as the only source, loaded on the server
 
-`scripts/glossa.mjs pull` rewrites `src/i18n/locales/*.json` before
-`astro build`. Runtime fetching was rejected: it would add a network dependency
-to every page view and to client bundles that import the JSON directly.
+- `src/i18n/glossa.ts` (server-only) fetches one locale's catalog: public
+  delivery URL first, then MCP `get_catalog` with `GLOSSA_TOKEN` (3 attempts).
+  Cached for the whole build; in dev the cache lasts ~5s so edits in Glossa
+  show on reload.
+- Pages call `await loadMessages(lang)` before `t()`. A prerendered page
+  fails the build when Glossa is unreachable. Shipping stale copy silently is
+  worse than a failed deploy, which keeps the previous version live.
+- `Layout.astro` embeds the current locale's catalog as JSON
+  (`#i18n-messages`, `<` escaped); in the browser `t()` reads it. Islands keep
+  the same `t()` API, and no catalog is bundled into client JS. The on-demand
+  404 degrades to raw keys instead of a 500 if Glossa fails at runtime.
+- `GLOSSA_TOKEN` is read via `import.meta.env` only in `glossa.ts`; verified
+  absent from client and server build output.
+- Locale mapping: the site keeps `ua` in URLs; Glossa uses the ISO code `uk`.
 
-- Source order: public delivery URL (`/i18n/portfolio/<locale>.json`, no auth)
-  → MCP `get_catalog` when `GLOSSA_TOKEN` is set.
-- Safety: the pull refuses to write unless every locale has exactly the source
-  locale's key set and every value is a string. With `--soft` the failure is a
-  warning and the committed files are used, so a Glossa outage never breaks a
-  deploy.
-- `push` writes only changed values with `set_translation` and the catalog
-  revision, so concurrent edits in Glossa are never overwritten silently.
-- Locale mapping: the site keeps `ua` in URLs and file names; Glossa uses the
-  ISO code `uk`.
+Alternatives considered: syncing JSON files into the repo before each build
+(Glossa becomes a mirror; catalogs still bundled) and fetching from the
+browser (needs public delivery, adds a request and a flash of keys).
 
 ### Framework ownership
 
@@ -46,10 +50,12 @@ morph starts from that radius.
 - A generated palette where `background-secondary` is lighter than
   `background` would invert the tile/page relation. The hairline/shadow keeps
   tiles distinguishable either way.
-- Translation edits in Glossa reach production only on the next build (the
-  Glossa deploy hook targets Cloudflare; this site is on Vercel).
+- Translation edits in Glossa reach production on the next build (the Glossa
+  deploy hook targets Cloudflare; this site is on Vercel). Moving the pages to
+  on-demand rendering with Vercel ISR would remove that step.
+- Builds now depend on Glossa availability and on `GLOSSA_TOKEN` (or public
+  delivery) being configured in Vercel.
 
 ## Rollback
 
-Revert the PR. The committed locale files remain the fallback, so removing
-the pull step from `build` alone fully detaches Glossa.
+Revert the PR; the locale JSON files come back from git history.

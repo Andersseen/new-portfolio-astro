@@ -34,13 +34,14 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
     failures in Community/Stack/Design modals.
 
 - **Glossa translations + iCloud-style bento** (OpenSpec `glossa-icloud-bento`)
-  - Translations now live in Glossa (project `portfolio`, locales `en`/`es`/`uk`;
-    site `ua` ↔ Glossa `uk`). Seeded all 135 keys. `scripts/glossa.mjs`:
-    `pnpm i18n:pull` / `pnpm i18n:push`; `pnpm build` pulls first in soft mode
-    (failure or key mismatch keeps the committed JSON).
-  - Glossa **public delivery is still disabled** in the Glossa UI, so pulls
-    currently use the MCP endpoint and need `GLOSSA_TOKEN` (in `.env` locally;
-    Vercel needs it too, or enable delivery).
+  - Translations live **only in Glossa** (project `portfolio`, locales
+    `en`/`es`/`uk`; site `ua` ↔ Glossa `uk`); `src/i18n/locales/` was deleted.
+    Pages `await loadMessages(lang)` (`src/i18n/glossa.ts`, server-only);
+    `Layout.astro` embeds the locale's catalog for islands. `pnpm check:i18n`
+    checks parity in Glossa. In dev, Glossa edits show on reload.
+  - Glossa **public delivery is still disabled**, so loading uses MCP with
+    `GLOSSA_TOKEN` (in `.env` locally). **Vercel needs `GLOSSA_TOKEN`** (or
+    enable delivery) — without it the build fails.
   - Hero removed from the page (visually hidden `h1` kept); role/headline/
     subheadline now open from the navbar logo in the about dialog, whose
     labels are translated now.

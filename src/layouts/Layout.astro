@@ -6,6 +6,9 @@ import LanguageSelector from "@componentes/LanguageSelector.astro";
 import Footer from "@componentes/Footer.astro";
 import PageLoader from "@componentes/PageLoader.astro";
 import Analytics from "@vercel/analytics/astro";
+import { getLanguageFromPath } from "@i18n/config";
+import { loadMessages } from "@i18n/glossa";
+import { MESSAGES_ELEMENT_ID } from "@i18n/utils";
 
 
 export interface Props {
@@ -16,8 +19,14 @@ export interface Props {
 
 const { title, description, image } = Astro.props;
 
-const pathLang = Astro.url.pathname.split('/')[1];
-const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
+const lang = getLanguageFromPath(Astro.url.pathname);
+
+// The current locale's catalog is embedded for client islands (`t()` reads
+// it in the browser). `<` is escaped so the JSON can't close the script tag.
+// Prerendered pages already loaded it (and fail the build if Glossa is down);
+// the on-demand 404 degrades to raw keys instead of a 500.
+const messages = await loadMessages(lang).catch(() => ({}));
+const messagesJson = JSON.stringify(messages).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -26,6 +35,12 @@ const lang = ["es", "ua"].includes(pathLang) ? pathLang : "en";
     <BaseHead title={title} description={description} image={image} />
   </head>
   <body>
+    <script
+      type="application/json"
+      id={MESSAGES_ELEMENT_ID}
+      data-lang={lang}
+      set:html={messagesJson}
+    />
 
     <PageLoader />
 

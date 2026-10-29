@@ -1,9 +1,11 @@
 ## 1. Glossa
 
 - [x] 1.1 Remove the unused numeric `footer.year` key from all locales.
-- [x] 1.2 Add `scripts/glossa.mjs` with `pull [--soft]` and `push`.
+- [x] 1.2 Seed script (temporary) to push local values into Glossa.
 - [x] 1.3 Seed Glossa with all 135 keys × 3 locales; verify pull round-trip.
-- [x] 1.4 Wire `i18n:pull`, `i18n:push` and the pre-build pull in `package.json`; document `GLOSSA_TOKEN` in `.env.example`.
+- [x] 1.4 Add server-only `src/i18n/glossa.ts`; pages `await loadMessages()`; layout embeds the catalog for islands; `t()` reads it in the browser.
+- [x] 1.5 Delete `src/i18n/locales/*.json` and `check-i18n.mjs`; `pnpm check:i18n` → `scripts/glossa.mjs check`.
+- [x] 1.6 Verify: no catalog/token in build output; editing a key in Glossa shows on reload in dev; document `GLOSSA_TOKEN`.
 
 ## 2. Hero → about dialog
 

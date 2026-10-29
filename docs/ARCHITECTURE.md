@@ -36,7 +36,8 @@ signals, and `lucide-angular` (which is in `vite.ssr.noExternal`).
 ## 3. Data flow (content)
 
 ```
-src/i18n/locales/{en,es,ua}.json      ← all user-visible strings
+Glossa catalogs (en/es/uk)           ← all user-visible strings
+        │  loadMessages(lang) (src/i18n/glossa.ts, server-only)
         │  t(lang, key)  (src/i18n/utils.ts — returns key if missing)
         ▼
 src/data/portfolio.ts                 ← getPortfolioItems(tr, articles): card definitions
@@ -120,10 +121,19 @@ A hardcoded color will not respond to the randomizer or dark mode and is a bug.
 - Config: `src/i18n/config.ts` (`en` default, `es`, `ua`; locale codes en-US /
   es-ES / uk-UA). Astro i18n routing: `prefixDefaultLocale: false`, fallback
   es→en, ua→en.
-- Translation: `t(lang, key)` does dot-path lookup in the JSON; **returns the
-  key string on miss** (no crash — visible bug on page instead).
-- Parity enforcement: `scripts/check-i18n.mjs` (run via `pnpm check:i18n`)
-  fails on missing OR extra keys vs `en.json`.
+- Source: Glossa (project `portfolio`, locales `en`/`es`/`uk`; site `ua` ↔
+  Glossa `uk`). No locale files in the repo.
+- Server: pages `await loadMessages(lang)` (`src/i18n/glossa.ts`) before any
+  `t()`. It reads the public delivery URL, else MCP `get_catalog` with
+  `GLOSSA_TOKEN`; cached for the build, ~5s in dev (Glossa edits show on
+  reload). A prerendered page fails the build if Glossa is unreachable.
+- Client: `Layout.astro` embeds the current locale's catalog as
+  `<script type="application/json" id="i18n-messages">`; `t()` reads it in
+  the browser, so islands use the same API and no catalog is bundled.
+- Translation: `t(lang, key)` does dot-path lookup; **returns the key string
+  on miss** (no crash — visible bug on page instead).
+- Parity enforcement: `pnpm check:i18n` (`scripts/glossa.mjs check`) fails on
+  missing OR extra keys vs Glossa `en`.
 - Language switcher: `src/components/LanguageSelector.astro`.
 
 ## 8. API endpoints
@@ -154,12 +164,12 @@ src/
 │   ├── Navbar.tsx, ModalManager.tsx, AboutDrawer.tsx, …
 │   └── *.astro      Static presentational components
 ├── data/portfolio.ts        Grid content (single source of truth)
-├── i18n/            config.ts, utils.ts, locales/{en,es,ua}.json
+├── i18n/            config.ts, utils.ts (t), glossa.ts (server-only loader)
 ├── layouts/Layout.astro
 ├── pages/           index.astro, {en,es,ua}/index.astro, api/{theme,send-email}.ts
 ├── scripts/         Client-side: theme-*, idb-order, db, swapy-grid, card-modal
 ├── store/modalStore.ts      Nanostores modal state machine
 ├── styles/global.css        Tailwind v4 @theme tokens + dark overrides
 └── utils/           fetchers.ts (Medium/GitHub), theme-api.ts (API client + types)
-scripts/check-i18n.mjs       Locale parity checker (node script)
+scripts/glossa.mjs           Glossa key-parity checker (`pnpm check:i18n`)
 ```

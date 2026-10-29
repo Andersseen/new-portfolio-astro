@@ -11,9 +11,10 @@ center, inside a translucent blurred circle with a 2px translucent border.
 ## What Changes
 
 - Seed the Glossa `portfolio` project with every current key (local `ua` ↔
-  Glossa `uk`) and add `scripts/glossa.mjs` (`pnpm i18n:pull` / `i18n:push`).
-- `pnpm build` pulls the catalogs from Glossa first (`--soft`: any failure or
-  key-parity mismatch keeps the committed files).
+  Glossa `uk`) and make Glossa the only source: delete
+  `src/i18n/locales/*.json`; pages load catalogs from Glossa at build/render
+  time and the layout embeds the current locale's catalog for islands.
+- `pnpm check:i18n` checks key parity in Glossa (`scripts/glossa.mjs check`).
 - Remove the visible hero; keep a visually hidden `h1`. The hero role, headline
   and subheadline move to the top of the about dialog opened by the logo.
 - Translate the remaining hard-coded about-dialog labels.
@@ -31,8 +32,9 @@ center, inside a translucent blurred circle with a 2px translucent border.
 
 ## Impact
 
-- `scripts/glossa.mjs`, `package.json`, `.env.example`
+- `src/i18n/{glossa,utils}.ts`, `src/layouts/Layout.astro`, `src/pages/**/index.astro`
+- `scripts/glossa.mjs` (replaces `scripts/check-i18n.mjs`), `package.json`, `.env.example`
 - `src/components/{BentoGrid.astro,PageLoader.astro,Navbar.tsx,AboutDrawer.tsx,Card.tsx,PortfolioCard.tsx}`
 - `src/components/cards/*`, `src/components/details/ProjectList.tsx`
-- `src/styles/global.css`, `public/logo.svg`, `src/i18n/locales/*`
+- `src/styles/global.css`, `public/logo.svg`, `src/i18n/locales/*` (deleted)
 - `tests/home.spec.ts`

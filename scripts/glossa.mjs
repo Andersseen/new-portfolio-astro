@@ -1,29 +1,25 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
- * Sync src/i18n/locales/*.json with the "portfolio" project in Glossa.
+ * Key-parity check for the translations stored in Glossa (project
+ * "portfolio"), the single source of the site's copy — there are no locale
+ * files in the repo; pages load catalogs at build time via src/i18n/glossa.ts.
  *
- *   node scripts/glossa.mjs pull [--soft]   Glossa → local JSON files
- *   node scripts/glossa.mjs push            local JSON files → Glossa
+ *   node scripts/glossa.mjs check
  *
- * `pull` reads the public delivery URLs first and falls back to the MCP
- * endpoint when GLOSSA_TOKEN is available. With `--soft` (used by `pnpm
- * build`) any failure keeps the committed files instead of failing the build.
- * `push` needs GLOSSA_TOKEN with catalog:write and only writes changed values.
+ * Every locale must define exactly the source locale's keys, all as strings.
+ * Reads the public delivery URLs first and falls back to the MCP endpoint with
+ * GLOSSA_TOKEN (from the environment or .env).
  */
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const ROOT = join(__dirname, "..");
-const LOCALES_DIR = join(ROOT, "src", "i18n", "locales");
 const GLOSSA_URL = "https://glossa.andersseen.dev";
 const PROJECT = "portfolio";
-const SOURCE_LANG = "en";
-
-// Local file name → Glossa locale. The site keeps `ua` in its URLs while
-// Glossa uses the ISO 639-1 code `uk`.
-const LOCALES = { en: "en", es: "es", ua: "uk" };
+const SOURCE_LOCALE = "en";
+const LOCALES = ["en", "es", "uk"];
 
 function loadToken() {
   if (process.env.GLOSSA_TOKEN) return process.env.GLOSSA_TOKEN;
@@ -101,98 +97,45 @@ async function fetchCatalog(locale, token) {
   return content;
 }
 
-async function pull() {
+async function check() {
   const token = loadToken();
-  /** @type {Record<string, Record<string, unknown>>} */
-  const catalogs = {};
-
-  for (const [file, locale] of Object.entries(LOCALES)) {
-    catalogs[file] = await fetchCatalog(locale, token);
+  /** @type {Record<string, [string, unknown][]>} */
+  const entries = {};
+  for (const locale of LOCALES) {
+    entries[locale] = flatten(await fetchCatalog(locale, token));
   }
 
-  const sourceKeys = flatten(catalogs[SOURCE_LANG]).map(([key]) => key).sort();
-  if (sourceKeys.length === 0) throw new Error("source catalog is empty");
+  const sourceKeys = new Set(entries[SOURCE_LOCALE].map(([key]) => key));
+  if (sourceKeys.size === 0) throw new Error("source catalog is empty");
 
-  for (const [file, catalog] of Object.entries(catalogs)) {
-    const entries = flatten(catalog);
-    const keys = entries.map(([key]) => key).sort();
-    if (keys.join("\n") !== sourceKeys.join("\n")) {
-      throw new Error(`${file} does not have the same keys as ${SOURCE_LANG}`);
-    }
-    const nonString = entries.find(([, value]) => typeof value !== "string");
-    if (nonString) throw new Error(`${file}: ${nonString[0]} is not a string`);
+  let hasErrors = false;
+  for (const locale of LOCALES) {
+    const keys = new Set(entries[locale].map(([key]) => key));
+    const missing = [...sourceKeys].filter((key) => !keys.has(key));
+    const extra = [...keys].filter((key) => !sourceKeys.has(key));
+    const nonString = entries[locale].filter(([, value]) => typeof value !== "string");
+
+    if (missing.length || extra.length || nonString.length) hasErrors = true;
+    missing.forEach((key) => console.error(`❌ ${locale}: missing ${key}`));
+    extra.forEach((key) => console.error(`⚠️  ${locale}: not in ${SOURCE_LOCALE}: ${key}`));
+    nonString.forEach(([key]) => console.error(`❌ ${locale}: ${key} is not a string`));
   }
 
-  for (const [file, catalog] of Object.entries(catalogs)) {
-    writeFileSync(
-      join(LOCALES_DIR, `${file}.json`),
-      `${JSON.stringify(catalog, null, 2)}\n`,
-    );
-  }
-  console.log(`✅ Pulled ${sourceKeys.length} keys × ${Object.keys(LOCALES).length} locales from Glossa.`);
-}
-
-async function push() {
-  const token = loadToken();
-  if (!token) throw new Error("GLOSSA_TOKEN is required to push");
-
-  for (const [file, locale] of Object.entries(LOCALES)) {
-    const local = JSON.parse(readFileSync(join(LOCALES_DIR, `${file}.json`), "utf-8"));
-
-    /** @type {Map<string, unknown>} */
-    let remote = new Map();
-    /** @type {string | undefined} */
-    let revision;
-    try {
-      const catalog = await callTool(token, "get_catalog", { locale });
-      remote = new Map(flatten(catalog.content));
-      revision = catalog.revision;
-    } catch (error) {
-      if (error.code !== "CATALOG_NOT_FOUND") throw error;
-    }
-
-    let written = 0;
-    for (const [key, value] of flatten(local)) {
-      if (typeof value !== "string") {
-        throw new Error(`${file}: ${key} is not a string`);
-      }
-      if (remote.get(key) === value) continue;
-
-      const result = await callTool(token, "set_translation", {
-        locale,
-        key,
-        value,
-        ...(revision ? { expectedRevision: revision } : {}),
-      });
-      revision = result.revision;
-      written++;
-    }
-
-    const localKeys = new Set(flatten(local).map(([key]) => key));
-    const remoteOnly = [...remote.keys()].filter((key) => !localKeys.has(key));
-
-    console.log(`✅ ${file} → ${locale}: ${written} value(s) written.`);
-    remoteOnly.forEach((key) => console.warn(`   ⚠️  only in Glossa: ${key}`));
-  }
+  if (hasErrors) process.exit(1);
+  console.log(`✅ Glossa catalogs match: ${sourceKeys.size} keys × ${LOCALES.length} locales.`);
 }
 
 async function main() {
-  const [command, ...flags] = process.argv.slice(2);
-  const soft = flags.includes("--soft");
+  const [command] = process.argv.slice(2);
+  if (command !== "check") {
+    console.error("Usage: node scripts/glossa.mjs check");
+    process.exit(1);
+  }
 
   try {
-    if (command === "pull") await pull();
-    else if (command === "push") await push();
-    else {
-      console.error("Usage: node scripts/glossa.mjs <pull [--soft] | push>");
-      process.exit(1);
-    }
+    await check();
   } catch (error) {
-    if (command === "pull" && soft) {
-      console.warn(`⚠️  Glossa pull skipped, keeping committed locale files: ${error.message}`);
-      return;
-    }
-    console.error(`❌ Glossa ${command} failed: ${error.message}`);
+    console.error(`❌ Glossa check failed: ${error.message}`);
     process.exit(1);
   }
 }

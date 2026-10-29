@@ -1,19 +1,22 @@
 ## ADDED Requirements
 
-### Requirement: Translations sync from Glossa
+### Requirement: Translations come from Glossa
 
-The build SHALL pull the `portfolio` catalogs from Glossa into
-`src/i18n/locales/` before building, and SHALL keep the committed files when
-the pull fails or the pulled catalogs do not share one key set.
+All user-visible copy SHALL be loaded from the Glossa `portfolio` project;
+the repository MUST NOT contain locale catalogs.
 
-#### Scenario: Successful pull
-- **WHEN** `pnpm build` runs and Glossa returns catalogs with matching keys
-- **THEN** `en.json`, `es.json` and `ua.json` (from Glossa `uk`) are rewritten
-  and the build continues
+#### Scenario: Edit in Glossa
+- **WHEN** a value is changed in Glossa and the page is rendered again
+- **THEN** the page shows the new value without a code change
 
-#### Scenario: Glossa unavailable
-- **WHEN** delivery is disabled and no `GLOSSA_TOKEN` is set, or the request fails
-- **THEN** a warning is logged, no locale file changes, and the build continues
+#### Scenario: Islands translate without a bundled catalog
+- **WHEN** a client island calls `t()`
+- **THEN** it reads the current locale's catalog embedded in the page, and no
+  client JavaScript chunk contains catalog strings or `GLOSSA_TOKEN`
+
+#### Scenario: Glossa unreachable at build
+- **WHEN** a prerendered page cannot load its catalog after retries
+- **THEN** the build fails with an error naming the locale
 
 ### Requirement: Hero copy lives in the about dialog
 

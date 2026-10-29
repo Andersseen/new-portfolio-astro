@@ -2,9 +2,11 @@
 import Home from '@componentes/BentoGrid.astro';
 import Layout from '@layouts/Layout.astro';
 import { t } from '@i18n/utils';
+import { loadMessages } from '@i18n/glossa';
 import { getLanguageFromPath } from '@i18n/config';
 
 const lang = getLanguageFromPath(Astro.url.pathname);
+await loadMessages(lang);
 const title = t(lang, 'site.title');
 const description = t(lang, 'site.description');
 ---
