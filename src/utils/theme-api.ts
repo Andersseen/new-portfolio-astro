@@ -84,7 +84,8 @@ export class ThemeApiError extends Error {
 }
 
 const DEFAULT_TIMEOUT_MS = 9000;
-const THEME_PROXY_PATH = "/api/theme";
+// Trailing slash matches `trailingSlash: "always"`, avoiding a 308 per request.
+const THEME_PROXY_PATH = "/api/theme/";
 const THEME_DIRECT_PATH = "/api/v1/theme";
 
 function getThemeApiUrl(): URL {

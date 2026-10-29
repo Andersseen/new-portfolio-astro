@@ -1,121 +1,81 @@
 import Badge from "./ui/Badge";
-import BaseCard from "./ui/Card";
 import { cn } from "./ui/utils";
 
+type CardAccent = "primary" | "secondary" | "accent" | "success" | "warning";
+
 interface CardProps {
-  id: string;
   title: string;
   description: string;
   badge?: string;
-  badgeColor?: "primary" | "secondary" | "accent" | "success" | "warning";
-  colSpan?: "col-span-1" | "col-span-2";
-  decorative?: boolean;
+  /** Lucide component rendered in the iCloud-style app tile next to the title. */
+  icon?: any;
+  accent?: CardAccent;
   children?: any;
-  tags?: string[];
 }
 
-const colorClasses = {
-  primary: {
-    border: "hover:border-primary/50",
-    shadow: "hover:shadow-primary/10",
-    bg: "bg-primary/10",
-    text: "text-primary",
-  },
-  secondary: {
-    border: "hover:border-secondary/50",
-    shadow: "hover:shadow-secondary/10",
-    bg: "bg-secondary/10",
-    text: "text-secondary",
-  },
-  accent: {
-    border: "hover:border-accent/50",
-    shadow: "hover:shadow-accent/10",
-    bg: "bg-accent/10",
-    text: "text-accent",
-  },
-  success: {
-    border: "hover:border-success/50",
-    shadow: "hover:shadow-success/10",
-    bg: "bg-success/10",
-    text: "text-success",
-  },
-  warning: {
-    border: "hover:border-warning/50",
-    shadow: "hover:shadow-warning/10",
-    bg: "bg-warning/10",
-    text: "text-warning",
-  },
+// Tinted icon tile per accent — same `bg-{color}/10 text-{color}` pairing used
+// across the app, so it holds up under the runtime theme randomizer.
+const iconTileClasses: Record<CardAccent, string> = {
+  primary: "bg-primary/12 text-primary",
+  secondary: "bg-secondary/12 text-secondary",
+  accent: "bg-accent/12 text-accent",
+  success: "bg-success/12 text-success",
+  warning: "bg-warning/15 text-warning",
 };
 
 export default function Card({
   title,
   description,
   badge,
-  badgeColor = "primary",
-  decorative = false,
+  icon: Icon,
+  accent = "primary",
   children,
-  tags,
 }: CardProps) {
-  const colors = colorClasses[badgeColor];
-
   return (
-    <BaseCard
-      variant="default"
-      rounded="full"
-      padding="none" 
-      hoverable={!decorative}
+    <div
       className={cn(
-        "group h-full w-full overflow-hidden transition-shadow transition-border duration-300",
-        colors.border,
-        `shadow-lg ${colors.shadow}`,
-        !decorative && "hover:scale-[1.02] transition-transform"
+        "group h-full w-full overflow-hidden rounded-3xl bg-background shadow-tile",
+        "transition-[box-shadow,translate] duration-300 ease-out",
+        "hover:shadow-tile-hover hover:-translate-y-0.5 motion-reduce:hover:translate-y-0",
       )}
     >
-      {}
-      {}
-
-      {}
-      <div
-        and-layout="vertical"
-        className="relative z-20 h-full p-5 sm:p-7"
-      >
-        {}
+      <div and-layout="vertical" className="h-full p-5 sm:p-6">
         <div
-          and-layout="horizontal align:start justify:between gap:sm gap@sm:md"
-          className="mb-3 sm:mb-4"
+          and-layout="horizontal align:center justify:between gap:sm"
+          className="mb-2"
         >
-          <div className="flex-1 min-w-0">
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-1 sm:mb-1.5 truncate">
+          <div and-layout="horizontal align:center gap:sm" className="min-w-0">
+            {Icon && (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "flex items-center justify-center w-9 h-9 rounded-xl shrink-0",
+                  iconTileClasses[accent],
+                )}
+              >
+                <Icon className="w-[18px] h-[18px]" strokeWidth={2.25} />
+              </span>
+            )}
+            <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground truncate">
               {title}
             </h2>
-            <p className="text-sm sm:text-base text-foreground-secondary line-clamp-2 sm:line-clamp-3 leading-relaxed">
-              {description}
-            </p>
           </div>
 
           {badge && (
-            <Badge variant={badgeColor} size="sm">
+            <Badge variant={accent} size="sm">
               {badge}
             </Badge>
           )}
         </div>
 
-        {}
-        {tags && tags.length > 0 && (
-          <div and-layout="horizontal wrap:wrap gap:xs" className="mb-4">
-            {tags.map((tag) => (
-              <Badge key={tag} variant={badgeColor} size="sm">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
+        <p className="text-sm text-foreground-secondary line-clamp-2 leading-relaxed">
+          {description}
+        </p>
 
-        {}
-        <div and-layout="vertical justify:end" className="flex-1">
+        <div and-layout="vertical justify:end" className="flex-1 mt-3">
           {children && <div className="flex-shrink-0">{children}</div>}
         </div>
       </div>
-    </BaseCard>
+    </div>
   );
 }

@@ -13,18 +13,12 @@ const mediumArticles = await fetchMediumArticles("@andriipap");
 const initialItems = getPortfolioItems(tr, mediumArticles);
 ---
 
-<section class="py-16 px-4 max-w-7xl mx-auto">
-  <div class="mb-10 max-w-3xl">
-    <p class="text-sm uppercase tracking-[0.2em] text-foreground font-semibold mb-3">
-      {tr("portfolio.hero.role")}
-    </p>
-    <h1 class="text-4xl sm:text-6xl font-bold font-heading text-foreground">
-      {tr("portfolio.hero.headline")}
-    </h1>
-    <p class="mt-4 text-lg text-foreground-secondary">
-      {tr("portfolio.hero.subheadline")}
-    </p>
-  </div>
+<section class="pt-20 sm:pt-24 pb-16 px-4 max-w-7xl mx-auto">
+  <!-- The hero copy now lives in the about dialog (navbar logo); the page keeps
+       a visually hidden h1 so the document outline and SEO stay intact. -->
+  <h1 class="sr-only">
+    {tr("portfolio.hero.role")} — {tr("portfolio.hero.headline")}
+  </h1>
 
   <PortfolioGrid client:idle initialItems={initialItems} />
 </section>

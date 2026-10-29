@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "command": "npx"
+    },
+    "codebase-memory": {
+      "args": [
+        "-y",
+        "codebase-memory-mcp"
+      ],
+      "command": "npx"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "glossa": {
+      "headers": {
+        "Authorization": "Bearer ${GLOSSA_TOKEN}"
+      },
+      "type": "http",
+      "url": "https://glossa.andersseen.dev/mcp"
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@0.0.81"
+      ],
+      "command": "npx",
+      "env": {},
+      "type": "stdio"
+    }
+  }
+}

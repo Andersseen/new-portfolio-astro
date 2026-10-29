@@ -24,7 +24,7 @@ const DesignGallery: FunctionalComponent<DesignGalleryProps> = ({ data }) => {
               loading="lazy"
             />
           </div>
-          <p className="text-sm font-medium text-center text-foreground-secondary group-hover:text-primary transition-colors">
+          <p className="text-sm font-medium text-center text-foreground-secondary group-hover:text-foreground transition-colors">
             {item.title}
           </p>
         </div>

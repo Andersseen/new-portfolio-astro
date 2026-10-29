@@ -27,7 +27,7 @@ entry point. Read it fully before touching code.
 | ----------------- | ----------------------------------------------------- |
 | `pnpm dev`        | Dev server at localhost:4321                          |
 | `pnpm check`      | i18n key parity check + `astro check` (TypeScript)    |
-| `pnpm check:i18n` | Only the locale key parity check                      |
+| `pnpm check:i18n` | Key parity check of the Glossa catalogs               |
 | `pnpm build`      | Production build (must pass before considering done)  |
 | `pnpm preview`    | Preview the production build                          |
 | `pnpm openspec:status` | List active OpenSpec changes                     |
@@ -42,9 +42,13 @@ entry point. Read it fully before touching code.
    integration compiles only that directory (`transformFilter`), and the Preact
    integration excludes it. An Angular component placed anywhere else silently
    fails; a Preact component placed inside it won't compile.
-3. **Every new i18n key must be added to all three files:** `src/i18n/locales/en.json`,
-   `es.json`, `ua.json`. `pnpm check:i18n` fails otherwise. Missing keys render
-   as the raw key string on the page (`t()` falls back to the key).
+3. **Translations live only in Glossa** (project `portfolio`; the site's `ua`
+   is Glossa's `uk`). There are no locale files in the repo: pages load the
+   catalog via `loadMessages()` (`src/i18n/glossa.ts`) at build/render time.
+   Every new key goes into Glossa (the `glossa` MCP server or its UI) for all
+   three locales; `pnpm check:i18n` checks parity there. Missing keys render
+   as the raw key string. The build needs `GLOSSA_TOKEN` unless Glossa public
+   delivery is enabled, and fails if Glossa is unreachable.
 4. **Path aliases** (`@componentes`, `@i18n`, `@layouts`, `@scripts`, `@styles`,
    `@assets`, `@/`) are defined in **two places** that must stay in sync:
    `astro.config.mjs` (vite.resolve.alias) and `tsconfig.json` (paths).
@@ -56,7 +60,7 @@ entry point. Read it fully before touching code.
    (`bg-background`, `text-foreground`, `text-primary`, `border-border`, …),
    never hardcoded colors — the runtime theme randomizer overrides these
    CSS variables.
-7. **Never commit `.env`** (contains `THEME_API_BASE_URL`, `RESEND_API_KEY`).
+7. **Never commit `.env`** (contains `THEME_API_BASE_URL`, `RESEND_API_KEY`, `GLOSSA_TOKEN`).
 
 ## Definition of done (check before reporting a task complete)
 
@@ -66,6 +70,18 @@ entry point. Read it fully before touching code.
 - [ ] New UI is keyboard-operable with proper ARIA (project standard).
 - [ ] [docs/STATE.md](docs/STATE.md) updated with what changed.
 - [ ] Relevant OpenSpec change tasks are complete and validation passes.
+
+## Agent harness (Agentyx)
+
+Project-local Skills and MCP servers are managed by
+[Agentyx](https://github.com/Andersseen/agentyx) from `.agentyx.json`
+(packs: technical, typescript, angular, testing, creative-web, ui-ux,
+accessibility, performance, git; `playwright` enabled; targets Claude Code and
+Codex). Skills live in `.claude/skills/` and `.agents/skills/`; MCP servers in
+`.mcp.json` and `.codex/config.toml`. Do not hand-edit generated Skills —
+change `.agentyx.json` and run `pnpm dlx @agentyx/cli@0.24.0 install`, then
+commit the updated `.agentyx.lock.json`. `agentyx doctor` checks the setup.
+The OpenSpec skills in `.codex/skills/` are separate and not managed by Agentyx.
 
 ## Git workflow
 

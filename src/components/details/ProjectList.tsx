@@ -51,7 +51,7 @@ const ProjectList: FunctionalComponent<ProjectListProps> = ({ data }) => {
                   and-layout="horizontal align:start justify:between"
                   className="mb-2 gap-3"
                 >
-                  <h3 className="font-bold text-lg text-foreground transition-colors duration-300 group-hover:text-primary">
+                  <h3 className="font-bold text-lg text-foreground transition-colors duration-300 group-hover:underline underline-offset-4 decoration-primary decoration-2">
                     {project.title}
                   </h3>
                   <span className="shrink-0 rounded-full border border-border bg-background-secondary px-2.5 py-1 text-xs font-medium text-foreground">

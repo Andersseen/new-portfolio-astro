@@ -1,0 +1,20 @@
+{
+  "packs": [
+    "technical",
+    "typescript",
+    "angular",
+    "testing",
+    "creative-web",
+    "ui-ux",
+    "accessibility",
+    "performance",
+    "git"
+  ],
+  "enable": [
+    "playwright"
+  ],
+  "targets": [
+    "claude",
+    "codex"
+  ]
+}

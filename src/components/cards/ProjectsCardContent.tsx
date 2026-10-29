@@ -25,7 +25,7 @@ export default function ProjectsCardContent({
             <div
               key={`${project.title || "project"}-${i}`}
               and-layout="horizontal align:center gap:sm"
-              className="rounded-lg border border-border/50 bg-background-tertiary/60 px-3 py-2"
+              className="rounded-xl bg-background-secondary px-3 py-2"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
               <span className="text-sm font-medium text-foreground truncate flex-1">
@@ -35,7 +35,7 @@ export default function ProjectsCardContent({
                 {(project.tech || []).slice(0, 2).map((tech, j: number) => (
                   <span
                     key={`${tech}-${j}`}
-                    className="rounded-full border border-border bg-background-tertiary px-2 py-0.5 text-xs font-semibold leading-relaxed text-foreground"
+                    className={`rounded-full bg-background-tertiary px-2 py-0.5 text-xs font-semibold leading-relaxed text-foreground ${j > 0 ? "hidden sm:inline" : ""}`}
                   >
                     {tech}
                   </span>

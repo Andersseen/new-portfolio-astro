@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-20 · **Branch state:** `feature/portfolio-phases` — language switcher trailing-slash fix after full a11y/theme fixes
+**Last updated:** 2026-10-29 · **Branch state:** `feature/glossa-icloud-bento` — Glossa translations + iCloud-style bento
 
 ## Status: ✅ Stable, build passes
 
@@ -17,6 +17,55 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 100 on Vercel.
 
 ## Recently completed (last few cycles)
+
+- **Agentyx agent harness**: `.agentyx.json` + lock (Agentyx 0.24.0) installs
+  37 Skills each for Claude Code (`.claude/skills`) and Codex
+  (`.agents/skills`), plus context7/playwright MCP (`.mcp.json`,
+  `.codex/config.toml`). `.mcp.json` is now committed (no secrets; Glossa
+  uses `${GLOSSA_TOKEN}` from the shell env, GitHub MCP needs auth).
+
+- **Theme toggle / randomize race fix** (OpenSpec `theme-controller`)
+  - Root cause: toggle and palette regeneration were decoupled async flows;
+    late API responses painted the other mode's palette and rewrote
+    `data-theme`, and persistence stored mixed state (dark mode + white page,
+    then randomize stuck on light palettes).
+  - New `src/scripts/theme-controller.ts` replaces `theme-toggle.ts` and
+    `theme-randomizer.ts` (generation counter, atomic mode+colors commit,
+    `{baseHue, harmony}` palettes kept across modes, opposite-mode prefetch).
+  - State moved to localStorage (`portfolio:theme`); the `<head>` script
+    restores it synchronously (no flash). Legacy IDB state migrates once.
+  - First visit now shows the static design tokens (no seeded API palette).
+  - New mocked-API race tests in `tests/theme.spec.ts`; these fail on the
+    previous code. Fixed remaining `group-hover:text-primary` contrast
+    failures in Community/Stack/Design modals.
+
+- **Glossa translations + iCloud-style bento** (OpenSpec `glossa-icloud-bento`)
+  - Translations live **only in Glossa** (project `portfolio`, locales
+    `en`/`es`/`uk`; site `ua` ↔ Glossa `uk`); `src/i18n/locales/` was deleted.
+    Pages `await loadMessages(lang)` (`src/i18n/glossa.ts`, server-only);
+    `Layout.astro` embeds the locale's catalog for islands. `pnpm check:i18n`
+    checks parity in Glossa. In dev, Glossa edits show on reload.
+  - Glossa **public delivery is still disabled**, so loading uses MCP with
+    `GLOSSA_TOKEN` (in `.env` locally). **Vercel needs `GLOSSA_TOKEN`** (or
+    enable delivery) — without it the build fails. Public delivery has since
+    been enabled, so Vercel builds load catalogs without a token.
+  - Community → Projects now lists ForgeCMS, Volt UI, Doqs, Etyma, Angular
+    Movement, Quartz Headless, Palette Crafter (repo/URL fixed) and CV Builder;
+    GSAP Blocker, Material Blocks, Devflare and Reminder were removed (keys
+    deleted in Glossa).
+  - Hero removed from the page (visually hidden `h1` kept); role/headline/
+    subheadline now open from the navbar logo in the about dialog, whose
+    labels are translated now.
+  - Logo: cropped viewBox, painted as a `bg-foreground` CSS mask in a solid
+    circle (`.logo-mark` in `global.css`).
+  - iCloud-inspired grid: page on `background-secondary`, tiles on
+    `background` with `--shadow-tile` (hairline in dark), app-style icon tile
+    per card (`PortfolioCard.tsx` → `Card.tsx`), flatter inner rows.
+  - Fixed `ProjectList` title hover (`text-primary`, 3.56:1) exposed by the
+    layout shift; now underline.
+  - Verified: `pnpm check`, `pnpm build`, `pnpm test:e2e` (23/23). The
+    `openspec` CLI is not installed on this machine, so `openspec:validate`
+    could not run.
 
 - **Language switcher trailing-slash fix**
   - Fixed `LanguageSelector.astro` links for Astro's `trailingSlash: "always"`

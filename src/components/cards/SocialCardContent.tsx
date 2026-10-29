@@ -28,7 +28,7 @@ export default function SocialCardContent({ item }: SocialCardContentProps) {
               and-layout="vertical align:center gap:xs"
             >
               <div
-                className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-border bg-background-tertiary text-foreground"
+                className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-background-secondary text-foreground"
                 aria-hidden="true"
               >
                 {IconComponent && (

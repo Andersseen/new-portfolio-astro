@@ -48,10 +48,11 @@ SSR is genuinely impossible.
 
 ## i18n (applies to every user-visible string)
 
-1. Add the key to `src/i18n/locales/en.json` first (en is the source of truth).
-2. Add the SAME key to `es.json` and `ua.json` with real translations
+1. Add the key in Glossa (project `portfolio`) for `en` first — via the
+   `glossa` MCP server (`set_translation`) or the Glossa UI.
+2. Add the SAME key for `es` and `uk` with real translations
    (Spanish and Ukrainian — translate properly, don't copy English).
-3. Run `pnpm check:i18n` — it fails on missing or extra keys.
+3. Run `pnpm check:i18n` — it fails on missing or extra keys in Glossa.
 4. In `.astro` files: `const tr = (key) => t(lang, key)` with lang from
    `getLanguageFromPath(Astro.url.pathname)`. In grid content: strings flow
    through `getPortfolioItems(tr, …)` — never hardcode display text in
@@ -135,5 +136,7 @@ mobile width (<768px, no drag) + desktop, and en/es/ua if text changed.
 - Swapy must be destroyed before re-init (resize handler does this) or
   listeners leak.
 - `aboutMeData` reads `window.location` — guard any similar code for SSR.
-- Locale JSONs must match `en.json` exactly — *extra* keys fail the check too.
+- Glossa catalogs must match `en` exactly — *extra* keys fail the check too.
+- A page that calls `t()` must `await loadMessages(lang)` first, or every
+  string renders as its raw key.
 - `.env` currently exists locally with real values; never print or commit it.

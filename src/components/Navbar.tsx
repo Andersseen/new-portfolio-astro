@@ -62,7 +62,7 @@ export default function Navbar({ children }: NavbarProps) {
         border-b transition-all duration-300 ease-in-out
         ${
           isScrolled
-            ? "bg-background/80 backdrop-blur-lg shadow-lg border-border/50 py-2"
+            ? "bg-background-secondary/80 backdrop-blur-lg shadow-sm border-border/50 py-2"
             : "bg-transparent border-transparent shadow-none py-4"
         }
       `}
@@ -96,17 +96,14 @@ export default function Navbar({ children }: NavbarProps) {
               }}
             >
               {}
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden shrink-0">
-                <div className="absolute inset-0 bg-primary/30 backdrop-blur-sm border-2 border-primary/20 group-hover:border-primary/40 group-hover:bg-primary/50 transition-all duration-300 flex items-center justify-center text-sm sm:text-base font-bold text-primary">
-                  <img
-                    src="/logo.svg"
-                    alt="Andersseen Dev Logo"
-                    width="40"
-                    height="40"
-                    fetchpriority="high"
-                  />
-                </div>
-              </div>
+              {/* The logo is painted through a CSS mask so it follows the
+                  foreground token in every theme instead of staying black. */}
+              <span
+                aria-hidden="true"
+                className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-background shadow-sm ring-1 ring-border group-hover:ring-foreground/30 transition-shadow duration-300 shrink-0"
+              >
+                <span className="logo-mark block w-[55%] h-[55%] bg-foreground" />
+              </span>
 
               {}
               <span className="hidden sm:block text-lg sm:text-xl font-bold text-foreground hover:text-primary transition-colors select-none">

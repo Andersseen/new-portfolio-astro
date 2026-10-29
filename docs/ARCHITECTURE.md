@@ -12,7 +12,8 @@ are about to modify. File paths are relative to the repo root.
   be applied to all locale pages** (they are thin wrappers, so this is rare).
 - `src/layouts/Layout.astro`: html shell, sets `lang` from URL and
   `data-theme="light"` default, mounts Navbar (Preact island) + Footer, and
-  loads `theme-toggle.ts` / `theme-randomizer.ts` as client scripts.
+  loads `theme-controller.ts` as a client script (the inline theme script in
+  `BaseHead.astro` sets the real `data-theme` before paint).
 
 ## 2. Multi-framework islands (the unusual part)
 
@@ -35,7 +36,8 @@ signals, and `lucide-angular` (which is in `vite.ssr.noExternal`).
 ## 3. Data flow (content)
 
 ```
-src/i18n/locales/{en,es,ua}.json      ← all user-visible strings
+Glossa catalogs (en/es/uk)           ← all user-visible strings
+        │  loadMessages(lang) (src/i18n/glossa.ts, server-only)
         │  t(lang, key)  (src/i18n/utils.ts — returns key if missing)
         ▼
 src/data/portfolio.ts                 ← getPortfolioItems(tr, articles): card definitions
@@ -95,13 +97,17 @@ background/foreground/border tiers, fonts (Inter body, Outfit headings).
 
 **Layer 2 — runtime randomizer:** client scripts in `src/scripts/`:
 
-- `theme-toggle.ts` — light/dark switch (sets `data-theme` on `<html>`).
-- `theme-randomizer.ts` — fetches a palette from the Palette Crafter API via
-  the `/api/theme` proxy (`src/utils/theme-api.ts` client), applies it by
-  overwriting the CSS variables (`theme-apply.ts`), falls back to hardcoded
-  colors on failure, retries once (450ms).
-- `theme-state.ts` — persists `ThemeState` (mode, colors, API snapshot,
-  userSet flag) in IndexedDB.
+- `theme-controller.ts` — single owner of mode + palette. Handles the toggle,
+  randomize and system-preference changes. Every action bumps a generation
+  counter and stale async results are dropped, so mode and colors are always
+  committed together inside one `theme-transition.ts` reveal. A palette is
+  `{ baseHue, harmony }`, re-requested per mode, so it survives toggling;
+  the opposite mode is prefetched. State persists in localStorage
+  (`portfolio:theme`, flattened CSS vars), which the inline script in
+  `BaseHead.astro` re-applies synchronously before first paint. If the API
+  fails, the current theme stays (static tokens when there is no palette).
+- `theme-state.ts` — `ThemeColors` type plus a one-time read of the legacy
+  IndexedDB state for migration.
 - `src/pages/api/theme.ts` — server-side proxy (GET/POST) to
   `THEME_API_BASE_URL` so the upstream URL/key never reaches the client;
   returns 502 JSON on upstream failure.
@@ -115,10 +121,19 @@ A hardcoded color will not respond to the randomizer or dark mode and is a bug.
 - Config: `src/i18n/config.ts` (`en` default, `es`, `ua`; locale codes en-US /
   es-ES / uk-UA). Astro i18n routing: `prefixDefaultLocale: false`, fallback
   es→en, ua→en.
-- Translation: `t(lang, key)` does dot-path lookup in the JSON; **returns the
-  key string on miss** (no crash — visible bug on page instead).
-- Parity enforcement: `scripts/check-i18n.mjs` (run via `pnpm check:i18n`)
-  fails on missing OR extra keys vs `en.json`.
+- Source: Glossa (project `portfolio`, locales `en`/`es`/`uk`; site `ua` ↔
+  Glossa `uk`). No locale files in the repo.
+- Server: pages `await loadMessages(lang)` (`src/i18n/glossa.ts`) before any
+  `t()`. It reads the public delivery URL, else MCP `get_catalog` with
+  `GLOSSA_TOKEN`; cached for the build, ~5s in dev (Glossa edits show on
+  reload). A prerendered page fails the build if Glossa is unreachable.
+- Client: `Layout.astro` embeds the current locale's catalog as
+  `<script type="application/json" id="i18n-messages">`; `t()` reads it in
+  the browser, so islands use the same API and no catalog is bundled.
+- Translation: `t(lang, key)` does dot-path lookup; **returns the key string
+  on miss** (no crash — visible bug on page instead).
+- Parity enforcement: `pnpm check:i18n` (`scripts/glossa.mjs check`) fails on
+  missing OR extra keys vs Glossa `en`.
 - Language switcher: `src/components/LanguageSelector.astro`.
 
 ## 8. API endpoints
@@ -149,12 +164,12 @@ src/
 │   ├── Navbar.tsx, ModalManager.tsx, AboutDrawer.tsx, …
 │   └── *.astro      Static presentational components
 ├── data/portfolio.ts        Grid content (single source of truth)
-├── i18n/            config.ts, utils.ts, locales/{en,es,ua}.json
+├── i18n/            config.ts, utils.ts (t), glossa.ts (server-only loader)
 ├── layouts/Layout.astro
 ├── pages/           index.astro, {en,es,ua}/index.astro, api/{theme,send-email}.ts
 ├── scripts/         Client-side: theme-*, idb-order, db, swapy-grid, card-modal
 ├── store/modalStore.ts      Nanostores modal state machine
 ├── styles/global.css        Tailwind v4 @theme tokens + dark overrides
 └── utils/           fetchers.ts (Medium/GitHub), theme-api.ts (API client + types)
-scripts/check-i18n.mjs       Locale parity checker (node script)
+scripts/glossa.mjs           Glossa key-parity checker (`pnpm check:i18n`)
 ```

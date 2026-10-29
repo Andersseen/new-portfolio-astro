@@ -22,7 +22,13 @@ const TRANSITION_TIMEOUT_MS = REVEAL_DURATION_MS + 260;
 /** Ease-out that decelerates smoothly, giving a liquid "settle" feel. */
 const REVEAL_EASING = "cubic-bezier(0.33, 0, 0.2, 1)";
 
-let activeTransition: Promise<void> | null = null;
+/**
+ * The transition currently running. A new theme change skips it (jumping to
+ * its end state) and starts its own reveal from the new click point, so rapid
+ * clicks each get a drop instead of the later ones snapping without animation.
+ */
+let active: { id: number; transition: ViewTransition } | null = null;
+let nextId = 0;
 
 function prefersReducedMotion(): boolean {
   try {
@@ -49,10 +55,6 @@ export function runThemeTransition(
   update: () => void | Promise<void>,
   origin?: TransitionOrigin | null,
 ): Promise<void> {
-  if (activeTransition) {
-    return Promise.resolve(update());
-  }
-
   const startViewTransition = (
     document as Document & {
       startViewTransition?: Document["startViewTransition"];
@@ -70,15 +72,26 @@ export function runThemeTransition(
   // Radius needed to cover the farthest corner from the origin.
   const endRadius = Math.hypot(Math.max(x, w - x), Math.max(y, h - y));
 
+  if (active) {
+    try {
+      active.transition.skipTransition();
+    } catch {
+      // Already finished.
+    }
+  }
+
+  const id = ++nextId;
   document.documentElement.dataset.themeTransition = "active";
 
   let transition: ViewTransition;
   try {
     transition = startViewTransition.call(document, () => Promise.resolve(update()));
   } catch {
+    active = null;
     delete document.documentElement.dataset.themeTransition;
     return Promise.resolve(update());
   }
+  active = { id, transition };
 
   const reveal = transition.ready
     .then(() => {
@@ -99,19 +112,19 @@ export function runThemeTransition(
     })
     .catch(() => undefined);
 
-  activeTransition = Promise.all([
+  return Promise.all([
     withTimeout(transition.finished, TRANSITION_TIMEOUT_MS),
     withTimeout(reveal, TRANSITION_TIMEOUT_MS),
   ])
     .then(() => undefined)
     .finally(() => {
-      if (activeTransition) {
-        activeTransition = null;
+      // Only the newest transition clears the flag; a skipped one must not
+      // remove it while its successor is still animating.
+      if (active?.id === id) {
+        active = null;
+        delete document.documentElement.dataset.themeTransition;
       }
-      delete document.documentElement.dataset.themeTransition;
     });
-
-  return activeTransition;
 }
 
 /**

@@ -149,20 +149,26 @@ export default function AboutDrawer({
             className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground-tertiary hover:text-foreground transition-colors cursor-pointer px-4 py-1.5 rounded-full hover:bg-foreground/5"
           >
             <ChevronDownIcon className="w-4 h-4" />
-            Close
+            {tr("portfolio.aboutMe.close")}
           </button>
         </div>
         {}
         <div className="overflow-y-auto flex-1 custom-scrollbar">
           {}
           <div className="px-6 sm:px-12 lg:px-20 pt-12 sm:pt-16 pb-8 text-center max-w-3xl mx-auto">
+            <p className="text-xs sm:text-sm uppercase tracking-[0.2em] font-semibold text-foreground-secondary mb-4">
+              {tr("portfolio.hero.role")}
+            </p>
             <h2 id="about-drawer-title" className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-foreground tracking-tight leading-none">
               {(data.title || "Andersseen").split(",").pop()?.trim() ||
                 "Andersseen"}
               <span className="text-primary">.</span>
             </h2>
-            <p className="mt-4 text-lg text-foreground-tertiary leading-relaxed">
-              Full Stack Developer &amp; Designer
+            <p className="mt-6 text-xl sm:text-2xl font-bold font-heading text-foreground leading-snug text-balance">
+              {tr("portfolio.hero.headline")}
+            </p>
+            <p className="mt-3 text-base sm:text-lg text-foreground-secondary leading-relaxed">
+              {tr("portfolio.hero.subheadline")}
             </p>
             <a
               href="/andrii-pap.pdf"
@@ -203,7 +209,7 @@ export default function AboutDrawer({
               {data.philosophy && (
                 <div className="text-center sm:text-left">
                   <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground-tertiary block mb-3">
-                    Philosophy
+                    {tr("portfolio.aboutMe.philosophyLabel")}
                   </span>
                   <p className="text-sm italic text-foreground-secondary leading-relaxed">
                     "{data.philosophy}"
@@ -213,7 +219,7 @@ export default function AboutDrawer({
               {data.goal && (
                 <div className="text-center sm:text-left">
                   <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground-tertiary block mb-3">
-                    Mission
+                    {tr("portfolio.aboutMe.missionLabel")}
                   </span>
                   <p className="text-sm text-foreground-secondary leading-relaxed">
                     {data.goal}
@@ -229,7 +235,7 @@ export default function AboutDrawer({
             {data.social && data.social.length > 0 && (
               <div className="flex flex-col items-center gap-4">
                 <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-foreground-tertiary">
-                  Connect
+                  {tr("portfolio.aboutMe.connectLabel")}
                 </span>
                 <div className="flex flex-wrap justify-center gap-3">
                   {data.social.map((link, i) => {

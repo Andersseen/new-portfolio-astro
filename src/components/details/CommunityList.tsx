@@ -80,7 +80,7 @@ const CommunityList: FunctionalComponent<CommunityListProps> = ({ data }) => {
             className="block p-5 rounded-xl bg-background-tertiary border border-border hover:border-primary/40 hover:shadow-md transition-all group relative overflow-hidden"
           >
             <div and-layout="vertical gap:xxs">
-              <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+              <h3 className="font-bold text-lg text-foreground group-hover:underline underline-offset-4 decoration-primary decoration-2">
                 {item.organization}
               </h3>
               <span className="text-xs font-semibold text-foreground-secondary uppercase tracking-wider">

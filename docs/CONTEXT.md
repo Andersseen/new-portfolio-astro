@@ -35,7 +35,7 @@ ecosystem — all inside a single-page **interactive bento grid**.
 
 ## Non-goals
 
-- No CMS, no database, no auth. Content is code (`src/data/portfolio.ts` + locale JSONs).
+- No CMS, no database, no auth. Content is code (`src/data/portfolio.ts`); copy lives in Glossa.
 - No SEO-driven blog inside this repo — articles live on Medium and the blog at andersseen.dev; this site links out.
 - No React. (React types exist only because `react` is aliased to `preact/compat`.)
 - No test suite (for now) — verification is type checks + build + manual review.
@@ -49,6 +49,7 @@ ecosystem — all inside a single-page **interactive bento grid**.
 | Resend                  | Contact email sending                             | `RESEND_API_KEY`, used by `/api/send-email` |
 | Medium RSS              | Latest articles, fetched at render time           | Feed of `@andriipap`                       |
 | GitHub API              | README/activity data for the community card       | Public, unauthenticated                    |
+| Glossa                  | Single source of all translations (also Andrii's project), loaded at build/render time | `GLOSSA_TOKEN`, `src/i18n/glossa.ts` |
 
 ## The one-paragraph mental model
 
