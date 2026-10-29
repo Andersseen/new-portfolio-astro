@@ -56,7 +56,7 @@ const StackDetails = ({ data }: StackDetailsProps) => {
                       }}
                     />
                   </div>
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  <span className="text-sm font-medium text-foreground group-hover:underline underline-offset-4 decoration-primary decoration-2">
                     {item.name}
                   </span>
                 </div>

@@ -18,6 +18,21 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **Theme toggle / randomize race fix** (OpenSpec `theme-controller`)
+  - Root cause: toggle and palette regeneration were decoupled async flows;
+    late API responses painted the other mode's palette and rewrote
+    `data-theme`, and persistence stored mixed state (dark mode + white page,
+    then randomize stuck on light palettes).
+  - New `src/scripts/theme-controller.ts` replaces `theme-toggle.ts` and
+    `theme-randomizer.ts` (generation counter, atomic mode+colors commit,
+    `{baseHue, harmony}` palettes kept across modes, opposite-mode prefetch).
+  - State moved to localStorage (`portfolio:theme`); the `<head>` script
+    restores it synchronously (no flash). Legacy IDB state migrates once.
+  - First visit now shows the static design tokens (no seeded API palette).
+  - New mocked-API race tests in `tests/theme.spec.ts`; these fail on the
+    previous code. Fixed remaining `group-hover:text-primary` contrast
+    failures in Community/Stack/Design modals.
+
 - **Glossa translations + iCloud-style bento** (OpenSpec `glossa-icloud-bento`)
   - Translations now live in Glossa (project `portfolio`, locales `en`/`es`/`uk`;
     site `ua` ↔ Glossa `uk`). Seeded all 135 keys. `scripts/glossa.mjs`:

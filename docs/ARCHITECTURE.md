@@ -12,7 +12,8 @@ are about to modify. File paths are relative to the repo root.
   be applied to all locale pages** (they are thin wrappers, so this is rare).
 - `src/layouts/Layout.astro`: html shell, sets `lang` from URL and
   `data-theme="light"` default, mounts Navbar (Preact island) + Footer, and
-  loads `theme-toggle.ts` / `theme-randomizer.ts` as client scripts.
+  loads `theme-controller.ts` as a client script (the inline theme script in
+  `BaseHead.astro` sets the real `data-theme` before paint).
 
 ## 2. Multi-framework islands (the unusual part)
 
@@ -95,13 +96,17 @@ background/foreground/border tiers, fonts (Inter body, Outfit headings).
 
 **Layer 2 — runtime randomizer:** client scripts in `src/scripts/`:
 
-- `theme-toggle.ts` — light/dark switch (sets `data-theme` on `<html>`).
-- `theme-randomizer.ts` — fetches a palette from the Palette Crafter API via
-  the `/api/theme` proxy (`src/utils/theme-api.ts` client), applies it by
-  overwriting the CSS variables (`theme-apply.ts`), falls back to hardcoded
-  colors on failure, retries once (450ms).
-- `theme-state.ts` — persists `ThemeState` (mode, colors, API snapshot,
-  userSet flag) in IndexedDB.
+- `theme-controller.ts` — single owner of mode + palette. Handles the toggle,
+  randomize and system-preference changes. Every action bumps a generation
+  counter and stale async results are dropped, so mode and colors are always
+  committed together inside one `theme-transition.ts` reveal. A palette is
+  `{ baseHue, harmony }`, re-requested per mode, so it survives toggling;
+  the opposite mode is prefetched. State persists in localStorage
+  (`portfolio:theme`, flattened CSS vars), which the inline script in
+  `BaseHead.astro` re-applies synchronously before first paint. If the API
+  fails, the current theme stays (static tokens when there is no palette).
+- `theme-state.ts` — `ThemeColors` type plus a one-time read of the legacy
+  IndexedDB state for migration.
 - `src/pages/api/theme.ts` — server-side proxy (GET/POST) to
   `THEME_API_BASE_URL` so the upstream URL/key never reaches the client;
   returns 502 JSON on upstream failure.

@@ -46,26 +46,28 @@ const THEME_CSS_PROPERTIES = [
 ];
 
 /**
- * Applies a ThemeColors object to CSS custom properties on the document root.
+ * Flattens a ThemeColors object into CSS custom property → value pairs.
  * Handles both string values and full color scales for primary/secondary.
+ * The flat form is what gets persisted, so the inline `<head>` script can
+ * re-apply a palette synchronously before first paint.
  */
-export function applyThemeColors(colors: ThemeColors) {
-  const root = document.documentElement;
+export function themeColorsToVars(colors: ThemeColors): Record<string, string> {
+  const vars: Record<string, string> = {};
 
   const setScale = (prefix: string, scale: ThemeScale | string) => {
     if (typeof scale === "string") {
-      root.style.setProperty(`--color-${prefix}`, scale);
+      vars[`--color-${prefix}`] = scale;
       return;
     }
 
     Object.entries(scale).forEach(([key, value]) => {
       const v = value as string;
       if (key === "DEFAULT") {
-        root.style.setProperty(`--color-${prefix}`, v);
+        vars[`--color-${prefix}`] = v;
       } else if (key === "foreground") {
-        root.style.setProperty(`--color-${prefix}-foreground`, v);
+        vars[`--color-${prefix}-foreground`] = v;
       } else {
-        root.style.setProperty(`--color-${prefix}-${key}`, v);
+        vars[`--color-${prefix}-${key}`] = v;
       }
     });
   };
@@ -73,46 +75,37 @@ export function applyThemeColors(colors: ThemeColors) {
   setScale("primary", colors.primary);
   setScale("secondary", colors.secondary);
 
-  root.style.setProperty("--color-accent", colors.accent);
-  root.style.setProperty("--color-success", colors.success);
-  root.style.setProperty("--color-warning", colors.warning);
+  const optional: [string, string | undefined][] = [
+    ["--color-accent", colors.accent],
+    ["--color-success", colors.success],
+    ["--color-warning", colors.warning],
+    ["--color-background", colors.background],
+    ["--color-foreground", colors.foreground],
+    ["--color-background-secondary", colors.backgroundSecondary],
+    ["--color-background-tertiary", colors.backgroundTertiary],
+    ["--color-foreground-secondary", colors.foregroundSecondary],
+    ["--color-foreground-tertiary", colors.foregroundTertiary],
+    ["--color-border", colors.border],
+    ["--color-border-light", colors.borderLight],
+  ];
+  optional.forEach(([prop, value]) => {
+    if (value) vars[prop] = value;
+  });
 
-  if (colors.background) {
-    root.style.setProperty("--color-background", colors.background);
-  }
-  if (colors.foreground) {
-    root.style.setProperty("--color-foreground", colors.foreground);
-  }
-  if (colors.backgroundSecondary) {
-    root.style.setProperty(
-      "--color-background-secondary",
-      colors.backgroundSecondary,
-    );
-  }
-  if (colors.backgroundTertiary) {
-    root.style.setProperty(
-      "--color-background-tertiary",
-      colors.backgroundTertiary,
-    );
-  }
-  if (colors.foregroundSecondary) {
-    root.style.setProperty(
-      "--color-foreground-secondary",
-      colors.foregroundSecondary,
-    );
-  }
-  if (colors.foregroundTertiary) {
-    root.style.setProperty(
-      "--color-foreground-tertiary",
-      colors.foregroundTertiary,
-    );
-  }
-  if (colors.border) {
-    root.style.setProperty("--color-border", colors.border);
-  }
-  if (colors.borderLight) {
-    root.style.setProperty("--color-border-light", colors.borderLight);
-  }
+  return vars;
+}
+
+/** Applies flattened theme variables to the document root. */
+export function applyThemeVars(vars: Record<string, string>) {
+  const root = document.documentElement;
+  Object.entries(vars).forEach(([prop, value]) => {
+    root.style.setProperty(prop, value);
+  });
+}
+
+/** Applies a ThemeColors object to CSS custom properties on the document root. */
+export function applyThemeColors(colors: ThemeColors) {
+  applyThemeVars(themeColorsToVars(colors));
 }
 
 /**

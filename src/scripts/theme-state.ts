@@ -4,9 +4,9 @@ import type { ThemeApiMeta, ThemeScale, ThemeApiTheme, ThemeMode } from "@/utils
 export interface ThemeColors {
   primary: ThemeScale | string;
   secondary: ThemeScale | string;
-  accent: string;
-  success: string;
-  warning: string;
+  accent?: string;
+  success?: string;
+  warning?: string;
   background?: string;
   foreground?: string;
   backgroundSecondary?: string;
@@ -23,16 +23,12 @@ export interface ThemeApiSnapshot {
   fetchedAt: number;
 }
 
+/** Legacy IndexedDB theme state, read once to migrate to theme-controller. */
 export interface ThemeState {
   mode: ThemeMode;
   colors?: ThemeColors;
   apiSnapshot?: ThemeApiSnapshot;
   userSet: boolean;
-}
-
-export async function saveThemeState(state: ThemeState) {
-  const database = await getDb();
-  await database.put(STORE, state, "theme-state");
 }
 
 export async function loadThemeState(): Promise<ThemeState | undefined> {
