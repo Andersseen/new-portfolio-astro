@@ -1,0 +1,1118 @@
+{
+  "version": 2,
+  "entries": [
+    {
+      "kind": "skill",
+      "path": ".agents/skills/angular-architecture/SKILL.md",
+      "skill": "angular-architecture",
+      "targets": [
+        "codex"
+      ],
+      "hash": "4ffc2b2003f86329467b53d09cd47cdc7abd5e3c4548ea9e11f9ce1c026b0aa8"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/angular-modern/SKILL.md",
+      "skill": "angular-modern",
+      "targets": [
+        "codex"
+      ],
+      "hash": "55008e44e2bb6c9a5956fa85a203dc0fe6405e327c7ed7eefdbb84742269e3db"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/angular-signals/SKILL.md",
+      "skill": "angular-signals",
+      "targets": [
+        "codex"
+      ],
+      "hash": "622176a55c4a13b08ce0bf969fb27437e46b0d999ce901c3a0391ce192ae491f"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/angular-testing/SKILL.md",
+      "skill": "angular-testing",
+      "targets": [
+        "codex"
+      ],
+      "hash": "a9c74c31f2ed728e2bd556c30e61ee17d666e4ab7607ffc1d9207b71ab5f491c"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/api-design/SKILL.md",
+      "skill": "api-design",
+      "targets": [
+        "codex"
+      ],
+      "hash": "01b1dc1bf367367097909f3ec6267fe67083053ce1c503d0c34caa42135e70d7"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/aria-patterns/SKILL.md",
+      "skill": "aria-patterns",
+      "targets": [
+        "codex"
+      ],
+      "hash": "08337f8e76a3ccd0e3abb2b6f35d4016e49de0e156fef134306d76919aa68535"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/branching-strategy/SKILL.md",
+      "skill": "branching-strategy",
+      "targets": [
+        "codex"
+      ],
+      "hash": "138eda6f5f394a4f009bcaabaa6032d536374afb50797dab13efd7b72bc6740a"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/code-quality/SKILL.md",
+      "skill": "code-quality",
+      "targets": [
+        "codex"
+      ],
+      "hash": "c7fef0865643838f0c375d2a7523bbc724d14e45b3329b8ae43215519ba5b12b"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/code-review/SKILL.md",
+      "skill": "code-review",
+      "targets": [
+        "codex"
+      ],
+      "hash": "87e989466034507de357f2abe0c2b0930304baaa6006bbd6cf24d5723334ce8f"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/commit-hygiene/SKILL.md",
+      "skill": "commit-hygiene",
+      "targets": [
+        "codex"
+      ],
+      "hash": "ca501d59eeee6e0bda83cc7baf17050ca3740568433490faabd40581346d71b7"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/creative-direction/SKILL.md",
+      "skill": "creative-direction",
+      "targets": [
+        "codex"
+      ],
+      "hash": "900dc1be4c9f3629e5c953533024a820cd80c248c466810363d1c634cca6ffac"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/design-critique/SKILL.md",
+      "skill": "design-critique",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e5289365b60f952f75948b9b3e099deab2bf67f394f4c451af68e2c818822c32"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/design-reference-research/SKILL.md",
+      "skill": "design-reference-research",
+      "targets": [
+        "codex"
+      ],
+      "hash": "a85c072dfcc7ad0ce950590c4c60dc1140c186cffe5c09a0efe4dfac85d699e5"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/design-system-practice/SKILL.md",
+      "skill": "design-system-practice",
+      "targets": [
+        "codex"
+      ],
+      "hash": "054ca6f531b29eaf9d4c00573fac5924a6e1aab03fad192ca9a4d47400a0439a"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/e2e-testing/SKILL.md",
+      "skill": "e2e-testing",
+      "targets": [
+        "codex"
+      ],
+      "hash": "f07c9ae381e916d93c6ee67c32be8eac76482f19fcfbbe9ca6116af9c3036113"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/engineering-principles/SKILL.md",
+      "skill": "engineering-principles",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e6b21698962c31d60e0ac6b319179f3c8b945b7876e297f42d6afc9ec35dfbf6"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/flaky-tests/SKILL.md",
+      "skill": "flaky-tests",
+      "targets": [
+        "codex"
+      ],
+      "hash": "d567f98325047a258658b44bf8993060256ae1ccf5e8570d183805e533e47481"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/interaction-design/SKILL.md",
+      "skill": "interaction-design",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e03ae6c30534ce16fe814070a6644f1550a4ac697de4885b4f5ddf2923e63839"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/keyboard-navigation/SKILL.md",
+      "skill": "keyboard-navigation",
+      "targets": [
+        "codex"
+      ],
+      "hash": "6e51625b1ac621dd8f27d9e438fa23f0ef5e4bbf4e8b3726151f621bc7ae46f8"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/motion-art-direction/SKILL.md",
+      "skill": "motion-art-direction",
+      "targets": [
+        "codex"
+      ],
+      "hash": "9976291b40b7c4d0467eaf2c8c9305a8f16df1971393952fa12b37306ed70e48"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/performance-profiling/SKILL.md",
+      "skill": "performance-profiling",
+      "targets": [
+        "codex"
+      ],
+      "hash": "c6244f5f058cf7fafdd01bde7381c2da6704c405006bf506a1f2028239f94368"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/pull-requests/SKILL.md",
+      "skill": "pull-requests",
+      "targets": [
+        "codex"
+      ],
+      "hash": "23ec8995490bc82cfcff509986bfc968df9f46c6106c907fd8cd94616699e721"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/query-performance/SKILL.md",
+      "skill": "query-performance",
+      "targets": [
+        "codex"
+      ],
+      "hash": "c567a36433e8f4469279e1ed9fb6df704d69eea6caf110678dc763d4d8ca0a44"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/semantic-html/SKILL.md",
+      "skill": "semantic-html",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e96528d96c138da5f1eb1b79297a3f3bb0e099068e1cc3593e0ae53b2a71a9e2"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/test-doubles/SKILL.md",
+      "skill": "test-doubles",
+      "targets": [
+        "codex"
+      ],
+      "hash": "928a7ef4e9f8f76ccaaf0b7b577386c974077985fe7fa066dae4276bfc744037"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/test-strategy/SKILL.md",
+      "skill": "test-strategy",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e68899774dfa833b19e29d6224e8f375b5263b242bf5be1548c342ce2f4e93d3"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/typescript-modeling/SKILL.md",
+      "skill": "typescript-modeling",
+      "targets": [
+        "codex"
+      ],
+      "hash": "2fb54d99e8374f46b3402d1d16d389c19b86daeb29326ff108bbb01b1ad055c8"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/typescript-modern/SKILL.md",
+      "skill": "typescript-modern",
+      "targets": [
+        "codex"
+      ],
+      "hash": "180fcced2a14811110a4d3e8762927c60e617fda843c138ee707171a820c2d62"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/typescript-strict/SKILL.md",
+      "skill": "typescript-strict",
+      "targets": [
+        "codex"
+      ],
+      "hash": "3e1b5e768d18ec1b2ebe7e367cb018849258ca7fc1c946030cc6c5c0713cc76d"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/typographic-art-direction/SKILL.md",
+      "skill": "typographic-art-direction",
+      "targets": [
+        "codex"
+      ],
+      "hash": "81b8c4dec372105dcde82d01a4fd2af7de0760f7f38ecf01b357572c90cfe172"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/ui-visual-design/SKILL.md",
+      "skill": "ui-visual-design",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e82d429edc09d1a5cc962023610983105bd7852dec90791cdd1bc7ca1f7d940a"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/ux-usability/SKILL.md",
+      "skill": "ux-usability",
+      "targets": [
+        "codex"
+      ],
+      "hash": "e5126b8a4881b23387005db89b7e6f93c0d16a90da4eca1bbd6ccda2a8b21862"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/ux-writing/SKILL.md",
+      "skill": "ux-writing",
+      "targets": [
+        "codex"
+      ],
+      "hash": "bb700acc6351f1cdbfadedce0c1fc88665f4529c75cc41f25277cccde370fc26"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/visual-storytelling/SKILL.md",
+      "skill": "visual-storytelling",
+      "targets": [
+        "codex"
+      ],
+      "hash": "fd50bf1cb47db27a4ed2e2b94ac7731350c0fc742b8e9d00c1f45532fbc32873"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/visual-verification/SKILL.md",
+      "skill": "visual-verification",
+      "targets": [
+        "codex"
+      ],
+      "hash": "b2d26337c7e26caaed43f0a3196255b0782813c24a305faadaf4454810808937"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/web-composition/SKILL.md",
+      "skill": "web-composition",
+      "targets": [
+        "codex"
+      ],
+      "hash": "ac2d379c4511bdd465c9281f3e4b9fdf71608c1fa5ccdba8144f9e6c12166e89"
+    },
+    {
+      "kind": "skill",
+      "path": ".agents/skills/web-vitals/SKILL.md",
+      "skill": "web-vitals",
+      "targets": [
+        "codex"
+      ],
+      "hash": "3ac9588d3fe2adc76c122a5548b8a085d96f172f6f1303d06a813c0b09b46ca2"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/angular-architecture/SKILL.md",
+      "skill": "angular-architecture",
+      "targets": [
+        "claude"
+      ],
+      "hash": "4ffc2b2003f86329467b53d09cd47cdc7abd5e3c4548ea9e11f9ce1c026b0aa8"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/angular-modern/SKILL.md",
+      "skill": "angular-modern",
+      "targets": [
+        "claude"
+      ],
+      "hash": "55008e44e2bb6c9a5956fa85a203dc0fe6405e327c7ed7eefdbb84742269e3db"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/angular-signals/SKILL.md",
+      "skill": "angular-signals",
+      "targets": [
+        "claude"
+      ],
+      "hash": "622176a55c4a13b08ce0bf969fb27437e46b0d999ce901c3a0391ce192ae491f"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/angular-testing/SKILL.md",
+      "skill": "angular-testing",
+      "targets": [
+        "claude"
+      ],
+      "hash": "a9c74c31f2ed728e2bd556c30e61ee17d666e4ab7607ffc1d9207b71ab5f491c"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/api-design/SKILL.md",
+      "skill": "api-design",
+      "targets": [
+        "claude"
+      ],
+      "hash": "01b1dc1bf367367097909f3ec6267fe67083053ce1c503d0c34caa42135e70d7"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/aria-patterns/SKILL.md",
+      "skill": "aria-patterns",
+      "targets": [
+        "claude"
+      ],
+      "hash": "08337f8e76a3ccd0e3abb2b6f35d4016e49de0e156fef134306d76919aa68535"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/branching-strategy/SKILL.md",
+      "skill": "branching-strategy",
+      "targets": [
+        "claude"
+      ],
+      "hash": "138eda6f5f394a4f009bcaabaa6032d536374afb50797dab13efd7b72bc6740a"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/code-quality/SKILL.md",
+      "skill": "code-quality",
+      "targets": [
+        "claude"
+      ],
+      "hash": "c7fef0865643838f0c375d2a7523bbc724d14e45b3329b8ae43215519ba5b12b"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/code-review/SKILL.md",
+      "skill": "code-review",
+      "targets": [
+        "claude"
+      ],
+      "hash": "87e989466034507de357f2abe0c2b0930304baaa6006bbd6cf24d5723334ce8f"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/commit-hygiene/SKILL.md",
+      "skill": "commit-hygiene",
+      "targets": [
+        "claude"
+      ],
+      "hash": "ca501d59eeee6e0bda83cc7baf17050ca3740568433490faabd40581346d71b7"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/creative-direction/SKILL.md",
+      "skill": "creative-direction",
+      "targets": [
+        "claude"
+      ],
+      "hash": "900dc1be4c9f3629e5c953533024a820cd80c248c466810363d1c634cca6ffac"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/design-critique/SKILL.md",
+      "skill": "design-critique",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e5289365b60f952f75948b9b3e099deab2bf67f394f4c451af68e2c818822c32"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/design-reference-research/SKILL.md",
+      "skill": "design-reference-research",
+      "targets": [
+        "claude"
+      ],
+      "hash": "a85c072dfcc7ad0ce950590c4c60dc1140c186cffe5c09a0efe4dfac85d699e5"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/design-system-practice/SKILL.md",
+      "skill": "design-system-practice",
+      "targets": [
+        "claude"
+      ],
+      "hash": "054ca6f531b29eaf9d4c00573fac5924a6e1aab03fad192ca9a4d47400a0439a"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/e2e-testing/SKILL.md",
+      "skill": "e2e-testing",
+      "targets": [
+        "claude"
+      ],
+      "hash": "f07c9ae381e916d93c6ee67c32be8eac76482f19fcfbbe9ca6116af9c3036113"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/engineering-principles/SKILL.md",
+      "skill": "engineering-principles",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e6b21698962c31d60e0ac6b319179f3c8b945b7876e297f42d6afc9ec35dfbf6"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/flaky-tests/SKILL.md",
+      "skill": "flaky-tests",
+      "targets": [
+        "claude"
+      ],
+      "hash": "d567f98325047a258658b44bf8993060256ae1ccf5e8570d183805e533e47481"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/interaction-design/SKILL.md",
+      "skill": "interaction-design",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e03ae6c30534ce16fe814070a6644f1550a4ac697de4885b4f5ddf2923e63839"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/keyboard-navigation/SKILL.md",
+      "skill": "keyboard-navigation",
+      "targets": [
+        "claude"
+      ],
+      "hash": "6e51625b1ac621dd8f27d9e438fa23f0ef5e4bbf4e8b3726151f621bc7ae46f8"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/motion-art-direction/SKILL.md",
+      "skill": "motion-art-direction",
+      "targets": [
+        "claude"
+      ],
+      "hash": "9976291b40b7c4d0467eaf2c8c9305a8f16df1971393952fa12b37306ed70e48"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/performance-profiling/SKILL.md",
+      "skill": "performance-profiling",
+      "targets": [
+        "claude"
+      ],
+      "hash": "c6244f5f058cf7fafdd01bde7381c2da6704c405006bf506a1f2028239f94368"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/pull-requests/SKILL.md",
+      "skill": "pull-requests",
+      "targets": [
+        "claude"
+      ],
+      "hash": "23ec8995490bc82cfcff509986bfc968df9f46c6106c907fd8cd94616699e721"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/query-performance/SKILL.md",
+      "skill": "query-performance",
+      "targets": [
+        "claude"
+      ],
+      "hash": "c567a36433e8f4469279e1ed9fb6df704d69eea6caf110678dc763d4d8ca0a44"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/semantic-html/SKILL.md",
+      "skill": "semantic-html",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e96528d96c138da5f1eb1b79297a3f3bb0e099068e1cc3593e0ae53b2a71a9e2"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/test-doubles/SKILL.md",
+      "skill": "test-doubles",
+      "targets": [
+        "claude"
+      ],
+      "hash": "928a7ef4e9f8f76ccaaf0b7b577386c974077985fe7fa066dae4276bfc744037"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/test-strategy/SKILL.md",
+      "skill": "test-strategy",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e68899774dfa833b19e29d6224e8f375b5263b242bf5be1548c342ce2f4e93d3"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/typescript-modeling/SKILL.md",
+      "skill": "typescript-modeling",
+      "targets": [
+        "claude"
+      ],
+      "hash": "2fb54d99e8374f46b3402d1d16d389c19b86daeb29326ff108bbb01b1ad055c8"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/typescript-modern/SKILL.md",
+      "skill": "typescript-modern",
+      "targets": [
+        "claude"
+      ],
+      "hash": "180fcced2a14811110a4d3e8762927c60e617fda843c138ee707171a820c2d62"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/typescript-strict/SKILL.md",
+      "skill": "typescript-strict",
+      "targets": [
+        "claude"
+      ],
+      "hash": "3e1b5e768d18ec1b2ebe7e367cb018849258ca7fc1c946030cc6c5c0713cc76d"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/typographic-art-direction/SKILL.md",
+      "skill": "typographic-art-direction",
+      "targets": [
+        "claude"
+      ],
+      "hash": "81b8c4dec372105dcde82d01a4fd2af7de0760f7f38ecf01b357572c90cfe172"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/ui-visual-design/SKILL.md",
+      "skill": "ui-visual-design",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e82d429edc09d1a5cc962023610983105bd7852dec90791cdd1bc7ca1f7d940a"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/ux-usability/SKILL.md",
+      "skill": "ux-usability",
+      "targets": [
+        "claude"
+      ],
+      "hash": "e5126b8a4881b23387005db89b7e6f93c0d16a90da4eca1bbd6ccda2a8b21862"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/ux-writing/SKILL.md",
+      "skill": "ux-writing",
+      "targets": [
+        "claude"
+      ],
+      "hash": "bb700acc6351f1cdbfadedce0c1fc88665f4529c75cc41f25277cccde370fc26"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/visual-storytelling/SKILL.md",
+      "skill": "visual-storytelling",
+      "targets": [
+        "claude"
+      ],
+      "hash": "fd50bf1cb47db27a4ed2e2b94ac7731350c0fc742b8e9d00c1f45532fbc32873"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/visual-verification/SKILL.md",
+      "skill": "visual-verification",
+      "targets": [
+        "claude"
+      ],
+      "hash": "b2d26337c7e26caaed43f0a3196255b0782813c24a305faadaf4454810808937"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/web-composition/SKILL.md",
+      "skill": "web-composition",
+      "targets": [
+        "claude"
+      ],
+      "hash": "ac2d379c4511bdd465c9281f3e4b9fdf71608c1fa5ccdba8144f9e6c12166e89"
+    },
+    {
+      "kind": "skill",
+      "path": ".claude/skills/web-vitals/SKILL.md",
+      "skill": "web-vitals",
+      "targets": [
+        "claude"
+      ],
+      "hash": "3ac9588d3fe2adc76c122a5548b8a085d96f172f6f1303d06a813c0b09b46ca2"
+    },
+    {
+      "kind": "mcp",
+      "path": ".codex/config.toml",
+      "servers": [
+        "context7",
+        "playwright"
+      ],
+      "targets": [
+        "codex"
+      ],
+      "hash": "ca7bbe463d41f2be84a50a0bea46acc7543a4599c7e131886ee7cc2a86fe3869",
+      "created": true
+    },
+    {
+      "kind": "mcp",
+      "path": ".mcp.json",
+      "servers": [
+        "context7",
+        "playwright"
+      ],
+      "targets": [
+        "claude"
+      ],
+      "hash": "930d67286eb9155ab06e2d5b6b8612f2a70b3def23e9c8857a591d380cbc136f",
+      "created": false
+    }
+  ],
+  "resolution": {
+    "agentyxVersion": "0.24.0",
+    "configHash": "4585cfc60320f52a68a5efa03ccc7c8ad45b867627a84d05b0c6f5393d74894e",
+    "targets": [
+      "claude",
+      "codex"
+    ],
+    "skills": [
+      {
+        "name": "engineering-principles",
+        "hash": "e6b21698962c31d60e0ac6b319179f3c8b945b7876e297f42d6afc9ec35dfbf6",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "technical"
+          }
+        ]
+      },
+      {
+        "name": "code-quality",
+        "hash": "c7fef0865643838f0c375d2a7523bbc724d14e45b3329b8ae43215519ba5b12b",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "technical"
+          }
+        ]
+      },
+      {
+        "name": "api-design",
+        "hash": "01b1dc1bf367367097909f3ec6267fe67083053ce1c503d0c34caa42135e70d7",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "technical"
+          }
+        ]
+      },
+      {
+        "name": "code-review",
+        "hash": "87e989466034507de357f2abe0c2b0930304baaa6006bbd6cf24d5723334ce8f",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "technical"
+          }
+        ]
+      },
+      {
+        "name": "typescript-strict",
+        "hash": "3e1b5e768d18ec1b2ebe7e367cb018849258ca7fc1c946030cc6c5c0713cc76d",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "typescript"
+          }
+        ]
+      },
+      {
+        "name": "typescript-modeling",
+        "hash": "2fb54d99e8374f46b3402d1d16d389c19b86daeb29326ff108bbb01b1ad055c8",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "typescript"
+          }
+        ]
+      },
+      {
+        "name": "typescript-modern",
+        "hash": "180fcced2a14811110a4d3e8762927c60e617fda843c138ee707171a820c2d62",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "typescript"
+          }
+        ]
+      },
+      {
+        "name": "angular-modern",
+        "hash": "55008e44e2bb6c9a5956fa85a203dc0fe6405e327c7ed7eefdbb84742269e3db",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "angular"
+          }
+        ]
+      },
+      {
+        "name": "angular-signals",
+        "hash": "622176a55c4a13b08ce0bf969fb27437e46b0d999ce901c3a0391ce192ae491f",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "angular"
+          }
+        ]
+      },
+      {
+        "name": "angular-architecture",
+        "hash": "4ffc2b2003f86329467b53d09cd47cdc7abd5e3c4548ea9e11f9ce1c026b0aa8",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "angular"
+          }
+        ]
+      },
+      {
+        "name": "angular-testing",
+        "hash": "a9c74c31f2ed728e2bd556c30e61ee17d666e4ab7607ffc1d9207b71ab5f491c",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "angular"
+          }
+        ]
+      },
+      {
+        "name": "test-strategy",
+        "hash": "e68899774dfa833b19e29d6224e8f375b5263b242bf5be1548c342ce2f4e93d3",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "testing"
+          }
+        ]
+      },
+      {
+        "name": "test-doubles",
+        "hash": "928a7ef4e9f8f76ccaaf0b7b577386c974077985fe7fa066dae4276bfc744037",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "testing"
+          }
+        ]
+      },
+      {
+        "name": "e2e-testing",
+        "hash": "f07c9ae381e916d93c6ee67c32be8eac76482f19fcfbbe9ca6116af9c3036113",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "testing"
+          }
+        ]
+      },
+      {
+        "name": "flaky-tests",
+        "hash": "d567f98325047a258658b44bf8993060256ae1ccf5e8570d183805e533e47481",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "testing"
+          }
+        ]
+      },
+      {
+        "name": "creative-direction",
+        "hash": "900dc1be4c9f3629e5c953533024a820cd80c248c466810363d1c634cca6ffac",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "web-composition",
+        "hash": "ac2d379c4511bdd465c9281f3e4b9fdf71608c1fa5ccdba8144f9e6c12166e89",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "typographic-art-direction",
+        "hash": "81b8c4dec372105dcde82d01a4fd2af7de0760f7f38ecf01b357572c90cfe172",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "visual-storytelling",
+        "hash": "fd50bf1cb47db27a4ed2e2b94ac7731350c0fc742b8e9d00c1f45532fbc32873",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "motion-art-direction",
+        "hash": "9976291b40b7c4d0467eaf2c8c9305a8f16df1971393952fa12b37306ed70e48",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "design-critique",
+        "hash": "e5289365b60f952f75948b9b3e099deab2bf67f394f4c451af68e2c818822c32",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "design-reference-research",
+        "hash": "a85c072dfcc7ad0ce950590c4c60dc1140c186cffe5c09a0efe4dfac85d699e5",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          }
+        ]
+      },
+      {
+        "name": "design-system-practice",
+        "hash": "054ca6f531b29eaf9d4c00573fac5924a6e1aab03fad192ca9a4d47400a0439a",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          },
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "visual-verification",
+        "hash": "b2d26337c7e26caaed43f0a3196255b0782813c24a305faadaf4454810808937",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          },
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "ui-visual-design",
+        "hash": "e82d429edc09d1a5cc962023610983105bd7852dec90791cdd1bc7ca1f7d940a",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "ux-usability",
+        "hash": "e5126b8a4881b23387005db89b7e6f93c0d16a90da4eca1bbd6ccda2a8b21862",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "interaction-design",
+        "hash": "e03ae6c30534ce16fe814070a6644f1550a4ac697de4885b4f5ddf2923e63839",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "ux-writing",
+        "hash": "bb700acc6351f1cdbfadedce0c1fc88665f4529c75cc41f25277cccde370fc26",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      },
+      {
+        "name": "semantic-html",
+        "hash": "e96528d96c138da5f1eb1b79297a3f3bb0e099068e1cc3593e0ae53b2a71a9e2",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "accessibility"
+          }
+        ]
+      },
+      {
+        "name": "aria-patterns",
+        "hash": "08337f8e76a3ccd0e3abb2b6f35d4016e49de0e156fef134306d76919aa68535",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "accessibility"
+          }
+        ]
+      },
+      {
+        "name": "keyboard-navigation",
+        "hash": "6e51625b1ac621dd8f27d9e438fa23f0ef5e4bbf4e8b3726151f621bc7ae46f8",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "accessibility"
+          }
+        ]
+      },
+      {
+        "name": "performance-profiling",
+        "hash": "c6244f5f058cf7fafdd01bde7381c2da6704c405006bf506a1f2028239f94368",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "performance"
+          }
+        ]
+      },
+      {
+        "name": "web-vitals",
+        "hash": "3ac9588d3fe2adc76c122a5548b8a085d96f172f6f1303d06a813c0b09b46ca2",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "performance"
+          }
+        ]
+      },
+      {
+        "name": "query-performance",
+        "hash": "c567a36433e8f4469279e1ed9fb6df704d69eea6caf110678dc763d4d8ca0a44",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "performance"
+          }
+        ]
+      },
+      {
+        "name": "commit-hygiene",
+        "hash": "ca501d59eeee6e0bda83cc7baf17050ca3740568433490faabd40581346d71b7",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "git"
+          }
+        ]
+      },
+      {
+        "name": "branching-strategy",
+        "hash": "138eda6f5f394a4f009bcaabaa6032d536374afb50797dab13efd7b72bc6740a",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "git"
+          }
+        ]
+      },
+      {
+        "name": "pull-requests",
+        "hash": "23ec8995490bc82cfcff509986bfc968df9f46c6106c907fd8cd94616699e721",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "git"
+          }
+        ]
+      }
+    ],
+    "mcpServers": [
+      {
+        "name": "context7",
+        "hash": "0843a6650bb4720cafee49aaf8990ce43dad4a3707f7b2d38887721dda31b8d4",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "angular"
+          }
+        ]
+      },
+      {
+        "name": "playwright",
+        "hash": "89934ec91ec653e6f0649dc7785d907c9c68d3e7931e58c3451a6ea09d384494",
+        "origins": [
+          {
+            "kind": "pack",
+            "name": "testing"
+          },
+          {
+            "kind": "pack",
+            "name": "creative-web"
+          },
+          {
+            "kind": "pack",
+            "name": "ui-ux"
+          }
+        ]
+      }
+    ],
+    "tools": [],
+    "hooks": [],
+    "agents": []
+  }
+}

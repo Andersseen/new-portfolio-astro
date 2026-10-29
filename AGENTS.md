@@ -71,6 +71,18 @@ entry point. Read it fully before touching code.
 - [ ] [docs/STATE.md](docs/STATE.md) updated with what changed.
 - [ ] Relevant OpenSpec change tasks are complete and validation passes.
 
+## Agent harness (Agentyx)
+
+Project-local Skills and MCP servers are managed by
+[Agentyx](https://github.com/Andersseen/agentyx) from `.agentyx.json`
+(packs: technical, typescript, angular, testing, creative-web, ui-ux,
+accessibility, performance, git; `playwright` enabled; targets Claude Code and
+Codex). Skills live in `.claude/skills/` and `.agents/skills/`; MCP servers in
+`.mcp.json` and `.codex/config.toml`. Do not hand-edit generated Skills —
+change `.agentyx.json` and run `pnpm dlx @agentyx/cli@0.24.0 install`, then
+commit the updated `.agentyx.lock.json`. `agentyx doctor` checks the setup.
+The OpenSpec skills in `.codex/skills/` are separate and not managed by Agentyx.
+
 ## Git workflow
 
 - Branch from `main` as `feature/<name>`, merge via PR.

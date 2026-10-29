@@ -18,6 +18,12 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 
 ## Recently completed (last few cycles)
 
+- **Agentyx agent harness**: `.agentyx.json` + lock (Agentyx 0.24.0) installs
+  37 Skills each for Claude Code (`.claude/skills`) and Codex
+  (`.agents/skills`), plus context7/playwright MCP (`.mcp.json`,
+  `.codex/config.toml`). `.mcp.json` is now committed (no secrets; Glossa
+  uses `${GLOSSA_TOKEN}` from the shell env, GitHub MCP needs auth).
+
 - **Theme toggle / randomize race fix** (OpenSpec `theme-controller`)
   - Root cause: toggle and palette regeneration were decoupled async flows;
     late API responses painted the other mode's palette and rewrote
