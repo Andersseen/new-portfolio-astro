@@ -41,7 +41,12 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
     checks parity in Glossa. In dev, Glossa edits show on reload.
   - Glossa **public delivery is still disabled**, so loading uses MCP with
     `GLOSSA_TOKEN` (in `.env` locally). **Vercel needs `GLOSSA_TOKEN`** (or
-    enable delivery) — without it the build fails.
+    enable delivery) — without it the build fails. Public delivery has since
+    been enabled, so Vercel builds load catalogs without a token.
+  - Community → Projects now lists ForgeCMS, Volt UI, Doqs, Etyma, Angular
+    Movement, Quartz Headless, Palette Crafter (repo/URL fixed) and CV Builder;
+    GSAP Blocker, Material Blocks, Devflare and Reminder were removed (keys
+    deleted in Glossa).
   - Hero removed from the page (visually hidden `h1` kept); role/headline/
     subheadline now open from the navbar logo in the about dialog, whose
     labels are translated now.
