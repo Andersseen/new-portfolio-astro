@@ -50,6 +50,14 @@
   --shadow-color: 0 0 0;
   --shadow-base: 0.1;
 
+  /* iCloud-style bento tiles: soft lift in light, hairline edge in dark. */
+  --shadow-tile:
+    0 1px 2px color-mix(in oklab, var(--color-foreground) 5%, transparent),
+    0 12px 32px -18px color-mix(in oklab, var(--color-foreground) 22%, transparent);
+  --shadow-tile-hover:
+    0 2px 4px color-mix(in oklab, var(--color-foreground) 6%, transparent),
+    0 20px 44px -18px color-mix(in oklab, var(--color-foreground) 28%, transparent);
+
   --font-sans: "Inter", system-ui, sans-serif;
   --font-heading: "Outfit", system-ui, sans-serif;
 }
@@ -75,6 +83,9 @@
 
   --shadow-color: 255 255 255;
   --shadow-base: 0.05;
+
+  --shadow-tile: 0 0 0 1px color-mix(in oklab, var(--color-border) 70%, transparent);
+  --shadow-tile-hover: 0 0 0 1px var(--color-border);
 }
 
 html {
@@ -82,8 +93,12 @@ html {
   color-scheme: light dark;
 }
 
+/*
+ * The page sits on the secondary surface so bento tiles (bg-background) read
+ * as raised cards — lighter than the page in light mode, like iCloud web.
+ */
 body {
-  background-color: var(--color-background);
+  background-color: var(--color-background-secondary);
   color: var(--color-foreground);
   transition:
     background-color 0.3s ease,
@@ -153,7 +168,7 @@ main {
   inset: 0;
   z-index: 9999;
   overflow: hidden;
-  background: var(--color-background);
+  background: var(--color-background-secondary);
   transition:
     opacity 0.55s ease,
     visibility 0.55s ease;
@@ -175,8 +190,8 @@ main {
 
 .pl-card {
   border-radius: 1.5rem;
-  border: 1px solid var(--color-border-light);
-  background: var(--color-background-secondary);
+  background: var(--color-background);
+  box-shadow: var(--shadow-tile);
 }
 
 .pl-block::after,
@@ -210,7 +225,7 @@ main {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-background);
+  background: var(--color-background-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -238,4 +253,10 @@ main {
   box-shadow:
     8px 8px 20px rgb(var(--shadow-color) / var(--shadow-base)),
     -8px -8px 20px rgb(var(--shadow-color) / calc(var(--shadow-base) * 0.5));
+}
+
+/* Navbar logo: the SVG is used as a mask so it is painted with a theme token. */
+.logo-mark {
+  -webkit-mask: url("/logo.svg") center / contain no-repeat;
+  mask: url("/logo.svg") center / contain no-repeat;
 }

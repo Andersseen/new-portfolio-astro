@@ -70,7 +70,7 @@ export default function ArticlesCardContent({
           articlePreview.articles.slice(0, 2).map((article, i: number) => (
             <div
               key={`${article.title || "article"}-${i}`}
-              className="rounded-lg border border-border/60 bg-background-tertiary/55 px-3 py-2"
+              className="rounded-xl bg-background-secondary px-3 py-2"
             >
               <div className="flex gap-2.5">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />

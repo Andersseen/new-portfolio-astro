@@ -1,6 +1,6 @@
 ---
 // Full-screen skeleton shown on first paint until the page finishes loading.
-// Mirrors the real layout (navbar + hero + bento grid) so the reveal feels
+// Mirrors the real layout (navbar + bento grid) so the reveal feels
 // seamless. Uses theme tokens, so it follows light/dark automatically.
 //
 // Screenshot tip: open the site with `?loader` (e.g. /?loader) to hold the
@@ -27,21 +27,10 @@
       </div>
     </div>
 
-    <!-- Skeleton hero -->
-    <div class="w-full max-w-7xl mx-auto px-4 pt-12 sm:pt-16">
-      <div class="w-40 h-3 rounded pl-block mb-6"></div>
-      <div class="space-y-3 max-w-3xl">
-        <div class="w-11/12 h-10 sm:h-14 rounded-xl pl-block"></div>
-        <div class="w-3/4 h-10 sm:h-14 rounded-xl pl-block"></div>
-        <div class="w-1/2 h-10 sm:h-14 rounded-xl pl-block"></div>
-      </div>
-      <div class="w-2/5 h-5 rounded-lg pl-block mt-6"></div>
-    </div>
-
     <!-- Skeleton bento grid -->
     <div
       and-layout="grid cols:1 cols@md:3 gap:md"
-      class="mx-auto mt-12 w-full max-w-7xl px-4 pb-12"
+      class="mx-auto mt-10 sm:mt-14 w-full max-w-7xl px-4 pb-12"
     >
       <div class="pl-card h-52 md:col-span-2"></div>
       <div class="pl-card h-52"></div>

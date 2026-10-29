@@ -1,17 +1,32 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("home page", () => {
-  test("renders the hero and portfolio grid", async ({ page }) => {
+  test("renders the bento grid without a visible hero", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
 
     await expect(page.locator("text=Andersseen Dev").first()).toBeVisible();
-    await expect(
-      page.locator("text=I build polished web products"),
-    ).toBeVisible();
+    // The hero copy is only kept as a visually hidden h1 for the outline/SEO.
+    await expect(page.locator("h1.sr-only")).toContainText(
+      "I build polished web products",
+    );
     await expect(page.locator("#portfolio-grid")).toBeVisible();
     await expect(page.locator("#theme-toggle")).toBeVisible();
     await expect(page.locator("#theme-randomize")).toBeVisible();
+  });
+
+  test("logo opens the about dialog with the hero copy", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+
+    await page.getByRole("button", { name: "Open about me" }).click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText("Full-stack developer & UI systems builder");
+    await expect(dialog).toContainText("I build polished web products");
+
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
   });
 
   test("portfolio cards are interactive", async ({ page }) => {

@@ -6,7 +6,7 @@
 > update "In progress", add discoveries to "Known issues". Keep it short —
 > delete stale entries instead of letting them pile up. Update the date below.
 
-**Last updated:** 2026-07-20 · **Branch state:** `feature/portfolio-phases` — language switcher trailing-slash fix after full a11y/theme fixes
+**Last updated:** 2026-10-29 · **Branch state:** `feature/glossa-icloud-bento` — Glossa translations + iCloud-style bento
 
 ## Status: ✅ Stable, build passes
 
@@ -17,6 +17,28 @@ Astro dev-toolbar "Learn more" link that only appears in local runs — both sho
 100 on Vercel.
 
 ## Recently completed (last few cycles)
+
+- **Glossa translations + iCloud-style bento** (OpenSpec `glossa-icloud-bento`)
+  - Translations now live in Glossa (project `portfolio`, locales `en`/`es`/`uk`;
+    site `ua` ↔ Glossa `uk`). Seeded all 135 keys. `scripts/glossa.mjs`:
+    `pnpm i18n:pull` / `pnpm i18n:push`; `pnpm build` pulls first in soft mode
+    (failure or key mismatch keeps the committed JSON).
+  - Glossa **public delivery is still disabled** in the Glossa UI, so pulls
+    currently use the MCP endpoint and need `GLOSSA_TOKEN` (in `.env` locally;
+    Vercel needs it too, or enable delivery).
+  - Hero removed from the page (visually hidden `h1` kept); role/headline/
+    subheadline now open from the navbar logo in the about dialog, whose
+    labels are translated now.
+  - Logo: cropped viewBox, painted as a `bg-foreground` CSS mask in a solid
+    circle (`.logo-mark` in `global.css`).
+  - iCloud-inspired grid: page on `background-secondary`, tiles on
+    `background` with `--shadow-tile` (hairline in dark), app-style icon tile
+    per card (`PortfolioCard.tsx` → `Card.tsx`), flatter inner rows.
+  - Fixed `ProjectList` title hover (`text-primary`, 3.56:1) exposed by the
+    layout shift; now underline.
+  - Verified: `pnpm check`, `pnpm build`, `pnpm test:e2e` (23/23). The
+    `openspec` CLI is not installed on this machine, so `openspec:validate`
+    could not run.
 
 - **Language switcher trailing-slash fix**
   - Fixed `LanguageSelector.astro` links for Astro's `trailingSlash: "always"`

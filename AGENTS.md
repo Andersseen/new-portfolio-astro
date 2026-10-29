@@ -28,6 +28,8 @@ entry point. Read it fully before touching code.
 | `pnpm dev`        | Dev server at localhost:4321                          |
 | `pnpm check`      | i18n key parity check + `astro check` (TypeScript)    |
 | `pnpm check:i18n` | Only the locale key parity check                      |
+| `pnpm i18n:pull`  | Pull translations from Glossa into the locale JSONs   |
+| `pnpm i18n:push`  | Push changed local translations to Glossa             |
 | `pnpm build`      | Production build (must pass before considering done)  |
 | `pnpm preview`    | Preview the production build                          |
 | `pnpm openspec:status` | List active OpenSpec changes                     |
@@ -42,9 +44,12 @@ entry point. Read it fully before touching code.
    integration compiles only that directory (`transformFilter`), and the Preact
    integration excludes it. An Angular component placed anywhere else silently
    fails; a Preact component placed inside it won't compile.
-3. **Every new i18n key must be added to all three files:** `src/i18n/locales/en.json`,
-   `es.json`, `ua.json`. `pnpm check:i18n` fails otherwise. Missing keys render
-   as the raw key string on the page (`t()` falls back to the key).
+3. **Translations are managed in Glossa** (project `portfolio`; the site's `ua`
+   is Glossa's `uk`). Add or edit keys in Glossa (the `glossa` MCP server or
+   its UI) for all three locales, then run `pnpm i18n:pull`. `pnpm build` pulls
+   too, so a key that only exists locally is overwritten unless you
+   `pnpm i18n:push` it. The JSON files in `src/i18n/locales/` must keep key
+   parity (`pnpm check:i18n`); missing keys render as the raw key string.
 4. **Path aliases** (`@componentes`, `@i18n`, `@layouts`, `@scripts`, `@styles`,
    `@assets`, `@/`) are defined in **two places** that must stay in sync:
    `astro.config.mjs` (vite.resolve.alias) and `tsconfig.json` (paths).
@@ -56,7 +61,7 @@ entry point. Read it fully before touching code.
    (`bg-background`, `text-foreground`, `text-primary`, `border-border`, …),
    never hardcoded colors — the runtime theme randomizer overrides these
    CSS variables.
-7. **Never commit `.env`** (contains `THEME_API_BASE_URL`, `RESEND_API_KEY`).
+7. **Never commit `.env`** (contains `THEME_API_BASE_URL`, `RESEND_API_KEY`, `GLOSSA_TOKEN`).
 
 ## Definition of done (check before reporting a task complete)
 
